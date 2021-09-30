@@ -5,6 +5,7 @@ plugins {
 }
 
 mainClassName = 'github.io.yusuf.core.Core'
+group='core'
 apply plugin: 'maven-publish'
 
 version '1.0'
@@ -57,7 +58,6 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar')
 publishing {
     repositories {
         maven {
@@ -71,6 +71,7 @@ publishing {
     }
     publications {
         maven(MavenPublication) {
+            artifactId = bot_id
             artifacts {
                 artifact jar
             }
