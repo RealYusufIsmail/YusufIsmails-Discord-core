@@ -5,7 +5,7 @@ plugins {
 }
 
 mainClassName = 'github.io.yusuf.core.Core'
-group='core'
+group='github.io.yusuf'
 apply plugin: 'maven-publish'
 
 version '1.0'
