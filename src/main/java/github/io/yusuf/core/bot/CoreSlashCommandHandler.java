@@ -7,7 +7,7 @@ import org.javacord.api.listener.interaction.SlashCommandCreateListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SlashCommandHandler implements SlashCommandCreateListener {
+public class CoreSlashCommandHandler implements SlashCommandCreateListener {
     private final Map<String, Command> commands = new HashMap<>();
 
     public void addCommand(Command command){
