@@ -1,4 +1,3 @@
-/*
 package github.io.yusuf.core.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
@@ -9,18 +8,16 @@ public class GuildMusicManager {
 
     public final TrackScheduler scheduler;
 
-    private final LavaPlayerAudioSource sendHandler;
+    private final AudioPlayerSendHandler sendHandler;
 
     public GuildMusicManager(AudioPlayerManager manager) {
         this.audioPlayer = manager.createPlayer();
         this.scheduler = new TrackScheduler(this.audioPlayer);
         this.audioPlayer.addListener(this.scheduler);
-        this.sendHandler = new LavaPlayerAudioSource(this.audioPlayer);
+        this.sendHandler = new AudioPlayerSendHandler(this.audioPlayer);
     }
 
-    public LavaPlayerAudioSource getSendHandler() {
+    public AudioPlayerSendHandler getSendHandler() {
         return sendHandler;
     }
 }
-
- */

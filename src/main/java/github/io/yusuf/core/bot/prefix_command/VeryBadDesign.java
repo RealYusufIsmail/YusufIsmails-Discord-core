@@ -1,4 +1,4 @@
-package github.io.yusuf.core.bot;
+package github.io.yusuf.core.bot.prefix_command;
 
 import java.util.HashMap;
 import java.util.Map;
