@@ -13,7 +13,7 @@ public class CorePrefixCommandHandler {
 
     }
 
-    private void addCommand(ICommand cmd) {
+    private void addCommand(PrefixCommand cmd) {
         boolean nameFound = this.commands.stream().anyMatch((it) -> it.getName().equalsIgnoreCase(cmd.getName()));
 
         if (nameFound) {
@@ -28,10 +28,10 @@ public class CorePrefixCommandHandler {
     }
 
     @Nullable
-    public ICommand getCommand(String search) {
+    public PrefixCommand getCommand(String search) {
         String searchLower = search.toLowerCase();
 
-        for (ICommand cmd : this.commands) {
+        for (PrefixCommand cmd : this.commands) {
             if (cmd.getName().equals(searchLower) || cmd.getAliases().contains(searchLower)) {
                 return cmd;
             }
