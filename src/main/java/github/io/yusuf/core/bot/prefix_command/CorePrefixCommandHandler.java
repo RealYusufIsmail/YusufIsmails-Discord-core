@@ -13,7 +13,7 @@ public class CorePrefixCommandHandler {
 
     }
 
-    private void addCommand(PrefixCommand cmd) {
+    public void addCommand(PrefixCommand cmd) {
         boolean nameFound = this.commands.stream().anyMatch((it) -> it.getName().equalsIgnoreCase(cmd.getName()));
 
         if (nameFound) {
