@@ -7,7 +7,7 @@ public class VeryBadDesign {
     /**
      * Used for prefix commands
      */
-    //TODO removed one prefix commands are no longer in uese
+    //TODO removed once prefix commands are no longer in ues.
     @Deprecated
     public static final Map<Long, String> PREFIXES = new HashMap<>();
 }
