@@ -10,7 +10,7 @@ import java.util.Map;
 public class CoreSlashCommandHandler extends ListenerAdapter {
     SlashCommandEvent event;
     private final Map<String, Command> commands = new HashMap<>();
-    CommandListUpdateAction commandsData = event.getJDA().updateCommands();
+    public CommandListUpdateAction commandsData = event.getJDA().updateCommands();
 
 
     public void addCommand(Command command){
