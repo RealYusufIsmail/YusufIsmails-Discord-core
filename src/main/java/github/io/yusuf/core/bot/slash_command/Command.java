@@ -10,5 +10,7 @@ public interface Command {
 
     String getDescription();
 
+    Enum SlashCommandVisibility();
+
     CommandData getCommandData();
 }
