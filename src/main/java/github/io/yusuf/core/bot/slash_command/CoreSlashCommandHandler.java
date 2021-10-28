@@ -10,12 +10,16 @@ import java.util.Map;
 public class CoreSlashCommandHandler extends ListenerAdapter {
     SlashCommandEvent event;
     private final Map<String, Command> commands = new HashMap<>();
-    public CommandListUpdateAction commandsData = event.getJDA().updateCommands();
-
+    public CommandListUpdateAction globalCommandsData = event.getJDA().updateCommands();
+    public CommandListUpdateAction guildCommandsData = event.getGuild().updateCommands();
 
     public void addCommand(Command command){
         commands.put(command.getName(), command);
-        commandsData.addCommands(command.getCommandData());
+        if(command.getVisibility() == SlashCommandVisibility.GUILD) {
+            guildCommandsData.addCommands(command.getCommandData());
+        } else if(command.getVisibility() == SlashCommandVisibility.GLOBAL) {
+            globalCommandsData.addCommands(command.getCommandData());
+        }
     }
 
     @Override
