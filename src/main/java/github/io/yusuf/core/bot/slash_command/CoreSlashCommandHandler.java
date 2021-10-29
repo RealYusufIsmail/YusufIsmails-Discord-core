@@ -41,7 +41,6 @@ import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import java.util.HashMap;
 import java.util.Map;
 
-@RetentionRuntime
 /*
  * The is class which process the registration of the commands.
  * <br>
@@ -55,7 +54,6 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * Used to determine whether the commands should be global or guild only.
      */
-    @RetentionRuntime
     public CommandListUpdateAction globalCommandsData;
     public CommandListUpdateAction guildCommandsData;
 
@@ -75,7 +73,6 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      * The enum {@link SlashCommandVisibility#GLOBAL} and {@link SlashCommandVisibility#GUILD} determines whether
      * the command should be Global or Guild only.
      */
-    @RetentionRuntime
     public void addCommand(Command command){
         commands.put(command.getName(), command);
         if(command.getVisibility() == SlashCommandVisibility.GUILD) {

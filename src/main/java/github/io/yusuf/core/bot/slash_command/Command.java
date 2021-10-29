@@ -41,7 +41,6 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 /**
   Used when making a new command. Imports all the need methods into the new class.
  */
-@RetentionRuntime
 public interface Command {
     void onSlashCommand(SlashCommandEvent event);
 
@@ -49,23 +48,20 @@ public interface Command {
       Provides the user with name of the command
       @return {@link CommandData#getName()}
      */
-    @RetentionRuntime
     String getName();
 
     /**
      * Provides the user information on what the command is about.
      * @return {@link CommandData#getDescription()}
      */
-    @RetentionRuntime
-    String getDescription();
+     String getDescription();
 
     /**
      * Used to determine whether the command is Global(can be used on all servers) or
      * whether it is only a Guild command(can only be used in specific servers)
      * @return {@link SlashCommandVisibility#GLOBAL} and {@link SlashCommandVisibility#GUILD}
      */
-    @RetentionRuntime
-    SlashCommandVisibility getVisibility();
+     SlashCommandVisibility getVisibility();
 
     /**
      * Retrieves all the command data such as the name and description of the command.
@@ -77,6 +73,5 @@ public interface Command {
      * Choices can also be used which makes it easier for the user.
      * which returns {@link OptionData#addChoice(String, int)}
      */
-    @RetentionRuntime
-    CommandData getCommandData();
+     CommandData getCommandData();
 }
