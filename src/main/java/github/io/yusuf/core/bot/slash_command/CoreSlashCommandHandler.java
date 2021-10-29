@@ -52,10 +52,10 @@ import java.util.Map;
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, Command> commands = new HashMap<>();
-    @RetentionRuntime
-    /*
+    /**
      * Used to determine whether the commands should be global or guild only.
-     **/
+     */
+    @RetentionRuntime
     public CommandListUpdateAction globalCommandsData;
     public CommandListUpdateAction guildCommandsData;
 
@@ -64,8 +64,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
         guildCommandsData = guild.updateCommands();
     }
 
-    @RetentionRuntime
-    /*
+    /**
      * Used to register the commands. when the developer types addCommand(new TestCommand()).
      * The addCommand will retrieve the commandData which includes name,description,options,sub commands, etc
      * @param command
@@ -76,6 +75,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      * The enum {@link SlashCommandVisibility#GLOBAL} and {@link SlashCommandVisibility#GUILD} determines whether
      * the command should be Global or Guild only.
      */
+    @RetentionRuntime
     public void addCommand(Command command){
         commands.put(command.getName(), command);
         if(command.getVisibility() == SlashCommandVisibility.GUILD) {

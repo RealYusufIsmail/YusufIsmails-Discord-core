@@ -33,19 +33,19 @@
 
 package github.io.yusuf.core.bot.slash_command;
 
-@RetentionRuntime
-/*
+/**
  * Visibility of a slash command, i.e. in which context it can be used by users.
  */
+@RetentionRuntime
 public enum SlashCommandVisibility {
-    @RetentionRuntime
-    /*
+    /**
      * The command can be used within the context of a guild.
      */
-    GUILD,
     @RetentionRuntime
-    /*
+    GUILD,
+    /**
      * The command can be used globally, outside a guild context.
      */
+    @RetentionRuntime
     GLOBAL
 }
