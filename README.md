@@ -1,2 +1,2 @@
-# YusufIsmails-Discord-core
-All the core classes for my bots
+# YusufIsmail's-Discord-core
+All the core JDA classes for my bots

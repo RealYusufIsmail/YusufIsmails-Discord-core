@@ -9,8 +9,19 @@ import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The is class which process the registration of the commands.
+ * <br>
+ * <br>
+ * Commands are register by using addCommand with an example being
+ * <br>
+ * addCommand(new TestCommand())
+ */
 public class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, Command> commands = new HashMap<>();
+    /**
+     * Used to determine whether the commands should be global or guild only.
+     **/
     public CommandListUpdateAction globalCommandsData;
     public CommandListUpdateAction guildCommandsData;
 
@@ -19,6 +30,17 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
         guildCommandsData = guild.updateCommands();
     }
 
+    /**
+     * Used to register the commands. when the developer types addCommand(new TestCommand()).
+     * The addCommand will retrieve the commandData which includes name,description,options,sub commands, etc
+     * @param command
+     * <br>
+     * The Command class is an interface class which contains all the need methods for the making of the command.
+     *  <br>
+     *  <br>
+     * The enum {@link SlashCommandVisibility#GLOBAL} and {@link SlashCommandVisibility#GUILD} determines whether
+     * the command should be Global or Guild only.
+     */
     public void addCommand(Command command){
         commands.put(command.getName(), command);
         if(command.getVisibility() == SlashCommandVisibility.GUILD) {

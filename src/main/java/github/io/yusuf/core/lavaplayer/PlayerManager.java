@@ -9,12 +9,15 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PlayerManager {
+    private static final Logger logger = LoggerFactory.getLogger(PlayerManager.class);
     private static PlayerManager INSTANCE;
     private final Map<Long, GuildMusicManager> musicManagers;
     private final AudioPlayerManager audioPlayerManager;
@@ -71,12 +74,17 @@ public class PlayerManager {
 
             @Override
             public void noMatches() {
-                //
+                channel.sendMessage("No matches has been found")
+                        .queue();
+
+                logger.info("No matches have been found.");
             }
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                //
+                channel.sendMessage("The bot could not load the music. Please type /support for help.")
+                        .queue();
+                logger.error("The bot has failed while trying to load the music.");
             }
         });
     }
@@ -85,7 +93,6 @@ public class PlayerManager {
         if (INSTANCE == null) {
             INSTANCE = new PlayerManager();
         }
-
         return INSTANCE;
     }
 }
