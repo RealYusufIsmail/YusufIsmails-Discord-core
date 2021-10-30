@@ -42,6 +42,11 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
  * Used when making a new command. Imports all the need methods into the new class.
  */
 public interface Command {
+    /**
+     * Were the command is created.
+     *
+     * @return {@link SlashCommandEvent}
+     */
     void onSlashCommand(SlashCommandEvent event);
 
     /**
