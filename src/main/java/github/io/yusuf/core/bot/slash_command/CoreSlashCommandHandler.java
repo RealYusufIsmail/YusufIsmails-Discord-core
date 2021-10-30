@@ -41,7 +41,7 @@ import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
  * The is class which process the registration of the commands.
  * <br>
  * <br>
