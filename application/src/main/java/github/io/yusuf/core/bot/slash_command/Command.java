@@ -33,6 +33,7 @@
 
 package github.io.yusuf.core.bot.slash_command;
 
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -44,8 +45,6 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 public interface Command {
     /**
      * Were the command is created.
-     *
-     * @return {@link SlashCommandEvent}
      */
     void onSlashCommand(SlashCommandEvent event);
 

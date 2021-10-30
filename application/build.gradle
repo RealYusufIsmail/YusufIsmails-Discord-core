@@ -39,7 +39,7 @@ plugins {
 }
 
 application {
-    mainClass = 'net.yusuf.bot.Bot'
+    mainClass = 'github.io.yusuf.core.Bot'
 }
 
 group='github.io.yusuf'
