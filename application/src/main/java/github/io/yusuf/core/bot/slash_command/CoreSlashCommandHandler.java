@@ -42,6 +42,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * For register the commands make sure to set it to awaitReady as seen here
+ * 
+ * <pre>
+ * jda.awaitReady()
+ *     .addEventListener(new CommandHandler(jda, jda.getGuildById(872494635757473932L)));
+ * </pre>
+ * <p>
  * The is class which process the registration of the commands. <br>
  * <br>
  * Commands are register by using addCommand with an example being <br>
