@@ -1,4 +1,5 @@
 /*
+ *
  * BSD 3-Clause License
  *
  * Copyright (c) 2021, Yusuf Arfan Ismail
@@ -30,7 +31,7 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package github.io.yusuf.core.bot.slash_command;
+package io.github.realyusufismail.core.bot.slash_command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;

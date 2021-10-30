@@ -31,7 +31,18 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package github.io.yusuf.core;
+package io.github.realyusufismail.core.bot.slash_command;
 
-public class Bot {
+/**
+ * Visibility of a slash command, i.e. in which context it can be used by users.
+ */
+public enum SlashCommandVisibility {
+    /**
+     * The command can be used within the context of a guild.
+     */
+    GUILD,
+    /**
+     * The command can be used globally, outside a guild context.
+     */
+    GLOBAL
 }
