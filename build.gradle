@@ -2,7 +2,7 @@ plugins {
     id'java'
     id'application'
     id'com.github.johnrengelman.shadow' version '7.0.0'
-    id "com.diffplug.spotless" version "5.16.0"
+    id 'java-library'
 }
 
 application {
@@ -12,7 +12,7 @@ application {
 group='github.io.yusuf'
 apply plugin: 'maven-publish'
 
-version '1.2'
+version '1.2.1'
 
 sourceCompatibility = JavaVersion.VERSION_17
 
@@ -34,8 +34,8 @@ repositories {
 }
 
 java {
-    withSourcesJar()
     withJavadocJar()
+    withSourcesJar()
 }
 
 dependencies {
@@ -46,17 +46,6 @@ dependencies {
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.5'
     implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.78'
     implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
-}
-
-jar {
-    manifest {
-        attributes([
-                "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"Yusuf.I",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
 }
 
 publishing {
@@ -73,13 +62,40 @@ publishing {
     publications {
         maven(MavenPublication) {
             artifactId = bot_id
-            artifacts {
-                artifact jar
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'My Discord bot Library'
+                description = 'A library which consists of all the needed classes for my Discord bots'
+                url = 'https://github.com/Yusuf-s-Discord-bot/YusufIsmails-Discord-core'
+                licenses {
+                    license {
+                        name = 'BSD 3-Clause License'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'yusuf'
+                        name = 'Yusuf Arfan Ismail'
+                    }
+                }
+                scm {
+                    url = 'https://github.com/Yusuf-s-Discord-bot/YusufIsmails-Discord-core/'
+                }
             }
         }
-        myJava(MavenPublication) {
-            from components.java
-        }
+    }
+}
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
     }
 }
 compileJava.options.encoding = 'UTF-8'
