@@ -42,11 +42,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The is class which process the registration of the commands.
+ * The is class which process the registration of the commands. <br>
  * <br>
- * <br>
- * Commands are register by using addCommand with an example being
- * <br>
+ * Commands are register by using addCommand with an example being <br>
  * addCommand(new TestCommand())
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
@@ -63,21 +61,23 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     /**
-     * Used to register the commands. when the developer types addCommand(new TestCommand()).
-     * The addCommand will retrieve the commandData which includes name,description,options,sub commands, etc
-     * @param command
-     * <br>
-     * The Command class is an interface class which contains all the need methods for the making of the command.
-     *  <br>
-     *  <br>
-     * The enum {@link SlashCommandVisibility#GLOBAL} and {@link SlashCommandVisibility#GUILD} determines whether
-     * the command should be Global or Guild only.
+     * Used to register the commands. when the developer types addCommand(new TestCommand()). The
+     * addCommand will retrieve the commandData which includes name,description,options,sub
+     * commands, etc
+     * 
+     * @param command <br>
+     *        The Command class is an interface class which contains all the need methods for the
+     *        making of the command. <br>
+     *        <br>
+     *        The enum {@link SlashCommandVisibility#GLOBAL} and
+     *        {@link SlashCommandVisibility#GUILD} determines whether the command should be Global
+     *        or Guild only.
      */
-    public void addCommand(Command command){
+    public void addCommand(Command command) {
         commands.put(command.getName(), command);
-        if(command.getVisibility() == SlashCommandVisibility.GUILD) {
+        if (command.getVisibility() == SlashCommandVisibility.GUILD) {
             guildCommandsData.addCommands(command.getCommandData());
-        } else if(command.getVisibility() == SlashCommandVisibility.GLOBAL) {
+        } else if (command.getVisibility() == SlashCommandVisibility.GLOBAL) {
             globalCommandsData.addCommands(command.getCommandData());
         }
     }
@@ -85,7 +85,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     @Override
     public void onSlashCommand(SlashCommandEvent event) {
         var cmd = commands.get(event.getName());
-        if(cmd == null) {
+        if (cmd == null) {
             event.reply("unknown command").queue();
             return;
         }
