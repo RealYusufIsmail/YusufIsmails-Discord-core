@@ -11,9 +11,9 @@ application {
     mainClass = 'com.github.yusufsdiscordbot.core.Bot'
 }
 
-archivesBaseName = 'yusufsdiscordcore-jvm'
-group='io.github.yusufsdiscordbot'
+archivesBaseName = 'yusufsdiscordcore'
 version = '1.2'
+description = "A core discord bot library for my bots"
 
 repositories {
     mavenCentral()
@@ -41,76 +41,21 @@ dependencies {
     implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.78'
     implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
 }
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-afterEvaluate { project ->
-    ext.isReleaseVersion = !version.endsWith('RELEASE')
-}
-tasks.withType(Sign) {
-    onlyIf { isReleaseVersion }
-}
-publishing {
-        repositories {
-            maven {
-                afterEvaluate { project ->
-                    def releaseRepo = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    def snapshotRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                    url = (isReleaseVersion) ? releaseRepo : snapshotRepo
-                    credentials {
-                        username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
-                        password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
-                    }
-                }
-            }
-        }
-        publications {
-            maven(MavenPublication) {
-                from components.java
-                versionMapping {
-                    usage('java-api') {
-                        fromResolutionOf('runtimeClasspath')
-                    }
-
-                    usage('java-runtime') {
-                        fromResolutionResult()
-                    }
-                }
-                pom {
-                    name = 'yusufsdiscordcore'
-                    description = 'A library which consists of all the needed classes for my Discord bots and for others'
-                    url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-
-                    licenses {
-                        license {
-                            name = 'GNU General Public License v3.0'
-                            url = 'https://www.gnu.org/licenses/why-not-lgpl.html>'
-                            distribution = 'repo'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id  = 'realyusufismail'
-                            name = 'Yusuf Arfan Ismail'
-                            email = 'yusufgamer222@gmail.com'
-                        }
-                    }
-
-                    scm {
-                        url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-                        connection = 'scm:https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                        developerConnection = 'scm:git://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                    }
-
-                }
-            }
-        }
+jar {
+    manifest {
+        attributes('Implementation-Title': project.description,
+                'Implementation-Version': project.version,
+                'Main-Class': 'com.ascert.open.term.application.ClientLauncher',
+        )
     }
-javadoc {
-    if(JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                pom {
+                    description = 'An open source core dependecny for my Discord bots and for others which uses JDA.'
+                }
+            }
+        }
     }
 }
 compileJava.options.encoding = 'UTF-8'

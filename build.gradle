@@ -32,24 +32,45 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 plugins {
     id 'java'
     id "com.diffplug.spotless" version "5.16.0"
     id "name.remal.sonarlint" version "1.5.0"
-    id 'maven-publish'
-    id 'signing'
-    id 'java-library'
 }
 
-//Maven published can be found in application's gradle
-group='io.github.yusufsdiscordbot'
+ext {
+    dev_id = 'yusuf'
+    dev_name = 'Yusuf Ismail'
+    dev_email = 'ysufgamer222@gmail.com'
+    dev_organization = 'Yusufs Discord bot'
+    dev_organizationUrl = 'https://github.com/YusufsDiscordbot'
 
+    gpl_name = 'GNU Library General Public License version 3'
+    gpl_url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core/blob/JDA/LICENSE'
+
+    // Make sure we have a default for initial configuration evaluation
+    isReleaseVersion = false
+}
+
+allprojects {
+    //Maven published can be found in application's gradle
+    group='io.github.yusufsdiscordbot'
+
+    // When it comes to publishing we need to ensure we have the subproject version set
+    // rather than the root project version
+    afterEvaluate { project ->
+        ext.isReleaseVersion = !version.endsWith("RELEASE")
+    }
+}
 sourceCompatibility = JavaVersion.VERSION_17
 
 subprojects {
     apply plugin: "java"
     apply plugin: "com.diffplug.spotless"
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
 
     // All subprojects inherit root project group and version, to avoid duplication.
     group = rootProject.group
@@ -57,6 +78,10 @@ subprojects {
 
     repositories {
         mavenCentral()
+    }
+
+    dependencies {
+        testImplementation("junit:junit:4.12")
     }
 
     compileJava {
@@ -73,6 +98,84 @@ subprojects {
             // Excludes build folder since it contains generated java classes.
             targetExclude("build/**")
             eclipse('4.19.0').configFile("${rootProject.rootDir}/meta/formatting/google-style-eclipse.xml")
+        }
+    }
+
+    javadoc {
+        if (JavaVersion.current().isJava8Compatible()) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+            logging.captureStandardError LogLevel.INFO
+            logging.captureStandardOutput LogLevel.INFO
+        }
+
+        if(JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption('html5', true)
+        }
+    }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                //artifactId = project.artifactId // or maybe archiveBaseName?
+                from components.java
+                pom {
+                    name = project.description
+                    url = "https://github.com/AscertLLC/openterm"
+                    packaging = "jar"
+
+                    licenses {
+                        license {
+                            name = "${gpl_name}"
+                            url = "${gpl_url}"
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = "${dev_id}"
+                            name = "${dev_name}"
+                            email = "${dev_email}"
+                            organization = "${dev_organization}"
+                            organizationUrl = "${dev_organizationUrl}"
+                        }
+                    }
+                    scm {
+                        connection = 'https://github.com/AscertLLC/openterm.git'
+                        developerConnection = 'scm:git:ssh://git@github.com/AscertLLC/openterm.git'
+                        url = 'https://github.com/AscertLLC/openterm'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                afterEvaluate { project ->
+                    def releaseRepo = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                    def snapshotRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                    url = (isReleaseVersion) ? releaseRepo : snapshotRepo
+
+                    //println "repos: " + version
+                    //println "repos: " + isReleaseVersion
+                    //println url
+
+                    credentials {
+                        username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
+                        password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
+                    }
+                }
+            }
+        }
+    }
+    signing {
+        afterEvaluate { project ->
+            //println "sign: " + version
+            //println "sign: " + isReleaseVersion
+            required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
+            sign publishing.publications.mavenJava
         }
     }
 }
