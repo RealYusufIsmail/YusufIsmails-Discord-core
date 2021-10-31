@@ -31,7 +31,7 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package io.github.realyusufismail.core.bot.slash_command;
+package com.github.yusufsdiscordbot.core.bot.slash_command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;

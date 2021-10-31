@@ -39,7 +39,7 @@ plugins {
     id "name.remal.sonarlint" version "1.5.0"
 }
 
-group 'io.github.realyusufismail'
+group 'com.github.yusufsdiscordbot.core'
 
 sourceCompatibility = JavaVersion.VERSION_17
 

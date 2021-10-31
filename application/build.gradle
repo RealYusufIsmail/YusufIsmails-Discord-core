@@ -39,7 +39,7 @@ plugins {
 }
 
 application {
-    mainClass = 'io.github.realyusufismail.core.Bot'
+    mainClass = 'com.github.yusufsdiscordbot.core.Bot'
 }
 
 group='github.io.yusuf'
@@ -82,7 +82,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/yusuf-s-discord-bot//yusufismails-discord-core")
+            url = uri("https://maven.pkg.github.com/yusufsdiscordbot//yusufismails-discord-core")
             credentials {
                 username = property('gpr.username')
                 password = property('gpr.token')
@@ -104,7 +104,7 @@ publishing {
             pom {
                 name = 'My Discord bot Library'
                 description = 'A library which consists of all the needed classes for my Discord bots'
-                url = 'https://github.com/Yusuf-s-Discord-bot/YusufIsmails-Discord-core'
+                url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
                 licenses {
                     license {
                         name = 'BSD 3-Clause License'
@@ -117,7 +117,7 @@ publishing {
                     }
                 }
                 scm {
-                    url = 'https://github.com/Yusuf-s-Discord-bot/YusufIsmails-Discord-core/'
+                    url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core    '
                 }
             }
         }
