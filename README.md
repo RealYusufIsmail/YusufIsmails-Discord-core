@@ -1,4 +1,4 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/application/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.nyholmniklas/arithmetic)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/application/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/application)
 
 # YusufIsmail's-Discord-core
 All the core JDA classes for my bots and for others.
