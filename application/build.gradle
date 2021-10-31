@@ -42,8 +42,10 @@ application {
     mainClass = 'com.github.yusufsdiscordbot.core.Bot'
 }
 
-group='com.github.yusufsdiscordbot'
-apply plugin: 'maven-publish'
+archivesBaseName = 'yusufsdiscordcore-jvm'
+group='com.github.yusufsdiscordbot.yusufsdiscordcore'
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 version '1.2.3.1'
 repositories {
@@ -80,44 +82,57 @@ dependencies {
 
 publishing {
     repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/yusufsdiscordbot//yusufismails-discord-core")
-            credentials {
-                username = property('gpr.username')
-                password = property('gpr.token')
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
             }
         }
-    }
-    publications {
-        maven(MavenPublication) {
-            artifactId = bot_id
-            from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name = 'My Discord bot Library'
-                description = 'A library which consists of all the needed classes for my Discord bots'
-                url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-                licenses {
-                    license {
-                        name = 'BSD 3-Clause License'
+        publications {
+            maven(MavenPublication) {
+                artifactId = bot_id
+                from components.java
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
                     }
                 }
-                developers {
-                    developer {
-                        id = 'yusuf'
-                        name = 'Yusuf Arfan Ismail'
+                pom {
+                    name = 'yusufsdiscordcore'
+                    description = 'A library which consists of all the needed classes for my Discord bots and for others'
+                    url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
+                    inceptionYear '2021'
+
+                    scm {
+                        url 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
+                        connection 'scm:https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
+                        developerConnection 'scm:git://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
                     }
-                }
-                scm {
-                    url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core    '
+
+                    licenses {
+                        license {
+                            name 'BSD 3-Clause License'
+                            url 'https://opensource.org/licenses/BSD-3-Clause'
+                            distribution 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'realyusufismail'
+                            name 'Yusuf Arfan Ismail'
+                            email 'yusufgamer222@gmail.com'
+                        }
+                    }
+
                 }
             }
         }
@@ -127,5 +142,14 @@ javadoc {
     if(JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
     }
+}
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 compileJava.options.encoding = 'UTF-8'

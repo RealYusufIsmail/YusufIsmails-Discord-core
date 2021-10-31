@@ -39,7 +39,8 @@ plugins {
     id "name.remal.sonarlint" version "1.5.0"
 }
 
-group 'com.github.yusufsdiscordbot.core'
+//Maven published can be found in application's gradle
+group='com.github.yusufsdiscordbot.yusufsdiscordcore'
 
 sourceCompatibility = JavaVersion.VERSION_17
 

@@ -31,38 +31,44 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.github.yusufsdiscordbot.core.lavaplayer;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;
-import net.dv8tion.jda.api.audio.AudioSendHandler;
+import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
-import java.nio.ByteBuffer;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class AudioPlayerSendHandler implements AudioSendHandler {
-    private final AudioPlayer audioPlayer;
-    private final ByteBuffer buffer;
-    private final MutableAudioFrame frame;
+public class TrackScheduler extends AudioEventAdapter {
+    public final AudioPlayer player;
+    public final BlockingQueue<AudioTrack> queue;
+    public boolean repeating = false;
 
-    public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
-        this.audioPlayer = audioPlayer;
-        this.buffer = ByteBuffer.allocate(1024);
-        this.frame = new MutableAudioFrame();
-        this.frame.setBuffer(buffer);
+    public TrackScheduler(AudioPlayer player) {
+        this.player = player;
+        this.queue = new LinkedBlockingQueue<>();
+    }
+
+    public void queue(AudioTrack track) {
+        if (!this.player.startTrack(track, true)) {
+            this.queue.offer(track);
+        }
+    }
+
+    public void nextTrack() {
+        this.player.startTrack(this.queue.poll(), false);
     }
 
     @Override
-    public boolean canProvide() {
-        return this.audioPlayer.provide(this.frame);
-    }
-
-    @Override
-    public ByteBuffer provide20MsAudio() {
-        return this.buffer.flip();
-    }
-
-    @Override
-    public boolean isOpus() {
-        return true;
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+        if (endReason.mayStartNext) {
+            if (this.repeating) {
+                this.player.startTrack(track.makeClone(), false);
+                return;
+            }
+            nextTrack();
+        }
     }
 }
