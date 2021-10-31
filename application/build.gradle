@@ -39,13 +39,13 @@ plugins {
 }
 
 application {
-    mainClass = 'github.io.yusuf.core.Bot'
+    mainClass = 'io.github.realyusufismail.core.Bot'
 }
 
 group='github.io.yusuf'
 apply plugin: 'maven-publish'
 
-version '1.2.2'
+version '1.2.3'
 repositories {
     mavenCentral()
     maven {
