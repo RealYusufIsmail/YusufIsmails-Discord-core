@@ -78,14 +78,29 @@ java {
     withSourcesJar()
 }
 publishing {
+    repositories {
+        maven {
+            afterEvaluate { project ->
+                def releaseRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                def snapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
+                    password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
+                }
+            }
+        }
+    }
     publications {
-        mavenJava(MavenPublication) {
+        maven(MavenPublication) {
             artifactId = bot_id
             from components.java
+
             versionMapping {
                 usage('java-api') {
                     fromResolutionOf('runtimeClasspath')
                 }
+                
                 usage('java-runtime') {
                     fromResolutionResult()
                 }
@@ -95,12 +110,6 @@ publishing {
                 description = 'A library which consists of all the needed classes for my Discord bots and for others'
                 url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
                 inceptionYear '2021'
-
-                scm {
-                    url 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-                    connection 'scm:https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                    developerConnection 'scm:git://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                }
 
                 licenses {
                     license {
@@ -117,24 +126,13 @@ publishing {
                         email 'yusufgamer222@gmail.com'
                     }
                 }
-            }
-        }
-        repositories {
-            maven {
-                afterEvaluate { project ->
-                    def releaseRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    def snapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
-                    url = (isReleaseVersion) ? releaseRepo : snapshotRepo
 
-                    //println "repos: " + version
-                    //println "repos: " + isReleaseVersion
-                    //println url
-
-                    credentials {
-                        username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
-                        password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
-                    }
+                scm {
+                    url 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
+                    connection 'scm:https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
+                    developerConnection 'scm:git://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
                 }
+
             }
         }
     }
