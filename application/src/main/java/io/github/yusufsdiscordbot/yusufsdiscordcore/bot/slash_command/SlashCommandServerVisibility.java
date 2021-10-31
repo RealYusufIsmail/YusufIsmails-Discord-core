@@ -675,121 +675,18 @@
  * <https://www.gnu.org/licenses/why-not-lgpl.html>.
  */
 
-plugins {
-    id'java'
-    id'application'
-    id'com.github.johnrengelman.shadow' version '7.0.0'
-    id 'maven-publish'
-    id 'signing'
-    id 'java-library'
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+
+/**
+ * Visibility of a slash command.
+ */
+public enum SlashCommandServerVisibility {
+    /**
+     * Command can only be user in certain server or servers
+     */
+    SERVER,
+    /**
+     * The command can be used on all servers. aka global
+     */
+    UNIVERSAL
 }
-
-application {
-    mainClass = 'com.github.yusufsdiscordbot.core.Bot'
-}
-
-archivesBaseName = 'yusufsdiscordcore-jvm'
-group='com.github.yusufsdiscordbot'
-version '1.2.3.1'
-
-repositories {
-    mavenCentral()
-    maven {
-        name 'm2-dv8tion'
-        url 'https://m2.dv8tion.net/releases'
-    }
-    maven {
-        name 'jfrog-duncte123'
-        url 'https://duncte123.jfrog.io/artifactory/maven'
-    }
-    maven {
-        name 'duncte123-jfrog'
-        url 'https://duncte123.jfrog.io/artifactory/maven'
-    }
-    maven { url "https://m2.chew.pro/releases" }
-}
-
-dependencies {
-    //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '4.3.0_339'
-    implementation group: 'pw.chew', name: 'jda-chewtils-command', version: '1.22.0'
-    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.5'
-    implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.78'
-    implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
-}
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
-tasks.withType(Sign) {
-    onlyIf { isReleaseVersion }
-}
-afterEvaluate {
-    publishing {
-        repositories {
-            maven {
-                afterEvaluate { project ->
-                    def releaseRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    def snapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
-                    url = (isReleaseVersion) ? releaseRepo : snapshotRepo
-                    credentials {
-                        username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
-                        password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
-                    }
-                }
-            }
-        }
-        publications {
-            maven(MavenPublication) {
-                artifactId = bot_id
-                from components.java
-
-                versionMapping {
-                    usage('java-api') {
-                        fromResolutionOf('runtimeClasspath')
-                    }
-
-                    usage('java-runtime') {
-                        fromResolutionResult()
-                    }
-                }
-                pom {
-                    name = 'yusufsdiscordcore'
-                    description = 'A library which consists of all the needed classes for my Discord bots and for others'
-                    url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-
-                    licenses {
-                        license {
-                            name = 'BSD 3-Clause License'
-                            url = 'https://opensource.org/licenses/BSD-3-Clause'
-                            distribution = 'repo'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id  = 'realyusufismail'
-                            name = 'Yusuf Arfan Ismail'
-                            email = 'yusufgamer222@gmail.com'
-                        }
-                    }
-
-                    scm {
-                        url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-                        connection = 'scm:https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                        developerConnection = 'scm:git://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                    }
-
-                }
-            }
-        }
-    }
-}
-javadoc {
-    if(JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
-    }
-}
-compileJava.options.encoding = 'UTF-8'
