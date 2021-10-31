@@ -43,7 +43,7 @@ plugins {
 }
 
 //Maven published can be found in application's gradle
-group='io.github.yusufsdiscordbot.yusufdiscordcore'
+group='io.github.yusufsdiscordbot'
 
 sourceCompatibility = JavaVersion.VERSION_17
 

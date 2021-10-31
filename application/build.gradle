@@ -689,8 +689,8 @@ application {
 }
 
 archivesBaseName = 'yusufsdiscordcore-jvm'
-group='io.github.yusufsdiscordbot.yusufdiscordcore'
-version '1.2'
+group='io.github.yusufsdiscordbot'
+version = '1.2'
 
 repositories {
     mavenCentral()
@@ -722,19 +722,23 @@ java {
     withJavadocJar()
     withSourcesJar()
 }
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+afterEvaluate { project ->
+    ext.isReleaseVersion = !version.endsWith('RELEASE')
+}
 tasks.withType(Sign) {
     onlyIf { isReleaseVersion }
 }
 publishing {
         repositories {
             maven {
+                afterEvaluate { project ->
                     def releaseRepo = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
                     def snapshotRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
                     url = (isReleaseVersion) ? releaseRepo : snapshotRepo
                     credentials {
                         username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
                         password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
+                    }
                 }
             }
         }
