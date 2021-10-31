@@ -77,7 +77,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The enum {@link CommandVisibility#GLOBAL} and
+     *        The enum {@link CommandVisibility#UNIVERSAL} and
      *        {@link CommandVisibility#SERVER} determines whether the command should be Global
      *        or Guild only.
      */
@@ -85,7 +85,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
         commands.put(command.getName(), command);
         if (command.getVisibility() == CommandVisibility.SERVER) {
             guildCommandsData.addCommands(command.getCommandData());
-        } else if (command.getVisibility() == CommandVisibility.GLOBAL) {
+        } else if (command.getVisibility() == CommandVisibility.UNIVERSAL) {
             globalCommandsData.addCommands(command.getCommandData());
         }
     }

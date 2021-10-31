@@ -38,11 +38,11 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
  */
 public enum CommandVisibility {
     /**
-     * The command can be used within the context of a certain server.
+     * Command can only be user in certain server or servers
      */
     SERVER,
     /**
-     * The command can be used on all servers
+     * The command can be used on all servers. aka global
      */
-    GLOBAL
+    UNIVERSAL
 }
