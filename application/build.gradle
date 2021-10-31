@@ -12,8 +12,8 @@ application {
 }
 
 archivesBaseName = 'yusufsdiscordcore'
-version = '1.2'
 description = "A core discord bot library for my bots"
+version = '1.0.3'
 
 repositories {
     mavenCentral()
@@ -45,13 +45,14 @@ jar {
     manifest {
         attributes('Implementation-Title': project.description,
                 'Implementation-Version': project.version,
-                'Main-Class': 'com.ascert.open.term.application.ClientLauncher',
+                'Main-Class': 'com.github.yusufsdiscordbot.core.Bot',
         )
     }
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 pom {
+                    name = 'yusufsdiscordcore'
                     description = 'An open source core dependecny for my Discord bots and for others which uses JDA.'
                 }
             }

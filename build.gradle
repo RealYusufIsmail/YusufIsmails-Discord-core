@@ -124,8 +124,9 @@ subprojects {
                 //artifactId = project.artifactId // or maybe archiveBaseName?
                 from components.java
                 pom {
-                    name = project.description
-                    url = "https://github.com/AscertLLC/openterm"
+                    name = project.archivesBaseName
+                    description = project.description
+                    url = "https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core"
                     packaging = "jar"
 
                     licenses {
@@ -144,9 +145,9 @@ subprojects {
                         }
                     }
                     scm {
-                        connection = 'https://github.com/AscertLLC/openterm.git'
-                        developerConnection = 'scm:git:ssh://git@github.com/AscertLLC/openterm.git'
-                        url = 'https://github.com/AscertLLC/openterm'
+                        connection = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
+                        developerConnection = 'scm:git:ssh://git@github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
+                        url = 'github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
                     }
                 }
             }
