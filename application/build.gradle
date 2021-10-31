@@ -37,6 +37,7 @@ plugins {
     id'com.github.johnrengelman.shadow' version '7.0.0'
     id 'maven-publish'
     id 'signing'
+    id 'java-library'
 }
 
 application {
@@ -77,70 +78,71 @@ java {
     withJavadocJar()
     withSourcesJar()
 }
-publishing {
-    repositories {
-        maven {
-            afterEvaluate { project ->
-                def releaseRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                def snapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
-                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-                credentials {
-                    username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
-                    password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+tasks.withType(Sign) {
+    onlyIf { isReleaseVersion }
+}
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                afterEvaluate { project ->
+                    def releaseRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                    def snapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
+                    url = (isReleaseVersion) ? releaseRepo : snapshotRepo
+                    credentials {
+                        username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
+                        password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
+                    }
+                }
+            }
+        }
+        publications {
+            maven(MavenPublication) {
+                artifactId = bot_id
+                from components.java
+
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }
+                pom {
+                    name = 'yusufsdiscordcore'
+                    description = 'A library which consists of all the needed classes for my Discord bots and for others'
+                    url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
+
+                    licenses {
+                        license {
+                            name = 'BSD 3-Clause License'
+                            url = 'https://opensource.org/licenses/BSD-3-Clause'
+                            distribution = 'repo'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id  = 'realyusufismail'
+                            name = 'Yusuf Arfan Ismail'
+                            email = 'yusufgamer222@gmail.com'
+                        }
+                    }
+
+                    scm {
+                        url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
+                        connection = 'scm:https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
+                        developerConnection = 'scm:git://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
+                    }
+
                 }
             }
         }
     }
-    publications {
-        maven(MavenPublication) {
-            artifactId = bot_id
-            from components.java
-
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name = 'yusufsdiscordcore'
-                description = 'A library which consists of all the needed classes for my Discord bots and for others'
-                url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-                inceptionYear '2021'
-
-                licenses {
-                    license {
-                        name 'BSD 3-Clause License'
-                        url 'https://opensource.org/licenses/BSD-3-Clause'
-                        distribution 'repo'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'realyusufismail'
-                        name 'Yusuf Arfan Ismail'
-                        email 'yusufgamer222@gmail.com'
-                    }
-                }
-
-                scm {
-                    url 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core'
-                    connection 'scm:https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                    developerConnection 'scm:git://github.com/YusufsDiscordbot/YusufIsmails-Discord-core.git'
-                }
-
-            }
-        }
-    }
 }
-signing {
-    sign publishing.publications.mavenJava
-}
-
 javadoc {
     if(JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
