@@ -65,9 +65,9 @@ public interface Command {
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      * 
-     * @return {@link SlashCommandVisibility#GLOBAL} and {@link SlashCommandVisibility#GUILD}
+     * @return {@link CommandVisibility#GLOBAL} and {@link CommandVisibility#GUILD}
      */
-    SlashCommandVisibility getVisibility();
+    CommandVisibility getVisibility();
 
     /**
      * Retrieves all the command data such as the name and description of the command. Also used to
