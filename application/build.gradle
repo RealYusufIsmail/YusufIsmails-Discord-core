@@ -42,7 +42,7 @@ application {
     mainClass = 'com.github.yusufsdiscordbot.core.Bot'
 }
 
-group='github.io.yusuf'
+group='com.github.yusufsdiscordbot'
 apply plugin: 'maven-publish'
 
 version '1.2.3.1'
