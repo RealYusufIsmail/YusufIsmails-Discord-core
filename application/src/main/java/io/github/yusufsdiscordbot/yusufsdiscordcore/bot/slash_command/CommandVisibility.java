@@ -547,51 +547,16 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-
 /**
- * Used when making a new command. Imports all the need methods into the new class.
+ * Visibility of a slash command.
  */
-public interface Command {
+public enum CommandVisibility {
     /**
-     * Were the command is created.
+     * Command can only be user in certain server or servers
      */
-    void onSlashCommand(SlashCommandEvent event);
-
+    SERVER,
     /**
-     * Provides the user with name of the command
-     * 
-     * @return {@link CommandData#getName()}
+     * The command can be used on all servers. aka global
      */
-    String getName();
-
-    /**
-     * Provides the user information on what the command is about.
-     * 
-     * @return {@link CommandData#getDescription()}
-     */
-    String getDescription();
-
-    /**
-     * Used to determine whether the command is Global(can be used on all servers) or whether it is
-     * only a Guild command(can only be used in specific servers)
-     * 
-     * @return {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
-     */
-    CommandVisibility getVisibility();
-
-    /**
-     * Retrieves all the command data such as the name and description of the command. Also used to
-     * create options and sub commands.
-     * 
-     * @return {@link CommandData#CommandData(String, String)} and can also return
-     *         {@link CommandData#addOption(OptionType, String, String)} <br >
-     *         <br >
-     *         Choices can also be used which makes it easier for the user. which returns
-     *         {@link OptionData#addChoice(String, int)}
-     */
-    CommandData getCommandData();
+    UNIVERSAL
 }

@@ -37,10 +37,13 @@ plugins {
     id 'java'
     id "com.diffplug.spotless" version "5.16.0"
     id "name.remal.sonarlint" version "1.5.0"
+    id 'maven-publish'
+    id 'signing'
+    id 'java-library'
 }
 
 //Maven published can be found in application's gradle
-group='com.github.yusufsdiscordbot.yusufsdiscordcore'
+group='io.github.yusufsdiscordbot.yusufdiscordcore'
 
 sourceCompatibility = JavaVersion.VERSION_17
 

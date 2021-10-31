@@ -689,8 +689,8 @@ application {
 }
 
 archivesBaseName = 'yusufsdiscordcore-jvm'
-group='com.github.yusufsdiscordbot'
-version '1.2.3.1'
+group='io.github.yusufsdiscordbot.yusufdiscordcore'
+version '1.2'
 
 repositories {
     mavenCentral()
@@ -726,26 +726,21 @@ ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 tasks.withType(Sign) {
     onlyIf { isReleaseVersion }
 }
-afterEvaluate {
-    publishing {
+publishing {
         repositories {
             maven {
-                afterEvaluate { project ->
-                    def releaseRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    def snapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
+                    def releaseRepo = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                    def snapshotRepo = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
                     url = (isReleaseVersion) ? releaseRepo : snapshotRepo
                     credentials {
                         username = project.hasProperty('ossrhUsername') ? ossrhUsername : "Unknown user"
                         password = project.hasProperty('ossrhPassword') ? ossrhPassword : "Unknown password"
-                    }
                 }
             }
         }
         publications {
             maven(MavenPublication) {
-                artifactId = bot_id
                 from components.java
-
                 versionMapping {
                     usage('java-api') {
                         fromResolutionOf('runtimeClasspath')
@@ -762,8 +757,8 @@ afterEvaluate {
 
                     licenses {
                         license {
-                            name = 'BSD 3-Clause License'
-                            url = 'https://opensource.org/licenses/BSD-3-Clause'
+                            name = 'GNU General Public License v3.0'
+                            url = 'https://www.gnu.org/licenses/why-not-lgpl.html>'
                             distribution = 'repo'
                         }
                     }
@@ -786,7 +781,6 @@ afterEvaluate {
             }
         }
     }
-}
 javadoc {
     if(JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
