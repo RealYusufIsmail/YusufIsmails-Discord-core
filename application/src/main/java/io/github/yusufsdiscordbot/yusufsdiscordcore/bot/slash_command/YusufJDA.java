@@ -14,16 +14,24 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-/**
- * Visibility of a slash command.
- */
-public enum CommandVisibility {
-    /**
-     * Command can only be user in certain server or servers
-     */
-    SERVER,
-    /**
-     * The command can be used on all servers. aka global
-     */
-    UNIVERSAL
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.PrivateChannel;
+import net.dv8tion.jda.api.requests.RestAction;
+
+public class YusufJDA {
+    private final JDA jda;
+
+    public YusufJDA(JDA jda) {
+        this.jda = jda;
+    }
+
+    public JDA getJda() {
+        return jda;
+    }
+
+    public RestAction<PrivateChannel> dmUser(YusufMember member) {
+        return this.getJda().openPrivateChannelById(member.getUserId());
+    }
+
+
 }

@@ -14,16 +14,37 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-/**
- * Visibility of a slash command.
- */
-public enum CommandVisibility {
-    /**
-     * Command can only be user in certain server or servers
-     */
-    SERVER,
-    /**
-     * The command can be used on all servers. aka global
-     */
-    UNIVERSAL
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
+
+public class YusufGuild {
+    private static final Integer REASON_MAX_LENGTH = 512;
+    private final Guild guild;
+
+    public YusufGuild(Guild guild) {
+        this.guild = guild;
+    }
+
+    public Member getBot() {
+        return this.guild.getSelfMember();
+    }
+
+    public AuditableRestAction<Void> changeUserNickname(Member member, String nickname) {
+        return this.guild.modifyNickname(member, nickname);
+    }
+
+    public String getGuildId() {
+        return this.guild.getId();
+    }
+
+    public Boolean checkReasonLength(String reason, YusufSlashCommandEvent event) {
+        if(reason.length() > REASON_MAX_LENGTH) {
+            event.replyEphemeralMessage("You have gone over the reason character limit which is " + REASON_MAX_LENGTH + " .");
+            return false;
+        }
+        return true;
+    }
+
+
 }
