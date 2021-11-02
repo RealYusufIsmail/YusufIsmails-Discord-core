@@ -1,22 +1,20 @@
 /*
- * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
- * Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/> Everyone is permitted to
- * copy and distribute verbatim copies of this license document, but changing it is not allowed.
- * Yusuf Arfan Ismail
- * The GNU General Public License is a free, copyleft license for software and other kinds of works.
- * The licenses for most software and other practical works are designed to take away your freedom
- * to share and change the works. By contrast, the GNU General Public License is intended to
- * guarantee your freedom to share and change all versions of a program--to make sure it remains
- * free software for all its users. We, the Free Software Foundation, use the GNU General Public
- * License for most of our software; it applies also to any other work released this way by its
- * authors. You can apply it to your programs, too.
+ * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
+ * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
+ * license document, but changing it is not allowed. Yusuf Arfan Ismail The GNU General Public
+ * License is a free, copyleft license for software and other kinds of works. The licenses for most
+ * software and other practical works are designed to take away your freedom to share and change the
+ * works. By contrast, the GNU General Public License is intended to guarantee your freedom to share
+ * and change all versions of a program--to make sure it remains free software for all its users.
+ * We, the Free Software Foundation, use the GNU General Public License for most of our software; it
+ * applies also to any other work released this way by its authors. You can apply it to your
+ * programs, too.
  */
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
@@ -37,7 +35,7 @@ import java.util.Map;
  * addCommand(new TestCommand())
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
-    private final Map<String, Command> commands = new HashMap<>();
+    private final Map<String, CommandConnector> commands = new HashMap<>();
     /**
      * Used to determine whether the commands should be global or guild only.
      */
@@ -65,7 +63,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      *        The enum {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
      *        determines whether the command should be Global or Guild only.
      */
-    public void addCommand(Command command) {
+    public void addCommand(CommandConnector command) {
         commands.put(command.getName(), command);
         if (command.getVisibility() == CommandVisibility.SERVER) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -74,12 +72,12 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    public void onSlashCommand(YusufSlashCommandEvent event) {
-        var cmd = commands.get(event.getEvent().getName());
+    public void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent) {
+        var cmd = commands.get(yusufSlashCommandEvent.getEvent().getName());
         if (cmd == null) {
-            event.replyMessage("unknown command");
+            yusufSlashCommandEvent.replyMessage("unknown command");
             return;
         }
-        cmd.onSlashCommand(event);
+        cmd.onSlashCommand(yusufSlashCommandEvent);
     }
 }
