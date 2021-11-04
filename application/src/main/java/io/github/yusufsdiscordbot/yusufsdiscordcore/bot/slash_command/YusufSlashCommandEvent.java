@@ -61,6 +61,7 @@ public class YusufSlashCommandEvent {
     public JDA getJDA() {
         return this.event.getJDA();
     }
+
     @Nullable
     public OptionMapping getOption(String option) {
         return this.event.getOption(option);

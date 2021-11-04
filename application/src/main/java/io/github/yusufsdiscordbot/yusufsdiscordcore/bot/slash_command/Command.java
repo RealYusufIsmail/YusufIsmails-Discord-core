@@ -43,9 +43,9 @@ public interface Command {
      *
      * @return {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
      */
-    //Originall from 
-    //https://github.com/Together-Java/TJ-Bot/blob/develop/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandVisibility.java
-    //and modified by Yusuf
+    // Originall from
+    // https://github.com/Together-Java/TJ-Bot/blob/develop/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandVisibility.java
+    // and modified by Yusuf
     CommandVisibility getVisibility();
 
     /**
