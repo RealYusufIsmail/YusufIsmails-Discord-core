@@ -373,4 +373,16 @@ public class YusufGuild {
     public AuditableRestAction<Void> removeRoleFromMember(long userId, @Nonnull Role role) {
         return this.guild.removeRoleFromMember(userId, role);
     }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Integer> prune(@Nonnull Integer days, @Nonnull Role... roles) {
+        return this.guild.prune(days, roles);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    AuditableRestAction<Integer> prune(int days, boolean wait, @Nonnull Role... roles) {
+        return this.guild.prune(days, wait, roles);
+    }
 }

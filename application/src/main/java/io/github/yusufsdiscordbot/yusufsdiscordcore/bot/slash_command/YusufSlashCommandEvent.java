@@ -105,9 +105,7 @@ public class YusufSlashCommandEvent {
     }
 
     public void replyMessage(String message, Boolean setEphemeral) {
-        this.event.reply(message)
-                .setEphemeral(setEphemeral)
-                .queue();
+        this.event.reply(message).setEphemeral(setEphemeral).queue();
     }
 
     /**
@@ -125,41 +123,34 @@ public class YusufSlashCommandEvent {
     }
 
     @Nonnull
-    public Interaction getInteraction()
-    {
+    public Interaction getInteraction() {
         return this.event.getInteraction();
     }
 
     @Nonnull
-    public String getToken()
-    {
+    public String getToken() {
         return this.event.getToken();
     }
 
-    public int getTypeRaw()
-    {
+    public int getTypeRaw() {
         return this.event.getTypeRaw();
     }
 
     @Nonnull
-    public InteractionHook getHook()
-    {
+    public InteractionHook getHook() {
         return this.event.getHook();
     }
 
-    public long getIdLong()
-    {
+    public long getIdLong() {
         return this.event.getIdLong();
     }
 
-    public boolean isAcknowledged()
-    {
+    public boolean isAcknowledged() {
         return this.event.isAcknowledged();
     }
 
     @Nonnull
-    public ReplyAction deferReply()
-    {
+    public ReplyAction deferReply() {
         return this.event.deferReply();
     }
 }
