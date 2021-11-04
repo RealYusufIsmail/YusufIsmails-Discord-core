@@ -13,8 +13,10 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -52,6 +54,13 @@ public class YusufSlashCommandEvent {
         return new YusufUser((this.event.getUser()));
     }
 
+    public TextChannel getTextChannel() {
+        return this.event.getTextChannel();
+    }
+
+    public JDA getJDA() {
+        return this.event.getJDA();
+    }
     @Nullable
     public OptionMapping getOption(String option) {
         return this.event.getOption(option);
