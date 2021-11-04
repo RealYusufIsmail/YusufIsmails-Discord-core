@@ -14,12 +14,13 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.interactions.Interaction;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,6 +63,10 @@ public class YusufSlashCommandEvent {
         return this.event.getJDA();
     }
 
+    public ChannelType getChannelType() {
+        return this.event.getChannelType();
+    }
+
     @Nullable
     public OptionMapping getOption(String option) {
         return this.event.getOption(option);
@@ -99,6 +104,12 @@ public class YusufSlashCommandEvent {
         this.event.reply(message).queue();
     }
 
+    public void replyMessage(String message, Boolean setEphemeral) {
+        this.event.reply(message)
+                .setEphemeral(setEphemeral)
+                .queue();
+    }
+
     /**
      * replays as an ephemeral message.
      */
@@ -111,5 +122,44 @@ public class YusufSlashCommandEvent {
      */
     public void replyEmbed(MessageEmbed messageEmbed) {
         this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).queue();
+    }
+
+    @Nonnull
+    public Interaction getInteraction()
+    {
+        return this.event.getInteraction();
+    }
+
+    @Nonnull
+    public String getToken()
+    {
+        return this.event.getToken();
+    }
+
+    public int getTypeRaw()
+    {
+        return this.event.getTypeRaw();
+    }
+
+    @Nonnull
+    public InteractionHook getHook()
+    {
+        return this.event.getHook();
+    }
+
+    public long getIdLong()
+    {
+        return this.event.getIdLong();
+    }
+
+    public boolean isAcknowledged()
+    {
+        return this.event.isAcknowledged();
+    }
+
+    @Nonnull
+    public ReplyAction deferReply()
+    {
+        return this.event.deferReply();
     }
 }
