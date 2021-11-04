@@ -314,6 +314,12 @@ public class YusufGuild {
 
     @Nonnull
     @CheckReturnValue
+    public AuditableRestAction<Void> ban(User user, int days, String reason) {
+        return this.guild.ban(user, days, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
     public AuditableRestAction<Void> kick(Member user, String reason) {
         return this.guild.kick(user, reason);
     }

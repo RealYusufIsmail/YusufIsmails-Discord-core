@@ -39,6 +39,10 @@ public class YusufMember {
         return this.member.getUser();
     }
 
+    public Member getMember() {
+        return this.member;
+    }
+
     @Nonnull
     public YusufGuild getGuild() {
         return new YusufGuild(this.member.getGuild());
