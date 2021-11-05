@@ -73,6 +73,11 @@ public class YusufSlashCommandEvent {
     }
 
     @Nullable
+    public YusufOptionMapping getYusufOption(String option) {
+        return new YusufOptionMapping(this.event.getOption(option));
+    }
+
+    @Nullable
     public OptionMapping getOption(String option) {
         return this.event.getOption(option);
     }
@@ -80,6 +85,11 @@ public class YusufSlashCommandEvent {
     @Nullable
     public List<OptionMapping> getOptionByType(OptionType type) {
         return this.event.getOptionsByType(type);
+    }
+
+    @Nullable
+    public List<OptionMapping> getOptionByType(YusufOptionType type) {
+        return this.event.getOptionsByType(type.getOptionType());
     }
 
     @Nullable
@@ -155,10 +165,21 @@ public class YusufSlashCommandEvent {
         this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).queue();
     }
 
+    @CheckReturnValue
+    public void replyEphemeralEmbed(MessageEmbed messageEmbed) {
+        this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).setEphemeral(true).queue();
+    }
+
     @Nonnull
     @CheckReturnValue
     public ReplyAction replyEmbeds(MessageEmbed messageEmbed) {
         return this.event.replyEmbeds(messageEmbed);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public ReplyAction replyEphemeralEmbeds(MessageEmbed messageEmbed) {
+        return this.event.replyEmbeds(messageEmbed).setEphemeral(true);
     }
 
     @Nonnull
