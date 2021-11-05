@@ -35,14 +35,37 @@ public class YusufMember {
         this.member = member;
     }
 
+    /**
+     * @see Member#getUser()
+     */
     public User getUser() {
         return this.member.getUser();
     }
 
+    /**
+     * @see YusufUser
+     */
+    public YusufUser getYusufUser() {
+        return new YusufUser(this.member.getUser());
+    }
+
+    /**
+     * @see Member
+     */
     public Member getMember() {
         return this.member;
     }
 
+    /**
+     * @see Member#canInteract(Role)
+     */
+    public boolean canInteract(Role role) {
+        return this.member.canInteract(role);
+    }
+
+    /**
+     * @see Member#getGuild()
+     */
     @Nonnull
     public YusufGuild getGuild() {
         return new YusufGuild(this.member.getGuild());
@@ -123,6 +146,10 @@ public class YusufMember {
 
     public boolean canInteract(@Nonnull Member member) {
         return this.member.canInteract(member);
+    }
+
+    public boolean canInteract(@Nonnull YusufMember member) {
+        return this.member.canInteract(member.getMember());
     }
 
     public boolean canInteract(@Nonnull Emote emote) {
@@ -211,6 +238,11 @@ public class YusufMember {
     }
 
     @Nullable
+    public EnumSet<Permission> getPermissions(@Nonnull YusufGuildChannel channel) {
+        return this.member.getPermissions(channel.getGuildChannel());
+    }
+
+    @Nullable
     public EnumSet<Permission> getPermissionsExplicit() {
         return this.member.getPermissionsExplicit();
     }
@@ -238,6 +270,16 @@ public class YusufMember {
         return this.member.hasPermission(channel, permissions);
     }
 
+    public boolean hasPermission(@Nonnull YusufGuildChannel channel,
+                                 @Nonnull Permission... permissions) {
+        return this.member.hasPermission(channel.getGuildChannel(), permissions);
+    }
+
+    public boolean hasPermission(@Nonnull YusufGuildChannel channel,
+                                 @Nonnull Collection<Permission> permissions) {
+        return this.member.hasPermission(channel.getGuildChannel(), permissions);
+    }
+
     public boolean hasAccess(@Nonnull GuildChannel channel) {
         return this.member.hasAccess(channel);
     }
@@ -248,5 +290,17 @@ public class YusufMember {
 
     public boolean canSync(@Nonnull GuildChannel channel) {
         return this.member.canSync(channel);
+    }
+
+    public boolean hasAccess(@Nonnull YusufGuildChannel channel) {
+        return this.member.hasAccess(channel.getGuildChannel());
+    }
+
+    public boolean canSync(@Nonnull YusufGuildChannel targetChannel, @Nonnull YusufGuildChannel syncSource) {
+        return this.member.canSync(targetChannel.getGuildChannel(), syncSource.getGuildChannel());
+    }
+
+    public boolean canSync(@Nonnull YusufGuildChannel channel) {
+        return this.member.canSync(channel.getGuildChannel());
     }
 }

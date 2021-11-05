@@ -150,10 +150,15 @@ public class YusufSlashCommandEvent {
     /**
      * replays as an embed message.
      */
+    @CheckReturnValue
+    public void replyEmbed(MessageEmbed messageEmbed) {
+        this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).queue();
+    }
+
     @Nonnull
     @CheckReturnValue
-    public ReplyAction replyEmbed(MessageEmbed messageEmbed) {
-        return this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]);
+    public ReplyAction replyEmbeds(MessageEmbed messageEmbed) {
+        return this.event.replyEmbeds(messageEmbed);
     }
 
     @Nonnull

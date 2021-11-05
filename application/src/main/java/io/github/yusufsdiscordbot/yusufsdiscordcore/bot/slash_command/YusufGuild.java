@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.*;
+import net.dv8tion.jda.api.requests.restaction.order.RoleOrderAction;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -175,6 +176,12 @@ public class YusufGuild {
 
     @Nonnull
     @CheckReturnValue
+    public MemberAction addMember(@Nonnull String accessToken, @Nonnull YusufUser user) {
+        return this.guild.addMember(accessToken, user.getUser());
+    }
+
+    @Nonnull
+    @CheckReturnValue
     public MemberAction addMember(@Nonnull String accessToken, long userId) {
         return this.guild.addMember(accessToken, userId);
     }
@@ -278,7 +285,7 @@ public class YusufGuild {
 
     @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> unBanWithReason(User user, String reason) {
+    public AuditableRestAction<Void> unBan(User user, String reason) {
         return this.guild.unban(user).reason(reason);
     }
 
@@ -296,14 +303,56 @@ public class YusufGuild {
 
     @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(Member user, String reason) {
-        return this.guild.ban(user, 0, reason);
+    public AuditableRestAction<Void> unBan(YusufUser user, String reason) {
+        return this.guild.unban(user.getUser()).reason(reason);
     }
 
     @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(Member user, int days, String reason) {
-        return this.guild.ban(user, days, reason);
+    public AuditableRestAction<Void> unBan(YusufUser user) {
+        return this.guild.unban(user.getUser());
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(YusufMember member) {
+        return this.guild.ban(member.getMember(), 0);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(YusufMember member, String reason) {
+        return this.guild.ban(member.getMember(), 0, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(YusufMember member, int days, String reason) {
+        return this.guild.ban(member.getMember(), days, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(Member member) {
+        return this.guild.ban(member, 0);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(Member member, String reason) {
+        return this.guild.ban(member, 0, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(Member member, int days, String reason) {
+        return this.guild.ban(member, days, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(User user) {
+        return this.guild.ban(user, 0);
     }
 
     @Nonnull
@@ -320,20 +369,50 @@ public class YusufGuild {
 
     @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(Member user, String reason) {
-        return this.guild.kick(user, reason);
+    public AuditableRestAction<Void> ban(YusufUser user) {
+        return this.guild.ban(user.getUser(), 0);
     }
 
     @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(String userId, String reason) {
-        return this.guild.kick(userId, reason);
+    public AuditableRestAction<Void> ban(YusufUser user, String reason) {
+        return this.guild.ban(user.getUser(), 0, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> ban(YusufUser user, int days, String reason) {
+        return this.guild.ban(user.getUser(), days, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> kick(YusufMember member) {
+        return this.guild.kick(member.getMember(), null);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> kick(YusufMember member, String reason) {
+        return this.guild.kick(member.getMember(), reason);
     }
 
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> kick(Member user) {
         return this.guild.kick(user, null);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> kick(Member member, String reason) {
+        return this.guild.kick(member, reason);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> kick(String userId, String reason) {
+        return this.guild.kick(userId, reason);
     }
 
     @Nonnull
@@ -346,6 +425,12 @@ public class YusufGuild {
     @CheckReturnValue
     public AuditableRestAction<Void> addRoleToMember(@Nonnull Member member, @Nonnull Role role) {
         return this.guild.addRoleToMember(member, role);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member, @Nonnull Role role) {
+        return this.guild.addRoleToMember(member.getMember(), role);
     }
 
     @Nonnull
@@ -365,6 +450,13 @@ public class YusufGuild {
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
             @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member, role);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
+                                                          @Nonnull Role role) {
+        return this.guild.removeRoleFromMember(member.getMember(), role);
     }
 
     @Nonnull
@@ -393,17 +485,62 @@ public class YusufGuild {
     }
 
     @Nullable
-    public YusufGuildChannel getGuildChannelById(@Nonnull String id) {
+    public YusufGuildChannel getYusufGuildChannelById(@Nonnull String id) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(id));
     }
 
     @Nullable
-    public YusufGuildChannel getGuildChannelById(long id) {
+    public YusufGuildChannel getYusufGuildChannelById(long id) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(id));
     }
 
     @Nullable
-    public YusufGuildChannel getGuildChannelById(@Nonnull ChannelType type, long id) {
+    public YusufGuildChannel getYusufGuildChannelById(@Nonnull ChannelType type, long id) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(type, id));
+    }
+
+    @Nullable
+    public GuildChannel getGuildChannelById(@Nonnull String id) {
+        return this.guild.getGuildChannelById(id);
+    }
+
+    @Nullable
+    public GuildChannel getGuildChannelById(long id) {
+        return this.guild.getGuildChannelById(id);
+    }
+
+    @Nullable
+    public GuildChannel getGuildChannelById(@Nonnull ChannelType type, long id) {
+        return this.guild.getGuildChannelById(type, id);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public RoleOrderAction modifyRolePositions(boolean useAscendingOrder) {
+        return this.guild.modifyRolePositions(useAscendingOrder);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    AuditableRestAction<Void> mute(@Nonnull Member member, boolean mute) {
+        return this.guild.mute(member, mute);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    AuditableRestAction<Void> mute(@Nonnull YusufMember member, boolean mute) {
+        return this.guild.mute(member.getMember(), mute);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    AuditableRestAction<Void> deafen(@Nonnull Member member, boolean deafen) {
+        return this.guild.deafen(member, deafen);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    AuditableRestAction<Void> deafen(@Nonnull YusufMember member, boolean deafen) {
+        return this.guild.deafen(member.getMember(), deafen);
     }
 }

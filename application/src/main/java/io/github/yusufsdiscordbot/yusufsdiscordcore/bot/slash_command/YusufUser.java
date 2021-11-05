@@ -156,4 +156,12 @@ public class YusufUser {
     public int getFlagsRaw() {
         return this.user.getFlagsRaw();
     }
+
+    /**
+     * @see User#getAsMention()
+     */
+    @Nonnull
+    String getAsMention() {
+        return this.user.getAsMention();
+    }
 }
