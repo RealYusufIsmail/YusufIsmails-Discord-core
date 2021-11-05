@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -100,26 +101,54 @@ public class YusufSlashCommandEvent {
     /**
      * replays as a normal message.
      */
+    @Nonnull
+    @CheckReturnValue
+    public ReplyAction reply(String message) {
+        return this.event.reply(message);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public ReplyAction reply(String message, Boolean setEphemeral) {
+        return this.event.reply(message).setEphemeral(setEphemeral);
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public ReplyAction reply(String message, Boolean setEphemeral, Boolean setTTS) {
+        return this.event.reply(message).setEphemeral(setEphemeral).setTTS(setTTS);
+    }
+
+    @CheckReturnValue
     public void replyMessage(String message) {
         this.event.reply(message).queue();
     }
 
+    @CheckReturnValue
     public void replyMessage(String message, Boolean setEphemeral) {
         this.event.reply(message).setEphemeral(setEphemeral).queue();
     }
-
     /**
      * replays as an ephemeral message.
      */
-    public void replyEphemeralMessage(String message) {
+    @CheckReturnValue
+    public void replyEphemeral(String message) {
         this.event.reply(message).setEphemeral(true).queue();
+    }
+
+    @Nonnull
+    @CheckReturnValue
+    public ReplyAction replyEphemeralMessage(String message) {
+        return this.event.reply(message).setEphemeral(true);
     }
 
     /**
      * replays as an embed message.
      */
-    public void replyEmbed(MessageEmbed messageEmbed) {
-        this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).queue();
+    @Nonnull
+    @CheckReturnValue
+    public ReplyAction replyEmbed(MessageEmbed messageEmbed) {
+        return this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]);
     }
 
     @Nonnull
