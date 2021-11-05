@@ -252,6 +252,11 @@ public class YusufMember {
         return this.member.getPermissionsExplicit(channel);
     }
 
+    @Nullable
+    public EnumSet<Permission> getPermissionsExplicit(@Nonnull YusufGuildChannel channel) {
+        return this.member.getPermissionsExplicit(channel.getGuildChannel());
+    }
+
     public boolean hasPermission(@Nonnull Permission... permissions) {
         return this.member.hasPermission(permissions);
     }

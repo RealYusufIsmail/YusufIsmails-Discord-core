@@ -219,8 +219,8 @@ public class YusufGuild {
     }
 
     @Nonnull
-    public Member getBot() {
-        return this.guild.getSelfMember();
+    public YusufMember getBot() {
+        return new YusufMember(this.guild.getSelfMember());
     }
 
     @Nullable
@@ -261,6 +261,10 @@ public class YusufGuild {
 
     public AuditableRestAction<Void> changeUserNickname(Member member, String nickname) {
         return this.guild.modifyNickname(member, nickname);
+    }
+
+    public AuditableRestAction<Void> changeUserNickname(YusufMember member, String nickname) {
+        return this.guild.modifyNickname(member.getMember(), nickname);
     }
 
     public String getGuildId() {
@@ -417,9 +421,16 @@ public class YusufGuild {
 
     @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> mute(Member user, Boolean mute, String reason) {
-        return this.guild.mute(user, mute).reason(reason);
+    public AuditableRestAction<Void> mute(Member member, Boolean mute, String reason) {
+        return this.guild.mute(member, mute).reason(reason);
     }
+
+    @Nonnull
+    @CheckReturnValue
+    public AuditableRestAction<Void> mute(YusufMember member, Boolean mute, String reason) {
+        return this.guild.mute(member.getMember(), mute).reason(reason);
+    }
+
 
     @Nonnull
     @CheckReturnValue
