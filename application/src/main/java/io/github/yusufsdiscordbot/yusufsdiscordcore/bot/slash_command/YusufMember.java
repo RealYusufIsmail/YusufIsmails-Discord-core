@@ -271,12 +271,12 @@ public class YusufMember {
     }
 
     public boolean hasPermission(@Nonnull YusufGuildChannel channel,
-                                 @Nonnull Permission... permissions) {
+            @Nonnull Permission... permissions) {
         return this.member.hasPermission(channel.getGuildChannel(), permissions);
     }
 
     public boolean hasPermission(@Nonnull YusufGuildChannel channel,
-                                 @Nonnull Collection<Permission> permissions) {
+            @Nonnull Collection<Permission> permissions) {
         return this.member.hasPermission(channel.getGuildChannel(), permissions);
     }
 
@@ -296,7 +296,8 @@ public class YusufMember {
         return this.member.hasAccess(channel.getGuildChannel());
     }
 
-    public boolean canSync(@Nonnull YusufGuildChannel targetChannel, @Nonnull YusufGuildChannel syncSource) {
+    public boolean canSync(@Nonnull YusufGuildChannel targetChannel,
+            @Nonnull YusufGuildChannel syncSource) {
         return this.member.canSync(targetChannel.getGuildChannel(), syncSource.getGuildChannel());
     }
 

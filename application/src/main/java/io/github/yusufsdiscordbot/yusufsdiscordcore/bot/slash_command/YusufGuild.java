@@ -429,7 +429,8 @@ public class YusufGuild {
 
     @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member, @Nonnull Role role) {
+    public AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
+            @Nonnull Role role) {
         return this.guild.addRoleToMember(member.getMember(), role);
     }
 
@@ -455,7 +456,7 @@ public class YusufGuild {
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
-                                                          @Nonnull Role role) {
+            @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member.getMember(), role);
     }
 
