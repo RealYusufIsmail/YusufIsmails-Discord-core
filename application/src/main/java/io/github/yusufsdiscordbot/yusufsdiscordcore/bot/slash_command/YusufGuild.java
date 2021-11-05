@@ -391,4 +391,19 @@ public class YusufGuild {
     AuditableRestAction<Integer> prune(int days, boolean wait, @Nonnull Role... roles) {
         return this.guild.prune(days, wait, roles);
     }
+
+    @Nullable
+    public YusufGuildChannel getGuildChannelById(@Nonnull String id) {
+        return new YusufGuildChannel(this.guild.getGuildChannelById(id));
+    }
+
+    @Nullable
+    public YusufGuildChannel getGuildChannelById(long id) {
+        return new YusufGuildChannel(this.guild.getGuildChannelById(id));
+    }
+
+    @Nullable
+    public YusufGuildChannel getGuildChannelById(@Nonnull ChannelType type, long id) {
+        return new YusufGuildChannel(this.guild.getGuildChannelById(type, id));
+    }
 }

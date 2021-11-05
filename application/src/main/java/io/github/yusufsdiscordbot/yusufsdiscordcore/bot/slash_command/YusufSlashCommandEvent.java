@@ -68,6 +68,10 @@ public class YusufSlashCommandEvent {
         return this.event.getChannelType();
     }
 
+    public YusufInteraction getInteraction() {
+        return new YusufInteraction(this.event.getInteraction());
+    }
+
     @Nullable
     public OptionMapping getOption(String option) {
         return this.event.getOption(option);
@@ -128,6 +132,7 @@ public class YusufSlashCommandEvent {
     public void replyMessage(String message, Boolean setEphemeral) {
         this.event.reply(message).setEphemeral(setEphemeral).queue();
     }
+
     /**
      * replays as an ephemeral message.
      */
@@ -152,8 +157,9 @@ public class YusufSlashCommandEvent {
     }
 
     @Nonnull
-    public Interaction getInteraction() {
-        return this.event.getInteraction();
+    @CheckReturnValue
+    public ReplyAction replyFormat(@Nonnull String format, @Nonnull Object... args) {
+        return this.event.replyFormat(format, args);
     }
 
     @Nonnull
