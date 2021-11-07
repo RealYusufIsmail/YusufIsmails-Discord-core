@@ -1,5 +1,5 @@
 // Originally from
-// https://github.com/Together-Java/TJ-Bot/blob/develop/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandVisibility.java,
+// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandVisibility.java,
 // then modified by Yusuf
 /*
  * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
