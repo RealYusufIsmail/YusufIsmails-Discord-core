@@ -66,7 +66,7 @@ sourceCompatibility = JavaVersion.VERSION_17
 
 subprojects {
     //some parts of this gradle copy tj's bot. 
-    //so all credits for that goes towars java Together-Java https://github.com/Together-Java/TJ-Bot/blob/develop/build.gradle#L24
+    //so all credits for that goes towards java Together-Java https://github.com/Together-Java/TJ-Bot/blob/a2a963a9e51792018f1beff3b41b6ba9eab0ca50/build.gradle#L25
     apply plugin: "java"
     apply plugin: "com.diffplug.spotless"
     apply plugin: 'java-library'
