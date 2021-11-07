@@ -1,3 +1,6 @@
+// Originally from
+// https://github.com/Together-Java/TJ-Bot/blob/develop/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandVisibility.java,
+// then modified by Yusuf
 /*
  * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
  * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
@@ -10,9 +13,6 @@
  * applies also to any other work released this way by its authors. You can apply it to your
  * programs, too.
  */
-// Originally from
-// https://github.com/Together-Java/TJ-Bot/blob/develop/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandVisibility.java,
-// then modified by Yusuf
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 /**
