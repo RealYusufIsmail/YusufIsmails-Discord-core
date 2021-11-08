@@ -44,7 +44,7 @@ public interface Command {
      * @return {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
      */
     // Original from
-    //https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L73
+    // https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L73
     // and modified by Yusuf
     CommandVisibility getVisibility();
 
@@ -59,7 +59,7 @@ public interface Command {
      *         {@link OptionData#addChoice(String, int)}
      */
     // Original from
-    //https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91
+    // https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91
     // and modified by Yusuf
     CommandData getCommandData();
 }

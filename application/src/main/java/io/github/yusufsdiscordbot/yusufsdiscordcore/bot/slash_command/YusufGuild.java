@@ -35,6 +35,9 @@ public class YusufGuild {
         this.guild = guild;
     }
 
+    public Guild getGuild() {
+        return this.guild;
+    }
 
     @Nonnull
     @CheckReturnValue
@@ -221,6 +224,16 @@ public class YusufGuild {
     @Nonnull
     public YusufMember getBot() {
         return new YusufMember(this.guild.getSelfMember());
+    }
+
+    @Nonnull
+    public Member getMemberBot() {
+        return this.guild.getSelfMember();
+    }
+
+    @Nonnull
+    public Member getSelfMember() {
+        return this.guild.getSelfMember();
     }
 
     @Nullable
