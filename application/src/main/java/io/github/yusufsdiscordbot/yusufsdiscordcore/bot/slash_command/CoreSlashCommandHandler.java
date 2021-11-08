@@ -15,6 +15,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 
@@ -34,7 +35,7 @@ import java.util.Map;
  * Commands are register by using addCommand with an example being <br>
  * addCommand(new TestCommand())
  */
-public class CoreSlashCommandHandler extends ListenerAdapter {
+public class CoreSlashCommandHandler extends ListenerAdapter{
     private final Map<String, CommandConnector> commands = new HashMap<>();
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -72,12 +73,14 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    public void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent) {
-        var cmd = commands.get(yusufSlashCommandEvent.getEvent().getName());
+    @Override
+    public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
+        var cmd = commands.get(slashCommandEvent.getName());
         if (cmd == null) {
-            yusufSlashCommandEvent.replyMessage("unknown command");
+            slashCommandEvent.reply("unknown command").queue();
             return;
         }
-        cmd.onSlashCommand(yusufSlashCommandEvent);
+        cmd.onSlashCommand(slashCommandEvent);
     }
+
 }

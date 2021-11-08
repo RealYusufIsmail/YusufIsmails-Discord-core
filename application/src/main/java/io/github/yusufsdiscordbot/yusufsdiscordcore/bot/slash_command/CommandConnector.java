@@ -59,4 +59,5 @@ public abstract class CommandConnector implements Command {
     public final CommandData getCommandData() {
         return commandData;
     }
+
 }

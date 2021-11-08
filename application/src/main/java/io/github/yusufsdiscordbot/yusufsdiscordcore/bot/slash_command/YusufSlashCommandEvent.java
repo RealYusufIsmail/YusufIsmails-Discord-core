@@ -16,7 +16,6 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -32,6 +31,7 @@ public class YusufSlashCommandEvent {
     private final SlashCommandEvent event;
 
     public YusufSlashCommandEvent(CommandConnector command, SlashCommandEvent event) {
+        super();
         this.command = command;
         this.event = event;
     }
@@ -100,6 +100,10 @@ public class YusufSlashCommandEvent {
     @Nullable
     public String getSubcommandGroup() {
         return this.event.getSubcommandGroup();
+    }
+
+    public String getCommandPath() {
+        return this.event.getCommandPath();
     }
 
     @Nonnull
