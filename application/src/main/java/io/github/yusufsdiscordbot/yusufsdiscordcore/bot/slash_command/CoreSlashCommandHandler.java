@@ -67,9 +67,9 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     public void addCommand(CommandConnector command) {
         commands.put(command.getName(), command);
         if (command.getVisibility() == CommandVisibility.SERVER) {
-            guildCommandsData.addCommands(command.getCommandData());
+            guildCommandsData.addCommands(command.getCommandData()).queue();
         } else if (command.getVisibility() == CommandVisibility.UNIVERSAL) {
-            globalCommandsData.addCommands(command.getCommandData());
+            globalCommandsData.addCommands(command.getCommandData()).queue();
         }
     }
 
