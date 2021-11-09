@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -36,7 +37,9 @@ import java.util.Map;
  * addCommand(new TestCommand())
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
-    private final Map<String, CommandConnector> commands = new HashMap<>();
+    private final Map<String, CommandConnector> commandConnector = new HashMap<>();
+    private final Map<String, Command> commands = new HashMap<>();
+
     /**
      * Used to determine whether the commands should be global or guild only.
      */
@@ -44,8 +47,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     public CommandListUpdateAction guildCommandsData;
 
     /**
-     * For an example please see <a href=
-     * "https://github.com/YusufsDiscordbot/Yusuf-s-Moderation-Bot/blob/JDA-Development/application/src/main/java/net/yusuf/bot/CommandHandler.java">example</a>
+     * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
     public CoreSlashCommandHandler(JDA jda, Guild guild) {
         globalCommandsData = jda.updateCommands();
@@ -56,7 +58,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      * Used to register the commands. when the developer types addCommand(new TestCommand()). The
      * addCommand will retrieve the commandData which includes name,description,options,sub
      * commands, etc
-     * 
+     *
      * @param command <br>
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
@@ -64,8 +66,8 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      *        The enum {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
      *        determines whether the command should be Global or Guild only.
      */
-    public void addCommand(CommandConnector command, JDA jda) {
-        commands.put(command.getName(), command);
+    public void addCommand(CommandConnector command) {
+        commandConnector.put(command.getName(), command);
         if (command.getVisibility() == CommandVisibility.SERVER) {
             guildCommandsData.addCommands(command.getCommandData());
         } else if (command.getVisibility() == CommandVisibility.UNIVERSAL) {
@@ -73,13 +75,21 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
+    public void addCommand(SlashCommandEvent event) {
+        if (this.commandConnector.containsKey(event.getName())) {
+            CommandConnector slashCommand = this.commandConnector.get(event.getName());
+            slashCommand.onSlashCommand(new YusufSlashCommandEvent(slashCommand, event));
+        }
+
+    }
+
+    /**
+     * Handles the commands
+     *
+     * @param slashCommandEvent The original slash command event,
+     */
     @Override
     public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
-        var cmd = commands.get(slashCommandEvent.getName());
-        if (cmd == null) {
-            slashCommandEvent.reply("unknown command").queue();
-            return;
-        }
-        cmd.onSlashCommand(new YusufSlashCommandEvent(slashCommandEvent));
+        this.addCommand(slashCommandEvent);
     }
 }

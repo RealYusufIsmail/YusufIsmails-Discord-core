@@ -27,9 +27,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class YusufSlashCommandEvent {
+    private final Command slashCommand;
     private final SlashCommandEvent event;
 
-    public YusufSlashCommandEvent(SlashCommandEvent event) {
+    public YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent event) {
+        this.slashCommand = slashCommand;
         this.event = event;
     }
 
