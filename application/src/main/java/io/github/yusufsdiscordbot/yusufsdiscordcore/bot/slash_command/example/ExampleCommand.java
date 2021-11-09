@@ -14,6 +14,6 @@ public class ExampleCommand extends CommandConnector {
 
     @Override
     public void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent) {
-        yusufSlashCommandEvent.reply("example");
+        yusufSlashCommandEvent.replyMessage("example");
     }
 }
