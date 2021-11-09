@@ -13,5 +13,7 @@ public class ExampleCommandHandler extends CoreSlashCommandHandler {
         super(jda, guild);
         addCommand(new ExampleCommand());
 
+        globalCommandsData.queue();
+        guildCommandsData.queue();
     }
 }

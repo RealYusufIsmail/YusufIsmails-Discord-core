@@ -37,7 +37,9 @@ import java.util.Map;
  * addCommand(new TestCommand())
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
-    private final Map<String, CommandConnector> commands = new HashMap<>();
+    private final Map<String, CommandConnector> commandConnector = new HashMap<>();
+    private final Map<String, Command> commands = new HashMap<>();
+
     /**
      * Used to determine whether the commands should be global or guild only.
      */
@@ -65,12 +67,20 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      *        determines whether the command should be Global or Guild only.
      */
     public void addCommand(CommandConnector command) {
-        commands.put(command.getName(), command);
+        commandConnector.put(command.getName(), command);
         if (command.getVisibility() == CommandVisibility.SERVER) {
-            guildCommandsData.addCommands(command.getCommandData()).queue();
+            guildCommandsData.addCommands(command.getCommandData());
         } else if (command.getVisibility() == CommandVisibility.UNIVERSAL) {
-            globalCommandsData.addCommands(command.getCommandData()).queue();
+            globalCommandsData.addCommands(command.getCommandData());
         }
+    }
+
+    public void addCommand(SlashCommandEvent event) {
+        if (this.commandConnector.containsKey(event.getName())) {
+            CommandConnector slashCommand = this.commandConnector.get(event.getName());
+            slashCommand.onSlashCommand(new YusufSlashCommandEvent(slashCommand, event));
+        }
+
     }
 
     /**
@@ -80,12 +90,6 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @Override
     public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
-        var cmd = commands.get(slashCommandEvent.getName());
-        if (cmd == null) {
-            slashCommandEvent.reply("unknown command").queue();
-            return;
-        }
-        Command slashCommand = this.commands.get(cmd.getName());
-        cmd.onSlashCommand(new YusufSlashCommandEvent(slashCommand, slashCommandEvent));
+        this.addCommand(slashCommandEvent);
     }
 }
