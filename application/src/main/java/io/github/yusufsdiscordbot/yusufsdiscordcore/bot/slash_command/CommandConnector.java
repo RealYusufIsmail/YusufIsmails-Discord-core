@@ -55,6 +55,8 @@ public abstract class CommandConnector implements Command {
         return commandVisibility;
     }
 
+    protected abstract YusufSlashCommandEvent onSlashCommand();
+
     @Override
     public final CommandData getCommandData() {
         return commandData;

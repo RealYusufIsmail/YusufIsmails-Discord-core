@@ -80,6 +80,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
             slashCommandEvent.reply("unknown command").queue();
             return;
         }
-        cmd.onSlashCommand(new YusufSlashCommandEvent(slashCommandEvent));
+        YusufSlashCommandEvent event = cmd.onSlashCommand();
+        cmd.onSlashCommand(event);
     }
 }
