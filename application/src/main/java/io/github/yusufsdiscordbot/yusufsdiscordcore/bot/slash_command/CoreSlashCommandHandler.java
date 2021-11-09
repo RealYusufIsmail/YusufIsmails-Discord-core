@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
@@ -44,8 +45,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     public CommandListUpdateAction guildCommandsData;
 
     /**
-     * For an example please see <a href=
-     * "https://github.com/YusufsDiscordbot/Yusuf-s-Moderation-Bot/blob/JDA-Development/application/src/main/java/net/yusuf/bot/CommandHandler.java">example</a>
+     * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
     public CoreSlashCommandHandler(JDA jda, Guild guild) {
         globalCommandsData = jda.updateCommands();
@@ -56,7 +56,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      * Used to register the commands. when the developer types addCommand(new TestCommand()). The
      * addCommand will retrieve the commandData which includes name,description,options,sub
      * commands, etc
-     * 
+     *
      * @param command <br>
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
@@ -64,7 +64,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      *        The enum {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
      *        determines whether the command should be Global or Guild only.
      */
-    public void addCommand(CommandConnector command, JDA jda) {
+    public void addCommand(CommandConnector command) {
         commands.put(command.getName(), command);
         if (command.getVisibility() == CommandVisibility.SERVER) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -80,7 +80,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
             slashCommandEvent.reply("unknown command").queue();
             return;
         }
-        YusufSlashCommandEvent event = cmd.onSlashCommand();
-        cmd.onSlashCommand(event);
+        Command slashCommand = this.commands.get(cmd.getName());
+        cmd.onSlashCommand(new YusufSlashCommandEvent(slashCommand, slashCommandEvent));
     }
 }
