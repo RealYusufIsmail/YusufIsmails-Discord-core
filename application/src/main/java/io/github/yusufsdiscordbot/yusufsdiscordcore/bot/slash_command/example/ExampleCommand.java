@@ -9,11 +9,11 @@ public class ExampleCommand extends CommandConnector {
      * Were the command is registered.
      */
     protected ExampleCommand() {
-        super("test", "This is a test", CommandVisibility.SERVER);
+        super("example", "This is an example", CommandVisibility.SERVER);
     }
 
     @Override
     public void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent) {
-        yusufSlashCommandEvent.reply("test");
+        yusufSlashCommandEvent.reply("example");
     }
 }
