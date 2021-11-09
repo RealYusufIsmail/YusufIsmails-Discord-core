@@ -73,6 +73,11 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
+    /**
+     * Handles the commands
+     *
+     * @param slashCommandEvent The original slash command event,
+     */
     @Override
     public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
         var cmd = commands.get(slashCommandEvent.getName());
