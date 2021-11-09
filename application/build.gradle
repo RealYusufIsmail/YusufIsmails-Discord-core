@@ -13,7 +13,7 @@ application {
 
 archivesBaseName = 'yusufsdiscordcore'
 description = "A core discord bot library for my bots"
-version = '1.0.18'
+version = '1.0.19'
 
 repositories {
     mavenCentral()

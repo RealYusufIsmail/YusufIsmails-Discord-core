@@ -35,7 +35,7 @@ import java.util.Map;
  * Commands are register by using addCommand with an example being <br>
  * addCommand(new TestCommand())
  */
-public class CoreSlashCommandHandler extends ListenerAdapter{
+public class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, CommandConnector> commands = new HashMap<>();
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -48,7 +48,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter{
      * "https://github.com/YusufsDiscordbot/Yusuf-s-Moderation-Bot/blob/JDA-Development/application/src/main/java/net/yusuf/bot/CommandHandler.java">example</a>
      */
     public CoreSlashCommandHandler(JDA jda, Guild guild) {
-        //jda.upsertCommand(commands.get("help").getCommandData());
+        // jda.upsertCommand(commands.get("help").getCommandData());
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
     }
@@ -65,7 +65,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter{
      *        The enum {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
      *        determines whether the command should be Global or Guild only.
      */
-    public void addCommand(CommandConnector command) {
+    public void addCommand(CommandConnector command, JDA jda) {
         commands.put(command.getName(), command);
         if (command.getVisibility() == CommandVisibility.SERVER) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -81,7 +81,6 @@ public class CoreSlashCommandHandler extends ListenerAdapter{
             slashCommandEvent.reply("unknown command").queue();
             return;
         }
-        cmd.onSlashCommand(slashCommandEvent);
+        cmd.onSlashCommand(new YusufSlashCommandEvent(cmd, slashCommandEvent));
     }
-
 }

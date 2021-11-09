@@ -31,7 +31,6 @@ public class YusufSlashCommandEvent {
     private final SlashCommandEvent event;
 
     public YusufSlashCommandEvent(CommandConnector command, SlashCommandEvent event) {
-        super();
         this.command = command;
         this.event = event;
     }
@@ -102,10 +101,6 @@ public class YusufSlashCommandEvent {
         return this.event.getSubcommandGroup();
     }
 
-    public String getCommandPath() {
-        return this.event.getCommandPath();
-    }
-
     @Nonnull
     public MessageChannel getChannel() {
         return this.event.getChannel();
@@ -150,7 +145,6 @@ public class YusufSlashCommandEvent {
     /**
      * replays as an ephemeral message.
      */
-    @CheckReturnValue
     public void replyEphemeral(String message) {
         this.event.reply(message).setEphemeral(true).queue();
     }
@@ -164,12 +158,10 @@ public class YusufSlashCommandEvent {
     /**
      * replays as an embed message.
      */
-    @CheckReturnValue
     public void replyEmbed(MessageEmbed messageEmbed) {
         this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).queue();
     }
 
-    @CheckReturnValue
     public void replyEphemeralEmbed(MessageEmbed messageEmbed) {
         this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).setEphemeral(true).queue();
     }
