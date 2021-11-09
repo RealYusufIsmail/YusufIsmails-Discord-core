@@ -4,7 +4,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.CommandCon
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.CommandVisibility;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufSlashCommandEvent;
 
-public class ExampleCommand extends CommandConnector {
+class ExampleCommand extends CommandConnector {
     /**
      * Were the command is registered.
      */
