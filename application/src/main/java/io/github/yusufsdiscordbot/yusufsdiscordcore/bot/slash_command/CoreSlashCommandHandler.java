@@ -48,7 +48,6 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      * "https://github.com/YusufsDiscordbot/Yusuf-s-Moderation-Bot/blob/JDA-Development/application/src/main/java/net/yusuf/bot/CommandHandler.java">example</a>
      */
     public CoreSlashCommandHandler(JDA jda, Guild guild) {
-        // jda.upsertCommand(commands.get("help").getCommandData());
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
     }
