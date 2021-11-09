@@ -27,20 +27,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class YusufSlashCommandEvent {
-    private final CommandConnector command;
     private final SlashCommandEvent event;
 
-    public YusufSlashCommandEvent(CommandConnector command, SlashCommandEvent event) {
-        this.command = command;
+    public YusufSlashCommandEvent(SlashCommandEvent event) {
         this.event = event;
     }
 
     public SlashCommandEvent getEvent() {
         return this.event;
-    }
-
-    public CommandConnector getCommand() {
-        return this.command;
     }
 
     public YusufGuild getGuild() {
