@@ -13,7 +13,7 @@ application {
 
 archivesBaseName = 'yusufsdiscordcore'
 description = "A core discord bot library for my bots"
-version = '1.0.21'
+version = '1.0.22'
 
 repositories {
     mavenCentral()
@@ -33,11 +33,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
-    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '4.3.0_339'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '4.3.0_346'
     implementation group: 'pw.chew', name: 'jda-chewtils-command', version: '1.22.0'
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.5'

@@ -206,4 +206,8 @@ public class YusufSlashCommandEvent {
     public ReplyAction deferReply() {
         return this.event.deferReply();
     }
+
+    public Command getSlashCommand() {
+        return slashCommand;
+    }
 }
