@@ -143,7 +143,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getAvatarId() 
+     * @see Member#getAvatarId()
      */
     @Nullable
     public String getAvatarId() {
@@ -151,7 +151,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getAvatarUrl() 
+     * @see Member#getAvatarUrl()
      */
     @Nullable
     public String getAvatarUrl() {
@@ -159,7 +159,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getEffectiveAvatarUrl() 
+     * @see Member#getEffectiveAvatarUrl()
      */
     @Nullable
     public String getEffectiveAvatarUrl() {
@@ -167,7 +167,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getRoles() 
+     * @see Member#getRoles()
      */
     @Nullable
     public List<Role> getRoles() {
@@ -175,7 +175,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getColor() 
+     * @see Member#getColor()
      */
     @Nullable
     public Color getColor() {
@@ -183,41 +183,42 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getColorRaw() 
+     * @see Member#getColorRaw()
      */
     public int getColorRaw() {
         return this.member.getColorRaw();
     }
 
     /**
-     * @see Member#canInteract(Member) 
+     * @see Member#canInteract(Member)
      */
     public boolean canInteract(@Nonnull Member member) {
         return this.member.canInteract(member);
     }
+
     /**
-     * @see Member#canInteract(Member) 
+     * @see Member#canInteract(Member)
      */
     public boolean canInteract(@Nonnull YusufMember member) {
         return this.member.canInteract(member.getMember());
     }
 
     /**
-     * @see Member#canInteract(Emote) 
+     * @see Member#canInteract(Emote)
      */
     public boolean canInteract(@Nonnull Emote emote) {
         return this.member.canInteract(emote);
     }
 
     /**
-     * @see Member#isOwner() 
+     * @see Member#isOwner()
      */
     public boolean isOwner() {
         return this.member.isOwner();
     }
 
     /**
-     * @see Member#isPending() 
+     * @see Member#isPending()
      */
     @Incubating
     public boolean isPending() {
@@ -225,7 +226,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getDefaultChannel() 
+     * @see Member#getDefaultChannel()
      */
     @Nullable
     public TextChannel getDefaultChannel() {
@@ -233,7 +234,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#ban(int) 
+     * @see Member#ban(int)
      */
     @Nullable
     @CheckReturnValue
@@ -242,7 +243,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#ban(int, String) 
+     * @see Member#ban(int, String)
      */
     @Nullable
     @CheckReturnValue
@@ -251,7 +252,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#kick() 
+     * @see Member#kick()
      */
     @Nullable
     @CheckReturnValue
@@ -260,7 +261,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#kick(String) 
+     * @see Member#kick(String)
      */
     @Nullable
     @CheckReturnValue
@@ -269,7 +270,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#mute(boolean) 
+     * @see Member#mute(boolean)
      */
     @Nullable
     @CheckReturnValue
@@ -278,7 +279,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#deafen(boolean) 
+     * @see Member#deafen(boolean)
      */
     @Nullable
     @CheckReturnValue
@@ -287,7 +288,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#modifyNickname(String) 
+     * @see Member#modifyNickname(String)
      */
     @Nonnull
     @CheckReturnValue
@@ -311,12 +312,12 @@ public class YusufMember {
         return this.member;
     }
 
-    
+
     @Nonnull
     public String getUserId() {
         return this.getYusufUser().getUserId();
     }
-    
+
     @Nonnull
     public Long getUserIdLong() {
         return this.getYusufUser().getUserIdLong();
@@ -333,7 +334,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getId() 
+     * @see Member#getId()
      */
     @Nonnull
     public String getMemberId() {
@@ -349,7 +350,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getPermissions() 
+     * @see Member#getPermissions()
      */
     @Nullable
     public EnumSet<Permission> getPermissions() {
@@ -357,14 +358,14 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getPermissions(GuildChannel) 
+     * @see Member#getPermissions(GuildChannel)
      */
     @Nullable
     public EnumSet<Permission> getPermissions(@Nonnull GuildChannel channel) {
         return this.member.getPermissions(channel);
     }
 
-    
+
     @Nullable
     public EnumSet<Permission> getPermissions(@Nonnull YusufGuildChannel channel) {
         return this.member.getPermissions(channel.getGuildChannel());
@@ -379,7 +380,7 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#getPermissionsExplicit(GuildChannel) 
+     * @see Member#getPermissionsExplicit(GuildChannel)
      */
     @Nullable
     public EnumSet<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel) {
@@ -392,14 +393,14 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#hasPermission(Permission...) 
+     * @see Member#hasPermission(Permission...)
      */
     public boolean hasPermission(@Nonnull Permission... permissions) {
         return this.member.hasPermission(permissions);
     }
 
     /**
-     * @see Member#hasPermission(Collection) 
+     * @see Member#hasPermission(Collection)
      */
     public boolean hasPermission(@Nonnull Collection<Permission> permissions) {
         return this.member.hasPermission(permissions);
@@ -412,8 +413,9 @@ public class YusufMember {
             @Nonnull Permission... permissions) {
         return this.member.hasPermission(channel, permissions);
     }
+
     /**
-     * @see Member#hasPermission(GuildChannel, Collection) 
+     * @see Member#hasPermission(GuildChannel, Collection)
      */
     public boolean hasPermission(@Nonnull GuildChannel channel,
             @Nonnull Collection<Permission> permissions) {
@@ -431,21 +433,21 @@ public class YusufMember {
     }
 
     /**
-     * @see Member#hasAccess(GuildChannel) 
+     * @see Member#hasAccess(GuildChannel)
      */
     public boolean hasAccess(@Nonnull GuildChannel channel) {
         return this.member.hasAccess(channel);
     }
 
     /**
-     * @see Member#canSync(GuildChannel, GuildChannel) 
+     * @see Member#canSync(GuildChannel, GuildChannel)
      */
     public boolean canSync(@Nonnull GuildChannel targetChannel, @Nonnull GuildChannel syncSource) {
         return this.member.canSync(targetChannel, syncSource);
     }
 
     /**
-     * @see Member#canSync(GuildChannel) 
+     * @see Member#canSync(GuildChannel)
      */
     public boolean canSync(@Nonnull GuildChannel channel) {
         return this.member.canSync(channel);

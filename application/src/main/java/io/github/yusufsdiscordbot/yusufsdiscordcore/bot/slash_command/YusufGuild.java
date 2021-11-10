@@ -610,7 +610,7 @@ public class YusufGuild {
     /**
      * @see Guild#getMaxBitrate()
      */
-    public int getMaxBitrate(){
+    public int getMaxBitrate() {
         return this.guild.getMaxBitrate();
     }
 
