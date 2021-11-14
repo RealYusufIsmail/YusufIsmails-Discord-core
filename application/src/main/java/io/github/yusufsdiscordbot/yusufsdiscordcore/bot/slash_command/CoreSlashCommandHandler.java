@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +38,8 @@ import java.util.Map;
  * addCommand(new TestCommand())
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
-    private final Map<String, CommandConnector> commandConnector = new HashMap<>();
     private final Map<String, Command> commands = new HashMap<>();
+
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -89,7 +90,7 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent The original slash command event,
      */
     @Override
-    public void onSlashCommand(SlashCommandEvent slashCommandEvent) {
+    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.addCommand(slashCommandEvent);
     }
 }

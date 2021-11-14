@@ -62,7 +62,7 @@ allprojects {
         ext.isReleaseVersion = !version.endsWith("RELEASE")
     }
 }
-sourceCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_16
 
 subprojects {
     //some parts of this gradle copy tj's bot. 
@@ -91,8 +91,8 @@ subprojects {
         dependsOn 'spotlessApply'
 
         // Nails the Java-Version of every Subproject
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_16
+        targetCompatibility = JavaVersion.VERSION_16
     }
 
     spotless {

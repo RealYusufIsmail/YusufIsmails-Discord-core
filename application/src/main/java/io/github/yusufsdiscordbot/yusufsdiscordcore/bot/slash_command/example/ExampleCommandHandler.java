@@ -6,8 +6,10 @@ import net.dv8tion.jda.api.entities.Guild;
 
 public class ExampleCommandHandler extends CoreSlashCommandHandler {
     /**
-     * For an example please see <a href=
-     * "https://github.com/YusufsDiscordbot/Yusuf-s-Moderation-Bot/blob/JDA-Development/application/src/main/java/net/yusuf/bot/CommandHandler.java">example</a>
+     * Handles and registers the commands
+     * 
+     * @param jda used to register global command
+     * @param guild used to register guild commands
      */
     public ExampleCommandHandler(JDA jda, Guild guild) {
         super(jda, guild);

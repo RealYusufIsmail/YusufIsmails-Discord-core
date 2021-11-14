@@ -35,22 +35,34 @@ public class YusufGuild {
         this.guild = guild;
     }
 
+    /**
+     * @see Guild
+     */
     public Guild getGuild() {
         return this.guild;
     }
 
+    /**
+     * @see Guild#retrieveCommands();
+     */
     @Nonnull
     @CheckReturnValue
     public RestAction<List<Command>> retrieveCommands() {
         return this.guild.retrieveCommands();
     }
 
+    /**
+     * @see Guild#retrieveCommandById(String)
+     */
     @Nonnull
     @CheckReturnValue
     public RestAction<Command> retrieveCommandById(@Nonnull String commandId) {
         return this.guild.retrieveCommandById(commandId);
     }
 
+    /**
+     * @see Guild#retrieveCommandById(long)
+     */
     @Nonnull
     @CheckReturnValue
     public RestAction<Command> retrieveCommandById(long commandId) {
@@ -257,6 +269,11 @@ public class YusufGuild {
     }
 
     @Nonnull
+    public long getIdLong() {
+        return this.guild.getIdLong();
+    }
+
+    @Nonnull
     public String getOwnerId() {
         return this.guild.getOwnerId();
     }
@@ -288,7 +305,7 @@ public class YusufGuild {
     @CheckReturnValue
     public Boolean checkReasonLength(String reason, YusufSlashCommandEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
-            event.replyEphemeralMessage("You have gone over the reason character limit which is "
+            event.replyEphemeral("You have gone over the reason character limit which is "
                     + REASON_MAX_LENGTH + " .");
             return false;
         }
@@ -545,27 +562,76 @@ public class YusufGuild {
         return this.guild.modifyRolePositions(useAscendingOrder);
     }
 
+    /**
+     * @see Guild#mute(Member, boolean)
+     */
     @Nonnull
     @CheckReturnValue
     AuditableRestAction<Void> mute(@Nonnull Member member, boolean mute) {
         return this.guild.mute(member, mute);
     }
 
+    /**
+     * @see Guild#mute(Member, boolean)
+     */
     @Nonnull
     @CheckReturnValue
     AuditableRestAction<Void> mute(@Nonnull YusufMember member, boolean mute) {
         return this.guild.mute(member.getMember(), mute);
     }
 
+    /**
+     * @see Guild#deafen(Member, boolean)
+     */
     @Nonnull
     @CheckReturnValue
     AuditableRestAction<Void> deafen(@Nonnull Member member, boolean deafen) {
         return this.guild.deafen(member, deafen);
     }
 
+    /**
+     * @see Guild#deafen(Member, boolean)
+     */
     @Nonnull
     @CheckReturnValue
     AuditableRestAction<Void> deafen(@Nonnull YusufMember member, boolean deafen) {
         return this.guild.deafen(member.getMember(), deafen);
+    }
+
+
+    /**
+     * @see Guild#getBoosters()
+     */
+    @Nonnull
+    public List<Member> getBoosters() {
+        return this.guild.getBoosters();
+    }
+
+    /**
+     * @see Guild#getMaxBitrate()
+     */
+    public int getMaxBitrate() {
+        return this.guild.getMaxBitrate();
+    }
+
+    /**
+     * @see Guild#getMaxFileSize()
+     */
+    public long getMaxFileSize() {
+        return this.guild.getMaxFileSize();
+    }
+
+    /**
+     * @see Guild#getMaxEmotes()
+     */
+    public int getMaxEmotes() {
+        return this.guild.getMaxEmotes();
+    }
+
+    /**
+     * @see Guild#getOwner()
+     */
+    public YusufMember getOwner() {
+        return new YusufMember(this.guild.getOwner());
     }
 }
