@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class YusufMember {
     private final Member member;
 

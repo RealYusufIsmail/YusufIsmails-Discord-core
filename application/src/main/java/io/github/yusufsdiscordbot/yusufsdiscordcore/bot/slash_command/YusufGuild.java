@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.CheckReturnValue;
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class YusufGuild {
     private static final Integer REASON_MAX_LENGTH = 512;
     private final Guild guild;

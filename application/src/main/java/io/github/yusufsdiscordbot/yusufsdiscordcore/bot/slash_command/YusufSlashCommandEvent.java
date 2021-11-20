@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class YusufSlashCommandEvent {
     private final Command slashCommand;
     private final SlashCommandEvent event;

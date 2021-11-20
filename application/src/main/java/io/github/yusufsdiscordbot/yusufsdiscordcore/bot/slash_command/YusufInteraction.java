@@ -20,6 +20,7 @@ import net.dv8tion.jda.api.interactions.InteractionType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings("unused")
 public class YusufInteraction {
     private final Interaction interaction;
 
