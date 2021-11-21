@@ -38,7 +38,7 @@ import java.util.Map;
  * addCommand(new TestCommand())
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
-    private final Map<String, Command> commands = new HashMap<>();
+    private final Map<String, CommandConnector> commandConnector = new HashMap<>();
 
 
     /**

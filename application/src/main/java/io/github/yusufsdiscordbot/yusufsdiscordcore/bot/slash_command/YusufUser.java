@@ -7,16 +7,11 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
 
 import javax.annotation.Nonnull;
-import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unused")
-public class YusufUser {
-    private final User user;
-
-    public YusufUser(User user) {
-        this.user = user;
-    }
+public record YusufUser(User user) {
 
     /**
      * @see User
@@ -146,7 +141,7 @@ public class YusufUser {
      * @see User#getFlags()
      */
     @Nonnull
-    public EnumSet<User.UserFlag> getFlags() {
+    public Set<User.UserFlag> getFlags() {
         return this.user.getFlags();
     }
 

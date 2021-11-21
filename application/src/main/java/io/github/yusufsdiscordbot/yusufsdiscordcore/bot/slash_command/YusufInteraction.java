@@ -16,17 +16,13 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.InteractionType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
-public class YusufInteraction {
-    private final Interaction interaction;
-
-    public YusufInteraction(Interaction interaction) {
-        this.interaction = interaction;
-    }
+public record YusufInteraction(Interaction interaction) {
 
     public Interaction getInteraction() {
         return interaction;
@@ -46,8 +42,7 @@ public class YusufInteraction {
         return interaction.getToken();
     }
 
-    @Nullable
-    public YusufGuild getGuild() {
+    public @NotNull YusufGuild getGuild() {
         return new YusufGuild(interaction.getGuild());
     }
 

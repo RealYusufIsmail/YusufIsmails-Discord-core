@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -25,16 +26,11 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("unused")
-public class YusufMember {
-    private final Member member;
-
-    public YusufMember(Member member) {
-        this.member = member;
-    }
+public record YusufMember(Member member) {
 
     /**
      * @see Member#getUser()
@@ -106,32 +102,28 @@ public class YusufMember {
     /**
      * @see Member#getActivities()
      */
-    @Nullable
-    public List<Activity> getActivities() {
+    public @NotNull List<Activity> getActivities() {
         return this.member.getActivities();
     }
 
     /**
      * @see Member#getOnlineStatus()
      */
-    @Nullable
-    public OnlineStatus getOnlineStatus() {
+    public @NotNull OnlineStatus getOnlineStatus() {
         return this.member.getOnlineStatus();
     }
 
     /**
      * @see Member#getOnlineStatus(ClientType)
      */
-    @Nullable
-    public OnlineStatus getOnlineStatus(@Nonnull ClientType type) {
+    public @NotNull OnlineStatus getOnlineStatus(@Nonnull ClientType type) {
         return this.member.getOnlineStatus(type);
     }
 
     /**
      * @see Member#getActiveClients()
      */
-    @Nullable
-    public EnumSet<ClientType> getActiveClients() {
+    public @NotNull Set<ClientType> getActiveClients() {
         return this.member.getActiveClients();
     }
 
@@ -162,16 +154,14 @@ public class YusufMember {
     /**
      * @see Member#getEffectiveAvatarUrl()
      */
-    @Nullable
-    public String getEffectiveAvatarUrl() {
+    public @NotNull String getEffectiveAvatarUrl() {
         return this.member.getEffectiveAvatarUrl();
     }
 
     /**
      * @see Member#getRoles()
      */
-    @Nullable
-    public List<Role> getRoles() {
+    public @NotNull List<Role> getRoles() {
         return this.member.getRoles();
     }
 
@@ -237,54 +227,48 @@ public class YusufMember {
     /**
      * @see Member#ban(int)
      */
-    @Nullable
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(int delDays) {
+    public @NotNull AuditableRestAction<Void> ban(int delDays) {
         return this.member.ban(delDays);
     }
 
     /**
      * @see Member#ban(int, String)
      */
-    @Nullable
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(int delDays, @Nullable String reason) {
+    public @NotNull AuditableRestAction<Void> ban(int delDays, @Nullable String reason) {
         return this.member.ban(delDays, reason);
     }
 
     /**
      * @see Member#kick()
      */
-    @Nullable
     @CheckReturnValue
-    public AuditableRestAction<Void> kick() {
+    public @NotNull AuditableRestAction<Void> kick() {
         return this.member.kick();
     }
 
     /**
      * @see Member#kick(String)
      */
-    @Nullable
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(String reason) {
+    public @NotNull AuditableRestAction<Void> kick(String reason) {
         return this.member.kick(reason);
     }
 
     /**
      * @see Member#mute(boolean)
      */
-    @Nullable
     @CheckReturnValue
-    public AuditableRestAction<Void> mute(boolean mute) {
+    public @NotNull AuditableRestAction<Void> mute(boolean mute) {
         return this.member.mute(mute);
     }
 
     /**
      * @see Member#deafen(boolean)
      */
-    @Nullable
     @CheckReturnValue
-    public AuditableRestAction<Void> deafen(boolean deafen) {
+    public @NotNull AuditableRestAction<Void> deafen(boolean deafen) {
         return this.member.deafen(deafen);
     }
 
@@ -353,43 +337,37 @@ public class YusufMember {
     /**
      * @see Member#getPermissions()
      */
-    @Nullable
-    public EnumSet<Permission> getPermissions() {
+    public @NotNull Set<Permission> getPermissions() {
         return this.member.getPermissions();
     }
 
     /**
      * @see Member#getPermissions(GuildChannel)
      */
-    @Nullable
-    public EnumSet<Permission> getPermissions(@Nonnull GuildChannel channel) {
+    public @NotNull Set<Permission> getPermissions(@Nonnull GuildChannel channel) {
         return this.member.getPermissions(channel);
     }
 
 
-    @Nullable
-    public EnumSet<Permission> getPermissions(@Nonnull YusufGuildChannel channel) {
+    public @NotNull Set<Permission> getPermissions(@Nonnull YusufGuildChannel channel) {
         return this.member.getPermissions(channel.getGuildChannel());
     }
 
     /**
      * @see Member#getPermissionsExplicit()
      */
-    @Nullable
-    public EnumSet<Permission> getPermissionsExplicit() {
+    public @NotNull Set<Permission> getPermissionsExplicit() {
         return this.member.getPermissionsExplicit();
     }
 
     /**
      * @see Member#getPermissionsExplicit(GuildChannel)
      */
-    @Nullable
-    public EnumSet<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel) {
+    public @NotNull Set<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel) {
         return this.member.getPermissionsExplicit(channel);
     }
 
-    @Nullable
-    public EnumSet<Permission> getPermissionsExplicit(@Nonnull YusufGuildChannel channel) {
+    public @NotNull Set<Permission> getPermissionsExplicit(@Nonnull YusufGuildChannel channel) {
         return this.member.getPermissionsExplicit(channel.getGuildChannel());
     }
 
@@ -411,7 +389,7 @@ public class YusufMember {
      * @see Member#hasPermission(GuildChannel, Permission...)
      */
     public boolean hasPermission(@Nonnull GuildChannel channel,
-            @Nonnull Permission... permissions) {
+                                 @Nonnull Permission... permissions) {
         return this.member.hasPermission(channel, permissions);
     }
 
@@ -419,17 +397,17 @@ public class YusufMember {
      * @see Member#hasPermission(GuildChannel, Collection)
      */
     public boolean hasPermission(@Nonnull GuildChannel channel,
-            @Nonnull Collection<Permission> permissions) {
+                                 @Nonnull Collection<Permission> permissions) {
         return this.member.hasPermission(channel, permissions);
     }
 
     public boolean hasPermission(@Nonnull YusufGuildChannel channel,
-            @Nonnull Permission... permissions) {
+                                 @Nonnull Permission... permissions) {
         return this.member.hasPermission(channel.getGuildChannel(), permissions);
     }
 
     public boolean hasPermission(@Nonnull YusufGuildChannel channel,
-            @Nonnull Collection<Permission> permissions) {
+                                 @Nonnull Collection<Permission> permissions) {
         return this.member.hasPermission(channel.getGuildChannel(), permissions);
     }
 
@@ -459,7 +437,7 @@ public class YusufMember {
     }
 
     public boolean canSync(@Nonnull YusufGuildChannel targetChannel,
-            @Nonnull YusufGuildChannel syncSource) {
+                           @Nonnull YusufGuildChannel syncSource) {
         return this.member.canSync(targetChannel.getGuildChannel(), syncSource.getGuildChannel());
     }
 

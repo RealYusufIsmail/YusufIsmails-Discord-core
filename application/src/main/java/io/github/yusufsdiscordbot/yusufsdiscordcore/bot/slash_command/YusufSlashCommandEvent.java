@@ -20,6 +20,8 @@ import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -27,49 +29,48 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class YusufSlashCommandEvent {
-    private final Command slashCommand;
-    private final SlashCommandEvent event;
-
-    public YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent event) {
-        this.slashCommand = slashCommand;
-        this.event = event;
-    }
+public record YusufSlashCommandEvent(
+        Command slashCommand,
+        SlashCommandEvent event) {
 
     public SlashCommandEvent getEvent() {
         return this.event;
     }
 
-    public YusufGuild getGuild() {
+    @Contract(" -> new")
+    public @NotNull YusufGuild getGuild() {
         return new YusufGuild(this.event.getGuild());
     }
 
-    public YusufMember getMember() {
+    @Contract(" -> new")
+    public @NotNull YusufMember getMember() {
         return new YusufMember(this.event.getMember());
     }
 
-    public YusufUser getUser() {
+    @Contract(" -> new")
+    public @NotNull YusufUser getUser() {
         return new YusufUser((this.event.getUser()));
     }
 
-    public TextChannel getTextChannel() {
+    public @NotNull TextChannel getTextChannel() {
         return this.event.getTextChannel();
     }
 
-    public JDA getJDA() {
+    public @NotNull JDA getJDA() {
         return this.event.getJDA();
     }
 
-    public ChannelType getChannelType() {
+    public @NotNull ChannelType getChannelType() {
         return this.event.getChannelType();
     }
 
-    public YusufInteraction getInteraction() {
+    @Contract(" -> new")
+    public @NotNull YusufInteraction getInteraction() {
         return new YusufInteraction(this.event.getInteraction());
     }
 
-    @Nullable
-    public YusufOptionMapping getYusufOption(String option) {
+    @Contract("_ -> new")
+    public @NotNull YusufOptionMapping getYusufOption(String option) {
         return new YusufOptionMapping(this.event.getOption(option));
     }
 
@@ -78,13 +79,11 @@ public class YusufSlashCommandEvent {
         return this.event.getOption(option);
     }
 
-    @Nullable
-    public List<OptionMapping> getOptionByType(OptionType type) {
+    public @NotNull List<OptionMapping> getOptionByType(OptionType type) {
         return this.event.getOptionsByType(type);
     }
 
-    @Nullable
-    public List<OptionMapping> getOptionByType(YusufOptionType type) {
+    public @NotNull List<OptionMapping> getOptionByType(@NotNull YusufOptionType type) {
         return this.event.getOptionsByType(type.getOptionType());
     }
 
@@ -129,12 +128,10 @@ public class YusufSlashCommandEvent {
         return this.event.reply(message).setEphemeral(setEphemeral).setTTS(setTTS);
     }
 
-    @CheckReturnValue
     public void replyMessage(String message) {
         this.event.reply(message).queue();
     }
 
-    @CheckReturnValue
     public void replyMessage(String message, Boolean setEphemeral) {
         this.event.reply(message).setEphemeral(setEphemeral).queue();
     }
@@ -156,11 +153,11 @@ public class YusufSlashCommandEvent {
      * replays as an embed message.
      */
     public void replyEmbed(MessageEmbed messageEmbed) {
-        this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).queue();
+        this.event.replyEmbeds(messageEmbed).queue();
     }
 
     public void replyEphemeralEmbed(MessageEmbed messageEmbed) {
-        this.event.replyEmbeds(messageEmbed, new MessageEmbed[0]).setEphemeral(true).queue();
+        this.event.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
 
     @Nonnull

@@ -13,27 +13,17 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-import net.dv8tion.jda.api.entities.GuildChannel;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
-public class YusufOptionMapping {
-    private final OptionMapping optionMapping;
-
-    public YusufOptionMapping(OptionMapping optionMapping) {
-        this.optionMapping = optionMapping;
-    }
+public record YusufOptionMapping(OptionMapping optionMapping) {
 
     public OptionMapping getOptionMapping() {
         return optionMapping;
     }
 
-    @Nullable
     public YusufMember getAsMember() {
         return new YusufMember(optionMapping.getAsMember());
     }

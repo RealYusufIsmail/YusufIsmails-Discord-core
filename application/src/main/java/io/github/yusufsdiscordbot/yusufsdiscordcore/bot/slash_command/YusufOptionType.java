@@ -16,12 +16,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 
 @SuppressWarnings("unused")
-public class YusufOptionType {
-    private final OptionType optionType;
-
-    public YusufOptionType(OptionType optionType) {
-        this.optionType = optionType;
-    }
+public record YusufOptionType(OptionType optionType) {
 
     public OptionType getOptionType() {
         return optionType;

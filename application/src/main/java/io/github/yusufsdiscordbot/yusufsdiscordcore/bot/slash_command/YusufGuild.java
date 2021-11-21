@@ -21,6 +21,7 @@ import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.*;
 import net.dv8tion.jda.api.requests.restaction.order.RoleOrderAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,13 +29,8 @@ import javax.annotation.CheckReturnValue;
 import java.util.*;
 
 @SuppressWarnings("unused")
-public class YusufGuild {
+public record YusufGuild(Guild guild) {
     private static final Integer REASON_MAX_LENGTH = 512;
-    private final Guild guild;
-
-    public YusufGuild(Guild guild) {
-        this.guild = guild;
-    }
 
     /**
      * @see Guild
@@ -134,28 +130,28 @@ public class YusufGuild {
     @Nonnull
     @CheckReturnValue
     public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(@Nonnull String id,
-            @Nonnull Collection<? extends CommandPrivilege> privileges) {
+                                                                          @Nonnull Collection<? extends CommandPrivilege> privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @Nonnull
     @CheckReturnValue
     public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
-            @Nonnull Collection<? extends CommandPrivilege> privileges) {
+                                                                          @Nonnull Collection<? extends CommandPrivilege> privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @Nonnull
     @CheckReturnValue
     public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(@Nonnull String id,
-            @Nonnull CommandPrivilege... privileges) {
+                                                                          @Nonnull CommandPrivilege... privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @Nonnull
     @CheckReturnValue
-    public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(@Nonnull long id,
-            @Nonnull CommandPrivilege... privileges) {
+    public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
+                                                                          @Nonnull CommandPrivilege... privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
@@ -269,7 +265,6 @@ public class YusufGuild {
         return this.guild.getId();
     }
 
-    @Nonnull
     public long getIdLong() {
         return this.guild.getIdLong();
     }
@@ -472,7 +467,7 @@ public class YusufGuild {
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
-            @Nonnull Role role) {
+                                                     @Nonnull Role role) {
         return this.guild.addRoleToMember(member.getMember(), role);
     }
 
@@ -491,21 +486,21 @@ public class YusufGuild {
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
-            @Nonnull Role role) {
+                                                          @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member, role);
     }
 
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
-            @Nonnull Role role) {
+                                                          @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member.getMember(), role);
     }
 
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull String userId,
-            @Nonnull Role role) {
+                                                          @Nonnull Role role) {
         return this.guild.removeRoleFromMember(userId, role);
     }
 
@@ -527,18 +522,15 @@ public class YusufGuild {
         return this.guild.prune(days, wait, roles);
     }
 
-    @Nullable
-    public YusufGuildChannel getYusufGuildChannelById(@Nonnull String id) {
+    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull String id) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(id));
     }
 
-    @Nullable
-    public YusufGuildChannel getYusufGuildChannelById(long id) {
+    public @NotNull YusufGuildChannel getYusufGuildChannelById(long id) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(id));
     }
 
-    @Nullable
-    public YusufGuildChannel getYusufGuildChannelById(@Nonnull ChannelType type, long id) {
+    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull ChannelType type, long id) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(type, id));
     }
 

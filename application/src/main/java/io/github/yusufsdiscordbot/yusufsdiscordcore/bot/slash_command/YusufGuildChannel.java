@@ -25,14 +25,10 @@ import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class YusufGuildChannel {
-    private final GuildChannel guildChannel;
-
-    public YusufGuildChannel(GuildChannel guildChannel) {
-        this.guildChannel = guildChannel;
-    }
+public record YusufGuildChannel(GuildChannel guildChannel) {
 
     @Nonnull
     public GuildChannel getGuildChannel() {
@@ -46,7 +42,7 @@ public class YusufGuildChannel {
 
     @Nonnull
     public Category getParent() {
-        return guildChannel.getParent();
+        return Objects.requireNonNull(guildChannel.getParent());
     }
 
     @Nonnull
