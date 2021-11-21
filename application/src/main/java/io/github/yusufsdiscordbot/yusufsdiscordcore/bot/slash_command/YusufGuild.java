@@ -130,28 +130,28 @@ public record YusufGuild(Guild guild) {
     @Nonnull
     @CheckReturnValue
     public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(@Nonnull String id,
-                                                                          @Nonnull Collection<? extends CommandPrivilege> privileges) {
+            @Nonnull Collection<? extends CommandPrivilege> privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @Nonnull
     @CheckReturnValue
     public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
-                                                                          @Nonnull Collection<? extends CommandPrivilege> privileges) {
+            @Nonnull Collection<? extends CommandPrivilege> privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @Nonnull
     @CheckReturnValue
     public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(@Nonnull String id,
-                                                                          @Nonnull CommandPrivilege... privileges) {
+            @Nonnull CommandPrivilege... privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @Nonnull
     @CheckReturnValue
     public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
-                                                                          @Nonnull CommandPrivilege... privileges) {
+            @Nonnull CommandPrivilege... privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
@@ -467,7 +467,7 @@ public record YusufGuild(Guild guild) {
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
-                                                     @Nonnull Role role) {
+            @Nonnull Role role) {
         return this.guild.addRoleToMember(member.getMember(), role);
     }
 
@@ -486,21 +486,21 @@ public record YusufGuild(Guild guild) {
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
-                                                          @Nonnull Role role) {
+            @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member, role);
     }
 
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
-                                                          @Nonnull Role role) {
+            @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member.getMember(), role);
     }
 
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeRoleFromMember(@Nonnull String userId,
-                                                          @Nonnull Role role) {
+            @Nonnull Role role) {
         return this.guild.removeRoleFromMember(userId, role);
     }
 

@@ -29,9 +29,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record YusufSlashCommandEvent(
-        Command slashCommand,
-        SlashCommandEvent event) {
+public record YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent event) {
 
     public SlashCommandEvent getEvent() {
         return this.event;

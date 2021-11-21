@@ -389,7 +389,7 @@ public record YusufMember(Member member) {
      * @see Member#hasPermission(GuildChannel, Permission...)
      */
     public boolean hasPermission(@Nonnull GuildChannel channel,
-                                 @Nonnull Permission... permissions) {
+            @Nonnull Permission... permissions) {
         return this.member.hasPermission(channel, permissions);
     }
 
@@ -397,17 +397,17 @@ public record YusufMember(Member member) {
      * @see Member#hasPermission(GuildChannel, Collection)
      */
     public boolean hasPermission(@Nonnull GuildChannel channel,
-                                 @Nonnull Collection<Permission> permissions) {
+            @Nonnull Collection<Permission> permissions) {
         return this.member.hasPermission(channel, permissions);
     }
 
     public boolean hasPermission(@Nonnull YusufGuildChannel channel,
-                                 @Nonnull Permission... permissions) {
+            @Nonnull Permission... permissions) {
         return this.member.hasPermission(channel.getGuildChannel(), permissions);
     }
 
     public boolean hasPermission(@Nonnull YusufGuildChannel channel,
-                                 @Nonnull Collection<Permission> permissions) {
+            @Nonnull Collection<Permission> permissions) {
         return this.member.hasPermission(channel.getGuildChannel(), permissions);
     }
 
@@ -437,7 +437,7 @@ public record YusufMember(Member member) {
     }
 
     public boolean canSync(@Nonnull YusufGuildChannel targetChannel,
-                           @Nonnull YusufGuildChannel syncSource) {
+            @Nonnull YusufGuildChannel syncSource) {
         return this.member.canSync(targetChannel.getGuildChannel(), syncSource.getGuildChannel());
     }
 
