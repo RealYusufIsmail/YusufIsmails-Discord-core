@@ -153,10 +153,9 @@ public record YusufUser(User user) {
      * @return not null
      */
     public boolean userIsNotNull(YusufUser user, YusufSlashCommandEvent event) {
-        boolean result = true;
-        if (user == null) {
-            event.replyEphemeral("The user is null");
-            result = false;
+        boolean result = user != null;
+        if (result) {
+            event.replyEphemeral("The user " + user.getUserTag() + " is null");
         }
         return result;
     }

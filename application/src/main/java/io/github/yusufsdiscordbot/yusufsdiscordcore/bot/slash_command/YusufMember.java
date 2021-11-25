@@ -33,13 +33,6 @@ import java.util.Set;
 @SuppressWarnings("unused")
 public record YusufMember(Member member) {
 
-    /**
-     * @see Member#getUser()
-     */
-    public @NotNull User getUser() {
-        return this.member.getUser();
-    }
-
     @Contract(" -> new")
     public @NotNull YusufUser getYusufUser() {
         return new YusufUser(this.member.getUser());
@@ -300,14 +293,6 @@ public record YusufMember(Member member) {
         return this.getYusufUser().getUserIdLong();
     }
 
-    public @NotNull String getId() {
-        return this.getUser().getId();
-    }
-
-    public @NotNull Long getIdLong() {
-        return this.getUser().getIdLong();
-    }
-
     /**
      * @see Member#getId()
      */
@@ -434,10 +419,9 @@ public record YusufMember(Member member) {
     }
 
     public boolean memberIsNotNull(YusufMember member, YusufSlashCommandEvent event) {
-        boolean result = true;
-        if (member == null) {
+        boolean result = member == null;
+        if (result) {
             event.replyEphemeral("The member is null");
-            result = false;
         }
         return result;
     }
