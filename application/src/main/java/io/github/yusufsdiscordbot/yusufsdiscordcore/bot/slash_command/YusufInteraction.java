@@ -13,13 +13,12 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.AbstractChannel;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.InteractionType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public record YusufInteraction(Interaction interaction) {
@@ -32,13 +31,11 @@ public record YusufInteraction(Interaction interaction) {
         return interaction.getTypeRaw();
     }
 
-    @Nonnull
-    public InteractionType getType() {
+    public @NotNull InteractionType getType() {
         return interaction.getType();
     }
 
-    @Nonnull
-    public String getToken() {
+    public @NotNull String getToken() {
         return interaction.getToken();
     }
 
@@ -50,28 +47,28 @@ public record YusufInteraction(Interaction interaction) {
         return interaction.isFromGuild();
     }
 
-    @Nonnull
-    public ChannelType getChannelType() {
+    public @NotNull ChannelType getChannelType() {
         return interaction.getChannelType();
     }
 
-    @Nonnull
+    @Contract(" -> new")
+    @NotNull
     YusufUser getUser() {
         return new YusufUser(interaction.getUser());
     }
 
-    @Nullable
+    @Contract(" -> new")
+    @NotNull
     YusufMember getMember() {
         return new YusufMember(interaction.getMember());
     }
 
-    @Nullable
-    AbstractChannel getChannel() {
+    public AbstractChannel getChannel() {
         return this.interaction.getChannel();
     }
 
-    @Nonnull
-    public YusufGuildChannel getGuildChannel() {
+    @Contract(" -> new")
+    public @NotNull YusufGuildChannel getGuildChannel() {
         return new YusufGuildChannel(interaction.getGuildChannel());
     }
 }

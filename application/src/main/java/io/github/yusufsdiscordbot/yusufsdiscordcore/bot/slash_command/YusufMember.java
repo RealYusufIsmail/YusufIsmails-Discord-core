@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
@@ -35,14 +36,12 @@ public record YusufMember(Member member) {
     /**
      * @see Member#getUser()
      */
-    public User getUser() {
+    public @NotNull User getUser() {
         return this.member.getUser();
     }
 
-    /**
-     * @see YusufUser
-     */
-    public YusufUser getYusufUser() {
+    @Contract(" -> new")
+    public @NotNull YusufUser getYusufUser() {
         return new YusufUser(this.member.getUser());
     }
 
@@ -63,16 +62,15 @@ public record YusufMember(Member member) {
     /**
      * @see Member#getGuild()
      */
-    @Nonnull
-    public YusufGuild getGuild() {
+    @Contract(" -> new")
+    public @NotNull YusufGuild getGuild() {
         return new YusufGuild(this.member.getGuild());
     }
 
     /**
      * @see Member#getTimeJoined()
      */
-    @Nonnull
-    public OffsetDateTime getTimeJoined() {
+    public @NotNull OffsetDateTime getTimeJoined() {
         return this.member.getTimeJoined();
     }
 
@@ -138,7 +136,6 @@ public record YusufMember(Member member) {
     /**
      * @see Member#getAvatarId()
      */
-    @Nullable
     public String getAvatarId() {
         return this.member.getAvatarId();
     }
@@ -275,62 +272,53 @@ public record YusufMember(Member member) {
     /**
      * @see Member#modifyNickname(String)
      */
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> modifyNickname(@Nullable String nickname) {
+    public @NotNull AuditableRestAction<Void> modifyNickname(@Nullable String nickname) {
         return this.member.modifyNickname(nickname);
     }
 
     /**
      * @see Member#getEffectiveName() ()
      */
-    @Nonnull
-    public String getName() {
+    public @NotNull String getName() {
         return this.member.getEffectiveName();
     }
 
     /**
      * @see Member
      */
-    @Nonnull
     public Member getAuthor() {
         return this.member;
     }
 
 
-    @Nonnull
-    public String getUserId() {
+    public @NotNull String getUserId() {
         return this.getYusufUser().getUserId();
     }
 
-    @Nonnull
-    public Long getUserIdLong() {
+    public @NotNull Long getUserIdLong() {
         return this.getYusufUser().getUserIdLong();
     }
 
-    @Nonnull
-    public String getId() {
+    public @NotNull String getId() {
         return this.getUser().getId();
     }
 
-    @Nonnull
-    public Long getIdLong() {
+    public @NotNull Long getIdLong() {
         return this.getUser().getIdLong();
     }
 
     /**
      * @see Member#getId()
      */
-    @Nonnull
-    public String getMemberId() {
+    public @NotNull String getMemberId() {
         return this.member.getId();
     }
 
     /**
      * @see Member#getIdLong()
      */
-    @Nonnull
-    public Long getMemberIdLong() {
+    public @NotNull Long getMemberIdLong() {
         return this.member.getIdLong();
     }
 
@@ -443,5 +431,14 @@ public record YusufMember(Member member) {
 
     public boolean canSync(@Nonnull YusufGuildChannel channel) {
         return this.member.canSync(channel.getGuildChannel());
+    }
+
+    public boolean memberIsNotNull(YusufMember member, YusufSlashCommandEvent event) {
+        boolean result = true;
+        if (member == null) {
+            event.replyEphemeral("The member is null");
+            result = false;
+        }
+        return result;
     }
 }

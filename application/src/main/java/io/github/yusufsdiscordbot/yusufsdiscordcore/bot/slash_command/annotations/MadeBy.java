@@ -1,6 +1,3 @@
-// Originally from
-// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandVisibility.java,
-// then modified by Yusuf
 /*
  * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
  * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
@@ -13,18 +10,28 @@
  * applies also to any other work released this way by its authors. You can apply it to your
  * programs, too.
  */
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.annotations;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.TYPE;
 
 /**
- * Visibility of a slash command.
+ * Can be used to give the author of the code credit.
  */
-public enum CommandVisibility {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE})
+public @interface MadeBy {
     /**
-     * Command can only be user in certain server or servers
+     * @return the name of the person who made the code.
+     *
+     * @since 1.0.25
      */
-    SERVER,
-    /**
-     * The command can be used on all servers. aka global
-     */
-    UNIVERSAL
+    String author() default "";
 }

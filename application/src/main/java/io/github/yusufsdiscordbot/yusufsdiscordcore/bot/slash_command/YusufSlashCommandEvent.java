@@ -13,23 +13,33 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.annotations.MadeBy;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent event) {
+@MadeBy(author = "Yusuf Arfan Ismail")
+public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
+    private final Command slashCommand;
+    private final SlashCommandEvent event;
+
+    public YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent event) {
+        super(event);
+        this.slashCommand = slashCommand;
+        this.event = event;
+    }
 
     public SlashCommandEvent getEvent() {
         return this.event;
@@ -60,6 +70,11 @@ public record YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent eve
 
     public @NotNull ChannelType getChannelType() {
         return this.event.getChannelType();
+    }
+
+    @Contract(" -> new")
+    public @NotNull YusufSlashCommandUtility getMessageUtils() {
+        return new YusufSlashCommandUtility(event);
     }
 
     @Contract(" -> new")
@@ -105,105 +120,15 @@ public record YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent eve
         return this.event.getName();
     }
 
-    /**
-     * replays as a normal message.
-     */
-    @Nonnull
-    @CheckReturnValue
-    public ReplyAction reply(String message) {
-        return this.event.reply(message);
-    }
-
-    @Nonnull
-    @CheckReturnValue
-    public ReplyAction reply(String message, Boolean setEphemeral) {
-        return this.event.reply(message).setEphemeral(setEphemeral);
-    }
-
-    @Nonnull
-    @CheckReturnValue
-    public ReplyAction reply(String message, Boolean setEphemeral, Boolean setTTS) {
-        return this.event.reply(message).setEphemeral(setEphemeral).setTTS(setTTS);
-    }
-
-    public void replyMessage(String message) {
-        this.event.reply(message).queue();
-    }
-
-    public void replyMessage(String message, Boolean setEphemeral) {
-        this.event.reply(message).setEphemeral(setEphemeral).queue();
-    }
-
-    /**
-     * replays as an ephemeral message.
-     */
-    public void replyEphemeral(String message) {
-        this.event.reply(message).setEphemeral(true).queue();
-    }
-
-    @Nonnull
-    @CheckReturnValue
-    public ReplyAction replyEphemeralMessage(String message) {
-        return this.event.reply(message).setEphemeral(true);
-    }
-
-    /**
-     * replays as an embed message.
-     */
-    public void replyEmbed(MessageEmbed messageEmbed) {
-        this.event.replyEmbeds(messageEmbed).queue();
-    }
-
-    public void replyEphemeralEmbed(MessageEmbed messageEmbed) {
-        this.event.replyEmbeds(messageEmbed).setEphemeral(true).queue();
-    }
-
-    @Nonnull
-    @CheckReturnValue
-    public ReplyAction replyEmbeds(MessageEmbed messageEmbed) {
-        return this.event.replyEmbeds(messageEmbed);
-    }
-
-    @Nonnull
-    @CheckReturnValue
-    public ReplyAction replyEphemeralEmbeds(MessageEmbed messageEmbed) {
-        return this.event.replyEmbeds(messageEmbed).setEphemeral(true);
-    }
-
-    @Nonnull
-    @CheckReturnValue
-    public ReplyAction replyFormat(@Nonnull String format, @Nonnull Object... args) {
-        return this.event.replyFormat(format, args);
-    }
-
-    @Nonnull
-    public String getToken() {
-        return this.event.getToken();
-    }
-
-    public int getTypeRaw() {
-        return this.event.getTypeRaw();
-    }
-
-    @Nonnull
-    public InteractionHook getHook() {
-        return this.event.getHook();
-    }
-
-    public long getIdLong() {
-        return this.event.getIdLong();
-    }
-
-    public boolean isAcknowledged() {
-        return this.event.isAcknowledged();
-    }
-
-    @Nonnull
-    public ReplyAction deferReply() {
-        return this.event.deferReply();
-    }
-
     public Command getSlashCommand() {
         return slashCommand;
+    }
+
+    public User getSelfUser() {
+        return this.getJDA().getSelfUser();
+    }
+
+    public YusufUser getSelfYusufUser() {
+        return new YusufUser(this.getSelfUser());
     }
 }

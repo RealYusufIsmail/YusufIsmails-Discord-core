@@ -15,6 +15,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import org.jetbrains.annotations.NotNull;
 
 public class GuildMusicManager {
     public final AudioPlayer audioPlayer;
@@ -23,7 +24,7 @@ public class GuildMusicManager {
 
     private final AudioPlayerSendHandler sendHandler;
 
-    public GuildMusicManager(AudioPlayerManager manager) {
+    public GuildMusicManager(@NotNull AudioPlayerManager manager) {
         this.audioPlayer = manager.createPlayer();
         this.scheduler = new TrackScheduler(this.audioPlayer);
         this.audioPlayer.addListener(this.scheduler);

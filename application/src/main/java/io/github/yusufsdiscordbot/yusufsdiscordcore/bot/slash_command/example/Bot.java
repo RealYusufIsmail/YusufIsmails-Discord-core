@@ -15,7 +15,8 @@ class Bot {
             .build();
 
         jda.awaitReady()
-            .addEventListener(
-                    new ExampleCommandHandler(jda, jda.getGuildById(Config.get("GUILDID"))));
+            .getGuildCache()
+            .forEach(guild -> jda.addEventListener(new ExampleCommandHandler(jda, guild)));
+
     }
 }

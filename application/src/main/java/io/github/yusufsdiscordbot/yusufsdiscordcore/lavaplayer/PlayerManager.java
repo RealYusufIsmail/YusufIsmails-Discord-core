@@ -22,6 +22,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ import java.util.Map;
 
 public class PlayerManager {
     private static final Logger logger = LoggerFactory.getLogger(PlayerManager.class);
-    private static PlayerManager INSTANCE;
+    private static PlayerManager instance;
     private final Map<Long, GuildMusicManager> musicManagers;
     private final AudioPlayerManager audioPlayerManager;
 
@@ -43,8 +44,15 @@ public class PlayerManager {
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
     }
 
-    public GuildMusicManager getMusicManager(Guild guild) {
-        return this.musicManagers.computeIfAbsent(guild.getIdLong(), (guildId) -> {
+    public static PlayerManager getInstance() {
+        if (instance == null) {
+            instance = new PlayerManager();
+        }
+        return instance;
+    }
+
+    public GuildMusicManager getMusicManager(@NotNull Guild guild) {
+        return this.musicManagers.computeIfAbsent(guild.getIdLong(), guildId -> {
             final GuildMusicManager guildMusicManager =
                     new GuildMusicManager(this.audioPlayerManager);
 
@@ -54,7 +62,7 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(TextChannel channel, String trackUrl) {
+    public void loadAndPlay(@NotNull TextChannel channel, String trackUrl) {
         final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl,
@@ -102,12 +110,5 @@ public class PlayerManager {
                         logger.error("The bot has failed while trying to load the music.");
                     }
                 });
-    }
-
-    public static PlayerManager getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new PlayerManager();
-        }
-        return INSTANCE;
     }
 }

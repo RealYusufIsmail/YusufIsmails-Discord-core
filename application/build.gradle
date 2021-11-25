@@ -1,7 +1,7 @@
 plugins {
-    id'java'
-    id'application'
-    id'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
     id 'maven-publish'
     id 'signing'
     id 'java-library'
@@ -13,7 +13,7 @@ application {
 
 archivesBaseName = 'yusufsdiscordcore'
 description = "A core discord bot library for my bots"
-version = '1.0.24'
+version = bot_version
 
 repositories {
     mavenCentral()

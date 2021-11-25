@@ -13,40 +13,39 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.annotations.ToBeChanged;
+import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.NotNull;
 
-public interface Command {
+abstract class Command {
+
     /**
      * Were the command is created.
      */
-    void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
+    protected abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
 
     /**
      * Provides the user with name of the command
      *
      * @return {@link CommandData#getName()}
      */
-    String getName();
+    abstract String getName();
 
     /**
      * Provides the user information on what the command is about.
      *
      * @return {@link CommandData#getDescription()}
      */
-    String getDescription();
+    abstract String getDescription();
 
     /**
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
-     *
-     * @return {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
      */
-    // Original from
-    // https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L73
-    // and modified by Yusuf
-    CommandVisibility getVisibility();
+    abstract Boolean isGuildOnly();
 
     /**
      * Retrieves all the command data such as the name and description of the command. Also used to
@@ -56,10 +55,20 @@ public interface Command {
      *         {@link CommandData#addOption(OptionType, String, String)} <br >
      *         <br >
      *         Choices can also be used which makes it easier for the user. which returns
-     *         {@link OptionData#addChoice(String, int)}
+     *         {@link OptionData#addChoice(String, int)} <br>
+     *         <br>
+     *         Original from <a href=
+     *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
+     *         and modified by Yusuf
      */
-    // Original from
-    // https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91
-    // and modified by Yusuf
-    CommandData getCommandData();
+    @ToBeChanged(whenToBeChanged = "1.0.50", willBeChangedSoon = true,
+            reasonForTheChange = "To remove the credits")
+    abstract CommandData retrieveCommandData();
+
+    /**
+     * Used to create buttons for the user to interact with.
+     *
+     * @see ButtonClickEvent
+     */
+    abstract void onButtonClick(@NotNull ButtonClickEvent event);
 }

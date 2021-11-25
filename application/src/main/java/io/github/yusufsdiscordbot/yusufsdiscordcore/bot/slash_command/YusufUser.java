@@ -5,8 +5,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +16,6 @@ public record YusufUser(User user) {
     /**
      * @see User
      */
-    @Nonnull
     public User getUser() {
         return user;
     }
@@ -24,48 +23,42 @@ public record YusufUser(User user) {
     /**
      * @see User#getAsTag()
      */
-    @Nonnull
-    public String getUserTag() {
+    public @NotNull String getUserTag() {
         return this.user.getAsTag();
     }
 
     /**
      * @see User#getId()
      */
-    @Nonnull
-    public String getUserId() {
+    public @NotNull String getUserId() {
         return this.user.getId();
     }
 
     /**
      * @see User#getIdLong()
      */
-    @Nonnull
-    public Long getUserIdLong() {
+    public @NotNull Long getUserIdLong() {
         return this.user.getIdLong();
     }
 
     /**
      * @see User#getName()
      */
-    @Nonnull
-    public String getName() {
+    public @NotNull String getName() {
         return this.user.getName();
     }
 
     /**
      * @see User#isBot()
      */
-    @Nonnull
-    public Boolean isBot() {
+    public @NotNull Boolean isBot() {
         return this.user.isBot();
     }
 
     /**
      * @see User#getDiscriminator()
      */
-    @Nonnull
-    public String getDiscriminator() {
+    public @NotNull String getDiscriminator() {
         return this.user.getDiscriminator();
     }
 
@@ -86,16 +79,14 @@ public record YusufUser(User user) {
     /**
      * @see User#getDefaultAvatarId()
      */
-    @Nonnull
-    public String getDefaultAvatarId() {
+    public @NotNull String getDefaultAvatarId() {
         return this.user.getDefaultAvatarId();
     }
 
     /**
      * @see User#getDefaultAvatarUrl()
      */
-    @Nonnull
-    public String getEffectiveAvatarUrl() {
+    public @NotNull String getEffectiveAvatarUrl() {
         return this.user.getEffectiveAvatarUrl();
     }
 
@@ -109,16 +100,14 @@ public record YusufUser(User user) {
     /**
      * @see User#openPrivateChannel()
      */
-    @Nonnull
-    public RestAction<PrivateChannel> openPrivateChannel() {
+    public @NotNull RestAction<PrivateChannel> openPrivateChannel() {
         return this.user.openPrivateChannel();
     }
 
     /**
      * @see User#getMutualGuilds()
      */
-    @Nonnull
-    public List<Guild> getMutualGuilds() {
+    public @NotNull List<Guild> getMutualGuilds() {
         return this.user.getMutualGuilds();
     }
 
@@ -132,16 +121,14 @@ public record YusufUser(User user) {
     /**
      * @see User#getJDA()
      */
-    @Nonnull
-    public JDA getJDA() {
+    public @NotNull JDA getJDA() {
         return this.user.getJDA();
     }
 
     /**
      * @see User#getFlags()
      */
-    @Nonnull
-    public Set<User.UserFlag> getFlags() {
+    public @NotNull Set<User.UserFlag> getFlags() {
         return this.user.getFlags();
     }
 
@@ -155,8 +142,22 @@ public record YusufUser(User user) {
     /**
      * @see User#getAsMention()
      */
-    @Nonnull
-    String getAsMention() {
+    public @NotNull String getAsMention() {
         return this.user.getAsMention();
+    }
+
+    /**
+     *
+     * @param user the user who you want to check is null
+     * @param event the slash command event.
+     * @return not null
+     */
+    public boolean userIsNotNull(YusufUser user, YusufSlashCommandEvent event) {
+        boolean result = true;
+        if (user == null) {
+            event.replyEphemeral("The user is null");
+            result = false;
+        }
+        return result;
     }
 }

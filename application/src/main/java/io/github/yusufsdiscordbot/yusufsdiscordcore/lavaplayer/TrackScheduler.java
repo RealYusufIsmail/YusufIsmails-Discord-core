@@ -17,34 +17,36 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackScheduler extends AudioEventAdapter {
+    public static final boolean REPEATING = false;
     public final AudioPlayer player;
-    public final BlockingQueue<AudioTrack> queue;
-    public boolean repeating = false;
+    public final BlockingQueue<AudioTrack> blockingQueue;
 
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
-        this.queue = new LinkedBlockingQueue<>();
+        this.blockingQueue = new LinkedBlockingQueue<>();
     }
 
     public void queue(AudioTrack track) {
         if (!this.player.startTrack(track, true)) {
-            this.queue.offer(track);
+            this.blockingQueue.offer(track);
         }
     }
 
     public void nextTrack() {
-        this.player.startTrack(this.queue.poll(), false);
+        this.player.startTrack(this.blockingQueue.poll(), false);
     }
 
     @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+    public void onTrackEnd(AudioPlayer player, AudioTrack track,
+            @NotNull AudioTrackEndReason endReason) {
         if (endReason.mayStartNext) {
-            if (this.repeating) {
+            if (REPEATING) {
                 this.player.startTrack(track.makeClone(), false);
                 return;
             }

@@ -54,7 +54,7 @@ ext {
 
 allprojects {
     //Maven published can be found in application's gradle
-    group='io.github.yusufsdiscordbot'
+    group = 'io.github.yusufsdiscordbot'
 
     // When it comes to publishing we need to ensure we have the subproject version set
     // rather than the root project version
@@ -110,7 +110,7 @@ subprojects {
             logging.captureStandardOutput LogLevel.INFO
         }
 
-        if(JavaVersion.current().isJava9Compatible()) {
+        if (JavaVersion.current().isJava9Compatible()) {
             options.addBooleanOption('html5', true)
         }
     }

@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.Command;
@@ -20,16 +21,21 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.*;
+import net.dv8tion.jda.api.requests.restaction.order.CategoryOrderAction;
+import net.dv8tion.jda.api.requests.restaction.order.ChannelOrderAction;
 import net.dv8tion.jda.api.requests.restaction.order.RoleOrderAction;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.CheckReturnValue;
 import java.util.*;
 
 @SuppressWarnings("unused")
 public record YusufGuild(Guild guild) {
+    private static final String USER_AND_BOT_MANAGER_ROLE_PERMISSION =
+            "You or the bot do not have the permission MANAGE_ROLES";
     private static final Integer REASON_MAX_LENGTH = 512;
 
     /**
@@ -42,159 +48,137 @@ public record YusufGuild(Guild guild) {
     /**
      * @see Guild#retrieveCommands();
      */
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<Command>> retrieveCommands() {
+    public @NotNull RestAction<List<Command>> retrieveCommands() {
         return this.guild.retrieveCommands();
     }
 
     /**
      * @see Guild#retrieveCommandById(String)
      */
-    @Nonnull
     @CheckReturnValue
-    public RestAction<Command> retrieveCommandById(@Nonnull String commandId) {
+    public @NotNull RestAction<Command> retrieveCommandById(@Nonnull String commandId) {
         return this.guild.retrieveCommandById(commandId);
     }
 
     /**
      * @see Guild#retrieveCommandById(long)
      */
-    @Nonnull
     @CheckReturnValue
-    public RestAction<Command> retrieveCommandById(long commandId) {
+    public @NotNull RestAction<Command> retrieveCommandById(long commandId) {
         return this.guild.retrieveCommandById(commandId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public CommandCreateAction upsertCommand(@Nonnull CommandData command) {
+    public @NotNull CommandCreateAction upsertCommand(@Nonnull CommandData command) {
         return this.guild.upsertCommand(command);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public CommandCreateAction upsertCommand(@Nonnull String name, @Nonnull String description) {
+    public @NotNull CommandCreateAction upsertCommand(@Nonnull String name,
+            @Nonnull String description) {
         return this.guild.upsertCommand(name, description);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public CommandListUpdateAction updateCommands() {
+    public @NotNull CommandListUpdateAction updateCommands() {
         return this.guild.updateCommands();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public CommandEditAction editCommandById(@Nonnull String commandId) {
+    public @NotNull CommandEditAction editCommandById(@Nonnull String commandId) {
         return this.guild.editCommandById(commandId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public CommandEditAction editCommandById(long commandId) {
+    public @NotNull CommandEditAction editCommandById(long commandId) {
         return this.guild.editCommandById(commandId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<Void> deleteCommandById(@Nonnull String commandId) {
+    public @NotNull RestAction<Void> deleteCommandById(@Nonnull String commandId) {
         return this.guild.deleteCommandById(commandId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<Void> deleteCommandById(long commandId) {
+    public @NotNull RestAction<Void> deleteCommandById(long commandId) {
         return this.guild.deleteCommandById(commandId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(
+    public @NotNull RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(
             @Nonnull String commandId) {
         return this.guild.retrieveCommandPrivilegesById(commandId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(long commandId) {
+    public @NotNull RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(
+            long commandId) {
         return this.guild.retrieveCommandPrivilegesById(commandId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<Map<String, List<CommandPrivilege>>> retrieveCommandPrivileges() {
+    public @NotNull RestAction<Map<String, List<CommandPrivilege>>> retrieveCommandPrivileges() {
         return this.guild.retrieveCommandPrivileges();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(@Nonnull String id,
+    public @NotNull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(
+            @Nonnull String id, @Nonnull Collection<? extends CommandPrivilege> privileges) {
+        return this.guild.updateCommandPrivilegesById(id, privileges);
+    }
+
+    @CheckReturnValue
+    public @NotNull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
             @Nonnull Collection<? extends CommandPrivilege> privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
-            @Nonnull Collection<? extends CommandPrivilege> privileges) {
+    public @NotNull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(
+            @Nonnull String id, @Nonnull CommandPrivilege... privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(@Nonnull String id,
+    public @NotNull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
             @Nonnull CommandPrivilege... privileges) {
         return this.guild.updateCommandPrivilegesById(id, privileges);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
-            @Nonnull CommandPrivilege... privileges) {
-        return this.guild.updateCommandPrivilegesById(id, privileges);
-    }
-
-    @Nonnull
-    @CheckReturnValue
-    public RestAction<Map<String, List<CommandPrivilege>>> updateCommandPrivileges(
+    public @NotNull RestAction<Map<String, List<CommandPrivilege>>> updateCommandPrivileges(
             @Nonnull Map<String, Collection<? extends CommandPrivilege>> privileges) {
         return this.guild.updateCommandPrivileges(privileges);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<EnumSet<Region>> retrieveRegions() {
+    public @NotNull RestAction<EnumSet<Region>> retrieveRegions() {
         return this.guild.retrieveRegions(true);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<EnumSet<Region>> retrieveRegions(boolean includeDeprecated) {
+    public @NotNull RestAction<EnumSet<Region>> retrieveRegions(boolean includeDeprecated) {
         return this.guild.retrieveRegions();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public MemberAction addMember(@Nonnull String accessToken, @Nonnull String userId) {
+    public @NotNull MemberAction addMember(@Nonnull String accessToken, @Nonnull String userId) {
         return this.guild.addMember(accessToken, userId);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public MemberAction addMember(@Nonnull String accessToken, @Nonnull User user) {
+    public @NotNull MemberAction addMember(@Nonnull String accessToken, @Nonnull User user) {
         return this.guild.addMember(accessToken, user);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public MemberAction addMember(@Nonnull String accessToken, @Nonnull YusufUser user) {
+    public @NotNull MemberAction addMember(@Nonnull String accessToken, @Nonnull YusufUser user) {
         return this.guild.addMember(accessToken, user.getUser());
     }
 
-    @Nonnull
     @CheckReturnValue
-    public MemberAction addMember(@Nonnull String accessToken, long userId) {
+    public @NotNull MemberAction addMember(@Nonnull String accessToken, long userId) {
         return this.guild.addMember(accessToken, userId);
     }
 
@@ -210,8 +194,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.getMemberCount();
     }
 
-    @Nonnull
-    public String getName() {
+    public @NotNull String getName() {
         return this.guild.getName();
     }
 
@@ -225,24 +208,18 @@ public record YusufGuild(Guild guild) {
         return this.guild.getIconUrl();
     }
 
-    @Nonnull
-    public Set<String> getFeatures() {
+    public @NotNull Set<String> getFeatures() {
         return this.guild.getFeatures();
     }
 
-    @Nonnull
-    public YusufMember getBot() {
+    @Contract(" -> new")
+    public @NotNull YusufMember getBot() {
         return new YusufMember(this.guild.getSelfMember());
     }
 
-    @Nonnull
-    public Member getMemberBot() {
-        return this.guild.getSelfMember();
-    }
-
-    @Nonnull
-    public Member getSelfMember() {
-        return this.guild.getSelfMember();
+    @Contract("_ -> new")
+    public @NotNull YusufMember getMember(@Nonnull YusufUser user) {
+        return new YusufMember(this.guild.getMember(user.getUser()));
     }
 
     @Nullable
@@ -260,8 +237,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.getVanityCode();
     }
 
-    @Nonnull
-    public String getId() {
+    public @NotNull String getId() {
         return this.guild.getId();
     }
 
@@ -269,8 +245,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.getIdLong();
     }
 
-    @Nonnull
-    public String getOwnerId() {
+    public @NotNull String getOwnerId() {
         return this.guild.getOwnerId();
     }
 
@@ -279,27 +254,27 @@ public record YusufGuild(Guild guild) {
         return this.guild.getVanityUrl();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<VanityInvite> retrieveVanityInvite() {
+    public @NotNull RestAction<VanityInvite> retrieveVanityInvite() {
         return this.guild.retrieveVanityInvite();
     }
 
-    public AuditableRestAction<Void> changeUserNickname(Member member, String nickname) {
+    public @NotNull AuditableRestAction<Void> changeUserNickname(Member member, String nickname) {
         return this.guild.modifyNickname(member, nickname);
     }
 
-    public AuditableRestAction<Void> changeUserNickname(YusufMember member, String nickname) {
+    public @NotNull AuditableRestAction<Void> changeUserNickname(@NotNull YusufMember member,
+            String nickname) {
         return this.guild.modifyNickname(member.getMember(), nickname);
     }
 
-    public String getGuildId() {
+    public @NotNull String getGuildId() {
         return this.guild.getId();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public Boolean checkReasonLength(String reason, YusufSlashCommandEvent event) {
+    public @NotNull Boolean checkReasonLength(@NotNull String reason,
+            YusufSlashCommandEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
             event.replyEphemeral("You have gone over the reason character limit which is "
                     + REASON_MAX_LENGTH + " .");
@@ -308,218 +283,386 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    @Nonnull
-    public String getGuildName() {
+    public @NotNull String getGuildName() {
         return this.guild.getName();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> unBan(User user, String reason) {
+    public @NotNull AuditableRestAction<Void> unBan(User user, String reason) {
         return this.guild.unban(user).reason(reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> unBan(User user) {
+    public @NotNull AuditableRestAction<Void> unBan(User user) {
         return this.guild.unban(user);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> unBan(String userId) {
+    public @NotNull AuditableRestAction<Void> unBan(String userId) {
         return this.guild.unban(userId);
     }
 
-    @Nonnull
+
     @CheckReturnValue
-    public AuditableRestAction<Void> unBan(YusufUser user, String reason) {
+    public @NotNull AuditableRestAction<Void> unBan(@NotNull YusufUser user, String reason) {
         return this.guild.unban(user.getUser()).reason(reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> unBan(YusufUser user) {
+    public @NotNull AuditableRestAction<Void> unBan(@NotNull YusufUser user) {
         return this.guild.unban(user.getUser());
     }
 
-    @Nonnull
+    public @NotNull Boolean canYouUnBanUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("You don't have the permission to unban users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotUnBanUser(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("I don't have the permission to unban users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotUnBanUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
+                && !member.hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
+            return false;
+        }
+        return true;
+    }
+
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(YusufMember member) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull YusufMember member) {
         return this.guild.ban(member.getMember(), 0);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(YusufMember member, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull YusufMember member, String reason) {
         return this.guild.ban(member.getMember(), 0, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(YusufMember member, int days, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull YusufMember member, int days,
+            String reason) {
         return this.guild.ban(member.getMember(), days, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(Member member) {
+    public @NotNull AuditableRestAction<Void> ban(Member member) {
         return this.guild.ban(member, 0);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(Member member, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(Member member, String reason) {
         return this.guild.ban(member, 0, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(Member member, int days, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(Member member, int days, String reason) {
         return this.guild.ban(member, days, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(User user) {
+    public @NotNull AuditableRestAction<Void> ban(User user) {
         return this.guild.ban(user, 0);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(User user, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(User user, String reason) {
         return this.guild.ban(user, 0, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(User user, int days, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(User user, int days, String reason) {
         return this.guild.ban(user, days, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(YusufUser user) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull YusufUser user) {
         return this.guild.ban(user.getUser(), 0);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(YusufUser user, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull YusufUser user, String reason) {
         return this.guild.ban(user.getUser(), 0, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> ban(YusufUser user, int days, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull YusufUser user, int days,
+            String reason) {
         return this.guild.ban(user.getUser(), days, reason);
     }
 
-    @Nonnull
+    public @NotNull Boolean canYouBanUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("You don't have the permission to ban users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotBanUser(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("I don't have the permission to ban users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotBanUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
+                && !member.hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
+            return false;
+        }
+        return true;
+    }
+
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(YusufMember member) {
+    public @NotNull AuditableRestAction<Void> kick(@NotNull YusufMember member) {
         return this.guild.kick(member.getMember(), null);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(YusufMember member, String reason) {
+    public @NotNull AuditableRestAction<Void> kick(@NotNull YusufMember member, String reason) {
         return this.guild.kick(member.getMember(), reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(Member user) {
+    public @NotNull AuditableRestAction<Void> kick(Member user) {
         return this.guild.kick(user, null);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(Member member, String reason) {
+    public @NotNull AuditableRestAction<Void> kick(Member member, String reason) {
         return this.guild.kick(member, reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> kick(String userId, String reason) {
+    public @NotNull AuditableRestAction<Void> kick(String userId, String reason) {
         return this.guild.kick(userId, reason);
     }
 
-    @Nonnull
+    public @NotNull Boolean canYouKickUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.KICK_MEMBERS)) {
+            event.replyEphemeral("You don't have the permission to kick users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotKickUser(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.KICK_MEMBERS)) {
+            event.replyEphemeral("I don't have the permission to kick users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotKickUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.KICK_MEMBERS)
+                && !member.hasPermission(Permission.KICK_MEMBERS)) {
+            event.replyEphemeral("You or the bot do not have the permission KICK_MEMBERS");
+            return false;
+        }
+        return true;
+    }
+
     @CheckReturnValue
-    public AuditableRestAction<Void> mute(Member member, Boolean mute, String reason) {
+    public @NotNull AuditableRestAction<Void> mute(Member member, Boolean mute, String reason) {
         return this.guild.mute(member, mute).reason(reason);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> mute(YusufMember member, Boolean mute, String reason) {
+    public @NotNull AuditableRestAction<Void> mute(@NotNull YusufMember member, Boolean mute,
+            String reason) {
         return this.guild.mute(member.getMember(), mute).reason(reason);
     }
 
+    public @NotNull Boolean canYouMuteUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
+            event.replyEphemeral("You don't have the permission to mute users!");
+            return false;
+        }
+        return true;
+    }
 
-    @Nonnull
+    public @NotNull Boolean canBotMuteUser(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.VOICE_MUTE_OTHERS)) {
+            event.replyEphemeral("I don't have the permission to mute users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotMuteUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.VOICE_MUTE_OTHERS)
+                && !member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
+            event.replyEphemeral("You or the bot do not have the permission VOICE_MUTE_OTHERS");
+            return false;
+        }
+        return true;
+    }
+
     @CheckReturnValue
-    public AuditableRestAction<Void> addRoleToMember(@Nonnull Member member, @Nonnull Role role) {
+    public @NotNull AuditableRestAction<Void> addRoleToMember(@Nonnull Member member,
+            @Nonnull Role role) {
         return this.guild.addRoleToMember(member, role);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
+    public @NotNull AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
             @Nonnull Role role) {
         return this.guild.addRoleToMember(member.getMember(), role);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> addRoleToMember(long userId, @Nonnull Role role) {
+    public @NotNull AuditableRestAction<Void> addRoleToMember(long userId, @Nonnull Role role) {
         return this.guild.addRoleToMember(userId, role);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> addRoleToMember(String userId, @Nonnull Role role) {
+    public @NotNull AuditableRestAction<Void> addRoleToMember(String userId, @Nonnull Role role) {
         return this.guild.addRoleToMember(userId, role);
     }
 
-    @Nonnull
+    public @NotNull Boolean canYouAddRoleToMember(@NotNull YusufMember member) {
+        return member.hasPermission(Permission.MANAGE_ROLES);
+    }
+
+    public @NotNull Boolean canYouAddRoleToMember(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral("You don't have the permission to add roles to users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotAddRoleToMember(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral("I don't have the permission to add roles to users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotAddRoleToMember(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
+                && !member.hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
+            return false;
+        }
+        return true;
+    }
+
     @CheckReturnValue
-    public AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
+    public @NotNull AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
             @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member, role);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
+    public @NotNull AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
             @Nonnull Role role) {
         return this.guild.removeRoleFromMember(member.getMember(), role);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> removeRoleFromMember(@Nonnull String userId,
+    public @NotNull AuditableRestAction<Void> removeRoleFromMember(@Nonnull String userId,
             @Nonnull Role role) {
         return this.guild.removeRoleFromMember(userId, role);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> removeRoleFromMember(long userId, @Nonnull Role role) {
+    public @NotNull AuditableRestAction<Void> removeRoleFromMember(long userId,
+            @Nonnull Role role) {
         return this.guild.removeRoleFromMember(userId, role);
     }
 
-    @Nonnull
+    public @NotNull Boolean canYouRemoveRoleFromMember(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral("You don't have the permission to remove roles from users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotRemoveRoleFromMember(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral("I don't have the permission to remove roles from users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotARemoveRoleFromMember(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
+                && !member.hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
+            return false;
+        }
+        return true;
+    }
+
     @CheckReturnValue
-    public AuditableRestAction<Integer> prune(@Nonnull Integer days, @Nonnull Role... roles) {
+    public @NotNull AuditableRestAction<Integer> prune(@Nonnull Integer days,
+            @Nonnull Role... roles) {
         return this.guild.prune(days, roles);
     }
 
-    @Nonnull
     @CheckReturnValue
+    @NotNull
     AuditableRestAction<Integer> prune(int days, boolean wait, @Nonnull Role... roles) {
         return this.guild.prune(days, wait, roles);
+    }
+
+    public @NotNull Boolean canYouPrune(@NotNull YusufMember member) {
+        return member.hasPermission(Permission.MESSAGE_MANAGE);
+    }
+
+    public @NotNull Boolean canYouPrune(@NotNull YusufMember member, YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral("You don't have the permission to remove messages in this guild!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotPrune(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MESSAGE_MANAGE)) {
+            event.replyEphemeral("I don't have the permission to remove messages in this guild!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotPrune(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MESSAGE_MANAGE)
+                && !member.hasPermission(Permission.MESSAGE_MANAGE)) {
+            event.replyEphemeral("You or the bot do not have the permission MESSAGE_MANAGE");
+            return false;
+        }
+        return true;
     }
 
     public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull String id) {
@@ -549,17 +692,16 @@ public record YusufGuild(Guild guild) {
         return this.guild.getGuildChannelById(type, id);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RoleOrderAction modifyRolePositions(boolean useAscendingOrder) {
+    public @NotNull RoleOrderAction modifyRolePositions(boolean useAscendingOrder) {
         return this.guild.modifyRolePositions(useAscendingOrder);
     }
 
     /**
      * @see Guild#mute(Member, boolean)
      */
-    @Nonnull
     @CheckReturnValue
+    @NotNull
     AuditableRestAction<Void> mute(@Nonnull Member member, boolean mute) {
         return this.guild.mute(member, mute);
     }
@@ -567,8 +709,8 @@ public record YusufGuild(Guild guild) {
     /**
      * @see Guild#mute(Member, boolean)
      */
-    @Nonnull
     @CheckReturnValue
+    @NotNull
     AuditableRestAction<Void> mute(@Nonnull YusufMember member, boolean mute) {
         return this.guild.mute(member.getMember(), mute);
     }
@@ -576,8 +718,8 @@ public record YusufGuild(Guild guild) {
     /**
      * @see Guild#deafen(Member, boolean)
      */
-    @Nonnull
     @CheckReturnValue
+    @NotNull
     AuditableRestAction<Void> deafen(@Nonnull Member member, boolean deafen) {
         return this.guild.deafen(member, deafen);
     }
@@ -585,18 +727,16 @@ public record YusufGuild(Guild guild) {
     /**
      * @see Guild#deafen(Member, boolean)
      */
-    @Nonnull
     @CheckReturnValue
+    @NotNull
     AuditableRestAction<Void> deafen(@Nonnull YusufMember member, boolean deafen) {
         return this.guild.deafen(member.getMember(), deafen);
     }
 
-
     /**
      * @see Guild#getBoosters()
      */
-    @Nonnull
-    public List<Member> getBoosters() {
+    public @NotNull List<Member> getBoosters() {
         return this.guild.getBoosters();
     }
 
@@ -621,10 +761,76 @@ public record YusufGuild(Guild guild) {
         return this.guild.getMaxEmotes();
     }
 
+    public boolean isMember(@NotNull YusufUser user) {
+        return this.guild.isMember(user.getUser());
+    }
+
+    public @NotNull ChannelAction<TextChannel> createTextChannel(@Nonnull String name) {
+        return this.guild.createTextChannel(name);
+    }
+
+    public @NotNull ChannelAction<TextChannel> createTextChannel(@Nonnull String name,
+            @Nonnull Category parent) {
+        return this.guild.createTextChannel(name, parent);
+    }
+
+    public @NotNull Boolean canYouCreateTextChannel(@NotNull YusufMember member) {
+        return member.hasPermission(Permission.MANAGE_CHANNEL);
+    }
+
+    public @NotNull Boolean canBotCreateTextChannel() {
+        return this.getBot().hasPermission(Permission.MANAGE_CHANNEL);
+    }
+
+    public @NotNull Boolean canYouANDBotCreateTextChannel(@NotNull YusufMember member) {
+        return this.getBot().hasPermission(Permission.MANAGE_CHANNEL)
+                || member.hasPermission(Permission.MANAGE_CHANNEL);
+    }
+
+    public @NotNull RoleAction createRole() {
+        return this.guild.createRole();
+    }
+
+    public @NotNull Boolean canYouCreateRole(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral("You don't have the permission to create roles!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotCreateRole(YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral("I don't have the permission to create roles!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouANDBotCreateRole(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
+                && !member.hasPermission(Permission.MANAGE_ROLES)) {
+            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull ChannelOrderAction modifyTextChannelPositions() {
+        return this.guild.modifyTextChannelPositions();
+    }
+
+    public @NotNull CategoryOrderAction modifyTextChannelPositions(@Nonnull Category category) {
+        return this.guild.modifyTextChannelPositions(category);
+    }
+
     /**
      * @see Guild#getOwner()
      */
-    public YusufMember getOwner() {
+    @Contract(" -> new")
+    public @NotNull YusufMember getOwner() {
         return new YusufMember(this.guild.getOwner());
     }
 }

@@ -20,33 +20,31 @@ import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.requests.restaction.ChannelAction;
 import net.dv8tion.jda.api.requests.restaction.InviteAction;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
 public record YusufGuildChannel(GuildChannel guildChannel) {
 
-    @Nonnull
     public GuildChannel getGuildChannel() {
         return guildChannel;
     }
 
-    @Nonnull
-    public YusufGuild getGuild() {
+    @Contract(" -> new")
+    public @NotNull YusufGuild getGuild() {
         return new YusufGuild(guildChannel.getGuild());
     }
 
-    @Nonnull
     public Category getParent() {
         return Objects.requireNonNull(guildChannel.getParent());
     }
 
-    @Nonnull
-    public List<Member> getMembers() {
+    public @NotNull List<Member> getMembers() {
         return guildChannel.getMembers();
     }
 
@@ -58,17 +56,15 @@ public record YusufGuildChannel(GuildChannel guildChannel) {
         return guildChannel.getPositionRaw();
     }
 
-    @Nullable
     public PermissionOverride getPermissionOverride(@Nonnull IPermissionHolder permissionHolder) {
         return guildChannel.getPermissionOverride(permissionHolder);
     }
 
-    @Nonnull
-    public List<PermissionOverride> getPermissionOverrides() {
+    public @NotNull List<PermissionOverride> getPermissionOverrides() {
         return guildChannel.getPermissionOverrides();
     }
 
-    public List<PermissionOverride> getRolePermissionOverrides() {
+    public @NotNull List<PermissionOverride> getRolePermissionOverrides() {
         return guildChannel.getRolePermissionOverrides();
     }
 
@@ -76,59 +72,50 @@ public record YusufGuildChannel(GuildChannel guildChannel) {
         return guildChannel.isSynced();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public ChannelAction<? extends GuildChannel> createCopy(@Nonnull Guild guild) {
+    public @NotNull ChannelAction<? extends GuildChannel> createCopy(@Nonnull Guild guild) {
         return guildChannel.createCopy(guild);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public ChannelAction<? extends GuildChannel> createCopy() {
+    public @NotNull ChannelAction<? extends GuildChannel> createCopy() {
         return guildChannel.createCopy();
     }
 
-    @Nonnull
-    public ChannelManager getManager() {
+    public @NotNull ChannelManager getManager() {
         return guildChannel.getManager();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public AuditableRestAction<Void> delete() {
+    public @NotNull AuditableRestAction<Void> delete() {
         return guildChannel.delete();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public PermissionOverrideAction createPermissionOverride(
+    public @NotNull PermissionOverrideAction createPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
         return guildChannel.createPermissionOverride(permissionHolder);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public PermissionOverrideAction putPermissionOverride(
+    public @NotNull PermissionOverrideAction putPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
         return guildChannel.putPermissionOverride(permissionHolder);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public PermissionOverrideAction upsertPermissionOverride(
+    public @NotNull PermissionOverrideAction upsertPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
         return guildChannel.upsertPermissionOverride(permissionHolder);
     }
 
-    @Nonnull
     @CheckReturnValue
-    public InviteAction createInvite() {
+    public @NotNull InviteAction createInvite() {
         return guildChannel.createInvite();
     }
 
-    @Nonnull
     @CheckReturnValue
-    public RestAction<List<Invite>> retrieveInvites() {
+    public @NotNull RestAction<List<Invite>> retrieveInvites() {
         return guildChannel.retrieveInvites();
     }
 }

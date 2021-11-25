@@ -11,31 +11,7 @@
  * programs, too.
  */
 
+/**
+ * All the core classes are made here such as the core slash command event
+ */
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
-
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
-@SuppressWarnings("unused")
-public record YusufOptionMapping(OptionMapping optionMapping) {
-
-    public OptionMapping getOptionMapping() {
-        return optionMapping;
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufMember getAsMember() {
-        return new YusufMember(optionMapping.getAsMember());
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufUser getAsUser() {
-        return new YusufUser(optionMapping.getAsUser());
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufGuildChannel getAsGuildChannel() {
-        return new YusufGuildChannel(optionMapping.getAsGuildChannel());
-    }
-}

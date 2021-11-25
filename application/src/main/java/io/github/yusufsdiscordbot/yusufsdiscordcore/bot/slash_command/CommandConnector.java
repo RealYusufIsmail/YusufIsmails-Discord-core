@@ -16,28 +16,28 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Used when making a new command. Imports all the need methods into the new class.
  */
-public abstract class CommandConnector implements Command {
+public abstract class CommandConnector extends Command {
     private final String name;
     private final String description;
-    private final CommandVisibility commandVisibility;
-    private final CommandData commandData;
+    private final Boolean isGuildOnly;
+    private final CommandData retrieveCommandData;
 
     /**
      * Were the command is registered.
      */
-    protected CommandConnector(String name, String description,
-            CommandVisibility commandVisibility) {
+    protected CommandConnector(String name, String description, boolean isGuildOnly) {
         this.name = name;
         this.description = description;
-        this.commandVisibility = commandVisibility;
+        this.isGuildOnly = isGuildOnly;
 
-        commandData = new CommandData(name, description);
+        retrieveCommandData = new CommandData(name, description);
     }
 
     @Override
@@ -51,13 +51,16 @@ public abstract class CommandConnector implements Command {
     }
 
     @Override
-    public final @NotNull CommandVisibility getVisibility() {
-        return commandVisibility;
+    public final CommandData retrieveCommandData() {
+        return retrieveCommandData;
     }
 
     @Override
-    public final CommandData getCommandData() {
-        return commandData;
+    public Boolean isGuildOnly() {
+        return isGuildOnly;
     }
 
+    @Override
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onButtonClick(@NotNull ButtonClickEvent event) {}
 }

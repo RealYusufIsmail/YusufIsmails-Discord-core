@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * For register the commands make sure to set it to awaitReady as seen here
- * 
+ *
  * <pre>
  * jda.awaitReady()
  *     .addEventListener(new CommandHandler(jda, jda.getGuildById(872494635757473932L)));
@@ -39,7 +39,6 @@ import java.util.Map;
  */
 public class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, CommandConnector> commandConnector = new HashMap<>();
-
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -64,15 +63,16 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The enum {@link CommandVisibility#UNIVERSAL} and {@link CommandVisibility#SERVER}
-     *        determines whether the command should be Global or Guild only.
+     *        The boolean {@link Command#isGuildOnly()} is used to determine whether the command
+     *        should be global or guild only. determines whether the command should be Global or
+     *        Guild only.
      */
     public void addCommand(CommandConnector command) {
         commandConnector.put(command.getName(), command);
-        if (command.getVisibility() == CommandVisibility.SERVER) {
-            guildCommandsData.addCommands(command.getCommandData());
-        } else if (command.getVisibility() == CommandVisibility.UNIVERSAL) {
-            globalCommandsData.addCommands(command.getCommandData());
+        if (command.isGuildOnly()) {
+            guildCommandsData.addCommands(command.retrieveCommandData());
+        } else if (!command.isGuildOnly()) {
+            globalCommandsData.addCommands(command.retrieveCommandData());
         }
     }
 
@@ -81,7 +81,6 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
             CommandConnector slashCommand = this.commandConnector.get(event.getName());
             slashCommand.onSlashCommand(new YusufSlashCommandEvent(slashCommand, event));
         }
-
     }
 
     /**
