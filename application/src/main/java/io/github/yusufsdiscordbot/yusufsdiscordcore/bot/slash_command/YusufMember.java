@@ -418,6 +418,13 @@ public record YusufMember(Member member) {
         return this.member.canSync(channel.getGuildChannel());
     }
 
+    /**
+     *
+     * @param member the member who you want to check is null
+     * @param event the slash command event.
+     * @return not null
+     */
+    @Contract("!null,_->false;null,_->true")
     public boolean memberIsNotNull(YusufMember member, YusufSlashCommandEvent event) {
         boolean result = member == null;
         if (result) {

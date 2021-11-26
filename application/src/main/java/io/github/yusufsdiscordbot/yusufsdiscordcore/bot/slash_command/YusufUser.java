@@ -152,6 +152,7 @@ public record YusufUser(User user) {
      * @param event the slash command event.
      * @return not null
      */
+    @Contract("!null,_->false;null,_->true")
     public boolean userIsNotNull(YusufUser user, YusufSlashCommandEvent event) {
         boolean result = user != null;
         if (result) {
