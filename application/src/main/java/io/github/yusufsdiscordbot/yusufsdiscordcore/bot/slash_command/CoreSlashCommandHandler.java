@@ -21,6 +21,8 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +42,7 @@ import java.util.Map;
  */
 @SuppressWarnings("unused")
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, CommandConnector> commandConnector = new HashMap<>();
 
     /**
@@ -54,24 +57,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
-    }
-
-
-    /**
-     * Used to register only owner commands.
-     * 
-     * @param command the command connector.
-     * @param ownerId the owner id.
-     */
-    public void addCommand(@NotNull CommandConnector command, long ownerId) {
-        if (command.isOwnerOnly() && ownerId == botOwnerId()) {
-            commandConnector.put(command.getName(), command);
-            if (command.isGuildOnly()) {
-                guildCommandsData.addCommands(command.retrieveCommandData()).queue();
-            } else if (!command.isGuildOnly()) {
-                globalCommandsData.addCommands(command.retrieveCommandData()).queue();
-            }
-        }
     }
 
     /**
@@ -111,6 +96,15 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         if (this.commandConnector.containsKey(slashCommandEvent.getName())) {
             CommandConnector onSlashCommand =
                     this.commandConnector.get(slashCommandEvent.getName());
+            if (onSlashCommand.isOwnerOnly()) {
+                if (slashCommandEvent.getUser().getIdLong() == botOwnerId()) {
+                    onSlashCommand.onSlashCommand(
+                            new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
+                } else {
+                    logger
+                        .error("You are not the owner of the bot so you can not run this command");
+                }
+            }
             onSlashCommand
                 .onSlashCommand(new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
         }
