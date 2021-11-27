@@ -14,7 +14,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -150,16 +149,6 @@ public record YusufGuild(Guild guild) {
     public @NotNull RestAction<Map<String, List<CommandPrivilege>>> updateCommandPrivileges(
             @Nonnull Map<String, Collection<? extends CommandPrivilege>> privileges) {
         return this.guild.updateCommandPrivileges(privileges);
-    }
-
-    @CheckReturnValue
-    public @NotNull RestAction<EnumSet<Region>> retrieveRegions() {
-        return this.guild.retrieveRegions(true);
-    }
-
-    @CheckReturnValue
-    public @NotNull RestAction<EnumSet<Region>> retrieveRegions(boolean includeDeprecated) {
-        return this.guild.retrieveRegions();
     }
 
     @CheckReturnValue
