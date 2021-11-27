@@ -78,7 +78,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @return used to set the bot owner id.
      */
-    abstract long botOwnerId();
+    protected abstract long botOwnerId();
 
     /**
      * Used to register the commands. when the developer types addCommand(new TestCommand()). The

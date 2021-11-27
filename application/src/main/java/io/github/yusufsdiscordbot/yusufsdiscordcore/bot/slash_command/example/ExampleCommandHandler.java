@@ -15,4 +15,9 @@ public class ExampleCommandHandler extends CoreSlashCommandHandler {
         super(jda, guild);
         addCommand(new ExampleCommand());
     }
+
+    @Override
+    protected long botOwnerId() {
+        return 801168918039232582L;
+    }
 }
