@@ -39,7 +39,7 @@ import java.util.Map;
  * addCommand(new TestCommand())
  */
 @SuppressWarnings("unused")
-public class CoreSlashCommandHandler extends ListenerAdapter {
+public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, CommandConnector> commandConnector = new HashMap<>();
 
     /**
@@ -51,18 +51,11 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
-    public CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+    protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
     }
 
-
-
-    long botOwnerId = 422708001976221697L;
-
-    private long botOwnerId() {
-        return botOwnerId;
-    }
 
     /**
      * Used to register only owner commands.
@@ -80,6 +73,12 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
             }
         }
     }
+
+    /**
+     *
+     * @return used to set the bot owner id.
+     */
+    abstract long botOwnerId();
 
     /**
      * Used to register the commands. when the developer types addCommand(new TestCommand()). The
