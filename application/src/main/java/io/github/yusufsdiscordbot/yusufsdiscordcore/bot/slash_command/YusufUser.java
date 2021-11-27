@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -152,12 +153,13 @@ public record YusufUser(User user) {
      * @param event the slash command event.
      * @return not null
      */
-    @Contract("!null,_->false;null,_->true")
+    @Contract("null,_->false;!null,_->true")
     public boolean userIsNotNull(YusufUser user, YusufSlashCommandEvent event) {
-        boolean result = user != null;
+        boolean result = user == null;
         if (result) {
-            event.replyEphemeral("The user " + user.getUserTag() + " is null");
+            event.replyEphemeral("The given user is null");
+            return false;
         }
-        return result;
+        return true;
     }
 }

@@ -13,7 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.annotations.MadeBy;
+import io.github.yusufsdiscordbot.annotations.Author;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-@MadeBy(author = "Yusuf Arfan Ismail")
+@Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
     private final Command slashCommand;
     private final SlashCommandEvent event;

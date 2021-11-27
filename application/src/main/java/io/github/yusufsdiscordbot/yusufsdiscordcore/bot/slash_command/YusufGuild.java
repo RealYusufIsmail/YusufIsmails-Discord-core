@@ -330,7 +330,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotUnBanUser(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotUnBanUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
                 && !member.hasPermission(Permission.BAN_MEMBERS)) {
@@ -419,7 +419,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotBanUser(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotBanUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
                 && !member.hasPermission(Permission.BAN_MEMBERS)) {
@@ -471,7 +471,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotKickUser(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotKickUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.KICK_MEMBERS)
                 && !member.hasPermission(Permission.KICK_MEMBERS)) {
@@ -509,7 +509,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotMuteUser(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotMuteUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.VOICE_MUTE_OTHERS)
                 && !member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
@@ -562,7 +562,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotAddRoleToMember(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotAddRoleToMember(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {
@@ -613,7 +613,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotARemoveRoleFromMember(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotRemoveRoleFromMember(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {
@@ -655,7 +655,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotPrune(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotPrune(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MESSAGE_MANAGE)
                 && !member.hasPermission(Permission.MESSAGE_MANAGE)) {
@@ -782,7 +782,7 @@ public record YusufGuild(Guild guild) {
         return this.getBot().hasPermission(Permission.MANAGE_CHANNEL);
     }
 
-    public @NotNull Boolean canYouANDBotCreateTextChannel(@NotNull YusufMember member) {
+    public @NotNull Boolean canYouAndBotCreateTextChannel(@NotNull YusufMember member) {
         return this.getBot().hasPermission(Permission.MANAGE_CHANNEL)
                 || member.hasPermission(Permission.MANAGE_CHANNEL);
     }
@@ -808,7 +808,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canYouANDBotCreateRole(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotCreateRole(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {

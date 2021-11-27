@@ -11,7 +11,7 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.annotations;
+package io.github.yusufsdiscordbot.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -23,29 +23,31 @@ import static java.lang.annotation.ElementType.TYPE;
 
 /**
  * Used to determine weather the command is needed for changed or not.
+ *
+ * @author Yusuf Arfan Ismail
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE})
+@Retention(RetentionPolicy.CLASS)
+@Target(value = {METHOD, TYPE})
 public @interface ToBeChanged {
     /**
      * @return The expected version of when the code will be changed.
      *
-     * @since 1.0.25
+     * @since 1.0.0
      */
     String whenToBeChanged() default "";
 
     /**
      * @return Used to determine if the command will be changed in the near future.
      *
-     * @since 1.0.25
+     * @since 1.0.0
      */
     boolean willBeChangedSoon() default true;
 
     /**
      * @return The reason why the command will be changed.
      *
-     * @since 1.0.25
+     * @since 1.0.0
      */
     String reasonForTheChange() default "";
 }

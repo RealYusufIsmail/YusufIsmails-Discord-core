@@ -424,12 +424,13 @@ public record YusufMember(Member member) {
      * @param event the slash command event.
      * @return not null
      */
-    @Contract("!null,_->false;null,_->true")
+    @Contract("null,_->false;!null,_->true")
     public boolean memberIsNotNull(YusufMember member, YusufSlashCommandEvent event) {
         boolean result = member == null;
         if (result) {
-            event.replyEphemeral("The member is null");
+            event.replyEphemeral("The given member is null");
+            return false;
         }
-        return result;
+        return true;
     }
 }

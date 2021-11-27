@@ -16,6 +16,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -37,21 +38,47 @@ import java.util.Map;
  * Commands are register by using addCommand with an example being <br>
  * addCommand(new TestCommand())
  */
+@SuppressWarnings("unused")
 public class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, CommandConnector> commandConnector = new HashMap<>();
 
     /**
      * Used to determine whether the commands should be global or guild only.
      */
-    public CommandListUpdateAction globalCommandsData;
-    public CommandListUpdateAction guildCommandsData;
+    private final CommandListUpdateAction globalCommandsData;
+    private final CommandListUpdateAction guildCommandsData;
 
     /**
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
-    public CoreSlashCommandHandler(JDA jda, Guild guild) {
+    public CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
+    }
+
+
+
+    long botOwnerId = 422708001976221697L;
+
+    private long botOwnerId() {
+        return botOwnerId;
+    }
+
+    /**
+     * Used to register only owner commands.
+     * 
+     * @param command the command connector.
+     * @param ownerId the owner id.
+     */
+    public void addCommand(@NotNull CommandConnector command, long ownerId) {
+        if (command.isOwnerOnly() && ownerId == botOwnerId()) {
+            commandConnector.put(command.getName(), command);
+            if (command.isGuildOnly()) {
+                guildCommandsData.addCommands(command.retrieveCommandData()).queue();
+            } else if (!command.isGuildOnly()) {
+                globalCommandsData.addCommands(command.retrieveCommandData()).queue();
+            }
+        }
     }
 
     /**
@@ -70,26 +97,55 @@ public class CoreSlashCommandHandler extends ListenerAdapter {
     public void addCommand(CommandConnector command) {
         commandConnector.put(command.getName(), command);
         if (command.isGuildOnly()) {
-            guildCommandsData.addCommands(command.retrieveCommandData());
+            guildCommandsData.addCommands(command.retrieveCommandData()).queue();
         } else if (!command.isGuildOnly()) {
-            globalCommandsData.addCommands(command.retrieveCommandData());
-        }
-    }
-
-    public void addCommand(SlashCommandEvent event) {
-        if (this.commandConnector.containsKey(event.getName())) {
-            CommandConnector slashCommand = this.commandConnector.get(event.getName());
-            slashCommand.onSlashCommand(new YusufSlashCommandEvent(slashCommand, event));
+            globalCommandsData.addCommands(command.retrieveCommandData()).queue();
         }
     }
 
     /**
-     * Handles the commands
+     * Register the slash command field
+     * 
+     * @param slashCommandEvent The slash command event
+     */
+    public void addCommand(@NotNull SlashCommandEvent slashCommandEvent) {
+        if (this.commandConnector.containsKey(slashCommandEvent.getName())) {
+            CommandConnector onSlashCommand =
+                    this.commandConnector.get(slashCommandEvent.getName());
+            onSlashCommand
+                .onSlashCommand(new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
+        }
+    }
+
+    /**
+     * Register the onButtonClick field
+     * 
+     * @param buttonClickEvent The button click event
+     */
+    public void addCommand(@NotNull ButtonClickEvent buttonClickEvent) {
+        if (this.commandConnector.containsKey(buttonClickEvent.getId())) {
+            CommandConnector onButtonClick = this.commandConnector.get(buttonClickEvent.getId());
+            onButtonClick.onButtonClick(buttonClickEvent);
+        }
+    }
+
+    /**
+     * Handles the slash command event.
      *
      * @param slashCommandEvent The original slash command event,
      */
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.addCommand(slashCommandEvent);
+    }
+
+    /**
+     * Handles the button click event.
+     *
+     * @param buttonClickEvent The original button click event,
+     */
+    @Override
+    public void onButtonClick(@NotNull ButtonClickEvent buttonClickEvent) {
+        this.addCommand(buttonClickEvent);
     }
 }

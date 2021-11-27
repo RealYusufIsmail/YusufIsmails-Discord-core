@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id 'maven-publish'
+    id 'signing'
+    id 'java-library'
+}
+
+archivesBaseName = 'annotations'
+description = "All the annotations for the yusufsdiscordcore library"
+version = bot_version
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:22.0.0'
+}
+jar {
+    manifest {
+        attributes('Implementation-Title': project.description,
+                'Implementation-Version': project.version
+        )
+    }
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                pom {
+                    name = 'annotations'
+                    description = 'All the annotations for the yusufsdiscordcore library'
+                }
+            }
+        }
+    }
+}
+compileJava.options.encoding = 'UTF-8'

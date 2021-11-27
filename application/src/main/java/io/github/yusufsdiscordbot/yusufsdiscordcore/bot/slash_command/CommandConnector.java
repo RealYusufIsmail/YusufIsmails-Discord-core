@@ -29,6 +29,7 @@ public abstract class CommandConnector extends Command {
     private final Boolean isGuildOnly;
     private final CommandData retrieveCommandData;
 
+
     /**
      * Were the command is registered.
      */
@@ -63,4 +64,9 @@ public abstract class CommandConnector extends Command {
     @Override
     @SuppressWarnings("NoopMethodInAbstractClass")
     public void onButtonClick(@NotNull ButtonClickEvent event) {}
+
+    @Override
+    public boolean isOwnerOnly() {
+        return false;
+    }
 }

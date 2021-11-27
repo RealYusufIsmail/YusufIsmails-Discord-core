@@ -11,7 +11,7 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.annotations;
+package io.github.yusufsdiscordbot.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -19,19 +19,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.TYPE;
 
 /**
- * Can be used to give the author of the code credit.
+ * This annotation is used to give the programmer the ability to specify the command type.
+ *
+ * @author Yusuf Arfan Ismail
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE})
-public @interface MadeBy {
+@Retention(RetentionPolicy.CLASS)
+@Target(value = {METHOD, TYPE})
+@Author(firstName = "Yusuf", lastName = "Ismail", githubUserName = "RealYusufIsmail")
+public @interface CommandType {
     /**
-     * @return the name of the person who made the code.
-     *
-     * @since 1.0.25
+     * @return Used to specify the command type.
      */
-    String author() default "";
+    String commandType() default "";
 }

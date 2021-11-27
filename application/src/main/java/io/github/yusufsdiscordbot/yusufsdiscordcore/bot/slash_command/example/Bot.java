@@ -17,6 +17,5 @@ class Bot {
         jda.awaitReady()
             .getGuildCache()
             .forEach(guild -> jda.addEventListener(new ExampleCommandHandler(jda, guild)));
-
     }
 }

@@ -13,7 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.annotations.ToBeChanged;
+import io.github.yusufsdiscordbot.annotations.ToBeChanged;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -71,4 +71,6 @@ abstract class Command {
      * @see ButtonClickEvent
      */
     abstract void onButtonClick(@NotNull ButtonClickEvent event);
+
+    abstract boolean isOwnerOnly();
 }
