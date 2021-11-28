@@ -13,16 +13,19 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
+/**
+ * Used to determine when a class was created.
+ */
 public @interface WhenCreated {
     /**
      * @return The date the code was written.
      *
      * @since 1.0.0
      */
-    String date() default "";
+    String dateOfCreation() default "";
 
     /**
      * @return The version when the code was written.
      */
-    String version() default "";
+    String versionOfCreation() default "";
 }

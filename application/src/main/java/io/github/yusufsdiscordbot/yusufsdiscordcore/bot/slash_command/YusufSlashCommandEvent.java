@@ -128,7 +128,8 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
         return this.getJDA().getSelfUser();
     }
 
-    public YusufUser getSelfYusufUser() {
-        return new YusufUser(this.getSelfUser());
+    @Contract(" -> new")
+    public YusufBot getBot() {
+        return new YusufBot(this.getJDA().getSelfUser());
     }
 }

@@ -13,43 +13,10 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.TYPE;
-
-/**
- * Can be used to give the author of the code credit.
- *
- * @author Yusuf Arfan Ismail
- *
- * @since 1.0.0
- */
-@Documented
-@Retention(RetentionPolicy.CLASS)
-@Target(value = {METHOD, TYPE})
-public @interface Author {
+public @interface Credits {
     /**
-     * @return the name of the person who wrote the code.
-     *
-     * @since 1.0.0
+     * @return The link or the class name of were the code was taken from or where inspiration was
+     *         taken from.
      */
-    String firstName() default "";
-
-    /**
-     * @return the last name of the person who wrote the code.
-     *
-     * @since 1.0.0
-     */
-    String lastName() default "";
-
-    /**
-     * @return the GitHub username of the person who wrote the code.
-     *
-     * @since 1.0.0
-     */
-    String githubUserName() default "";
+    String source();
 }

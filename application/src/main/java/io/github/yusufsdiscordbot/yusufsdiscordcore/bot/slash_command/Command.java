@@ -61,8 +61,8 @@ abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
-    @ToBeChanged(whenToBeChanged = "1.0.50", willBeChangedSoon = true,
-            reasonForTheChange = "To remove the credits")
+    @ToBeChanged(versionOfChange = "1.0.50", willBeChangedSoon = true,
+            reasonForChange = "To remove the credits")
     abstract CommandData retrieveCommandData();
 
     /**

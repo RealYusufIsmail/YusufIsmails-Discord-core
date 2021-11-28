@@ -18,45 +18,30 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 
 /**
- * Used to determine weather the command is needed for changed or not.
+ * Can be used to give multiple authors credit for there work.
  *
  * @author Yusuf Arfan Ismail
  *
- * @since 1.0.0
+ * @since 1.0.1
  */
 @Documented
 @Retention(RetentionPolicy.CLASS)
 @Target(value = {METHOD, TYPE})
-public @interface ToBeChanged {
-    /**
-     * @return The expected version of when the code will be changed.
-     *
-     * @since 1.0.0
-     */
-    String versionOfChange() default "";
+public @interface Authors {
 
     /**
-     * @return The date when the command will be changed.
+     * @return The authors of the code.
      *
      * @since 1.0.1
      */
-    String dateOfChange() default "";
+    String[] namesOfTheAuthors();
 
     /**
-     * @return Used to determine if the command will be changed in the near future.
-     *
-     * @since 1.0.0
+     * @return The GitHub usernames of the authors.
      */
-    boolean willBeChangedSoon() default false;
-
-    /**
-     * @return The reason why the command will be changed.
-     *
-     * @since 1.0.0
-     */
-    String reasonForChange() default "";
+    String[] namesOfTheAuthorsGithub();
 }

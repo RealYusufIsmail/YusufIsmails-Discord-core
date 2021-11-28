@@ -147,8 +147,11 @@ public record YusufUser(User user) {
         return this.user.getAsMention();
     }
 
+    public @NotNull YusufBot getBot() {
+        return new YusufBot(this.user.getJDA().getSelfUser());
+    }
+
     /**
-     *
      * @param user the user who you want to check is null
      * @param event the slash command event.
      * @return not null

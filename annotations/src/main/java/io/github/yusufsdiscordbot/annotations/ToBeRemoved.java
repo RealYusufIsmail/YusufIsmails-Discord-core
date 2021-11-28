@@ -18,11 +18,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 
 /**
- * Used to determine weather the command is needed for changed or not.
+ * Used to determine weather the command will be removed or not.
  *
  * @author Yusuf Arfan Ismail
  *
@@ -31,32 +31,32 @@ import static java.lang.annotation.ElementType.TYPE;
 @Documented
 @Retention(RetentionPolicy.CLASS)
 @Target(value = {METHOD, TYPE})
-public @interface ToBeChanged {
+public @interface ToBeRemoved {
     /**
-     * @return The expected version of when the code will be changed.
+     * @return The expected version of when the code will be removed.
      *
-     * @since 1.0.0
+     * @since 1.0.1
      */
-    String versionOfChange() default "";
+    String versionOfRemoval() default "";
 
     /**
-     * @return The date when the command will be changed.
+     * @return The expected date when the command will be removed.
      *
      * @since 1.0.1
      */
     String dateOfChange() default "";
 
     /**
-     * @return Used to determine if the command will be changed in the near future.
+     * @return Used to determine if the command will be removed in the near future.
      *
-     * @since 1.0.0
+     * @since 1.0.1
      */
-    boolean willBeChangedSoon() default false;
+    boolean willBeRemovedSoon() default true;
 
     /**
-     * @return The reason why the command will be changed.
+     * @return The reason why the command will be removed.
      *
-     * @since 1.0.0
+     * @since 1.0.1
      */
-    String reasonForChange() default "";
+    String reasonForRemoval() default "";
 }

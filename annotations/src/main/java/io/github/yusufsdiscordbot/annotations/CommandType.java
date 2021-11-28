@@ -24,6 +24,8 @@ import static java.lang.annotation.ElementType.*;
  * This annotation is used to give the programmer the ability to specify the command type.
  *
  * @author Yusuf Arfan Ismail
+ *
+ * @since 1.0.0
  */
 @Documented
 @Retention(RetentionPolicy.CLASS)

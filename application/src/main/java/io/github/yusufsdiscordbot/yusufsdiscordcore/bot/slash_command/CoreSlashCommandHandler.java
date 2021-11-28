@@ -80,9 +80,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     public void addCommand(CommandConnector command) {
         commandConnector.put(command.getName(), command);
-        if (command.isGuildOnly()) {
+        if (Boolean.TRUE.equals(command.isGuildOnly())) {
             guildCommandsData.addCommands(command.retrieveCommandData()).queue();
-        } else if (!command.isGuildOnly()) {
+        } else if (Boolean.FALSE.equals(command.isGuildOnly())) {
             globalCommandsData.addCommands(command.retrieveCommandData()).queue();
         }
     }
@@ -92,7 +92,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * 
      * @param slashCommandEvent The slash command event
      */
-    public void addCommand(@NotNull SlashCommandEvent slashCommandEvent) {
+    public void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
         if (this.commandConnector.containsKey(slashCommandEvent.getName())) {
             CommandConnector onSlashCommand =
                     this.commandConnector.get(slashCommandEvent.getName());
@@ -115,7 +115,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * 
      * @param buttonClickEvent The button click event
      */
-    public void addCommand(@NotNull ButtonClickEvent buttonClickEvent) {
+    public void runButtonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
         if (this.commandConnector.containsKey(buttonClickEvent.getId())) {
             CommandConnector onButtonClick = this.commandConnector.get(buttonClickEvent.getId());
             onButtonClick.onButtonClick(buttonClickEvent);
@@ -129,7 +129,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        this.addCommand(slashCommandEvent);
+        this.runSlashCommandEvent(slashCommandEvent);
     }
 
     /**
@@ -139,6 +139,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @Override
     public void onButtonClick(@NotNull ButtonClickEvent buttonClickEvent) {
-        this.addCommand(buttonClickEvent);
+        this.runButtonClickEvent(buttonClickEvent);
     }
 }
