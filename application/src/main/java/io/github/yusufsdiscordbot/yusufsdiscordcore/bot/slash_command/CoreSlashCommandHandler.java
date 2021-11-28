@@ -85,18 +85,21 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getCommandData());
         }
-        onFinishedRegistration();
     }
 
-    private void onFinishedRegistration() {
+    /**
+     * Queues the command after the command has been registered.
+     */
+    public void onFinishedRegistration() {
         globalCommandsData.queue();
         guildCommandsData.queue();
     }
 
+
     /**
-     * Register the slash command field
-     * 
-     * @param slashCommandEvent The slash command event
+     * This method is called when the slash command is triggered.
+     *
+     * @param slashCommandEvent the event that triggered the slash command.
      */
     private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
         if (this.commandConnector.containsKey(slashCommandEvent.getName())) {

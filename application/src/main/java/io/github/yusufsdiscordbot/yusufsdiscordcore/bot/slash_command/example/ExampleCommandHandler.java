@@ -14,6 +14,8 @@ public class ExampleCommandHandler extends CoreSlashCommandHandler {
     public ExampleCommandHandler(JDA jda, Guild guild) {
         super(jda, guild);
         addCommand(new ExampleCommand());
+
+        onFinishedRegistration();
     }
 
     @Override
