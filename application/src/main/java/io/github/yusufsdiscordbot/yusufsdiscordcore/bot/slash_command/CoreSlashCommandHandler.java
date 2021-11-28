@@ -74,9 +74,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The boolean {@link Command#checkIfIsGuildOnly()} ()} is used to determine whether the command
-     *        should be global or guild only. determines whether the command should be Global or
-     *        Guild only.
+     *        The boolean {@link Command#checkIfIsGuildOnly()} ()} is used to determine whether the
+     *        command should be global or guild only. determines whether the command should be
+     *        Global or Guild only.
      */
     public void addCommand(Command command) {
         commandConnector.put(command.getName(), command);
