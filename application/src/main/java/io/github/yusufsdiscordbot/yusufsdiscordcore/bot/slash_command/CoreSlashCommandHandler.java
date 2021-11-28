@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +79,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        command should be global or guild only. determines whether the command should be
      *        Global or Guild only.
      */
-    public void addCommand(Command command) {
+    private void addCommand(Command command) {
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -87,6 +88,12 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
+
+    public void registerCommands(@NotNull Collection<Command> commands) {
+        commands.forEach(this::addCommand);
+        onFinishedRegistration();
+    }
+    
     /**
      * Queues the command after the command has been registered.
      */
