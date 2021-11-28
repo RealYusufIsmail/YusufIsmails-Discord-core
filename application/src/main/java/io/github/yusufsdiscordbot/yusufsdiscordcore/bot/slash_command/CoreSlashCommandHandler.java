@@ -43,7 +43,7 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
-    private final Map<String, CommandConnector> commandConnector = new HashMap<>();
+    private final Map<String, Command> commandConnector = new HashMap<>();
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -74,17 +74,23 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The boolean {@link Command#isGuildOnly()} is used to determine whether the command
+     *        The boolean {@link Command#checkIfIsGuildOnly()} ()} is used to determine whether the command
      *        should be global or guild only. determines whether the command should be Global or
      *        Guild only.
      */
-    public void addCommand(CommandConnector command) {
+    public void addCommand(Command command) {
         commandConnector.put(command.getName(), command);
-        if (Boolean.TRUE.equals(command.isGuildOnly())) {
-            guildCommandsData.addCommands(command.retrieveCommandData()).queue();
-        } else if (Boolean.FALSE.equals(command.isGuildOnly())) {
-            globalCommandsData.addCommands(command.retrieveCommandData()).queue();
+        if (command.checkIfIsGuildOnly()) {
+            guildCommandsData.addCommands(command.getCommandData());
+        } else if (!command.checkIfIsGuildOnly()) {
+            globalCommandsData.addCommands(command.getCommandData());
         }
+        onFinishedRegistration();
+    }
+
+    private void onFinishedRegistration() {
+        globalCommandsData.queue();
+        guildCommandsData.queue();
     }
 
     /**
@@ -92,10 +98,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * 
      * @param slashCommandEvent The slash command event
      */
-    public void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
+    private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
         if (this.commandConnector.containsKey(slashCommandEvent.getName())) {
-            CommandConnector onSlashCommand =
-                    this.commandConnector.get(slashCommandEvent.getName());
+            Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
             if (onSlashCommand.isOwnerOnly()) {
                 if (slashCommandEvent.getUser().getIdLong() == botOwnerId()) {
                     onSlashCommand.onSlashCommand(
@@ -115,9 +120,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * 
      * @param buttonClickEvent The button click event
      */
-    public void runButtonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
+    private void runButtonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
         if (this.commandConnector.containsKey(buttonClickEvent.getId())) {
-            CommandConnector onButtonClick = this.commandConnector.get(buttonClickEvent.getId());
+            Command onButtonClick = this.commandConnector.get(buttonClickEvent.getId());
             onButtonClick.onButtonClick(buttonClickEvent);
         }
     }

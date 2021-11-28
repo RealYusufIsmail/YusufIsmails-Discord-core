@@ -1,3 +1,6 @@
+// Originally from
+// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
+// then modified by Yusuf
 /*
  * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
  * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
@@ -13,14 +16,31 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-import io.github.yusufsdiscordbot.annotations.ToBeChanged;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
-abstract class Command {
+/**
+ * Used when making a new command. Imports all the need methods into the new class.
+ */
+public abstract class Command {
+    private final String name;
+    private final String description;
+    private final boolean isGuildOnly;
+    private final CommandData commandData;
+
+    /**
+     * Were the command is registered.
+     */
+    protected Command(String name, String description, boolean isGuildOnly) {
+        this.name = name;
+        this.description = description;
+        this.isGuildOnly = isGuildOnly;
+
+        commandData = new CommandData(name, description);
+    }
 
     /**
      * Were the command is created.
@@ -32,20 +52,18 @@ abstract class Command {
      *
      * @return {@link CommandData#getName()}
      */
-    abstract String getName();
+    public final @NotNull String getName() {
+        return name;
+    }
 
     /**
      * Provides the user information on what the command is about.
      *
      * @return {@link CommandData#getDescription()}
      */
-    abstract String getDescription();
-
-    /**
-     * Used to determine whether the command is Global(can be used on all servers) or whether it is
-     * only a Guild command(can only be used in specific servers)
-     */
-    abstract Boolean isGuildOnly();
+    public final @NotNull String getDescription() {
+        return description;
+    }
 
     /**
      * Retrieves all the command data such as the name and description of the command. Also used to
@@ -61,16 +79,31 @@ abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
-    @ToBeChanged(versionOfChange = "1.0.50", willBeChangedSoon = true,
-            reasonForChange = "To remove the credits")
-    abstract CommandData retrieveCommandData();
+    public final CommandData getCommandData() {
+        return commandData;
+    }
+
+    /**
+     * Used to determine whether the command is Global(can be used on all servers) or whether it is
+     * only a Guild command(can only be used in specific servers)
+     */
+    public boolean checkIfIsGuildOnly() {
+        return isGuildOnly;
+    }
 
     /**
      * Used to create buttons for the user to interact with.
      *
      * @see ButtonClickEvent
      */
-    abstract void onButtonClick(@NotNull ButtonClickEvent event);
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onButtonClick(@NotNull ButtonClickEvent event) {}
 
-    abstract boolean isOwnerOnly();
+    /**
+     * Used to determine whether the command is Global(can be used on all servers) or whether it is
+     * only a Guild command(can only be used in specific servers)
+     */
+    public boolean isOwnerOnly() {
+        return false;
+    }
 }

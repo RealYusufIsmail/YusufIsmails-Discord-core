@@ -1,9 +1,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.CommandConnector;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufSlashCommandEvent;
 
-class ExampleCommand extends CommandConnector {
+class ExampleCommand extends Command {
     /**
      * Were the command is registered.
      */
