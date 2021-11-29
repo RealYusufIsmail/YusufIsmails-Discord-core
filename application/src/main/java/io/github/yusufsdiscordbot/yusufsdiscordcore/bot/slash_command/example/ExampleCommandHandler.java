@@ -18,7 +18,7 @@ public class ExampleCommandHandler extends CoreSlashCommandHandler {
     public ExampleCommandHandler(JDA jda, Guild guild) {
         super(jda, guild);
 
-        List <Command> commands = new ArrayList<>();
+        List<Command> commands = new ArrayList<>();
         registerCommands(commands);
     }
 
