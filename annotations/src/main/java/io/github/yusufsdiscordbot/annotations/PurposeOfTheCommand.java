@@ -13,9 +13,27 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
+
+/**
+ * Used to determine what the command does
+ *
+ * @since 1.0.2
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value = {METHOD, TYPE, LOCAL_VARIABLE, CONSTRUCTOR})
+@Documented
 public @interface PurposeOfTheCommand {
     /**
      * @return What the command is supposed to do.
+     *
+     * @since 1.0.2
      */
     String purposeOfTheCommand();
 }

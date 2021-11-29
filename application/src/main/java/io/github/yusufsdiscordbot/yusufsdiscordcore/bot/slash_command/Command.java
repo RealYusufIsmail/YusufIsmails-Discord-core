@@ -18,10 +18,13 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * Used when making a new command. Imports all the need methods into the new class.
@@ -100,6 +103,14 @@ public abstract class Command {
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
     public void onButtonClick(@NotNull ButtonClickEvent event) {}
+
+    /**
+     * Used to create a selection menu for the user to interact with.
+     *
+     * @param event The original selection menu event,
+     */
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
 
     /**
      * Used to determine whether the command is Global(can be used on all servers) or whether it is

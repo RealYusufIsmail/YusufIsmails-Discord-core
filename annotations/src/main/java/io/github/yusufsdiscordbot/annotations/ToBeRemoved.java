@@ -13,24 +13,21 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
 
 /**
- * Used to determine weather the command will be removed or not.
+ * Used to determine weather the command or method will be removed or not.
  *
  * @author Yusuf Arfan Ismail
  *
  * @since 1.0.0
  */
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Retention(RetentionPolicy.CLASS)
-@Target(value = {METHOD, TYPE})
+@Repeatable(removal.class)
 public @interface ToBeRemoved {
     /**
      * @return The expected version of when the code will be removed.
@@ -60,3 +57,15 @@ public @interface ToBeRemoved {
      */
     String reasonForRemoval() default "";
 }
+
+/**
+ * Used to determine weather the command or method will be removed or not.
+ *
+ * @since 1.0.3
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@interface removal {
+    ToBeRemoved[] value();
+}
+

@@ -13,10 +13,12 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -42,6 +44,8 @@ import java.util.Map;
  * addCommand(new TestCommand())
  */
 @SuppressWarnings("unused")
+@Authors(namesOfTheAuthors = {"Yusuf Arfan Ismail", "Serkwi Bruno Ndzi"},
+        namesOfTheAuthorsGithub = {"RealYusufIsmail", "nDZIB"})
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, Command> commandConnector = new HashMap<>();
@@ -89,7 +93,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
 
-    public void registerCommands(@NotNull Collection<Command> commands) {
+    public void queueAndRegisterCommands(@NotNull Collection<Command> commands) {
         commands.forEach(this::addCommand);
         onFinishedRegistration();
     }
@@ -137,6 +141,13 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
+    private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
+        if (this.commandConnector.containsKey(selectionMenuEvent.getId())) {
+            Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getId());
+            onSelectMenu.onSelectionMenu(selectionMenuEvent);
+        }
+    }
+
     /**
      * Handles the slash command event.
      *
@@ -155,5 +166,15 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     @Override
     public void onButtonClick(@NotNull ButtonClickEvent buttonClickEvent) {
         this.runButtonClickEvent(buttonClickEvent);
+    }
+
+    /**
+     * Handles the selection menu event.
+     *
+     * @param selectionMenuEvent The original selection menu event,
+     */
+    @Override
+    public void onSelectionMenu(@NotNull SelectionMenuEvent selectionMenuEvent) {
+        this.runSelectMenuEvent(selectionMenuEvent);
     }
 }

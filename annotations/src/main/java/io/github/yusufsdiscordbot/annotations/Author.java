@@ -13,10 +13,9 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.jetbrains.annotations.NotNull;
+
+import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.ElementType.TYPE;
@@ -29,8 +28,8 @@ import static java.lang.annotation.ElementType.TYPE;
  * @since 1.0.0
  */
 @Documented
-@Retention(RetentionPolicy.CLASS)
-@Target(value = {METHOD, TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value = {METHOD, TYPE, LOCAL_VARIABLE, CONSTRUCTOR})
 public @interface Author {
     /**
      * @return the name of the person who wrote the code.
@@ -44,6 +43,7 @@ public @interface Author {
      *
      * @since 1.0.0
      */
+    @NotNull
     String lastName() default "";
 
     /**
@@ -51,5 +51,6 @@ public @interface Author {
      *
      * @since 1.0.0
      */
+    @NotNull
     String githubUserName() default "";
 }

@@ -18,10 +18,10 @@ public class ExampleCommandHandler extends CoreSlashCommandHandler {
     public ExampleCommandHandler(JDA jda, Guild guild) {
         super(jda, guild);
 
-        List<Command> commands = new ArrayList<>();
+        List<Command> handler = new ArrayList<>();
 
-        commands.add(new ExampleCommand());
-        registerCommands(commands);
+        handler.add(new ExampleCommand());
+        queueAndRegisterCommands(handler);
     }
 
     @Override

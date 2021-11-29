@@ -13,19 +13,51 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * Used to determine when a class was created.
+ *
+ * @author Yusuf Arfan Ismail
+ *
+ * @since 1.0.3
  */
-public @interface WhenCreated {
+@Documented
+@Repeatable(dates.class)
+public @interface DateOfCreation {
     /**
-     * @return The date the code was written.
+     * @return The day the code was written.
      *
-     * @since 1.0.0
+     * @since 1.0.3
      */
-    String dateOfCreation() default "";
+    int day();
 
     /**
-     * @return The version when the code was written.
+     * @return The month the code was written.
+     *
+     * @since 1.0.3
      */
-    String versionOfCreation() default "";
+    int month();
+
+    /**
+     * @return The year the code was written.
+     *
+     * @since 1.0.3
+     */
+    int year();
 }
+
+/**
+ * Used to determine when a class was created.
+ *
+ * @since 1.0.3
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@interface dates {
+    DateOfCreation[] value();
+}
+

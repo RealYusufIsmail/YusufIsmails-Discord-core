@@ -13,10 +13,7 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 
@@ -34,6 +31,8 @@ import static java.lang.annotation.ElementType.*;
 public @interface CommandType {
     /**
      * @return Used to specify the command type.
+     *
+     * @since 1.0.0
      */
     String commandType() default "";
 }

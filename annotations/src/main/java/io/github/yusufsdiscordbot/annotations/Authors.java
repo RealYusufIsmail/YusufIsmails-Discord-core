@@ -18,8 +18,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.CONSTRUCTOR;
 
 /**
  * Can be used to give multiple authors credit for there work.
@@ -30,7 +30,7 @@ import static java.lang.annotation.ElementType.TYPE;
  */
 @Documented
 @Retention(RetentionPolicy.CLASS)
-@Target(value = {METHOD, TYPE})
+@Target(value = {METHOD, TYPE, LOCAL_VARIABLE, CONSTRUCTOR})
 public @interface Authors {
 
     /**
@@ -43,5 +43,5 @@ public @interface Authors {
     /**
      * @return The GitHub usernames of the authors.
      */
-    String[] namesOfTheAuthorsGithub();
+    String[] namesOfTheAuthorsGithub() default "";
 }

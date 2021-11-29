@@ -13,24 +13,21 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.ElementType.TYPE;
 
 /**
- * Used to determine weather the command is needed for changed or not.
+ * Used to determine weather the command or method is needed for changed or not.
  *
  * @author Yusuf Arfan Ismail
  *
  * @since 1.0.0
  */
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Retention(RetentionPolicy.CLASS)
-@Target(value = {METHOD, TYPE})
+@Repeatable(change.class)
 public @interface ToBeChanged {
     /**
      * @return The expected version of when the code will be changed.
@@ -60,3 +57,14 @@ public @interface ToBeChanged {
      */
     String reasonForChange() default "";
 }
+/**
+ * Used to determine weather the command or method is needed for changed or not.
+ *
+ * @since 1.0.3
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@interface change {
+    ToBeChanged[] value();
+}
+
