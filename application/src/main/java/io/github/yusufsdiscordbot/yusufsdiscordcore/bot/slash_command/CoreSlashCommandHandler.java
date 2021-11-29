@@ -79,7 +79,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        command should be global or guild only. determines whether the command should be
      *        Global or Guild only.
      */
-    private void addCommand(Command command) {
+    public void addCommand(Command command) {
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -93,7 +93,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         commands.forEach(this::addCommand);
         onFinishedRegistration();
     }
-    
+
     /**
      * Queues the command after the command has been registered.
      */
