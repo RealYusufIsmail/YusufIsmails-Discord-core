@@ -1,7 +1,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufChoices;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufSlashCommandEvent;
+import org.jetbrains.annotations.NotNull;
 
 class ExampleCommand extends Command {
     /**
@@ -11,8 +13,13 @@ class ExampleCommand extends Command {
         super("example", "This is an example", true);
     }
 
+    YusufChoices getChoices() {
+        return new YusufChoices(
+                YusufChoices.yusufChoice("Example Choice 1", "Example Choice 1"));
+    }
+
     @Override
-    public void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent) {
+    public void onSlashCommand(@NotNull YusufSlashCommandEvent yusufSlashCommandEvent) {
         yusufSlashCommandEvent.replyMessage("example");
     }
 }

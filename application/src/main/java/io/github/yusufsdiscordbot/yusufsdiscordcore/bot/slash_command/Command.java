@@ -78,7 +78,7 @@ public abstract class Command {
      *         {@link CommandData#addOption(OptionType, String, String)} <br >
      *         <br >
      *         Choices can also be used which makes it easier for the user. which returns
-     *         {@link OptionData#addChoice(String, int)} <br>
+     *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      *         Original from <a href=
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>

@@ -13,7 +13,6 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
-import net.dv8tion.jda.api.entities.AbstractChannel;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.InteractionType;
@@ -61,14 +60,5 @@ public record YusufInteraction(Interaction interaction) {
     @NotNull
     YusufMember getMember() {
         return new YusufMember(interaction.getMember());
-    }
-
-    public AbstractChannel getChannel() {
-        return this.interaction.getChannel();
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufGuildChannel getGuildChannel() {
-        return new YusufGuildChannel(interaction.getGuildChannel());
     }
 }

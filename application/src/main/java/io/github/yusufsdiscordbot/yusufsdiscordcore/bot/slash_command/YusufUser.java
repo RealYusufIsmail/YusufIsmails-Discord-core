@@ -147,8 +147,83 @@ public record YusufUser(User user) {
         return this.user.getAsMention();
     }
 
+    /**
+     * @see YusufBot
+     */
     public @NotNull YusufBot getBot() {
         return new YusufBot(this.user.getJDA().getSelfUser());
+    }
+
+    /**
+     * @see YusufBot#getBotTag()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotTag() {
+        return this.getBot().getBotTag();
+    }
+
+    /**
+     * @see YusufBot#getBotId()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotId() {
+        return this.getBot().getBotId();
+    }
+
+    /**
+     * @see YusufBot#getBotIdLong()
+     */
+    @Contract(pure = true)
+    public @NotNull Long getBotIdLong() {
+        return this.getBot().getBotIdLong();
+    }
+
+    /**
+     * @see YusufBot#getBotName()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotName() {
+        return this.getBot().getBotName();
+    }
+
+    /**
+     * @see YusufBot#getDiscriminator()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotDiscriminator() {
+        return this.getBot().getDiscriminator();
+    }
+
+    /**
+     * @see YusufBot#getAvatarId()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotAvatarId() {
+        return this.getBot().getAvatarId();
+    }
+
+    /**
+     * @see YusufBot#getAvatarUrl()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotAvatarUrl() {
+        return this.getBot().getAvatarUrl();
+    }
+
+    /**
+     * @see YusufBot#getDefaultAvatarId()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotDefaultAvatarId() {
+        return this.getBot().getDefaultAvatarId();
+    }
+
+    /**
+     * @see YusufBot#getBotEffectiveAvatarUrl()
+     */
+    @Contract(pure = true)
+    public @NotNull String getBotEffectiveAvatarUrl() {
+        return this.getBot().getBotEffectiveAvatarUrl();
     }
 
     /**

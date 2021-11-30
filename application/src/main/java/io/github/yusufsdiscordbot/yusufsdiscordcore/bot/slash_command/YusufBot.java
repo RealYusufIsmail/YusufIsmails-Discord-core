@@ -39,6 +39,14 @@ public record YusufBot(SelfUser user) {
         return user.getApplicationId();
     }
 
+
+    /**
+     * @return the tags of the bot
+     */
+    public @NotNull String getBotTag() {
+        return user.getAsTag();
+    }
+
     /**
      * Check if the bot is verified or not.
      * 
@@ -106,4 +114,19 @@ public record YusufBot(SelfUser user) {
     public @NotNull String getDefaultAvatarUrl() {
         return Objects.requireNonNull(user.getDefaultAvatarUrl());
     }
+
+    /**
+     * @return the bots' effective avatar url.
+     */
+    public @NotNull String getBotEffectiveAvatarUrl() {
+        return Objects.requireNonNull(user.getEffectiveAvatarUrl());
+    }
+
+    /**
+     * @return the bots' discriminator.
+     */
+    public @NotNull String getDiscriminator() {
+        return Objects.requireNonNull(user.getDiscriminator());
+    }
+
 }
