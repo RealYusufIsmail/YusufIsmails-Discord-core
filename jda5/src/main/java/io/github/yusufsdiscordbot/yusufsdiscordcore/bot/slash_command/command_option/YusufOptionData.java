@@ -12,6 +12,9 @@ import java.util.Set;
 public class YusufOptionData {
     final OptionData optionData;
 
+    public OptionData getOptionData() {
+        return optionData;
+    }
     /**
      *
      * @param optionType The slash command option type

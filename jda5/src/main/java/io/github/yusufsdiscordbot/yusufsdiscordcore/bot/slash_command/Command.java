@@ -25,6 +25,7 @@ import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -53,7 +54,7 @@ public abstract class Command {
     /**
      * Were the command is created.
      */
-    protected abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
+    public abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
 
     /**
      * Provides the user with name of the command
@@ -87,8 +88,9 @@ public abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
+    @Contract(value = " -> new", pure = true)
     @ToBeChanged(dateOfChange = "5/12/2021", toBeChangedTo = "YusufCommandData")
-    public final YusufCommandData getCommandData() {
+    public final @NotNull YusufCommandData getCommandData() {
         return new YusufCommandData(commandData);
     }
 

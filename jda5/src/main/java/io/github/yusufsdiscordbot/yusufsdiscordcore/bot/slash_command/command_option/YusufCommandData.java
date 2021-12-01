@@ -14,6 +14,10 @@ import java.util.List;
 public class YusufCommandData {
     private final CommandData commandData;
 
+    public CommandData getCommandData() {
+        return commandData;
+    }
+
     @Contract(pure = true)
     public YusufCommandData(@NotNull YusufCommandData commandData) {
         this.commandData = commandData.commandData;
