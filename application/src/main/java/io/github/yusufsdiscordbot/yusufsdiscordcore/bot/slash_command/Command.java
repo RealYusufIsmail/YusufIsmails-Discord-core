@@ -17,6 +17,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
+import io.github.yusufsdiscordbot.annotations.ToBeChanged;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -84,6 +85,7 @@ public abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
+    @ToBeChanged(dateOfChange = "5/12/2021", toBeChangedTo = "YusufCommandData")
     public final CommandData getCommandData() {
         return commandData;
     }

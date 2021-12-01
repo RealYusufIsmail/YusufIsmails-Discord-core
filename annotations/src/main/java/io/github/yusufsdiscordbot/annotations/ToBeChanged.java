@@ -56,6 +56,13 @@ public @interface ToBeChanged {
      * @since 1.0.0
      */
     String reasonForChange() default "";
+
+    /**
+     * @return What the method/command will be changed to
+     *
+     * @since 1.0.4
+     */
+    String toBeChangedTo() default "";
 }
 
 

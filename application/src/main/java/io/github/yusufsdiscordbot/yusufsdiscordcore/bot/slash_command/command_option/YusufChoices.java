@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("unused")
 public record YusufChoices(Command.@NotNull Choice command) {
 
     @Contract(value = "_, _ -> new", pure = true)
