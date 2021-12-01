@@ -406,6 +406,7 @@ public record YusufMember(Member member) {
     public boolean canSync(@Nonnull YusufPermissionContainer channel) {
         return this.member.canSync(channel.iPermissionContainer());
     }
+
     /**
      *
      * @param member the member who you want to check is null

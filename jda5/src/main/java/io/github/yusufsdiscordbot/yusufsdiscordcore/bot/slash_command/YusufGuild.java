@@ -662,8 +662,7 @@ public record YusufGuild(Guild guild) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(id));
     }
 
-    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull ChannelType type,
-            long id) {
+    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull ChannelType type, long id) {
         return new YusufGuildChannel(this.guild.getGuildChannelById(type, id));
     }
 

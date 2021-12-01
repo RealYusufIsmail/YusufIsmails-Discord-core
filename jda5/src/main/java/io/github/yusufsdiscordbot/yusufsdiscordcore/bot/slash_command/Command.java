@@ -18,6 +18,8 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
 import io.github.yusufsdiscordbot.annotations.ToBeChanged;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionData;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -35,7 +37,7 @@ public abstract class Command {
     private final String name;
     private final String description;
     private final boolean isGuildOnly;
-    private final CommandData commandData;
+    private final YusufCommandData commandData;
 
     /**
      * Were the command is registered.
@@ -45,7 +47,7 @@ public abstract class Command {
         this.description = description;
         this.isGuildOnly = isGuildOnly;
 
-        commandData = new CommandData(name, description);
+        commandData = new YusufCommandData(name, description);
     }
 
     /**
@@ -86,8 +88,8 @@ public abstract class Command {
      *         and modified by Yusuf
      */
     @ToBeChanged(dateOfChange = "5/12/2021", toBeChangedTo = "YusufCommandData")
-    public final CommandData getCommandData() {
-        return commandData;
+    public final YusufCommandData getCommandData() {
+        return new YusufCommandData(commandData);
     }
 
     /**
