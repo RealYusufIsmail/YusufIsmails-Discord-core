@@ -23,45 +23,45 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record YusufPermissionContainer(IPermissionContainer guildChannel) {
+public record YusufPermissionContainer(IPermissionContainer iPermissionContainer) {
 
     public PermissionOverride getPermissionOverride(@Nonnull IPermissionHolder permissionHolder) {
-        return guildChannel.getPermissionOverride(permissionHolder);
+        return iPermissionContainer.getPermissionOverride(permissionHolder);
     }
 
     public @NotNull List<PermissionOverride> getPermissionOverrides() {
-        return guildChannel.getPermissionOverrides();
+        return iPermissionContainer.getPermissionOverrides();
     }
 
 
     public @NotNull List<PermissionOverride> getRolePermissionOverrides() {
-        return guildChannel.getRolePermissionOverrides();
+        return iPermissionContainer.getRolePermissionOverrides();
     }
 
     public @NotNull List<PermissionOverride> getMemberPermissionOverrides() {
-        return guildChannel.getMemberPermissionOverrides();
+        return iPermissionContainer.getMemberPermissionOverrides();
     }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> delete() {
-        return guildChannel.delete();
+        return iPermissionContainer.delete();
     }
 
     @CheckReturnValue
     public @NotNull PermissionOverrideAction createPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
-        return guildChannel.createPermissionOverride(permissionHolder);
+        return iPermissionContainer.createPermissionOverride(permissionHolder);
     }
 
     @CheckReturnValue
     public @NotNull PermissionOverrideAction putPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
-        return guildChannel.putPermissionOverride(permissionHolder);
+        return iPermissionContainer.putPermissionOverride(permissionHolder);
     }
 
     @CheckReturnValue
     public @NotNull PermissionOverrideAction upsertPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
-        return guildChannel.upsertPermissionOverride(permissionHolder);
+        return iPermissionContainer.upsertPermissionOverride(permissionHolder);
     }
 }

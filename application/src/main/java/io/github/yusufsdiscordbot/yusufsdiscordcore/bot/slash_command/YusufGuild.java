@@ -654,17 +654,17 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull YusufPermissionContainer getYusufGuildChannelById(@Nonnull String id) {
-        return new YusufPermissionContainer(this.guild.getGuildChannelById(id));
+    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull String id) {
+        return new YusufGuildChannel(this.guild.getGuildChannelById(id));
     }
 
-    public @NotNull YusufPermissionContainer getYusufGuildChannelById(long id) {
-        return new YusufPermissionContainer(this.guild.getGuildChannelById(id));
+    public @NotNull YusufGuildChannel getYusufGuildChannelById(long id) {
+        return new YusufGuildChannel(this.guild.getGuildChannelById(id));
     }
 
-    public @NotNull YusufPermissionContainer getYusufGuildChannelById(@Nonnull ChannelType type,
+    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull ChannelType type,
             long id) {
-        return new YusufPermissionContainer(this.guild.getGuildChannelById(type, id));
+        return new YusufGuildChannel(this.guild.getGuildChannelById(type, id));
     }
 
     @Nullable

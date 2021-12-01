@@ -323,7 +323,7 @@ public record YusufMember(Member member) {
 
 
     public @NotNull Set<Permission> getPermissions(@Nonnull YusufPermissionContainer channel) {
-        return this.member.getPermissions(channel.guildChannel());
+        return this.member.getPermissions(channel.iPermissionContainer());
     }
 
     /**
@@ -342,7 +342,7 @@ public record YusufMember(Member member) {
 
     public @NotNull Set<Permission> getPermissionsExplicit(
             @Nonnull YusufPermissionContainer channel) {
-        return this.member.getPermissionsExplicit(channel.guildChannel());
+        return this.member.getPermissionsExplicit(channel.iPermissionContainer());
     }
 
     /**
@@ -377,12 +377,12 @@ public record YusufMember(Member member) {
 
     public boolean hasPermission(@Nonnull YusufPermissionContainer channel,
             @Nonnull Permission... permissions) {
-        return this.member.hasPermission(channel.guildChannel(), permissions);
+        return this.member.hasPermission(channel.iPermissionContainer(), permissions);
     }
 
     public boolean hasPermission(@Nonnull YusufPermissionContainer channel,
             @Nonnull Collection<Permission> permissions) {
-        return this.member.hasPermission(channel.guildChannel(), permissions);
+        return this.member.hasPermission(channel.iPermissionContainer(), permissions);
     }
 
     /**
@@ -393,7 +393,7 @@ public record YusufMember(Member member) {
     }
 
     public boolean hasAccess(@Nonnull YusufPermissionContainer channel) {
-        return this.member.hasAccess(channel.guildChannel());
+        return this.member.hasAccess(channel.iPermissionContainer());
     }
 
     /**
@@ -403,6 +403,9 @@ public record YusufMember(Member member) {
         return this.member.hasPermission(permission);
     }
 
+    public boolean canSync(@Nonnull YusufPermissionContainer channel) {
+        return this.member.canSync(channel.iPermissionContainer());
+    }
     /**
      *
      * @param member the member who you want to check is null

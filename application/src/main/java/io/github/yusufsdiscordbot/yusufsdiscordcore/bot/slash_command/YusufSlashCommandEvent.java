@@ -14,6 +14,8 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import io.github.yusufsdiscordbot.annotations.Author;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -98,6 +100,10 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
 
     public @NotNull List<OptionMapping> getOptionByType(@NotNull YusufOptionType type) {
         return this.event.getOptionsByType(type.getOptionType());
+    }
+
+    public String getCommandString() {
+        return this.event.getCommandString();
     }
 
     @Nullable
