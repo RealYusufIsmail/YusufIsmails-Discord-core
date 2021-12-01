@@ -9,5 +9,5 @@
 
 rootProject.name = 'YusufIsmail-Discord-core'
 
-include 'application'
+include 'jda5'
 include 'annotations'
