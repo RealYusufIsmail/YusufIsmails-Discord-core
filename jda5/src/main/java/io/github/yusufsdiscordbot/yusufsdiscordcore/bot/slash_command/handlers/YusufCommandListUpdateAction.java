@@ -14,12 +14,10 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handlers;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.exceptions.RateLimitedException;
 import net.dv8tion.jda.api.interactions.commands.Command;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
@@ -33,19 +31,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
-public class YusufCommandListUpdateAction implements RestAction<List<Command>> {
-    private final CommandListUpdateAction action;
+public record YusufCommandListUpdateAction(
+        CommandListUpdateAction action) implements RestAction<List<Command>> {
 
-    public YusufCommandListUpdateAction(CommandListUpdateAction action) {
-        this.action = action;
-    }
-
-    public YusufCommandListUpdateAction timeout(long timeout, @Nonnull TimeUnit unit){
+    @Override
+    public @NotNull
+    YusufCommandListUpdateAction timeout(long timeout, @Nonnull TimeUnit unit) {
         action.timeout(timeout, unit);
         return this;
     }
 
-    public YusufCommandListUpdateAction deadline(long timestamp) {
+    @Override
+    public @NotNull
+    YusufCommandListUpdateAction deadline(long timestamp) {
         action.deadline(timestamp);
         return this;
     }
@@ -73,12 +71,15 @@ public class YusufCommandListUpdateAction implements RestAction<List<Command>> {
         return action.getJDA();
     }
 
-    public YusufCommandListUpdateAction setCheck(@Nullable BooleanSupplier checks) {
+    public @NotNull
+    YusufCommandListUpdateAction setCheck(@Nullable BooleanSupplier checks) {
         action.setCheck(checks);
         return this;
     }
 
-    public YusufCommandListUpdateAction addCheck(@Nonnull BooleanSupplier checks) {
+    @Override
+    public @NotNull
+    YusufCommandListUpdateAction addCheck(@Nonnull BooleanSupplier checks) {
         action.addCheck(checks);
         return this;
     }

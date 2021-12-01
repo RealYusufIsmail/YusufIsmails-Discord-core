@@ -4,10 +4,12 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -54,10 +56,26 @@ public class YusufCommandData {
         return commandData.setDefaultEnabled(enabled);
     }
 
-    public CommandData addOptions(@Nonnull YusufOptionData... options) {
+    public YusufCommandData addOptions(@Nonnull YusufOptionData... options) {
         for (YusufOptionData option : options) {
-            commandData.addOptions(option.optionData);
+            commandData.addOptions(option.getOptionData());
         }
-        return commandData;
+        return this;
+    }
+
+    public YusufCommandData addOptions(@Nonnull Collection<? extends YusufOptionData> options) {
+        for (YusufOptionData option : options) {
+            commandData.addOptions(option.getOptionData());
+        }
+        return this;
+    }
+
+    public DataObject toData() {
+        return commandData.toData();
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull CommandData fromData(@Nonnull DataObject json) {
+        return CommandData.fromData(json);
     }
 }

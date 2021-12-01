@@ -1,16 +1,18 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.Set;
 
 @SuppressWarnings("unused")
 public class YusufOptionData {
-    final OptionData optionData;
+    private final OptionData optionData;
 
     public OptionData getOptionData() {
         return optionData;
@@ -141,6 +143,15 @@ public class YusufOptionData {
     }
 
     public YusufOptionData addChoices(@Nonnull YusufCommand.YusufChoices... choices) {
+        for (YusufCommand.YusufChoices choice : choices) {
+            this.optionData.addChoice(choice.getName(), choice.getAsLong())
+                .addChoice(choice.getName(), choice.getAsDouble())
+                .addChoice(choice.getName(), choice.getAsString());
+        }
+        return this;
+    }
+
+    public YusufOptionData addChoices(@Nonnull Collection<? extends YusufCommand.YusufChoices> choices) {
         for (YusufCommand.YusufChoices choice : choices) {
             this.optionData.addChoice(choice.getName(), choice.getAsLong())
                 .addChoice(choice.getName(), choice.getAsDouble())
