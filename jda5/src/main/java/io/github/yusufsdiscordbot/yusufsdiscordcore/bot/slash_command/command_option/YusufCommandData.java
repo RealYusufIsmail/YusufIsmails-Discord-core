@@ -1,5 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.*;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.SerializableData;
@@ -54,16 +55,27 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
 
     public YusufCommandData addOptions(@Nonnull YusufOptionData... options) {
         for (YusufOptionData option : options) {
-            commandData.addOptions(option.getOptionData());
+            this.options.add(option);
         }
         return this;
     }
 
     public YusufCommandData addOptions(@Nonnull Collection<? extends YusufOptionData> options) {
-        for (YusufOptionData option : options) {
-            commandData.addOptions(option.getOptionData());
+        return addOptions(options.toArray(new YusufOptionData[0]));
+    }
+
+    public YusufCommandData addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description) {
+        return addOptions(new YusufOptionData(type, name, description));
+    }
+
+    public YusufCommandData addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean isRequired) {
+       return addOptions(new YusufOptionData(type, name, description, isRequired));
+    }
+
+    public YusufCommandData addSubcommands(@Nonnull YusufSubcommandData... subcommands) {
+        for (YusufSubcommandData subcommand : subcommands) {
+            commandData.addSubcommands(subcommand.getSubcommandData());
         }
-        return this;
     }
 
     public DataObject toData() {

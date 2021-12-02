@@ -13,7 +13,6 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
-import net.dv8tion.jda.api.interactions.commands.build.BaseCommand;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import org.jetbrains.annotations.NotNull;
