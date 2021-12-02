@@ -13,11 +13,16 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
+import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 
 public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
     private final SubcommandData subcommandData;
@@ -35,9 +40,37 @@ public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
         return this;
     }
 
+
+    public YusufSubcommandData addOptions(@Nonnull Collection<? extends YusufOptionData> options) {
+        return addOptions(options.toArray(new YusufOptionData[0]));
+    }
+
+    public YusufSubcommandData  addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required) {
+        this.subcommandData.addOption(type, name, description, required);
+        return this;
+    }
+
+    public YusufSubcommandData addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description) {
+        return addOption(type, name, description, false);
+    }
+
+
     @NotNull
     @Override
     public DataObject toData() {
         return this.subcommandData.toData();
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull YusufSubcommandData fromData(@Nonnull DataObject json) {
+        String name = json.getString("name");
+        String description = json.getString("description");
+        YusufSubcommandData sub = new YusufSubcommandData(name, description);
+        json.optArray("options").ifPresent(arr ->
+                arr.stream(DataArray::getObject)
+                        .map(OptionData::fromData)
+                        .forEach(sub::addOptions)
+        );
+        return sub;
     }
 }

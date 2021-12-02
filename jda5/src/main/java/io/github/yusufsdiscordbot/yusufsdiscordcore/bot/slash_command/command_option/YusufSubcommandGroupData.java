@@ -59,4 +59,5 @@ public class YusufSubcommandGroupData implements SerializableData {
     public DataObject toData() {
         return subcommandGroupData.toData();
     }
+
 }
