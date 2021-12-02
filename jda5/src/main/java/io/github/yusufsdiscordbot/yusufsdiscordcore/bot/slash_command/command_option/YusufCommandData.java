@@ -51,7 +51,7 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
             .collect(java.util.stream.Collectors.toList());
     }
 
-    public List<SubcommandGroupData> getSubcommandGroups() {
+    public List<YusufSubcommandGroupData> getSubcommandGroups() {
         return commandData.getSubcommandGroups();
     }
 
