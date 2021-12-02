@@ -15,6 +15,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_o
 
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.utils.data.DataArray;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
 
@@ -32,32 +33,35 @@ public abstract class YusufBaseCommand<T extends YusufBaseCommand<T>> implements
     protected final DataArray options = DataArray.empty();
     protected String name;
     protected String description;
+    private static final String DESCRIPTION_FIELD = "Description";
+    private static final String NAME_FIELD = "Name";
+
 
     public YusufBaseCommand(@Nonnull String name, @Nonnull String description) {
-        Checks.notEmpty(name, "Name");
-        Checks.notEmpty(description, "Description");
-        Checks.notLonger(name, 32, "Name");
-        Checks.notLonger(description, 100, "Description");
-        Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, "Name");
-        Checks.isLowercase(name, "Name");
+        Checks.notEmpty(name, NAME_FIELD);
+        Checks.notEmpty(description, DESCRIPTION_FIELD);
+        Checks.notLonger(name, 32, NAME_FIELD);
+        Checks.notLonger(description, 100, DESCRIPTION_FIELD);
+        Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, NAME_FIELD);
+        Checks.isLowercase(name, NAME_FIELD);
         this.name = name;
         this.description = description;
     }
 
     @Nonnull
     public T setName(@Nonnull String name) {
-        Checks.notEmpty(name, "Name");
-        Checks.notLonger(name, 32, "Name");
-        Checks.isLowercase(name, "Name");
-        Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, "Name");
+        Checks.notEmpty(name, NAME_FIELD);
+        Checks.notLonger(name, 32, NAME_FIELD);
+        Checks.isLowercase(name, NAME_FIELD);
+        Checks.matches(name, Checks.ALPHANUMERIC_WITH_DASH, NAME_FIELD);
         this.name = name;
         return (T) this;
     }
 
     @Nonnull
     public T setDescription(@Nonnull String description) {
-        Checks.notEmpty(description, "Description");
-        Checks.notLonger(description, 100, "Description");
+        Checks.notEmpty(description, DESCRIPTION_FIELD);
+        Checks.notLonger(description, 100, DESCRIPTION_FIELD);
         this.description = description;
         return (T) this;
     }
@@ -77,5 +81,14 @@ public abstract class YusufBaseCommand<T extends YusufBaseCommand<T>> implements
             .map(YusufOptionData::fromData)
             .filter(it -> it.getOptionType().getKey() > OptionType.SUB_COMMAND_GROUP.getKey())
             .collect(Collectors.toList());
+    }
+
+    @Nonnull
+    @Override
+    public DataObject toData() {
+        return DataObject.empty()
+            .put(NAME_FIELD, name)
+            .put(DESCRIPTION_FIELD, description)
+            .put("Options", options);
     }
 }

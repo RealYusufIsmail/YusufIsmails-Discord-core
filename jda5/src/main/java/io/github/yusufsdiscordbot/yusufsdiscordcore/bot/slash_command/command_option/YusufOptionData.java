@@ -1,7 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
 import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.utils.data.DataArray;
@@ -184,23 +183,26 @@ public class YusufOptionData {
 
     @Contract("_ -> new")
     public static @NotNull YusufOptionData fromData(@Nonnull DataObject json) {
-        String name = json.getString("name");
-        String description = json.getString("description");
-        OptionType type = OptionType.fromKey(json.getInt("type"));
-        YusufOptionData option = new YusufOptionData(type, name, description);
+        var maxValue = "maxValue";
+        var minValue = "minValue";
+        var value = "value";
+        var name = json.getString("name");
+        var description = json.getString("description");
+        var type = OptionType.fromKey(json.getInt("type"));
+        var option = new YusufOptionData(type, name, description);
         option.setRequired(json.getBoolean("required"));
         if (type == OptionType.INTEGER || type == OptionType.NUMBER) {
-            if (!json.isNull("min_value")) {
-                if (json.isType("min_value", DataType.INT))
-                    option.setLowestValue(json.getLong("min_value"));
-                else if (json.isType("min_value", DataType.FLOAT))
-                    option.setHighestValue(json.getDouble("min_value"));
+            if (!json.isNull(minValue)) {
+                if (json.isType(minValue, DataType.INT))
+                    option.setLowestValue(json.getLong(minValue));
+                else if (json.isType(minValue, DataType.FLOAT))
+                    option.setHighestValue(json.getDouble(minValue));
             }
-            if (!json.isNull("max_value")) {
-                if (json.isType("max_value", DataType.INT))
-                    option.setHighestValue(json.getLong("max_value"));
-                else if (json.isType("max_value", DataType.FLOAT))
-                    option.setHighestValue(json.getDouble("max_value"));
+            if (!json.isNull(maxValue)) {
+                if (json.isType(maxValue, DataType.INT))
+                    option.setHighestValue(json.getLong(maxValue));
+                else if (json.isType(maxValue, DataType.FLOAT))
+                    option.setHighestValue(json.getDouble(maxValue));
             }
         }
         if (type == OptionType.CHANNEL) {
@@ -212,12 +214,12 @@ public class YusufOptionData {
         }
         json.optArray("choices")
             .ifPresent(choices1 -> choices1.stream(DataArray::getObject).forEach(o -> {
-                if (o.isType("value", DataType.FLOAT))
-                    option.addChoice(o.getString("name"), o.getDouble("value"));
-                else if (o.isType("value", DataType.INT))
-                    option.addChoice(o.getString("name"), o.getLong("value"));
+                if (o.isType(value, DataType.FLOAT))
+                    option.addChoice(o.getString("name"), o.getDouble(value));
+                else if (o.isType(value, DataType.INT))
+                    option.addChoice(o.getString("name"), o.getLong(value));
                 else
-                    option.addChoice(o.getString("name"), o.get("value").toString());
+                    option.addChoice(o.getString("name"), o.get(value).toString());
             }));
         return option;
     }
