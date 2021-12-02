@@ -13,8 +13,8 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufGuildChannel;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuildChannel;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufUser;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.Contract;

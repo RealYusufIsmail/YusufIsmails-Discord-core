@@ -1,8 +1,8 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufSlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionData;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.jetbrains.annotations.NotNull;

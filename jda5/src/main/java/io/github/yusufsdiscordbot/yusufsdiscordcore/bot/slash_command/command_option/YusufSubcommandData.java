@@ -15,13 +15,14 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_o
 
 import net.dv8tion.jda.api.interactions.commands.build.BaseCommand;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
+import net.dv8tion.jda.api.utils.data.DataObject;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class YusufSubcommandData extends BaseCommand<YusufCommandData> {
+public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
     private final SubcommandData subcommandData;
-    
+
 
     public YusufSubcommandData(@Nonnull String name, @Nonnull String description) {
         super(name, description);
@@ -30,8 +31,14 @@ public class YusufSubcommandData extends BaseCommand<YusufCommandData> {
 
     public YusufSubcommandData addOptions(@Nonnull YusufOptionData... options) {
         for (YusufOptionData option : options) {
-            option.addChoices()
+            option.addChoice(option.getOptionName(), option.getOptionDescription());
         }
         return this;
+    }
+
+    @NotNull
+    @Override
+    public DataObject toData() {
+        return this.subcommandData.toData();
     }
 }

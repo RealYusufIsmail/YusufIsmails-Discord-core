@@ -1,6 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handlers.CoreSlashCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;

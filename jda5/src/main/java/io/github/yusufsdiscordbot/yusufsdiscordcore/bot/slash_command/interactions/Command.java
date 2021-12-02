@@ -1,6 +1,3 @@
-// Originally from
-// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
-// then modified by Yusuf
 /*
  * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
  * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
@@ -14,12 +11,15 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+// Originally from
+// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
+// then modified by Yusuf
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
 import io.github.yusufsdiscordbot.annotations.ToBeChanged;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionData;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -88,10 +88,9 @@ public abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
-    @Contract(value = " -> new", pure = true)
-    @ToBeChanged(dateOfChange = "5/12/2021", toBeChangedTo = "YusufCommandData")
+    @Contract(" -> new")
     public final @NotNull YusufCommandData getCommandData() {
-        return new YusufCommandData(commandData);
+        return new YusufCommandData(name, description);
     }
 
     /**

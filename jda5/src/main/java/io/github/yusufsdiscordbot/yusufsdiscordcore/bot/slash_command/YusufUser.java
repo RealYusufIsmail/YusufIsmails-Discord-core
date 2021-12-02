@@ -1,5 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.PrivateChannel;

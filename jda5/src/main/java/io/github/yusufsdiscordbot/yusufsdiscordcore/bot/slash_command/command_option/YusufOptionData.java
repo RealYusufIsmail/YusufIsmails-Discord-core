@@ -4,21 +4,21 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.DataType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public class YusufOptionData {
     private final OptionData optionData;
     private Map<String, Object> choices;
+
 
     public OptionData getOptionData() {
         return optionData;
@@ -69,15 +69,15 @@ public class YusufOptionData {
     }
 
     public List<YusufCommand.YusufChoices> getChoices() {
-        return choices.entrySet()
-            .stream()
-            .map(entry ->  {
-                if (entry.getValue() instanceof String)
-                    return new YusufCommand.YusufChoices(entry.getKey(), entry.getValue().toString());
-                else if (entry.getValue() instanceof Double)
-                    return new YusufCommand.YusufChoices(entry.getKey(), ((Number) entry.getValue()).doubleValue());
-                return new YusufCommand.YusufChoices(entry.getKey(), ((Number) entry.getValue()).longValue());
-            }).collect(Collectors.toList());
+        return choices.entrySet().stream().map(entry -> {
+            if (entry.getValue() instanceof String)
+                return new YusufCommand.YusufChoices(entry.getKey(), entry.getValue().toString());
+            else if (entry.getValue() instanceof Double)
+                return new YusufCommand.YusufChoices(entry.getKey(),
+                        ((Number) entry.getValue()).doubleValue());
+            return new YusufCommand.YusufChoices(entry.getKey(),
+                    ((Number) entry.getValue()).longValue());
+        }).collect(Collectors.toList());
     }
 
     public @NotNull Set<ChannelType> getChannelTypes() {
@@ -144,17 +144,17 @@ public class YusufOptionData {
         return this;
     }
 
-    public YusufOptionData addChoices(@Nonnull String name, double value) {
+    public YusufOptionData addChoice(@Nonnull String name, double value) {
         this.optionData.addChoice(name, value);
         return this;
     }
 
-    public YusufOptionData addChoices(@Nonnull String name, long value) {
+    public YusufOptionData addChoice(@Nonnull String name, long value) {
         this.optionData.addChoice(name, value);
         return this;
     }
 
-    public YusufOptionData addChoices(@Nonnull String name, String value) {
+    public YusufOptionData addChoice(@Nonnull String name, String value) {
         this.optionData.addChoice(name, value);
         return this;
     }
@@ -183,7 +183,42 @@ public class YusufOptionData {
     }
 
     @Contract("_ -> new")
-    public static @NotNull OptionData fromData(@Nonnull DataObject json) {
-        return OptionData.fromData(json);
+    public static @NotNull YusufOptionData fromData(@Nonnull DataObject json) {
+        String name = json.getString("name");
+        String description = json.getString("description");
+        OptionType type = OptionType.fromKey(json.getInt("type"));
+        YusufOptionData option = new YusufOptionData(type, name, description);
+        option.setRequired(json.getBoolean("required"));
+        if (type == OptionType.INTEGER || type == OptionType.NUMBER) {
+            if (!json.isNull("min_value")) {
+                if (json.isType("min_value", DataType.INT))
+                    option.setLowestValue(json.getLong("min_value"));
+                else if (json.isType("min_value", DataType.FLOAT))
+                    option.setHighestValue(json.getDouble("min_value"));
+            }
+            if (!json.isNull("max_value")) {
+                if (json.isType("max_value", DataType.INT))
+                    option.setHighestValue(json.getLong("max_value"));
+                else if (json.isType("max_value", DataType.FLOAT))
+                    option.setHighestValue(json.getDouble("max_value"));
+            }
+        }
+        if (type == OptionType.CHANNEL) {
+            option.setChannelTypes(json.optArray("channel_types")
+                .map(it -> it.stream(DataArray::getInt)
+                    .map(ChannelType::fromId)
+                    .collect(Collectors.toSet()))
+                .orElse(Collections.emptySet()));
+        }
+        json.optArray("choices")
+            .ifPresent(choices1 -> choices1.stream(DataArray::getObject).forEach(o -> {
+                if (o.isType("value", DataType.FLOAT))
+                    option.addChoice(o.getString("name"), o.getDouble("value"));
+                else if (o.isType("value", DataType.INT))
+                    option.addChoice(o.getString("name"), o.getLong("value"));
+                else
+                    option.addChoice(o.getString("name"), o.get("value").toString());
+            }));
+        return option;
     }
 }

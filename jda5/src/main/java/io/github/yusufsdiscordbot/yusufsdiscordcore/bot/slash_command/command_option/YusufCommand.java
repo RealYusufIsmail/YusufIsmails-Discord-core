@@ -20,16 +20,14 @@ import net.dv8tion.jda.api.utils.data.DataType;
 import net.dv8tion.jda.internal.utils.Checks;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public record YusufCommand(YusufChoices yusufChoices) implements ISnowflake {
+public record YusufCommand(YusufChoices yusufChoices, Command command) implements ISnowflake {
 
     @Override
     public long getIdLong() {
-        return 0;
+        return this.command.getIdLong();
     }
 
     /**

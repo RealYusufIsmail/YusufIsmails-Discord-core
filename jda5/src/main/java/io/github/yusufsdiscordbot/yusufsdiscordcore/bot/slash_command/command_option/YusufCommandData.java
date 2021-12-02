@@ -2,6 +2,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_o
 
 import net.dv8tion.jda.api.interactions.commands.build.*;
 import net.dv8tion.jda.api.utils.data.DataObject;
+import net.dv8tion.jda.api.utils.data.SerializableData;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,19 +11,17 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class YusufCommandData extends BaseCommand<YusufCommandData> {
+public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
+        implements SerializableData {
     private final CommandData commandData;
+
 
     public CommandData getCommandData() {
         return commandData;
     }
 
-    @Contract(pure = true)
-    public YusufCommandData(@NotNull YusufCommandData commandData) {
-        this.commandData = commandData.commandData;
-    }
-
-    public YusufCommandData(String name, String description) {
+    public YusufCommandData(@Nonnull String name, @Nonnull String description) {
+        super(name, description);
         this.commandData = new CommandData(name, description);
     }
 

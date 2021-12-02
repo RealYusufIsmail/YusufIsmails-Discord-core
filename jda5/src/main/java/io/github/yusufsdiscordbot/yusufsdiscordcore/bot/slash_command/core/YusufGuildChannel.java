@@ -11,8 +11,9 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufPermissionContainer;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.managers.channel.ChannelManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
