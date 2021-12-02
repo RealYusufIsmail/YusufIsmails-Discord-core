@@ -16,13 +16,12 @@ class ExampleCommand extends Command {
     protected ExampleCommand() {
         super("example", "This is an example", true);
 
-        getCommandData()
-                .addOptions(new YusufOptionData(OptionType.BOOLEAN, "example_option", "This is an example option")
-                        .addChoices(getChoices));
+        getCommandData().addOptions(new YusufOptionData(OptionType.BOOLEAN, "example_option",
+                "This is an example option").addChoices(getChoices));
     }
 
-    private static final List <YusufCommand.YusufChoices> getChoices =
-     List.of(new YusufCommand.YusufChoices("Example Choice 1", "Example Choice 1"));
+    private static final List<YusufCommand.YusufChoices> getChoices =
+            List.of(new YusufCommand.YusufChoices("Example Choice 1", "Example Choice 1"));
 
     @Override
     public void onSlashCommand(@NotNull YusufSlashCommandEvent yusufSlashCommandEvent) {

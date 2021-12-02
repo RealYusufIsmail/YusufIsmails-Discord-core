@@ -1,9 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
+import net.dv8tion.jda.api.interactions.commands.build.*;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class YusufCommandData {
+public class YusufCommandData extends BaseCommand<YusufCommandData> {
     private final CommandData commandData;
 
     public CommandData getCommandData() {

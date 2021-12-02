@@ -4,19 +4,26 @@ import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.utils.data.DataObject;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public class YusufOptionData {
     private final OptionData optionData;
+    private Map<String, Object> choices;
 
     public OptionData getOptionData() {
         return optionData;
     }
+
     /**
      *
      * @param optionType The slash command option type
@@ -44,8 +51,6 @@ public class YusufOptionData {
         this.optionData = optionData;
     }
 
-    // TODO add the rest of the optionData
-
     public @NotNull OptionType getOptionType() {
         return this.optionData.getType();
     }
@@ -61,6 +66,18 @@ public class YusufOptionData {
 
     public boolean getIsRequired() {
         return this.optionData.isRequired();
+    }
+
+    public List<YusufCommand.YusufChoices> getChoices() {
+        return choices.entrySet()
+            .stream()
+            .map(entry ->  {
+                if (entry.getValue() instanceof String)
+                    return new YusufCommand.YusufChoices(entry.getKey(), entry.getValue().toString());
+                else if (entry.getValue() instanceof Double)
+                    return new YusufCommand.YusufChoices(entry.getKey(), ((Number) entry.getValue()).doubleValue());
+                return new YusufCommand.YusufChoices(entry.getKey(), ((Number) entry.getValue()).longValue());
+            }).collect(Collectors.toList());
     }
 
     public @NotNull Set<ChannelType> getChannelTypes() {
@@ -151,7 +168,8 @@ public class YusufOptionData {
         return this;
     }
 
-    public YusufOptionData addChoices(@Nonnull Collection<? extends YusufCommand.YusufChoices> choices) {
+    public YusufOptionData addChoices(
+            @Nonnull Collection<? extends YusufCommand.YusufChoices> choices) {
         for (YusufCommand.YusufChoices choice : choices) {
             this.optionData.addChoice(choice.getName(), choice.getAsLong())
                 .addChoice(choice.getName(), choice.getAsDouble())
@@ -160,4 +178,12 @@ public class YusufOptionData {
         return this;
     }
 
+    public DataObject toData() {
+        return this.optionData.toData();
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull OptionData fromData(@Nonnull DataObject json) {
+        return OptionData.fromData(json);
+    }
 }

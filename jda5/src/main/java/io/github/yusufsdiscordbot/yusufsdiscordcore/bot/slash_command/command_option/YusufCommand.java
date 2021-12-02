@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
+import net.dv8tion.jda.api.entities.ISnowflake;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.DataType;
@@ -20,10 +21,16 @@ import net.dv8tion.jda.internal.utils.Checks;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public record YusufCommand(YusufChoices yusufChoices) {
+public record YusufCommand(YusufChoices yusufChoices) implements ISnowflake {
+
+    @Override
+    public long getIdLong() {
+        return 0;
+    }
 
     /**
      * This was originally from {@link Command} but it was modified by Yusuf and changed to
@@ -78,6 +85,26 @@ public record YusufCommand(YusufChoices yusufChoices) {
 
         public String getAsString() {
             return stringValue;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, stringValue);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!(obj instanceof YusufChoices other))
+                return false;
+            return Objects.equals(other.name, name)
+                    && Objects.equals(other.stringValue, stringValue);
+        }
+
+        @Override
+        public String toString() {
+            return "Choice(" + name + "," + stringValue + ")";
         }
 
         private void setIntValue(long value) {
