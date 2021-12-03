@@ -195,11 +195,11 @@ public record YusufUser(User user) implements IMentionable {
     }
 
     /**
-     * @see YusufBot#getBotName()
+     * @see YusufBot#getName()
      */
     @Contract(pure = true)
     public @NotNull String getBotName() {
-        return this.getBot().getBotName();
+        return this.getBot().getName();
     }
 
     /**
