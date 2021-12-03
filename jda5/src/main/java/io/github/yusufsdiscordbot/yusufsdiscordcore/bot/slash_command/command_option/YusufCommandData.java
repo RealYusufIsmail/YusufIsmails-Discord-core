@@ -2,6 +2,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_o
 
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.*;
+import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
@@ -11,7 +12,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * Represents a subcommand group.
+ *
+ * Credits to the JDA team for the code for this class. This code was taken from {@link net.dv8tion.jda.api.interactions.commands.build.CommandData}
+ */
 @SuppressWarnings("unused")
 public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
         implements SerializableData {
@@ -52,7 +59,14 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     }
 
     public List<YusufSubcommandGroupData> getSubcommandGroups() {
-        return commandData.getSubcommandGroups();
+        return options.stream(DataArray::getObject)
+                .filter(obj ->
+                {
+                    OptionType type = OptionType.fromKey(obj.getInt("type"));
+                    return type == OptionType.SUB_COMMAND_GROUP;
+                })
+                .map(YusufSubcommandGroupData::fromData)
+                .collect(Collectors.toList());
     }
 
     public CommandData setDefaultEnabled(boolean enabled) {

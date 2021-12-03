@@ -13,6 +13,11 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a subcommand group.
+ *
+ * Credits to the JDA team for the code for this class. This code was taken from {@link net.dv8tion.jda.api.interactions.commands.build.OptionData}
+ */
 @SuppressWarnings("unused")
 public class YusufOptionData {
     private final OptionData optionData;

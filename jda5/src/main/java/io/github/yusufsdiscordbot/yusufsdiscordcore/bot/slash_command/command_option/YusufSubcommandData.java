@@ -14,7 +14,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
@@ -24,6 +23,12 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 
+/**
+ * Represents a subcommand group.
+ *
+ * Credits to the JDA team for the code for this class. This code was taken from {@link net.dv8tion.jda.api.interactions.commands.build.SubcommandData}
+ */
+@SuppressWarnings("unused")
 public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
     private final SubcommandData subcommandData;
 
@@ -68,7 +73,7 @@ public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
         YusufSubcommandData sub = new YusufSubcommandData(name, description);
         json.optArray("options").ifPresent(arr ->
                 arr.stream(DataArray::getObject)
-                        .map(OptionData::fromData)
+                        .map(YusufOptionData::fromData)
                         .forEach(sub::addOptions)
         );
         return sub;

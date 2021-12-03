@@ -18,12 +18,20 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.SerializableData;
+import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a subcommand group.
+ *
+ * Credits to the JDA team for the code for this class. This code was taken from {@link net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData}
+ */
+@SuppressWarnings("unused")
 public class YusufSubcommandGroupData implements SerializableData {
     private final DataArray options = DataArray.empty();
     private final SubcommandGroupData subcommandGroupData;
@@ -54,10 +62,37 @@ public class YusufSubcommandGroupData implements SerializableData {
                 .collect(Collectors.toList());
     }
 
+    public YusufSubcommandGroupData addSubcommands(@Nonnull YusufSubcommandData... subcommands) {
+        Checks.noneNull(subcommands, "Subcommand");
+        Checks.check(subcommands.length + options.length() <= 25, "Cannot have more than 25 subcommands in one group!");
+        for (YusufSubcommandData subcommand : subcommands) {
+            options.add(subcommand);
+        }
+        return this;
+    }
+
+    public YusufSubcommandGroupData addSubcommands(@Nonnull Collection<? extends YusufSubcommandData> subcommands) {
+        Checks.noneNull(subcommands, "Subcommands");
+        return addSubcommands(subcommands.toArray(new YusufSubcommandData[0]));
+    }
+
     @NotNull
     @Override
     public DataObject toData() {
         return subcommandGroupData.toData();
     }
 
+    @Nonnull
+    public static YusufSubcommandGroupData fromData(@Nonnull DataObject json)
+    {
+        String name = json.getString("name");
+        String description = json.getString("description");
+        YusufSubcommandGroupData group = new YusufSubcommandGroupData(name, description);
+        json.optArray("options").ifPresent(arr ->
+                arr.stream(DataArray::getObject)
+                        .map(YusufSubcommandData::fromData)
+                        .forEach(group::addSubcommands)
+        );
+        return group;
+    }
 }

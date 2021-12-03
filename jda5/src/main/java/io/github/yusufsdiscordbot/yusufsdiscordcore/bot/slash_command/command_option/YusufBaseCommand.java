@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * The base class for all classes in the command option package.
+ * Represents a subcommand group.
  *
- * This was taken from the JDA library.
- * {@link net.dv8tion.jda.api.interactions.commands.build.BaseCommand}
+ * Credits to the JDA team for the code for this class. This code was taken from {@link net.dv8tion.jda.api.interactions.commands.build.BaseCommand}
  */
+@SuppressWarnings("unused")
 public abstract class YusufBaseCommand<T extends YusufBaseCommand<T>> implements SerializableData {
     protected final DataArray options = DataArray.empty();
     protected String name;
