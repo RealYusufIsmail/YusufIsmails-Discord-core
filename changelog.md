@@ -4,4 +4,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2.0.0]
-### Ported to JDA V5. Update an issue which had YusufMember where it could not be null. Add custom command option were now you have to use your own option. 
+### Ported to JDA V5. Update an issue which had YusufMember where it could not be null. Added custom command option were now you have to use YusufCommandData. 
