@@ -169,7 +169,7 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     @Nonnull
     public static List<YusufCommandData> fromList(@Nonnull DataArray array) {
         Checks.notNull(array, "DataArray");
-        return array.stream(DataArray::getObject).map(YusufCommandData::fromData).collect(Collectors.toList());
+        return array.stream(DataArray::getObject).map(YusufCommandData::fromData).toList();
     }
     
     @Nonnull
