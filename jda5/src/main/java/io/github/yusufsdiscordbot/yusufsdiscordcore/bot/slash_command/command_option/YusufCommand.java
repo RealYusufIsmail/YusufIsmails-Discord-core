@@ -25,7 +25,8 @@ import java.util.Objects;
 /**
  * Represents a subcommand group.
  *
- * Credits to the JDA team for the code for this class. This code was taken from {@link net.dv8tion.jda.api.interactions.commands.Command}
+ * Credits to the JDA team for the code for this class. This code was taken from
+ * {@link net.dv8tion.jda.api.interactions.commands.Command}
  */
 @SuppressWarnings("unused")
 public record YusufCommand(YusufChoices yusufChoices, Command command) implements ISnowflake {

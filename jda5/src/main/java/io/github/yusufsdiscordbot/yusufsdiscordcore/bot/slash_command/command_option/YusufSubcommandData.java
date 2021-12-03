@@ -26,7 +26,8 @@ import java.util.Collection;
 /**
  * Represents a subcommand group.
  *
- * Credits to the JDA team for the code for this class. This code was taken from {@link net.dv8tion.jda.api.interactions.commands.build.SubcommandData}
+ * Credits to the JDA team for the code for this class. This code was taken from
+ * {@link net.dv8tion.jda.api.interactions.commands.build.SubcommandData}
  */
 @SuppressWarnings("unused")
 public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
@@ -50,12 +51,14 @@ public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
         return addOptions(options.toArray(new YusufOptionData[0]));
     }
 
-    public YusufSubcommandData  addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required) {
+    public YusufSubcommandData addOption(@Nonnull OptionType type, @Nonnull String name,
+            @Nonnull String description, boolean required) {
         this.subcommandData.addOption(type, name, description, required);
         return this;
     }
 
-    public YusufSubcommandData addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description) {
+    public YusufSubcommandData addOption(@Nonnull OptionType type, @Nonnull String name,
+            @Nonnull String description) {
         return addOption(type, name, description, false);
     }
 
@@ -71,11 +74,10 @@ public class YusufSubcommandData extends YusufBaseCommand<YusufCommandData> {
         String name = json.getString("name");
         String description = json.getString("description");
         YusufSubcommandData sub = new YusufSubcommandData(name, description);
-        json.optArray("options").ifPresent(arr ->
-                arr.stream(DataArray::getObject)
-                        .map(YusufOptionData::fromData)
-                        .forEach(sub::addOptions)
-        );
+        json.optArray("options")
+            .ifPresent(arr -> arr.stream(DataArray::getObject)
+                .map(YusufOptionData::fromData)
+                .forEach(sub::addOptions));
         return sub;
     }
 }

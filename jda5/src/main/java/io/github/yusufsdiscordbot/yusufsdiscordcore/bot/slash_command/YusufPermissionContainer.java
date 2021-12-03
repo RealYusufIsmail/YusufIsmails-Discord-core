@@ -25,7 +25,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record YusufPermissionContainer(IPermissionContainer iPermissionContainer) implements GuildChannel{
+public record YusufPermissionContainer(
+        IPermissionContainer iPermissionContainer) implements GuildChannel {
 
     public PermissionOverride getPermissionOverride(@Nonnull IPermissionHolder permissionHolder) {
         return iPermissionContainer.getPermissionOverride(permissionHolder);
