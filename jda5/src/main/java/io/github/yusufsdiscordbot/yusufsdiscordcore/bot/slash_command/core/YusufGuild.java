@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 @SuppressWarnings("unused")
-public record YusufGuild(Guild guild) {
+public record YusufGuild(Guild guild) implements ISnowflake {
     private static final String USER_AND_BOT_MANAGER_ROLE_PERMISSION =
             "You or the bot do not have the permission MANAGE_ROLES";
     private static final Integer REASON_MAX_LENGTH = 512;
@@ -228,6 +228,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.getVanityCode();
     }
 
+    @Override
     public @NotNull String getId() {
         return this.guild.getId();
     }
