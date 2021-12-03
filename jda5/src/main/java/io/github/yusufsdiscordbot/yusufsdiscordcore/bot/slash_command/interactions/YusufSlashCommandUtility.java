@@ -52,20 +52,11 @@ public class YusufSlashCommandUtility {
         this.event.reply(message).queue();
     }
 
-    public void replyMessage(String message, Boolean setEphemeral) {
-        this.event.reply(message).setEphemeral(setEphemeral).queue();
-    }
-
     /**
      * replays as an ephemeral message.
      */
     public void replyEphemeral(String message) {
         this.event.reply(message).setEphemeral(true).queue();
-    }
-
-    @CheckReturnValue
-    public ReplyAction replyEphemeralMessage(String message) {
-        return this.event.reply(message).setEphemeral(true);
     }
 
     /**
@@ -82,11 +73,6 @@ public class YusufSlashCommandUtility {
     @CheckReturnValue
     public ReplyAction replyEmbeds(MessageEmbed messageEmbed) {
         return this.event.replyEmbeds(messageEmbed);
-    }
-
-    @CheckReturnValue
-    public ReplyAction replyEphemeralEmbeds(MessageEmbed messageEmbed) {
-        return this.event.replyEmbeds(messageEmbed).setEphemeral(true);
     }
 
     @CheckReturnValue
