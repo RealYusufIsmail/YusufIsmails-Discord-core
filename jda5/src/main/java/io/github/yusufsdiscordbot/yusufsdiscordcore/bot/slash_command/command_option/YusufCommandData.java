@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.SerializableData;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -25,9 +24,9 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     private boolean allowSubcommands = true;
     private boolean allowGroups = true;
     private boolean allowedOption = true;
-    private boolean defaultPermissions = true; // whether the command uses default_permissions (blacklist/whitelist)
     private boolean allowRequired = true;
     private final CommandData commandData;
+    private static final String CAN_NOT_MIX = "You cannot mix options with subcommands/groups.";
 
 
     public CommandData getCommandData() {
@@ -43,6 +42,8 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     @Override
     public DataObject toData()
     {
+        // whether the command uses default_permissions (blacklist/whitelist)
+        boolean defaultPermissions = true;
         return super.toData().put("default_permission", defaultPermissions);
     }
 
@@ -80,7 +81,7 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     public YusufCommandData addOptions(@Nonnull YusufOptionData... options) {
         Checks.noneNull(options, "Option");
         Checks.check(options.length + this.options.length() <= 25, "Cannot have more than 25 options for a command!");
-        Checks.check(allowedOption, "You cannot mix options with subcommands/groups.");
+        Checks.check(allowedOption, CAN_NOT_MIX);
         allowSubcommands = allowGroups = false;
         for (YusufOptionData option : options) {
             Checks.check(option.getOptionType() != OptionType.SUB_COMMAND, "Cannot add a subcommand with addOptions(...). Use addSubcommands(...) instead!");
@@ -114,7 +115,7 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     public YusufCommandData addSubcommands(@Nonnull YusufSubcommandData... subcommands) {
         Checks.noneNull(subcommands, "Subcommands");
         if (!allowSubcommands)
-            throw new IllegalArgumentException("You cannot mix options with subcommands/groups.");
+            throw new IllegalArgumentException(CAN_NOT_MIX);
         Checks.check(subcommands.length + options.length() <= 25,
                 "Cannot have more than 25 subcommands for a command!");
         for (YusufSubcommandData subcommand : subcommands)
@@ -132,7 +133,7 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     public YusufCommandData addSubcommandGroups(@Nonnull YusufSubcommandGroupData... groups) {
         Checks.noneNull(groups, "SubcommandGroups");
         if (!allowGroups)
-            throw new IllegalArgumentException("You cannot mix options with subcommands/groups.");
+            throw new IllegalArgumentException(CAN_NOT_MIX);
         allowedOption = false;
         Checks.check(groups.length + options.length() <= 25, "Cannot have more than 25 subcommand groups for a command!");
         for (YusufSubcommandGroupData data : groups)
@@ -156,16 +157,10 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
         options.stream(DataArray::getObject).forEach(opt ->
         {
             OptionType type = OptionType.fromKey(opt.getInt("type"));
-            switch (type)
-            {
-                case SUB_COMMAND:
-                    command.addSubcommands(YusufSubcommandData.fromData(opt));
-                    break;
-                case SUB_COMMAND_GROUP:
-                    command.addSubcommandGroups(YusufSubcommandGroupData.fromData(opt));
-                    break;
-                default:
-                    command.addOptions(YusufOptionData.fromData(opt));
+            switch (type) {
+                case SUB_COMMAND -> command.addSubcommands(YusufSubcommandData.fromData(opt));
+                case SUB_COMMAND_GROUP -> command.addSubcommandGroups(YusufSubcommandGroupData.fromData(opt));
+                default -> command.addOptions(YusufOptionData.fromData(opt));
             }
         });
         return command;
