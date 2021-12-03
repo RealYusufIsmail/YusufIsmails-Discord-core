@@ -24,8 +24,8 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
         implements SerializableData {
     private boolean allowSubcommands = true;
     private boolean allowGroups = true;
-    private boolean allowOption = true;
-    private boolean defaultPermissions = true; // whether the command uses default_permissions (blacklist/whitelist)
+    private static final boolean ALLOWED_OPTION = true;
+    private static final boolean DEFAULT_PERMISSIONS = true; // whether the command uses default_permissions (blacklist/whitelist)
     private boolean allowRequired = true;
     private final CommandData commandData;
 
@@ -76,7 +76,7 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
     public YusufCommandData addOptions(@Nonnull YusufOptionData... options) {
         Checks.noneNull(options, "Option");
         Checks.check(options.length + this.options.length() <= 25, "Cannot have more than 25 options for a command!");
-        Checks.check(allowOption, "You cannot mix options with subcommands/groups.");
+        Checks.check(ALLOWED_OPTION, "You cannot mix options with subcommands/groups.");
         allowSubcommands = allowGroups = false;
         for (YusufOptionData option : options) {
             Checks.check(option.getOptionType() != OptionType.SUB_COMMAND, "Cannot add a subcommand with addOptions(...). Use addSubcommands(...) instead!");

@@ -37,7 +37,7 @@ public abstract class YusufBaseCommand<T extends YusufBaseCommand<T>> implements
     private static final String NAME_FIELD = "Name";
 
 
-    public YusufBaseCommand(@Nonnull String name, @Nonnull String description) {
+    protected YusufBaseCommand(@Nonnull String name, @Nonnull String description) {
         Checks.notEmpty(name, NAME_FIELD);
         Checks.notEmpty(description, DESCRIPTION_FIELD);
         Checks.notLonger(name, 32, NAME_FIELD);
