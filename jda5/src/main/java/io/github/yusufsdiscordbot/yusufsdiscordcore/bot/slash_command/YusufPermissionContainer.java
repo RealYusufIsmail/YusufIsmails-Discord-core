@@ -13,7 +13,9 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.managers.channel.ChannelManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import net.dv8tion.jda.api.requests.restaction.PermissionOverrideAction;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record YusufPermissionContainer(IPermissionContainer iPermissionContainer) {
+public record YusufPermissionContainer(IPermissionContainer iPermissionContainer) implements GuildChannel{
 
     public PermissionOverride getPermissionOverride(@Nonnull IPermissionHolder permissionHolder) {
         return iPermissionContainer.getPermissionOverride(permissionHolder);
@@ -42,9 +44,44 @@ public record YusufPermissionContainer(IPermissionContainer iPermissionContainer
         return iPermissionContainer.getMemberPermissionOverrides();
     }
 
+    @NotNull
+    @Override
+    public Guild getGuild() {
+        return this.iPermissionContainer.getGuild();
+    }
+
+    @NotNull
+    @Override
+    public ChannelManager<?, ?> getManager() {
+        return this.iPermissionContainer.getManager();
+    }
+
+    @NotNull
+    @Override
+    public String getName() {
+        return this.iPermissionContainer.getName();
+    }
+
+    @NotNull
+    @Override
+    public ChannelType getType() {
+        return iPermissionContainer.getType();
+    }
+
+    @NotNull
+    @Override
+    public JDA getJDA() {
+        return iPermissionContainer.getJDA();
+    }
+
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> delete() {
         return iPermissionContainer.delete();
+    }
+
+    @Override
+    public IPermissionContainer getPermissionContainer() {
+        return iPermissionContainer;
     }
 
     @CheckReturnValue
@@ -63,5 +100,15 @@ public record YusufPermissionContainer(IPermissionContainer iPermissionContainer
     public @NotNull PermissionOverrideAction upsertPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
         return iPermissionContainer.upsertPermissionOverride(permissionHolder);
+    }
+
+    @Override
+    public int compareTo(@NotNull GuildChannel o) {
+        return iPermissionContainer.compareTo(o);
+    }
+
+    @Override
+    public long getIdLong() {
+        return iPermissionContainer.getIdLong();
     }
 }
