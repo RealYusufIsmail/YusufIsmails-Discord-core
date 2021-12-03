@@ -13,12 +13,14 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuildChannel;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.channel.YusufGuildChannel;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
 public record YusufOptionMapping(OptionMapping optionMapping) {
@@ -27,18 +29,18 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
         return optionMapping;
     }
 
-    @Contract(" -> new")
-    public @NotNull YusufMember getAsMember() {
+    @Nonnull
+    public YusufMember getAsMember() {
         return new YusufMember(optionMapping.getAsMember());
     }
 
-    @Contract(" -> new")
-    public @NotNull YusufUser getAsUser() {
+    @Nonnull
+    public YusufUser getAsUser() {
         return new YusufUser(optionMapping.getAsUser());
     }
 
-    @Contract(" -> new")
-    public @NotNull YusufGuildChannel getAsGuildChannel() {
+    @Nonnull
+    public YusufGuildChannel getAsGuildChannel() {
         return new YusufGuildChannel(optionMapping.getAsGuildChannel());
     }
 }

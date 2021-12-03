@@ -1,15 +1,18 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import net.dv8tion.jda.api.utils.data.DataType;
+import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -72,18 +75,6 @@ public class YusufOptionData {
         return this.optionData.isRequired();
     }
 
-    public List<YusufCommand.YusufChoices> getChoices() {
-        return choices.entrySet().stream().map(entry -> {
-            if (entry.getValue() instanceof String)
-                return new YusufCommand.YusufChoices(entry.getKey(), entry.getValue().toString());
-            else if (entry.getValue() instanceof Double)
-                return new YusufCommand.YusufChoices(entry.getKey(),
-                        ((Number) entry.getValue()).doubleValue());
-            return new YusufCommand.YusufChoices(entry.getKey(),
-                    ((Number) entry.getValue()).longValue());
-        }).collect(Collectors.toList());
-    }
-
     public @NotNull Set<ChannelType> getChannelTypes() {
         return this.optionData.getChannelTypes();
     }
@@ -94,6 +85,18 @@ public class YusufOptionData {
 
     public Number getHighestValue() {
         return this.optionData.getMaxValue();
+    }
+
+    public List<YusufCommand.YusufChoices> getChoices() {
+        return choices.entrySet().stream().map(entry -> {
+            if (entry.getValue() instanceof String)
+                return new YusufCommand.YusufChoices(entry.getKey(), entry.getValue().toString());
+            else if (entry.getValue() instanceof Double)
+                return new YusufCommand.YusufChoices(entry.getKey(),
+                        ((Number) entry.getValue()).doubleValue());
+            return new YusufCommand.YusufChoices(entry.getKey(),
+                    ((Number) entry.getValue()).longValue());
+        }).collect(Collectors.toList());
     }
 
     public YusufOptionData setName(@Nonnull String name) {
@@ -112,6 +115,11 @@ public class YusufOptionData {
     }
 
     public YusufOptionData setChannelTypes(@Nonnull Set<ChannelType> channelTypes) {
+        this.optionData.setChannelTypes(channelTypes);
+        return this;
+    }
+
+    public YusufOptionData setChannelTypes(@Nonnull ChannelType... channelTypes) {
         this.optionData.setChannelTypes(channelTypes);
         return this;
     }
@@ -174,12 +182,8 @@ public class YusufOptionData {
 
     public YusufOptionData addChoices(
             @Nonnull Collection<? extends YusufCommand.YusufChoices> choices) {
-        for (YusufCommand.YusufChoices choice : choices) {
-            this.optionData.addChoice(choice.getName(), choice.getAsLong())
-                .addChoice(choice.getName(), choice.getAsDouble())
-                .addChoice(choice.getName(), choice.getAsString());
-        }
-        return this;
+        Checks.noneNull(choices, "Choices");
+        return addChoices(choices.toArray(new YusufCommand.YusufChoices[0]));
     }
 
     public DataObject toData() {

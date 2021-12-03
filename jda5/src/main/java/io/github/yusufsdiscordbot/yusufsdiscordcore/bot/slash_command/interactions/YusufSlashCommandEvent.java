@@ -14,7 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;

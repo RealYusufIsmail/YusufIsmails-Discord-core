@@ -24,8 +24,8 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
         implements SerializableData {
     private boolean allowSubcommands = true;
     private boolean allowGroups = true;
-    private static final boolean ALLOWED_OPTION = true;
-    private static final boolean DEFAULT_PERMISSIONS = true; // whether the command uses default_permissions (blacklist/whitelist)
+    private boolean allowedOption = true;
+    private boolean defaultPermissions = true; // whether the command uses default_permissions (blacklist/whitelist)
     private boolean allowRequired = true;
     private final CommandData commandData;
 
@@ -39,25 +39,27 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
         this.commandData = new CommandData(name, description);
     }
 
-    public List<SubcommandData> getSubcommands() {
-        return commandData.getSubcommands();
+    @Nonnull
+    @Override
+    public DataObject toData()
+    {
+        return super.toData().put("default_permission", defaultPermissions);
     }
 
-    public String getName() {
-        return commandData.getName();
+
+    @Nonnull
+    public List<YusufSubcommandData> getSubcommands() {
+        return options.stream(DataArray::getObject)
+                .filter(obj ->
+                {
+                    OptionType type = OptionType.fromKey(obj.getInt("type"));
+                    return type == OptionType.SUB_COMMAND;
+                })
+                .map(YusufSubcommandData::fromData)
+                .collect(Collectors.toList());
     }
 
-    public String getDescription() {
-        return commandData.getDescription();
-    }
-
-    public List<YusufOptionData> getOptions() {
-        return commandData.getOptions()
-            .stream()
-            .map(YusufOptionData::new)
-            .collect(java.util.stream.Collectors.toList());
-    }
-
+    @Nonnull
     public List<YusufSubcommandGroupData> getSubcommandGroups() {
         return options.stream(DataArray::getObject)
                 .filter(obj ->
@@ -69,14 +71,16 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
                 .collect(Collectors.toList());
     }
 
+    @Nonnull
     public CommandData setDefaultEnabled(boolean enabled) {
         return commandData.setDefaultEnabled(enabled);
     }
 
+    @Nonnull
     public YusufCommandData addOptions(@Nonnull YusufOptionData... options) {
         Checks.noneNull(options, "Option");
         Checks.check(options.length + this.options.length() <= 25, "Cannot have more than 25 options for a command!");
-        Checks.check(ALLOWED_OPTION, "You cannot mix options with subcommands/groups.");
+        Checks.check(allowedOption, "You cannot mix options with subcommands/groups.");
         allowSubcommands = allowGroups = false;
         for (YusufOptionData option : options) {
             Checks.check(option.getOptionType() != OptionType.SUB_COMMAND, "Cannot add a subcommand with addOptions(...). Use addSubcommands(...) instead!");
@@ -88,20 +92,25 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
         return this;
     }
 
+    @Nonnull
     public YusufCommandData addOptions(@Nonnull Collection<? extends YusufOptionData> options) {
+        Checks.noneNull(options, "Option");
         return addOptions(options.toArray(new YusufOptionData[0]));
     }
 
+    @Nonnull
     public YusufCommandData addOption(@Nonnull OptionType type, @Nonnull String name,
             @Nonnull String description) {
         return addOptions(new YusufOptionData(type, name, description));
     }
 
+    @Nonnull
     public YusufCommandData addOption(@Nonnull OptionType type, @Nonnull String name,
             @Nonnull String description, boolean isRequired) {
         return addOptions(new YusufOptionData(type, name, description, isRequired));
     }
 
+    @Nonnull
     public YusufCommandData addSubcommands(@Nonnull YusufSubcommandData... subcommands) {
         Checks.noneNull(subcommands, "Subcommands");
         if (!allowSubcommands)
@@ -113,16 +122,52 @@ public class YusufCommandData extends YusufBaseCommand<YusufCommandData>
         return this;
     }
 
+    @Nonnull
     public YusufCommandData addSubcommands(@Nonnull Collection<? extends YusufSubcommandData> subcommands) {
+        Checks.noneNull(subcommands, "Subcommands");
         return addSubcommands(subcommands.toArray(new YusufSubcommandData[0]));
     }
 
-    public @NotNull DataObject toData() {
-        return commandData.toData();
+    @Nonnull
+    public YusufCommandData addSubcommandGroups(@Nonnull YusufSubcommandGroupData... groups) {
+        Checks.noneNull(groups, "SubcommandGroups");
+        if (!allowGroups)
+            throw new IllegalArgumentException("You cannot mix options with subcommands/groups.");
+        allowedOption = false;
+        Checks.check(groups.length + options.length() <= 25, "Cannot have more than 25 subcommand groups for a command!");
+        for (YusufSubcommandGroupData data : groups)
+            options.add(data);
+        return this;
     }
 
-    @Contract("_ -> new")
-    public static @NotNull CommandData fromData(@Nonnull DataObject json) {
-        return CommandData.fromData(json);
+    @Nonnull
+    public YusufCommandData addSubcommandGroups(@Nonnull Collection<? extends YusufSubcommandGroupData> groups) {
+        Checks.noneNull(groups, "SubcommandGroups");
+        return addSubcommandGroups(groups.toArray(new YusufSubcommandGroupData[0]));
+    }
+
+    @Nonnull
+    public static @NotNull YusufCommandData fromData(@Nonnull DataObject object) {
+        Checks.notNull(object, "DataObject");
+        String name = object.getString("name");
+        String description = object.getString("description");
+        DataArray options = object.optArray("options").orElseGet(DataArray::empty);
+        YusufCommandData command = new YusufCommandData(name, description);
+        options.stream(DataArray::getObject).forEach(opt ->
+        {
+            OptionType type = OptionType.fromKey(opt.getInt("type"));
+            switch (type)
+            {
+                case SUB_COMMAND:
+                    command.addSubcommands(YusufSubcommandData.fromData(opt));
+                    break;
+                case SUB_COMMAND_GROUP:
+                    command.addSubcommandGroups(YusufSubcommandGroupData.fromData(opt));
+                    break;
+                default:
+                    command.addOptions(YusufOptionData.fromData(opt));
+            }
+        });
+        return command;
     }
 }

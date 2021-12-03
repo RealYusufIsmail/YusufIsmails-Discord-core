@@ -13,7 +13,6 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufUser;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.InteractionType;
