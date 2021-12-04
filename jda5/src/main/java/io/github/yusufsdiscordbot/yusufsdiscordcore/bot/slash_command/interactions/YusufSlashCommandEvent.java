@@ -48,7 +48,7 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
         this.event = event;
     }
 
-    public SlashCommandEvent getEvent() {
+    public SlashCommandEvent getSlashCommandEvent() {
         return this.event;
     }
 
@@ -67,58 +67,8 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
         return new YusufUser((this.event.getUser()));
     }
 
-    public @NotNull JDA getJDA() {
-        return this.event.getJDA();
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufInteraction getInteraction() {
-        return new YusufInteraction(this.event.getInteraction());
-    }
-
-    @Contract("_ -> new")
-    public @NotNull YusufOptionMapping getOption(String option) {
-        return new YusufOptionMapping(this.event.getOption(option));
-    }
-
-    public @NotNull List<OptionMapping> getOptionByType(OptionType type) {
-        return this.event.getOptionsByType(type);
-    }
-
-    public @NotNull List<OptionMapping> getOptionByType(@NotNull YusufOptionType type) {
-        return this.event.getOptionsByType(type.getOptionType());
-    }
-
-    public String getCommandString() {
-        return this.event.getCommandString();
-    }
-
-    @Nullable
-    public String getSubcommandName() {
-        return this.event.getSubcommandName();
-    }
-
-    @Nullable
-    public String getSubcommandGroup() {
-        return this.event.getSubcommandGroup();
-    }
-
-    @Nonnull
-    public MessageChannel getChannel() {
-        return this.event.getChannel();
-    }
-
-    @Nonnull
-    public String getName() {
-        return this.event.getName();
-    }
-
-    public Command getSlashCommand() {
+    public Command getCommand() {
         return slashCommand;
-    }
-
-    public User getSelfUser() {
-        return this.getJDA().getSelfUser();
     }
 
     @Contract(" -> new")

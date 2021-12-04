@@ -13,14 +13,25 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionType;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufInteraction;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class YusufSlashCommandUtility {
@@ -103,4 +114,52 @@ public class YusufSlashCommandUtility {
     public boolean isAcknowledged() {
         return this.event.isAcknowledged();
     }
+
+    @Nonnull
+    public String getName() {
+        return this.event.getName();
+    }
+
+    public String getCommandString() {
+        return this.event.getCommandString();
+    }
+
+    @Nullable
+    public String getSubcommandName() {
+        return this.event.getSubcommandName();
+    }
+
+    @Nullable
+    public String getSubcommandGroup() {
+        return this.event.getSubcommandGroup();
+    }
+
+    @Nonnull
+    public MessageChannel getChannel() {
+        return this.event.getChannel();
+    }
+
+
+    public @NotNull JDA getJDA() {
+        return this.event.getJDA();
+    }
+
+    @Contract(" -> new")
+    public @NotNull YusufInteraction getInteraction() {
+        return new YusufInteraction(this.event.getInteraction());
+    }
+
+    @Contract("_ -> new")
+    public @NotNull YusufOptionMapping getOption(String option) {
+        return new YusufOptionMapping(this.event.getOption(option));
+    }
+
+    public @NotNull List<OptionMapping> getOptionByType(OptionType type) {
+        return this.event.getOptionsByType(type);
+    }
+
+    public @NotNull List<OptionMapping> getOptionByType(@NotNull YusufOptionType type) {
+        return this.event.getOptionsByType(type.getOptionType());
+    }
+
 }
