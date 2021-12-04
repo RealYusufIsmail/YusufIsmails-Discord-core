@@ -67,21 +67,8 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
         return new YusufUser((this.event.getUser()));
     }
 
-    public @NotNull TextChannel getTextChannel() {
-        return this.event.getTextChannel();
-    }
-
     public @NotNull JDA getJDA() {
         return this.event.getJDA();
-    }
-
-    public @NotNull ChannelType getChannelType() {
-        return this.event.getChannelType();
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufSlashCommandUtility getMessageUtils() {
-        return new YusufSlashCommandUtility(event);
     }
 
     @Contract(" -> new")
@@ -90,13 +77,8 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
     }
 
     @Contract("_ -> new")
-    public @NotNull YusufOptionMapping getYusufOption(String option) {
+    public @NotNull YusufOptionMapping getOption(String option) {
         return new YusufOptionMapping(this.event.getOption(option));
-    }
-
-    @Nullable
-    public OptionMapping getOption(String option) {
-        return this.event.getOption(option);
     }
 
     public @NotNull List<OptionMapping> getOptionByType(OptionType type) {

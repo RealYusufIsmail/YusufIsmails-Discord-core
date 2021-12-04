@@ -15,15 +15,25 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_o
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public record YusufOptionMapping(OptionMapping optionMapping) {
 
-    public OptionMapping getOptionMapping() {
-        return optionMapping;
+    @Nonnull
+    public OptionType getType() {
+        return optionMapping.getType();
+    }
+
+    @Nonnull
+    public String getName() {
+        return optionMapping.getName();
     }
 
     @Nonnull
@@ -35,4 +45,65 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
     public YusufUser getAsUser() {
         return new YusufUser(optionMapping.getAsUser());
     }
+
+    public boolean getAsBoolean() {
+        return optionMapping.getAsBoolean();
+    }
+
+    public long getAsLong() {
+        return optionMapping.getAsLong();
+    }
+
+    public double getAsDouble() {
+        return optionMapping.getAsDouble();
+    }
+
+    public @NotNull String getAsString() {
+        return optionMapping.getAsString();
+    }
+
+    @Nonnull
+    public IMentionable getAsMentionable() {
+        return optionMapping.getAsMentionable();
+    }
+
+    @Nonnull
+    public Role getAsRole() {
+        return optionMapping.getAsRole();
+    }
+
+    @Nonnull
+    public GuildChannel getAsGuildChannel() {
+        return optionMapping.getAsGuildChannel();
+    }
+
+    @Nullable
+    public MessageChannel getAsMessageChannel() {
+        return optionMapping.getAsMessageChannel();
+    }
+
+    @Nonnull
+    public ChannelType getChannelType() {
+        return optionMapping.getChannelType();
+    }
+
+    @Override
+    public String toString() {
+        return optionMapping.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return optionMapping.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (!(obj instanceof YusufOptionMapping data))
+            return false;
+        return getType() == data.getType() && getName().equals(data.getName());
+    }
+
 }
