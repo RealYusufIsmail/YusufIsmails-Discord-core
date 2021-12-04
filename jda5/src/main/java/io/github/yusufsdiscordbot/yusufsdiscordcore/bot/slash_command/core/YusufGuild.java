@@ -33,10 +33,14 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 @SuppressWarnings("unused")
-public record YusufGuild(Guild guild) implements ISnowflake {
-    private static final String USER_AND_BOT_MANAGER_ROLE_PERMISSION =
-            "You or the bot do not have the permission MANAGE_ROLES";
+public class YusufGuild extends YusufGuildUtility implements ISnowflake {
+    private final Guild guild;
     private static final Integer REASON_MAX_LENGTH = 512;
+
+    public YusufGuild(Guild guild) {
+        super(guild);
+        this.guild = guild;
+    }
 
     /**
      * @see Guild
@@ -393,33 +397,6 @@ public record YusufGuild(Guild guild) implements ISnowflake {
         return this.guild.ban(user.getUser(), days, reason);
     }
 
-    public @NotNull Boolean canYouBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You don't have the permission to ban users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canBotBanUser(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("I don't have the permission to ban users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
-                && !member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
-            return false;
-        }
-        return true;
-    }
-
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> kick(@NotNull YusufMember member) {
         return this.guild.kick(member.getMember(), null);
@@ -445,32 +422,7 @@ public record YusufGuild(Guild guild) implements ISnowflake {
         return this.guild.kick(userId, reason);
     }
 
-    public @NotNull Boolean canYouKickUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.KICK_MEMBERS)) {
-            event.replyEphemeral("You don't have the permission to kick users!");
-            return false;
-        }
-        return true;
-    }
 
-    public @NotNull Boolean canBotKickUser(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.KICK_MEMBERS)) {
-            event.replyEphemeral("I don't have the permission to kick users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotKickUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.KICK_MEMBERS)
-                && !member.hasPermission(Permission.KICK_MEMBERS)) {
-            event.replyEphemeral("You or the bot do not have the permission KICK_MEMBERS");
-            return false;
-        }
-        return true;
-    }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> mute(Member member, Boolean mute, String reason) {
@@ -483,32 +435,7 @@ public record YusufGuild(Guild guild) implements ISnowflake {
         return this.guild.mute(member.getMember(), mute).reason(reason);
     }
 
-    public @NotNull Boolean canYouMuteUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
-            event.replyEphemeral("You don't have the permission to mute users!");
-            return false;
-        }
-        return true;
-    }
 
-    public @NotNull Boolean canBotMuteUser(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.VOICE_MUTE_OTHERS)) {
-            event.replyEphemeral("I don't have the permission to mute users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotMuteUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.VOICE_MUTE_OTHERS)
-                && !member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
-            event.replyEphemeral("You or the bot do not have the permission VOICE_MUTE_OTHERS");
-            return false;
-        }
-        return true;
-    }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> addRoleToMember(@Nonnull Member member,
@@ -532,36 +459,7 @@ public record YusufGuild(Guild guild) implements ISnowflake {
         return this.guild.addRoleToMember(userId, role);
     }
 
-    public @NotNull Boolean canYouAddRoleToMember(@NotNull YusufMember member) {
-        return member.hasPermission(Permission.MANAGE_ROLES);
-    }
 
-    public @NotNull Boolean canYouAddRoleToMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to add roles to users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canBotAddRoleToMember(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("I don't have the permission to add roles to users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotAddRoleToMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
-                && !member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
-            return false;
-        }
-        return true;
-    }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
@@ -587,32 +485,7 @@ public record YusufGuild(Guild guild) implements ISnowflake {
         return this.guild.removeRoleFromMember(userId, role);
     }
 
-    public @NotNull Boolean canYouRemoveRoleFromMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to remove roles from users!");
-            return false;
-        }
-        return true;
-    }
 
-    public @NotNull Boolean canBotRemoveRoleFromMember(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("I don't have the permission to remove roles from users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotRemoveRoleFromMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
-                && !member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
-            return false;
-        }
-        return true;
-    }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Integer> prune(@Nonnull Integer days,
@@ -626,35 +499,7 @@ public record YusufGuild(Guild guild) implements ISnowflake {
         return this.guild.prune(days, wait, roles);
     }
 
-    public @NotNull Boolean canYouPrune(@NotNull YusufMember member) {
-        return member.hasPermission(Permission.MESSAGE_MANAGE);
-    }
 
-    public @NotNull Boolean canYouPrune(@NotNull YusufMember member, YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to remove messages in this guild!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canBotPrune(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.replyEphemeral("I don't have the permission to remove messages in this guild!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotPrune(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MESSAGE_MANAGE)
-                && !member.hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.replyEphemeral("You or the bot do not have the permission MESSAGE_MANAGE");
-            return false;
-        }
-        return true;
-    }
 
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull String id) {
@@ -753,49 +598,11 @@ public record YusufGuild(Guild guild) implements ISnowflake {
         return this.guild.createTextChannel(name, parent);
     }
 
-    public @NotNull Boolean canYouCreateTextChannel(@NotNull YusufMember member) {
-        return member.hasPermission(Permission.MANAGE_CHANNEL);
-    }
-
-    public @NotNull Boolean canBotCreateTextChannel() {
-        return this.getBot().hasPermission(Permission.MANAGE_CHANNEL);
-    }
-
-    public @NotNull Boolean canYouAndBotCreateTextChannel(@NotNull YusufMember member) {
-        return this.getBot().hasPermission(Permission.MANAGE_CHANNEL)
-                || member.hasPermission(Permission.MANAGE_CHANNEL);
-    }
 
     public @NotNull RoleAction createRole() {
         return this.guild.createRole();
     }
 
-    public @NotNull Boolean canYouCreateRole(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to create roles!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canBotCreateRole(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("I don't have the permission to create roles!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotCreateRole(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
-                && !member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
-            return false;
-        }
-        return true;
-    }
 
     public @NotNull ChannelOrderAction modifyTextChannelPositions() {
         return this.guild.modifyTextChannelPositions();
