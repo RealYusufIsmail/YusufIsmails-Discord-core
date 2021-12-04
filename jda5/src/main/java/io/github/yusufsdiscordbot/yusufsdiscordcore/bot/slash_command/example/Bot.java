@@ -9,13 +9,14 @@ import javax.security.auth.login.LoginException;
 
 class Bot {
     public static void main(String[] args) throws InterruptedException, LoginException {
-        JDA jda = JDABuilder.createDefault(Config.get("TOKEN"))
+        JDA jda = JDABuilder
+            .createDefault("ODk4OTM4MTUyNzQyNDQwOTYw.YWrfZQ.tLMEKZsBCAcj6J5ECbfHgZD1Njk")
             .setActivity(Activity.watching("/example"))
             .setStatus(OnlineStatus.ONLINE)
             .build();
 
         jda.awaitReady()
-            .getGuildCache()
-            .forEach(guild -> jda.addEventListener(new ExampleCommandHandler(jda, guild)));
+            .addEventListener(
+                    new ExampleCommandHandler(jda, jda.getGuildById("842490150537527306")));
     }
 }

@@ -13,7 +13,6 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.channel.YusufGuildChannel;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
@@ -655,18 +654,6 @@ public record YusufGuild(Guild guild) implements ISnowflake {
             return false;
         }
         return true;
-    }
-
-    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull String id) {
-        return new YusufGuildChannel(this.guild.getGuildChannelById(id));
-    }
-
-    public @NotNull YusufGuildChannel getYusufGuildChannelById(long id) {
-        return new YusufGuildChannel(this.guild.getGuildChannelById(id));
-    }
-
-    public @NotNull YusufGuildChannel getYusufGuildChannelById(@Nonnull ChannelType type, long id) {
-        return new YusufGuildChannel(this.guild.getGuildChannelById(type, id));
     }
 
     @Nullable

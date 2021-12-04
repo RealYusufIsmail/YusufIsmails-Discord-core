@@ -51,12 +51,14 @@ public record YusufInteraction(Interaction interaction) {
     }
 
     @Contract(" -> new")
-    @NotNull YusufUser getUser() {
+    @NotNull
+    YusufUser getUser() {
         return new YusufUser(interaction.getUser());
     }
 
     @Contract(" -> new")
-    @NotNull YusufMember getMember() {
+    @NotNull
+    YusufMember getMember() {
         return new YusufMember(interaction.getMember());
     }
 }

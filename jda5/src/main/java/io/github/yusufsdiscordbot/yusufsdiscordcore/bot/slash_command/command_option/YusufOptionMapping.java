@@ -13,12 +13,9 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.channel.YusufGuildChannel;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -37,10 +34,5 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
     @Nonnull
     public YusufUser getAsUser() {
         return new YusufUser(optionMapping.getAsUser());
-    }
-
-    @Nonnull
-    public YusufGuildChannel getAsGuildChannel() {
-        return new YusufGuildChannel(optionMapping.getAsGuildChannel());
     }
 }
