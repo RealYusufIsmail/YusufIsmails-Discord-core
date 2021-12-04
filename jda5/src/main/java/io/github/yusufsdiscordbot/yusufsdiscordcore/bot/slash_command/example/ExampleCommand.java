@@ -2,11 +2,10 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionData;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -23,12 +22,9 @@ class ExampleCommand extends Command {
         super("example", "This is an example", true);
 
         getCommandData().addOptions(
-                new YusufOptionData(OptionType.BOOLEAN, EXAMPLE_OPTION, "This is an example option")
+                new OptionData(OptionType.STRING, EXAMPLE_OPTION, "This is an example option")
                     .addChoice("Test", "Works"));
     }
-
-    private static final List<YusufCommand.YusufChoices> getChoices =
-            List.of(new YusufCommand.YusufChoices("Example Choice 1", 1));
 
     @Override
     public void onSlashCommand(@NotNull YusufSlashCommandEvent yusufSlashCommandEvent) {

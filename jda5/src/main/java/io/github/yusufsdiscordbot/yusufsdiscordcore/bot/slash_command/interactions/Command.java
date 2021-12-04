@@ -17,15 +17,11 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
-import io.github.yusufsdiscordbot.annotations.ToBeChanged;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -38,7 +34,7 @@ public abstract class Command {
     private final String name;
     private final String description;
     private final boolean isGuildOnly;
-    private final YusufCommandData commandData;
+    private final CommandData commandData;
 
     /**
      * Were the command is registered.
@@ -48,7 +44,7 @@ public abstract class Command {
         this.description = description;
         this.isGuildOnly = isGuildOnly;
 
-        commandData = new YusufCommandData(name, description);
+        commandData = new CommandData(name, description);
     }
 
     /**
@@ -88,9 +84,8 @@ public abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
-    @Contract(" -> new")
-    public final @NotNull YusufCommandData getCommandData() {
-        return new YusufCommandData(name, description);
+    public final @NotNull CommandData getCommandData() {
+        return commandData;
     }
 
     /**

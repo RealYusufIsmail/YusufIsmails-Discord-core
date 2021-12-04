@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,15 +55,15 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * Used to determine whether the commands should be global or guild only.
      */
-    private final YusufCommandListUpdateAction globalCommandsData;
-    private final YusufCommandListUpdateAction guildCommandsData;
+    private final CommandListUpdateAction globalCommandsData;
+    private final CommandListUpdateAction guildCommandsData;
 
     /**
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
-        globalCommandsData = new YusufCommandListUpdateAction(jda.updateCommands());
-        guildCommandsData = new YusufCommandListUpdateAction(guild.updateCommands());
+        globalCommandsData = jda.updateCommands();
+        guildCommandsData = guild.updateCommands();
     }
 
     /**
