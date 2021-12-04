@@ -11,21 +11,50 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.utility;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import org.jetbrains.annotations.NotNull;
 
+
 @SuppressWarnings("unused")
 public class YusufGuildUtility {
     private final Guild guild;
-    private static final String USER_AND_BOT_MANAGER_ROLE_PERMISSION =
-            "You or the bot do not have the permission MANAGE_ROLES";
+
+    private static final Integer REASON_MAX_LENGTH = 512;
 
     public YusufGuildUtility(Guild guild) {
         this.guild = guild;
+    }
+
+    public @NotNull Boolean canYouUnBanUser(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("You don't have the permission to unban users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotUnBanUser(YusufSlashCommandEvent event) {
+        if (!this.guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("I don't have the permission to unban users!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouAndBotUnBanUserAndBan(@NotNull YusufMember member,
+            YusufSlashCommandEvent event) {
+        if (!this.guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)
+                && !member.hasPermission(Permission.BAN_MEMBERS)) {
+            event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
+            return false;
+        }
+        return true;
     }
 
     public @NotNull Boolean canYouBanUser(@NotNull YusufMember member,
@@ -40,16 +69,6 @@ public class YusufGuildUtility {
     public @NotNull Boolean canBotBanUser(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)) {
             event.replyEphemeral("I don't have the permission to ban users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)
-                && !member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
             return false;
         }
         return true;
@@ -127,16 +146,6 @@ public class YusufGuildUtility {
         return true;
     }
 
-    public @NotNull Boolean canYouAndBotAddRoleToMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)
-                && !member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
-            return false;
-        }
-        return true;
-    }
-
     public @NotNull Boolean canYouRemoveRoleFromMember(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
@@ -149,16 +158,6 @@ public class YusufGuildUtility {
     public @NotNull Boolean canBotRemoveRoleFromMember(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("I don't have the permission to remove roles from users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotRemoveRoleFromMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)
-                && !member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
             return false;
         }
         return true;
@@ -207,11 +206,11 @@ public class YusufGuildUtility {
         return true;
     }
 
-    public @NotNull Boolean canYouAndBotCreateRole(@NotNull YusufMember member,
+    public @NotNull Boolean canYouAndBotManageRoles(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
+            event.replyEphemeral("You or the bot do not have the permission MANAGE_ROLES");
             return false;
         }
         return true;
@@ -240,6 +239,16 @@ public class YusufGuildUtility {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_CHANNEL)
                 && !member.hasPermission(Permission.MANAGE_CHANNEL)) {
             event.replyEphemeral("You or the bot do not have the permission MANAGE_CHANNEL");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean checkReasonLength(@NotNull String reason,
+            YusufSlashCommandEvent event) {
+        if (reason.length() > REASON_MAX_LENGTH) {
+            event.replyEphemeral("You have gone over the reason character limit which is "
+                    + REASON_MAX_LENGTH + " .");
             return false;
         }
         return true;

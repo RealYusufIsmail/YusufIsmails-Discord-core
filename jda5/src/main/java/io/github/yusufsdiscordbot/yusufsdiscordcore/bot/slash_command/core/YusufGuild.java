@@ -13,8 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
-import net.dv8tion.jda.api.Permission;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.utility.YusufGuildUtility;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -35,7 +34,6 @@ import java.util.*;
 @SuppressWarnings("unused")
 public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     private final Guild guild;
-    private static final Integer REASON_MAX_LENGTH = 512;
 
     public YusufGuild(Guild guild) {
         super(guild);
@@ -267,16 +265,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.getId();
     }
 
-    @CheckReturnValue
-    public @NotNull Boolean checkReasonLength(@NotNull String reason,
-            YusufSlashCommandEvent event) {
-        if (reason.length() > REASON_MAX_LENGTH) {
-            event.replyEphemeral("You have gone over the reason character limit which is "
-                    + REASON_MAX_LENGTH + " .");
-            return false;
-        }
-        return true;
-    }
 
     public @NotNull String getGuildName() {
         return this.guild.getName();
@@ -306,33 +294,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> unBan(@NotNull YusufUser user) {
         return this.guild.unban(user.getUser());
-    }
-
-    public @NotNull Boolean canYouUnBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You don't have the permission to unban users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canBotUnBanUser(YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("I don't have the permission to unban users!");
-            return false;
-        }
-        return true;
-    }
-
-    public @NotNull Boolean canYouAndBotUnBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
-        if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
-                && !member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
-            return false;
-        }
-        return true;
     }
 
     @CheckReturnValue
@@ -422,8 +383,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.kick(userId, reason);
     }
 
-
-
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> mute(Member member, Boolean mute, String reason) {
         return this.guild.mute(member, mute).reason(reason);
@@ -434,8 +393,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
             String reason) {
         return this.guild.mute(member.getMember(), mute).reason(reason);
     }
-
-
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> addRoleToMember(@Nonnull Member member,
@@ -458,8 +415,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     public @NotNull AuditableRestAction<Void> addRoleToMember(String userId, @Nonnull Role role) {
         return this.guild.addRoleToMember(userId, role);
     }
-
-
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
@@ -498,8 +453,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     AuditableRestAction<Integer> prune(int days, boolean wait, @Nonnull Role... roles) {
         return this.guild.prune(days, wait, roles);
     }
-
-
 
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull String id) {
@@ -598,11 +551,9 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.createTextChannel(name, parent);
     }
 
-
     public @NotNull RoleAction createRole() {
         return this.guild.createRole();
     }
-
 
     public @NotNull ChannelOrderAction modifyTextChannelPositions() {
         return this.guild.modifyTextChannelPositions();
