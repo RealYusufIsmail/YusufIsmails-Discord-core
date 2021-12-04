@@ -19,7 +19,6 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import org.jetbrains.annotations.NotNull;
 
-
 @SuppressWarnings("unused")
 public class YusufGuildUtility {
     private final Guild guild;

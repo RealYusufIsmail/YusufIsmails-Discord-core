@@ -9,8 +9,6 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
 class ExampleCommand extends Command {
     private static final String EXAMPLE_OPTION = "example_option";
@@ -31,9 +29,7 @@ class ExampleCommand extends Command {
         YusufUser sender = yusufSlashCommandEvent.getUser();
         EmbedBuilder builder = new EmbedBuilder();
 
-        final String example =
-                Objects.requireNonNull(yusufSlashCommandEvent.getOption(EXAMPLE_OPTION))
-                    .getAsString();
+        final String example = yusufSlashCommandEvent.getOption(EXAMPLE_OPTION).getAsString();
 
         HashMap<String, String> test = new HashMap<>();
 
