@@ -32,7 +32,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouUnBanUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You don't have the permission to unban users!");
+            event.replyQueuedEphemeral("You don't have the permission to unban users!");
             return false;
         }
         return true;
@@ -40,7 +40,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotUnBanUser(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("I don't have the permission to unban users!");
+            event.replyQueuedEphemeral("I don't have the permission to unban users!");
             return false;
         }
         return true;
@@ -50,7 +50,7 @@ public class YusufGuildUtility {
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)
                 && !member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
+            event.replyQueuedEphemeral("You or the bot do not have the permission BAN_MEMBERS");
             return false;
         }
         return true;
@@ -59,7 +59,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouBanUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("You don't have the permission to ban users!");
+            event.replyQueuedEphemeral("You don't have the permission to ban users!");
             return false;
         }
         return true;
@@ -67,7 +67,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotBanUser(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.BAN_MEMBERS)) {
-            event.replyEphemeral("I don't have the permission to ban users!");
+            event.replyQueuedEphemeral("I don't have the permission to ban users!");
             return false;
         }
         return true;
@@ -76,7 +76,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouKickUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.KICK_MEMBERS)) {
-            event.replyEphemeral("You don't have the permission to kick users!");
+            event.replyQueuedEphemeral("You don't have the permission to kick users!");
             return false;
         }
         return true;
@@ -84,7 +84,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotKickUser(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.KICK_MEMBERS)) {
-            event.replyEphemeral("I don't have the permission to kick users!");
+            event.replyQueuedEphemeral("I don't have the permission to kick users!");
             return false;
         }
         return true;
@@ -94,7 +94,7 @@ public class YusufGuildUtility {
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.KICK_MEMBERS)
                 && !member.hasPermission(Permission.KICK_MEMBERS)) {
-            event.replyEphemeral("You or the bot do not have the permission KICK_MEMBERS");
+            event.replyQueuedEphemeral("You or the bot do not have the permission KICK_MEMBERS");
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouMuteUser(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
-            event.replyEphemeral("You don't have the permission to mute users!");
+            event.replyQueuedEphemeral("You don't have the permission to mute users!");
             return false;
         }
         return true;
@@ -111,7 +111,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotMuteUser(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.VOICE_MUTE_OTHERS)) {
-            event.replyEphemeral("I don't have the permission to mute users!");
+            event.replyQueuedEphemeral("I don't have the permission to mute users!");
             return false;
         }
         return true;
@@ -121,7 +121,7 @@ public class YusufGuildUtility {
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.VOICE_MUTE_OTHERS)
                 && !member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
-            event.replyEphemeral("You or the bot do not have the permission VOICE_MUTE_OTHERS");
+            event.replyQueuedEphemeral("You or the bot do not have the permission VOICE_MUTE_OTHERS");
             return false;
         }
         return true;
@@ -131,7 +131,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouAddRoleToMember(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to add roles to users!");
+            event.replyQueuedEphemeral("You don't have the permission to add roles to users!");
             return false;
         }
         return true;
@@ -139,7 +139,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotAddRoleToMember(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("I don't have the permission to add roles to users!");
+            event.replyQueuedEphemeral("I don't have the permission to add roles to users!");
             return false;
         }
         return true;
@@ -148,7 +148,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouRemoveRoleFromMember(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to remove roles from users!");
+            event.replyQueuedEphemeral("You don't have the permission to remove roles from users!");
             return false;
         }
         return true;
@@ -156,7 +156,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotRemoveRoleFromMember(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("I don't have the permission to remove roles from users!");
+            event.replyQueuedEphemeral("I don't have the permission to remove roles from users!");
             return false;
         }
         return true;
@@ -164,7 +164,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canYouPrune(@NotNull YusufMember member, YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to remove messages in this guild!");
+            event.replyQueuedEphemeral("You don't have the permission to remove messages in this guild!");
             return false;
         }
         return true;
@@ -172,7 +172,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotPrune(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.replyEphemeral("I don't have the permission to remove messages in this guild!");
+            event.replyQueuedEphemeral("I don't have the permission to remove messages in this guild!");
             return false;
         }
         return true;
@@ -182,7 +182,7 @@ public class YusufGuildUtility {
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)
                 && !member.hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.replyEphemeral("You or the bot do not have the permission MESSAGE_MANAGE");
+            event.replyQueuedEphemeral("You or the bot do not have the permission MESSAGE_MANAGE");
             return false;
         }
         return true;
@@ -191,7 +191,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouCreateRole(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You don't have the permission to create roles!");
+            event.replyQueuedEphemeral("You don't have the permission to create roles!");
             return false;
         }
         return true;
@@ -199,7 +199,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotCreateRole(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("I don't have the permission to create roles!");
+            event.replyQueuedEphemeral("I don't have the permission to create roles!");
             return false;
         }
         return true;
@@ -209,7 +209,7 @@ public class YusufGuildUtility {
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyEphemeral("You or the bot do not have the permission MANAGE_ROLES");
+            event.replyQueuedEphemeral("You or the bot do not have the permission MANAGE_ROLES");
             return false;
         }
         return true;
@@ -219,7 +219,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean canYouManageChannel(@NotNull YusufMember member,
             YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_CHANNEL)) {
-            event.replyEphemeral("You don't have the permission to manage channels!");
+            event.replyQueuedEphemeral("You don't have the permission to manage channels!");
             return false;
         }
         return true;
@@ -227,7 +227,7 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotManageChannel(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_CHANNEL)) {
-            event.replyEphemeral("I don't have the permission to manage channels!");
+            event.replyQueuedEphemeral("I don't have the permission to manage channels!");
             return false;
         }
         return true;
@@ -237,7 +237,7 @@ public class YusufGuildUtility {
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MANAGE_CHANNEL)
                 && !member.hasPermission(Permission.MANAGE_CHANNEL)) {
-            event.replyEphemeral("You or the bot do not have the permission MANAGE_CHANNEL");
+            event.replyQueuedEphemeral("You or the bot do not have the permission MANAGE_CHANNEL");
             return false;
         }
         return true;
@@ -246,7 +246,7 @@ public class YusufGuildUtility {
     public @NotNull Boolean checkReasonLength(@NotNull String reason,
             YusufSlashCommandEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
-            event.replyEphemeral("You have gone over the reason character limit which is "
+            event.replyQueuedEphemeral("You have gone over the reason character limit which is "
                     + REASON_MAX_LENGTH + " .");
             return false;
         }

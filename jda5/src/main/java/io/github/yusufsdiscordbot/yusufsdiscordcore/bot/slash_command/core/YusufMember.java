@@ -448,7 +448,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     public boolean memberIsNotNull(YusufMember member, YusufSlashCommandEvent event) {
         boolean result = member == null;
         if (result) {
-            event.replyEphemeral("The given member is null");
+            event.replyQueuedEphemeral("The given member is null");
             return false;
         }
         return true;

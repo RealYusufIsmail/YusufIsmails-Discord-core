@@ -44,10 +44,10 @@ class ExampleCommand extends Command {
         if (test.containsKey(example)) {
             builder.setDescription(test.get(example));
         } else {
-            yusufSlashCommandEvent.replyMessage("Error");
+            yusufSlashCommandEvent.replyQueuedMessage("Error");
             return;
         }
 
-        yusufSlashCommandEvent.replyEmbed(builder.build());
+        yusufSlashCommandEvent.replyQueuedEmbed(builder.build());
     }
 }

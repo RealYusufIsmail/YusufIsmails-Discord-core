@@ -116,7 +116,7 @@ public class YusufUserUtility {
     public boolean userIsNotNull(YusufUser user, YusufSlashCommandEvent event) {
         boolean result = user == null;
         if (result) {
-            event.replyEphemeral("The given user is null");
+            event.replyQueuedEphemeral("The given user is null");
             return false;
         }
         return true;

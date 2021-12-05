@@ -67,6 +67,10 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
         return new YusufUser((this.event.getUser()));
     }
 
+    public @NotNull JDA getJDA() {
+        return this.event.getJDA();
+    }
+    
     public Command getCommand() {
         return slashCommand;
     }
