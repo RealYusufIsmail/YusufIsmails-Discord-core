@@ -95,16 +95,6 @@ public class YusufSlashCommandUtility {
         return this.event.getSubcommandGroup();
     }
 
-    @Nonnull
-    public MessageChannel getChannel() {
-        return this.event.getChannel();
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufInteraction getInteraction() {
-        return new YusufInteraction(this.event.getInteraction());
-    }
-
     @Contract("_ -> new")
     public @NotNull YusufOptionMapping getOption(String option) {
         return new YusufOptionMapping(this.event.getOption(option));

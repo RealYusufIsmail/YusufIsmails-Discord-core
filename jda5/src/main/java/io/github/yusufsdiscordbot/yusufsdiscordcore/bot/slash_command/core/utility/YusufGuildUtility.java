@@ -121,7 +121,8 @@ public class YusufGuildUtility {
             YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.VOICE_MUTE_OTHERS)
                 && !member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
-            event.replyQueuedEphemeral("You or the bot do not have the permission VOICE_MUTE_OTHERS");
+            event.replyQueuedEphemeral(
+                    "You or the bot do not have the permission VOICE_MUTE_OTHERS");
             return false;
         }
         return true;
@@ -164,7 +165,8 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canYouPrune(@NotNull YusufMember member, YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
-            event.replyQueuedEphemeral("You don't have the permission to remove messages in this guild!");
+            event.replyQueuedEphemeral(
+                    "You don't have the permission to remove messages in this guild!");
             return false;
         }
         return true;
@@ -172,7 +174,8 @@ public class YusufGuildUtility {
 
     public @NotNull Boolean canBotPrune(YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.replyQueuedEphemeral("I don't have the permission to remove messages in this guild!");
+            event.replyQueuedEphemeral(
+                    "I don't have the permission to remove messages in this guild!");
             return false;
         }
         return true;

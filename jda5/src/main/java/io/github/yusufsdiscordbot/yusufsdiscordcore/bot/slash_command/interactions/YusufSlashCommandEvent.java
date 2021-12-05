@@ -70,7 +70,7 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
     public @NotNull JDA getJDA() {
         return this.event.getJDA();
     }
-    
+
     public Command getCommand() {
         return slashCommand;
     }
@@ -78,5 +78,10 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
     @Contract(" -> new")
     public YusufBot getBot() {
         return new YusufBot(this.getJDA().getSelfUser());
+    }
+
+    @Nonnull
+    public MessageChannel getChannel() {
+        return this.event.getChannel();
     }
 }
