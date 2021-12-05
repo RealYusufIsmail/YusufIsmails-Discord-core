@@ -66,14 +66,14 @@ public class YusufInteraction {
     }
 
     @Contract(" -> new")
-    @NotNull
-    YusufUser getUser() {
+    @NotNull public 
+    public YusufUser getUser() {
         return new YusufUser(interaction.getUser());
     }
 
     @Contract(" -> new")
     @NotNull
-    YusufMember getMember() {
+    public YusufMember getMember() {
         return new YusufMember(interaction.getMember());
     }
 
