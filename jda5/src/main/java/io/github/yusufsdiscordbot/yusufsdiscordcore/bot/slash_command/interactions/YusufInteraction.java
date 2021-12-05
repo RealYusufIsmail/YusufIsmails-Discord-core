@@ -11,16 +11,30 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.interactions.Interaction;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.InteractionType;
+import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("unused")
-public record YusufInteraction(Interaction interaction) {
+@SuppressWarnings({"unused", "java:S6206"})
+public class YusufInteraction {
+    private final Interaction interaction;
+
+    public YusufInteraction(Interaction interaction) {
+        this.interaction = interaction;
+    }
 
     public Interaction getInteraction() {
         return interaction;
@@ -38,6 +52,7 @@ public record YusufInteraction(Interaction interaction) {
         return interaction.getToken();
     }
 
+    @Contract(" -> new")
     public @NotNull YusufGuild getGuild() {
         return new YusufGuild(interaction.getGuild());
     }
@@ -60,5 +75,38 @@ public record YusufInteraction(Interaction interaction) {
     @NotNull
     YusufMember getMember() {
         return new YusufMember(interaction.getMember());
+    }
+
+    @Nullable
+    public Channel getChannel() {
+        return this.interaction.getChannel();
+    }
+
+    @NotNull
+    public InteractionHook getHook() {
+        return this.interaction.getHook();
+    }
+
+    public boolean isAcknowledged() {
+        return this.interaction.isAcknowledged();
+    }
+
+    @NotNull
+    public ReplyAction deferReply() {
+        return this.interaction.deferReply();
+    }
+
+    @NotNull
+    public JDA getJDA() {
+        return this.interaction.getJDA();
+    }
+
+    public long getIdLong() {
+        return this.interaction.getIdLong();
+    }
+
+    @Contract(" -> new")
+    public YusufBot getBot() {
+        return new YusufBot(this.getJDA().getSelfUser());
     }
 }

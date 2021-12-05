@@ -14,18 +14,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionType;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufInteraction;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -38,7 +29,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
-public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
+public class YusufSlashCommandEvent extends YusufInteraction {
     private final Command slashCommand;
     private final SlashCommandEvent event;
 
@@ -52,36 +43,61 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
         return this.event;
     }
 
-    @Contract(" -> new")
-    public @NotNull YusufGuild getGuild() {
-        return new YusufGuild(this.event.getGuild());
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufMember getMember() {
-        return new YusufMember(this.event.getMember());
-    }
-
-    @Contract(" -> new")
-    public @NotNull YusufUser getUser() {
-        return new YusufUser((this.event.getUser()));
-    }
-
-    public @NotNull JDA getJDA() {
-        return this.event.getJDA();
-    }
-
     public Command getCommand() {
         return slashCommand;
     }
 
-    @Contract(" -> new")
-    public YusufBot getBot() {
-        return new YusufBot(this.getJDA().getSelfUser());
+    @Nonnull
+    public String getName() {
+        return this.event.getName();
     }
 
-    @Nonnull
-    public MessageChannel getChannel() {
-        return this.event.getChannel();
+    public String getCommandString() {
+        return this.event.getCommandString();
+    }
+
+    @Nullable
+    public String getSubcommandName() {
+        return this.event.getSubcommandName();
+    }
+
+    @Nullable
+    public String getSubcommandGroup() {
+        return this.event.getSubcommandGroup();
+    }
+
+    @Contract("_ -> new")
+    public @NotNull YusufOptionMapping getOption(String option) {
+        return new YusufOptionMapping(this.event.getOption(option));
+    }
+
+    public @NotNull List<OptionMapping> getOptionByType(OptionType type) {
+        return this.event.getOptionsByType(type);
+    }
+
+    public @NotNull List<OptionMapping> getOptionByType(@NotNull YusufOptionType type) {
+        return this.event.getOptionsByType(type.getOptionType());
+    }
+
+    public void replyQueuedMessage(String message) {
+        this.event.reply(message).queue();
+    }
+
+    /**
+     * replays as an ephemeral message.
+     */
+    public void replyQueuedEphemeral(String message) {
+        this.event.reply(message).setEphemeral(true).queue();
+    }
+
+    /**
+     * replays as an embed message.
+     */
+    public void replyQueuedEmbed(MessageEmbed messageEmbed) {
+        this.event.replyEmbeds(messageEmbed).queue();
+    }
+
+    public void replyQueuedEphemeralEmbed(MessageEmbed messageEmbed) {
+        this.event.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
 }
