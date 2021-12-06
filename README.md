@@ -1,4 +1,6 @@
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/application/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/application)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda4/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda4)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda5/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda5)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/application.basic/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/application.basic)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations)
 
 # YusufIsmail's-Discord-core
