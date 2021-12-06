@@ -66,7 +66,7 @@ public class YusufInteraction {
     }
 
     @Contract(" -> new")
-    @NotNull 
+    @NotNull
     public YusufUser getUser() {
         return new YusufUser(interaction.getUser());
     }

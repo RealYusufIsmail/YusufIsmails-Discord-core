@@ -268,7 +268,7 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     }
 
     public boolean isMember(@NotNull User user) {
-        return false;
+        return this.guild.isMember(user);
     }
 
     @NotNull
@@ -400,11 +400,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.ban(member, days, reason);
     }
 
-    @NotNull
-    public AuditableRestAction<Void> unban(@NotNull String userId) {
-        return this.guild.unban(userId);
-    }
-
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> ban(User user) {
         return this.guild.ban(user, 0);
@@ -421,7 +416,8 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     }
 
     @NotNull
-    public AuditableRestAction<Void> ban(@NotNull String userId, int delDays, @Nullable String reason) {
+    public AuditableRestAction<Void> ban(@NotNull String userId, int delDays,
+            @Nullable String reason) {
         return this.guild.ban(userId, delDays, reason);
     }
 
@@ -518,13 +514,15 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     }
 
     @NotNull
-    public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member, @Nullable Collection<Role> rolesToAdd, @Nullable Collection<Role> rolesToRemove) {
+    public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member,
+            @Nullable Collection<Role> rolesToAdd, @Nullable Collection<Role> rolesToRemove) {
         return this.guild.modifyMemberRoles(member, rolesToAdd, rolesToRemove);
     }
 
     @NotNull
-    public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member, @NotNull Collection<Role> roles) {
-        return null;
+    public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member,
+            @NotNull Collection<Role> roles) {
+        return this.guild.modifyMemberRoles(member, roles);
     }
 
     @NotNull
@@ -575,171 +573,171 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @NotNull
     public SortedSnowflakeCacheView<StageChannel> getStageChannelCache() {
-        return null;
+        return this.guild.getStageChannelCache();
     }
 
     @NotNull
     public SortedSnowflakeCacheView<ThreadChannel> getThreadChannelCache() {
-        return null;
+        return this.guild.getThreadChannelCache();
     }
 
     @NotNull
     public SortedSnowflakeCacheView<Category> getCategoryCache() {
-        return null;
+        return this.guild.getCategoryCache();
     }
 
     @NotNull
     public SortedSnowflakeCacheView<StoreChannel> getStoreChannelCache() {
-        return null;
+        return this.guild.getStoreChannelCache();
     }
 
     @NotNull
     public SortedSnowflakeCacheView<TextChannel> getTextChannelCache() {
-        return null;
+        return this.guild.getTextChannelCache();
     }
 
     @NotNull
     public SortedSnowflakeCacheView<NewsChannel> getNewsChannelCache() {
-        return null;
+        return this.guild.getNewsChannelCache();
     }
 
     @NotNull
     public SortedSnowflakeCacheView<VoiceChannel> getVoiceChannelCache() {
-        return null;
+        return this.guild.getVoiceChannelCache();
     }
 
     @NotNull
     public List<GuildChannel> getChannels(boolean includeHidden) {
-        return null;
+        return this.guild.getChannels(includeHidden);
     }
 
     @NotNull
     public SortedSnowflakeCacheView<Role> getRoleCache() {
-        return null;
+        return this.guild.getRoleCache();
     }
 
     @NotNull
     public SnowflakeCacheView<Emote> getEmoteCache() {
-        return null;
+        return this.guild.getEmoteCache();
     }
 
     @NotNull
     public RestAction<List<ListedEmote>> retrieveEmotes() {
-        return null;
+        return this.guild.retrieveEmotes();
     }
 
     @NotNull
     public RestAction<ListedEmote> retrieveEmoteById(@NotNull String id) {
-        return null;
+        return this.guild.retrieveEmoteById(id);
     }
 
     @NotNull
     public RestAction<List<Guild.Ban>> retrieveBanList() {
-        return null;
+        return this.guild.retrieveBanList();
     }
 
     @NotNull
     public RestAction<Guild.Ban> retrieveBanById(@NotNull String userId) {
-        return null;
+        return this.guild.retrieveBanById(userId);
     }
 
     @NotNull
     public RestAction<Integer> retrievePrunableMemberCount(int days) {
-        return null;
+        return this.guild.retrievePrunableMemberCount(days);
     }
 
     @NotNull
     public Role getPublicRole() {
-        return null;
+        return this.guild.getPublicRole();
     }
 
     @Nullable
     public TextChannel getDefaultChannel() {
-        return null;
+        return this.guild.getDefaultChannel();
     }
 
     @NotNull
     public GuildManager getManager() {
-        return null;
+        return this.guild.getManager();
     }
 
     public boolean isBoostProgressBarEnabled() {
-        return false;
+        return this.guild.isBoostProgressBarEnabled();
     }
 
     @NotNull
     public AuditLogPaginationAction retrieveAuditLogs() {
-        return null;
+        return this.guild.retrieveAuditLogs();
     }
 
     @NotNull
     public RestAction<Void> leave() {
-        return null;
+        return this.guild.leave();
     }
 
     @NotNull
     public RestAction<Void> delete() {
-        return null;
+        return this.guild.delete();
     }
 
     @NotNull
     public RestAction<Void> delete(@Nullable String mfaCode) {
-        return null;
+        return this.guild.delete(mfaCode);
     }
 
     @NotNull
     public AudioManager getAudioManager() {
-        return null;
+        return this.guild.getAudioManager();
     }
 
     @NotNull
     public Task<Void> requestToSpeak() {
-        return null;
+        return this.guild.requestToSpeak();
     }
 
     @NotNull
     public Task<Void> cancelRequestToSpeak() {
-        return null;
+        return this.guild.cancelRequestToSpeak();
     }
 
     @NotNull
     public JDA getJDA() {
-        return null;
+        return this.guild.getJDA();
     }
 
     @NotNull
     public RestAction<List<Invite>> retrieveInvites() {
-        return null;
+        return this.guild.retrieveInvites();
     }
 
     @NotNull
     public RestAction<List<Template>> retrieveTemplates() {
-        return null;
+        return this.guild.retrieveTemplates();
     }
 
     @NotNull
     public RestAction<Template> createTemplate(@NotNull String name, @Nullable String description) {
-        return null;
+        return this.guild.createTemplate(name, description);
     }
 
     @NotNull
     public RestAction<List<Webhook>> retrieveWebhooks() {
-        return null;
+        return this.guild.retrieveWebhooks();
     }
 
     @NotNull
     public List<GuildVoiceState> getVoiceStates() {
-        return null;
+        return this.guild.getVoiceStates();
     }
 
     @NotNull
     public Guild.VerificationLevel getVerificationLevel() {
-        return null;
+        return this.guild.getVerificationLevel();
     }
 
     @NotNull
     public Guild.NotificationLevel getDefaultNotificationLevel() {
-        return null;
+        return this.guild.getDefaultNotificationLevel();
     }
 
     @NotNull
@@ -763,7 +761,7 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     }
 
     @NotNull
-    public Task<List<Member>> retrieveMembersByIds(boolean includePresence, @NotNull long... ids) {
+    public Task<List<Member>> retrieveMembersByIds(boolean includePresence, long... ids) {
         return this.guild.retrieveMembersByIds(includePresence, ids);
     }
 
@@ -778,12 +776,14 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     }
 
     @NotNull
-    public RestAction<Void> moveVoiceMember(@NotNull Member member, @Nullable AudioChannel audioChannel) {
+    public RestAction<Void> moveVoiceMember(@NotNull Member member,
+            @Nullable AudioChannel audioChannel) {
         return this.guild.moveVoiceMember(member, audioChannel);
     }
 
     @NotNull
-    public AuditableRestAction<Void> modifyNickname(@NotNull Member member, @Nullable String nickname) {
+    public AuditableRestAction<Void> modifyNickname(@NotNull Member member,
+            @Nullable String nickname) {
         return this.guild.modifyNickname(member, nickname);
     }
 
@@ -903,17 +903,20 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     }
 
     @NotNull
-    public ChannelAction<NewsChannel> createNewsChannel(@NotNull String name, @Nullable Category parent) {
+    public ChannelAction<NewsChannel> createNewsChannel(@NotNull String name,
+            @Nullable Category parent) {
         return this.guild.createNewsChannel(name, parent);
     }
 
     @NotNull
-    public ChannelAction<VoiceChannel> createVoiceChannel(@NotNull String name, @Nullable Category parent) {
+    public ChannelAction<VoiceChannel> createVoiceChannel(@NotNull String name,
+            @Nullable Category parent) {
         return this.guild.createVoiceChannel(name, parent);
     }
 
     @NotNull
-    public ChannelAction<StageChannel> createStageChannel(@NotNull String name, @Nullable Category parent) {
+    public ChannelAction<StageChannel> createStageChannel(@NotNull String name,
+            @Nullable Category parent) {
         return this.guild.createStageChannel(name, parent);
     }
 
@@ -927,7 +930,8 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     }
 
     @NotNull
-    public AuditableRestAction<Emote> createEmote(@NotNull String name, @NotNull Icon icon, @NotNull Role... roles) {
+    public AuditableRestAction<Emote> createEmote(@NotNull String name, @NotNull Icon icon,
+            @NotNull Role... roles) {
         return this.guild.createEmote(name, icon, roles);
     }
 
