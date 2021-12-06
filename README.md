@@ -12,7 +12,7 @@ repositories {
 }
 dependencies {
     //Yusuf Ismail's Discord Core
-    implementation group: 'io.github.yusufsdiscordbot', name: 'application', version: '1.0.35'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.35'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.3'
 }
 ```
