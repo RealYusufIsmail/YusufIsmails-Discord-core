@@ -249,6 +249,7 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.getVanityCode();
     }
 
+    @Override
     public @NotNull String getId() {
         return this.guild.getId();
     }
