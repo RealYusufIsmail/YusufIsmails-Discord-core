@@ -264,7 +264,7 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @NotNull
     public Guild.Timeout getAfkTimeout() {
-        return null;
+        return this.guild.getAfkTimeout();
     }
 
     public boolean isMember(@NotNull User user) {
@@ -273,22 +273,22 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @NotNull
     public Member getSelfMember() {
-        return null;
+        return this.guild.getSelfMember();
     }
 
     @NotNull
     public Guild.NSFWLevel getNSFWLevel() {
-        return null;
+        return this.guild.getNSFWLevel();
     }
 
     @Nullable
-    public Member getMember(@NotNull User user) {
-        return null;
+    public YusufMember getMember(@NotNull User user) {
+        return new YusufMember(this.guild.getMember(user));
     }
 
     @NotNull
     public MemberCacheView getMemberCache() {
-        return null;
+        return this.guild.getMemberCache();
     }
 
     @Nullable
@@ -303,26 +303,26 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @Nullable
     public String getDescription() {
-        return null;
+        return this.guild.getDescription();
     }
 
     @NotNull
     public Locale getLocale() {
-        return null;
+        return this.guild.getLocale();
     }
 
     @Nullable
     public String getBannerId() {
-        return null;
+        return this.guild.getBannerId();
     }
 
     @NotNull
     public Guild.BoostTier getBoostTier() {
-        return null;
+        return this.guild.getBoostTier();
     }
 
     public int getBoostCount() {
-        return 0;
+        return this.guild.getBoostCount();
     }
 
     public @NotNull AuditableRestAction<Void> changeUserNickname(Member member, String nickname) {
@@ -402,7 +402,7 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @NotNull
     public AuditableRestAction<Void> unban(@NotNull String userId) {
-        return null;
+        return this.guild.unban(userId);
     }
 
     @CheckReturnValue
@@ -422,7 +422,7 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @NotNull
     public AuditableRestAction<Void> ban(@NotNull String userId, int delDays, @Nullable String reason) {
-        return null;
+        return this.guild.ban(userId, delDays, reason);
     }
 
     @CheckReturnValue
@@ -519,7 +519,7 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @NotNull
     public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member, @Nullable Collection<Role> rolesToAdd, @Nullable Collection<Role> rolesToRemove) {
-        return null;
+        return this.guild.modifyMemberRoles(member, rolesToAdd, rolesToRemove);
     }
 
     @NotNull
@@ -529,8 +529,14 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
 
     @NotNull
     public AuditableRestAction<Void> transferOwnership(@NotNull Member newOwner) {
-        return null;
+        return this.guild.transferOwnership(newOwner);
     }
+
+    @NotNull
+    public AuditableRestAction<Void> transferOwnership(@NotNull YusufMember newOwner) {
+        return this.guild.transferOwnership(newOwner.getMember());
+    }
+
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> removeRoleFromMember(long userId,
