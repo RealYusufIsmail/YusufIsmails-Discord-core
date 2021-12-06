@@ -14,15 +14,25 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.utility.YusufGuildUtility;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.templates.Template;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
+import net.dv8tion.jda.api.managers.AudioManager;
+import net.dv8tion.jda.api.managers.GuildManager;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.*;
 import net.dv8tion.jda.api.requests.restaction.order.CategoryOrderAction;
 import net.dv8tion.jda.api.requests.restaction.order.ChannelOrderAction;
 import net.dv8tion.jda.api.requests.restaction.order.RoleOrderAction;
+import net.dv8tion.jda.api.requests.restaction.pagination.AuditLogPaginationAction;
+import net.dv8tion.jda.api.utils.cache.MemberCacheView;
+import net.dv8tion.jda.api.utils.cache.SnowflakeCacheView;
+import net.dv8tion.jda.api.utils.cache.SortedSnowflakeCacheView;
+import net.dv8tion.jda.api.utils.concurrent.Task;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +40,7 @@ import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public class YusufGuild extends YusufGuildUtility implements ISnowflake {
@@ -154,6 +165,11 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.updateCommandPrivileges(privileges);
     }
 
+    @NotNull
+    public RestAction<EnumSet<Region>> retrieveRegions(boolean includeDeprecated) {
+        return this.guild.retrieveRegions(includeDeprecated);
+    }
+
     @CheckReturnValue
     public @NotNull MemberAction addMember(@Nonnull String accessToken, @Nonnull String userId) {
         return this.guild.addMember(accessToken, userId);
@@ -172,6 +188,10 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     @CheckReturnValue
     public @NotNull MemberAction addMember(@Nonnull String accessToken, long userId) {
         return this.guild.addMember(accessToken, userId);
+    }
+
+    public boolean isLoaded() {
+        return false;
     }
 
     public void pruneMemberCache() {
@@ -229,7 +249,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.getVanityCode();
     }
 
-    @Override
     public @NotNull String getId() {
         return this.guild.getId();
     }
@@ -242,6 +261,35 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.getOwnerId();
     }
 
+    @NotNull
+    public Guild.Timeout getAfkTimeout() {
+        return null;
+    }
+
+    public boolean isMember(@NotNull User user) {
+        return false;
+    }
+
+    @NotNull
+    public Member getSelfMember() {
+        return null;
+    }
+
+    @NotNull
+    public Guild.NSFWLevel getNSFWLevel() {
+        return null;
+    }
+
+    @Nullable
+    public Member getMember(@NotNull User user) {
+        return null;
+    }
+
+    @NotNull
+    public MemberCacheView getMemberCache() {
+        return null;
+    }
+
     @Nullable
     public String getVanityUrl() {
         return this.guild.getVanityUrl();
@@ -250,6 +298,30 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     @CheckReturnValue
     public @NotNull RestAction<VanityInvite> retrieveVanityInvite() {
         return this.guild.retrieveVanityInvite();
+    }
+
+    @Nullable
+    public String getDescription() {
+        return null;
+    }
+
+    @NotNull
+    public Locale getLocale() {
+        return null;
+    }
+
+    @Nullable
+    public String getBannerId() {
+        return null;
+    }
+
+    @NotNull
+    public Guild.BoostTier getBoostTier() {
+        return null;
+    }
+
+    public int getBoostCount() {
+        return 0;
     }
 
     public @NotNull AuditableRestAction<Void> changeUserNickname(Member member, String nickname) {
@@ -327,6 +399,11 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.ban(member, days, reason);
     }
 
+    @NotNull
+    public AuditableRestAction<Void> unban(@NotNull String userId) {
+        return null;
+    }
+
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> ban(User user) {
         return this.guild.ban(user, 0);
@@ -340,6 +417,11 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> ban(User user, int days, String reason) {
         return this.guild.ban(user, days, reason);
+    }
+
+    @NotNull
+    public AuditableRestAction<Void> ban(@NotNull String userId, int delDays, @Nullable String reason) {
+        return null;
     }
 
     @CheckReturnValue
@@ -434,6 +516,21 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.removeRoleFromMember(userId, role);
     }
 
+    @NotNull
+    public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member, @Nullable Collection<Role> rolesToAdd, @Nullable Collection<Role> rolesToRemove) {
+        return null;
+    }
+
+    @NotNull
+    public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member, @NotNull Collection<Role> roles) {
+        return null;
+    }
+
+    @NotNull
+    public AuditableRestAction<Void> transferOwnership(@NotNull Member newOwner) {
+        return null;
+    }
+
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> removeRoleFromMember(long userId,
             @Nonnull Role role) {
@@ -467,6 +564,220 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull ChannelType type, long id) {
         return this.guild.getGuildChannelById(type, id);
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<StageChannel> getStageChannelCache() {
+        return null;
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<ThreadChannel> getThreadChannelCache() {
+        return null;
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<Category> getCategoryCache() {
+        return null;
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<StoreChannel> getStoreChannelCache() {
+        return null;
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<TextChannel> getTextChannelCache() {
+        return null;
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<NewsChannel> getNewsChannelCache() {
+        return null;
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<VoiceChannel> getVoiceChannelCache() {
+        return null;
+    }
+
+    @NotNull
+    public List<GuildChannel> getChannels(boolean includeHidden) {
+        return null;
+    }
+
+    @NotNull
+    public SortedSnowflakeCacheView<Role> getRoleCache() {
+        return null;
+    }
+
+    @NotNull
+    public SnowflakeCacheView<Emote> getEmoteCache() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<List<ListedEmote>> retrieveEmotes() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<ListedEmote> retrieveEmoteById(@NotNull String id) {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<List<Guild.Ban>> retrieveBanList() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<Guild.Ban> retrieveBanById(@NotNull String userId) {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<Integer> retrievePrunableMemberCount(int days) {
+        return null;
+    }
+
+    @NotNull
+    public Role getPublicRole() {
+        return null;
+    }
+
+    @Nullable
+    public TextChannel getDefaultChannel() {
+        return null;
+    }
+
+    @NotNull
+    public GuildManager getManager() {
+        return null;
+    }
+
+    public boolean isBoostProgressBarEnabled() {
+        return false;
+    }
+
+    @NotNull
+    public AuditLogPaginationAction retrieveAuditLogs() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<Void> leave() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<Void> delete() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<Void> delete(@Nullable String mfaCode) {
+        return null;
+    }
+
+    @NotNull
+    public AudioManager getAudioManager() {
+        return null;
+    }
+
+    @NotNull
+    public Task<Void> requestToSpeak() {
+        return null;
+    }
+
+    @NotNull
+    public Task<Void> cancelRequestToSpeak() {
+        return null;
+    }
+
+    @NotNull
+    public JDA getJDA() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<List<Invite>> retrieveInvites() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<List<Template>> retrieveTemplates() {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<Template> createTemplate(@NotNull String name, @Nullable String description) {
+        return null;
+    }
+
+    @NotNull
+    public RestAction<List<Webhook>> retrieveWebhooks() {
+        return null;
+    }
+
+    @NotNull
+    public List<GuildVoiceState> getVoiceStates() {
+        return null;
+    }
+
+    @NotNull
+    public Guild.VerificationLevel getVerificationLevel() {
+        return null;
+    }
+
+    @NotNull
+    public Guild.NotificationLevel getDefaultNotificationLevel() {
+        return null;
+    }
+
+    @NotNull
+    public Guild.MFALevel getRequiredMFALevel() {
+        return this.guild.getRequiredMFALevel();
+    }
+
+    @NotNull
+    public Guild.ExplicitContentLevel getExplicitContentLevel() {
+        return this.guild.getExplicitContentLevel();
+    }
+
+    @NotNull
+    public Task<Void> loadMembers(@NotNull Consumer<Member> callback) {
+        return this.guild.loadMembers(callback);
+    }
+
+    @NotNull
+    public RestAction<Member> retrieveMemberById(long id, boolean update) {
+        return this.guild.retrieveMemberById(id, update);
+    }
+
+    @NotNull
+    public Task<List<Member>> retrieveMembersByIds(boolean includePresence, @NotNull long... ids) {
+        return this.guild.retrieveMembersByIds(includePresence, ids);
+    }
+
+    @NotNull
+    public Task<List<Member>> retrieveMembersByPrefix(@NotNull String prefix, int limit) {
+        return this.guild.retrieveMembersByPrefix(prefix, limit);
+    }
+
+    @NotNull
+    public RestAction<List<ThreadChannel>> retrieveActiveThreads() {
+        return this.guild.retrieveActiveThreads();
+    }
+
+    @NotNull
+    public RestAction<Void> moveVoiceMember(@NotNull Member member, @Nullable AudioChannel audioChannel) {
+        return this.guild.moveVoiceMember(member, audioChannel);
+    }
+
+    @NotNull
+    public AuditableRestAction<Void> modifyNickname(@NotNull Member member, @Nullable String nickname) {
+        return this.guild.modifyNickname(member, nickname);
     }
 
     @CheckReturnValue
@@ -538,6 +849,39 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.getMaxEmotes();
     }
 
+    public int getMaxMembers() {
+        return this.guild.getMaxMembers();
+    }
+
+    public int getMaxPresences() {
+        return this.guild.getMaxPresences();
+    }
+
+    @NotNull
+    public RestAction<Guild.MetaData> retrieveMetaData() {
+        return this.guild.retrieveMetaData();
+    }
+
+    @Nullable
+    public VoiceChannel getAfkChannel() {
+        return this.guild.getAfkChannel();
+    }
+
+    @Nullable
+    public TextChannel getSystemChannel() {
+        return this.guild.getSystemChannel();
+    }
+
+    @Nullable
+    public TextChannel getRulesChannel() {
+        return this.guild.getRulesChannel();
+    }
+
+    @Nullable
+    public TextChannel getCommunityUpdatesChannel() {
+        return this.guild.getCommunityUpdatesChannel();
+    }
+
     public boolean isMember(@NotNull YusufUser user) {
         return this.guild.isMember(user.getUser());
     }
@@ -551,16 +895,56 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.createTextChannel(name, parent);
     }
 
+    @NotNull
+    public ChannelAction<NewsChannel> createNewsChannel(@NotNull String name, @Nullable Category parent) {
+        return this.guild.createNewsChannel(name, parent);
+    }
+
+    @NotNull
+    public ChannelAction<VoiceChannel> createVoiceChannel(@NotNull String name, @Nullable Category parent) {
+        return this.guild.createVoiceChannel(name, parent);
+    }
+
+    @NotNull
+    public ChannelAction<StageChannel> createStageChannel(@NotNull String name, @Nullable Category parent) {
+        return this.guild.createStageChannel(name, parent);
+    }
+
+    @NotNull
+    public ChannelAction<Category> createCategory(@NotNull String name) {
+        return this.guild.createCategory(name);
+    }
+
     public @NotNull RoleAction createRole() {
         return this.guild.createRole();
+    }
+
+    @NotNull
+    public AuditableRestAction<Emote> createEmote(@NotNull String name, @NotNull Icon icon, @NotNull Role... roles) {
+        return this.guild.createEmote(name, icon, roles);
+    }
+
+    @NotNull
+    public ChannelOrderAction modifyCategoryPositions() {
+        return this.guild.modifyCategoryPositions();
     }
 
     public @NotNull ChannelOrderAction modifyTextChannelPositions() {
         return this.guild.modifyTextChannelPositions();
     }
 
+    @NotNull
+    public ChannelOrderAction modifyVoiceChannelPositions() {
+        return this.guild.modifyVoiceChannelPositions();
+    }
+
     public @NotNull CategoryOrderAction modifyTextChannelPositions(@Nonnull Category category) {
         return this.guild.modifyTextChannelPositions(category);
+    }
+
+    @NotNull
+    public CategoryOrderAction modifyVoiceChannelPositions(@NotNull Category category) {
+        return this.guild.modifyVoiceChannelPositions(category);
     }
 
     /**
@@ -569,5 +953,9 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     @Contract(" -> new")
     public @NotNull YusufMember getOwner() {
         return new YusufMember(this.guild.getOwner());
+    }
+
+    public long getOwnerIdLong() {
+        return this.guild.getOwnerIdLong();
     }
 }
