@@ -6,7 +6,12 @@ All the core JDA classes for my bots and for others.
 
 To use my core all you need to do is import it.
 
-So for Jda 4 you need this
+There is 3 versions of my core:
+1. [Core which uses JDA 4](#jda-4)
+2. [Core which uses JDA 5](#jda-5)
+3. [Basic core which uses JDA 4](#basic-core-which-uses-jda-4)
+
+## JDA 4
 
 ```gradle
 repositories {
@@ -19,7 +24,7 @@ dependencies {
 }
 ```
 
-For Jda 5 you need this
+## JDA 5
 
 ```gradle
 repositories {
@@ -34,9 +39,7 @@ dependencies {
 }
 ```
 
-Finally, for the basic version of my core you need:
-
-So for Jda 4 you need this
+## Basic core which uses JDA 4
 
 ```gradle
 repositories {
