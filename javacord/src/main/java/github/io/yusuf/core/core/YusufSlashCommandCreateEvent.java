@@ -2,32 +2,30 @@ package github.io.yusuf.core.core;
 
 import github.io.yusuf.core.core.interaction.YusufInteraction;
 import github.io.yusuf.core.core.interaction.YusufSlashCommandInteraction;
+import org.javacord.api.event.Event;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
+import org.javacord.api.interaction.Interaction;
 import org.javacord.api.interaction.SlashCommandInteraction;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-public record YusufSlashCommandCreateEvent(SlashCommandCreateEvent event) {
+public interface YusufSlashCommandCreateEvent  extends Event {
 
     /**
      * Gets the created interaction.
      *
      * @return The interaction.
      */
-    @Contract(" -> new")
-    @NotNull
-    YusufInteraction getInteraction() {
-        return new YusufInteraction(this.event.getInteraction());
-    }
+    YusufInteraction getInteraction();
 
     /**
      * Gets the created interaction as SlashCommandInteraction, if the interaction is of this type.
      *
      * @return The interaction.
      */
-    public @NotNull YusufSlashCommandInteraction getSlashCommandInteraction() {
+    default YusufSlashCommandInteraction getSlashCommandInteraction() {
         return getInteraction().asSlashCommandInteraction().get();
     }
 
@@ -38,8 +36,7 @@ public record YusufSlashCommandCreateEvent(SlashCommandCreateEvent event) {
      * @param commandId The command it to match.
      * @return The interaction.
      */
-    public Optional<YusufSlashCommandInteraction> getSlashCommandInteractionWithCommandId(long commandId) {
+    default Optional<YusufSlashCommandInteraction> getSlashCommandInteractionWithCommandId(long commandId) {
         return getInteraction().asSlashCommandInteractionWithCommandId(commandId);
     }
-
 }

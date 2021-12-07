@@ -1,15 +1,15 @@
 package github.io.yusuf.core.core.interaction;
 
-import org.javacord.api.interaction.Interaction;
+import org.javacord.api.interaction.InteractionBase;
 import org.javacord.api.interaction.MessageComponentInteraction;
-import org.javacord.api.interaction.SlashCommandInteraction;
+import org.javacord.api.util.SafeSpecializable;
 
 import java.util.Optional;
 
-public record YusufInteraction(Interaction interaction) {
+public interface YusufInteraction extends InteractionBase, SafeSpecializable<InteractionBase> {
 
-    public Optional<YusufSlashCommandInteraction> asSlashCommandInteraction() {
-        return new YusufSlashCommandInteraction(this.interaction.asSlashCommandInteraction());
+    default Optional<YusufSlashCommandInteraction> asSlashCommandInteraction() {
+        return as(YusufSlashCommandInteraction.class);
     }
 
     /**
@@ -18,9 +18,8 @@ public record YusufInteraction(Interaction interaction) {
      * @param commandId The command id to match.
      * @return the interaction as slash command interaction if the properties match; an empty optional otherwise
      */
-    //TODO finish this
-    public Optional<YusufSlashCommandInteraction> asSlashCommandInteractionWithCommandId(long commandId) {
-        return new YusufSlashCommandInteraction(this.interaction.asSlashCommandInteractionWithCommandId(commandId));
+    default Optional<YusufSlashCommandInteraction> asSlashCommandInteractionWithCommandId(long commandId) {
+        return asSlashCommandInteraction().filter(interaction -> interaction.getCommandId() == commandId);
     }
 
     /**
@@ -28,8 +27,8 @@ public record YusufInteraction(Interaction interaction) {
      *
      * @return the interaction as message component interaction if the type matches; an empty optional otherwise
      */
-    public Optional<MessageComponentInteraction> asMessageComponentInteraction() {
-        return this.interaction.asMessageComponentInteraction();
+    default Optional<MessageComponentInteraction> asMessageComponentInteraction() {
+        return as(MessageComponentInteraction.class);
     }
 
     /**
@@ -38,7 +37,7 @@ public record YusufInteraction(Interaction interaction) {
      * @param customId The custom id to match.
      * @return the interaction as message component interaction if the properties match; an empty optional otherwise
      */
-    public Optional<MessageComponentInteraction> asMessageComponentInteractionWithCustomId(String customId) {
-        return this.interaction.asMessageComponentInteractionWithCustomId(customId);
+    default Optional<MessageComponentInteraction> asMessageComponentInteractionWithCustomId(String customId) {
+        return asMessageComponentInteraction().filter(interaction -> interaction.getCustomId().equals(customId));
     }
 }
