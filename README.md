@@ -9,12 +9,11 @@ All the core JDA classes for my bots and for others.
 
 To use my core all you need to do is import it.
 
-There is 5 versions of my core:
+There is 4 versions of my core:
 1. [Core which uses JDA 4](#jda-4)
 2. [Core which uses JDA 5](#jda-5)
-3. [Core which uses JavaCord](#javacord)
-4. [Basic core which uses JDA 4](#basic-core-which-uses-jda-4)
-5. [Basic core which uses JavaCord](#basic-core-which-uses-javacord)
+3. [Basic core which uses JDA 4](#basic-core-which-uses-jda-4)
+4. [Basic core which uses JavaCord](#basic-core-which-uses-javacord)
 
 ## JDA 4
 
@@ -43,21 +42,6 @@ dependencies {
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
 }
 ```
-
-## JavaCord
-
-```gradle
-repositories {
-    mavenCentral()
-}
-dependencies {
-    //Yusuf Ismail's Discord Core
-    //To be released
-    implementation group: 'io.github.yusufsdiscordbot', name: 'javacord', version: '1.0.0'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
-}
-```
-
 
 ## Basic core which uses JDA 4
 
