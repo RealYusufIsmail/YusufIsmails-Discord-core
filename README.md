@@ -74,6 +74,7 @@ dependencies {
 ```
 
 ## Basic core which uses JavaCord
+
 ```gradle
 repositories {
     mavenCentral()
