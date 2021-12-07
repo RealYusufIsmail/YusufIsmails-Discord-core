@@ -12,6 +12,7 @@ There is 3 versions of my core:
 1. [Core which uses JDA 4](#jda-4)
 2. [Core which uses JDA 5](#jda-5)
 3. [Basic core which uses JDA 4](#basic-core-which-uses-jda-4)
+4. [Basic core which uses JavaCord](#basic-core-which-uses-javacord)
 
 ## JDA 4
 
@@ -50,7 +51,20 @@ repositories {
 dependencies {
     //Yusuf Ismail's Discord Core
     //Basic version
-    implementation group: 'io.github.yusufsdiscordbot', name: 'application.basic', version: '1.0.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+}
+```
+
+## Basic core which uses JavaCord
+```gradle
+repositories {
+    mavenCentral()
+}
+dependencies {
+    //Yusuf Ismail's Discord Core
+    //Basic version
+    implementation group: 'io.github.yusufsdiscordbot', name: 'javacord.basic', version: '1.0.3'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
 }
 ```
