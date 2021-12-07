@@ -11,6 +11,7 @@ rootProject.name = 'YusufIsmail-Discord-core'
 
 include 'jda.basic'
 include 'javacord.basic'
+include 'javacord'
 include 'jda4'
 include 'jda5'
 include 'annotations'
