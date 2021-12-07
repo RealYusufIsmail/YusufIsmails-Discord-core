@@ -3,11 +3,6 @@ package github.io.yusuf.core.core;
 import github.io.yusuf.core.core.interaction.YusufInteraction;
 import github.io.yusuf.core.core.interaction.YusufSlashCommandInteraction;
 import org.javacord.api.event.Event;
-import org.javacord.api.event.interaction.SlashCommandCreateEvent;
-import org.javacord.api.interaction.Interaction;
-import org.javacord.api.interaction.SlashCommandInteraction;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
