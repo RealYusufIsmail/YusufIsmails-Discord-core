@@ -15,7 +15,7 @@ public class CoreSlashCommandHandler implements SlashCommandCreateListener {
     private final Map<String, Command> commands = new HashMap<>();
     public List<SlashCommandBuilder> dataCommands = new ArrayList<>();
 
-    public void addCommand(Command command){
+    public void addCommand(Command command) {
         commands.put(command.getName(), command);
         dataCommands.add(command.getCommandData());
     }
@@ -23,7 +23,7 @@ public class CoreSlashCommandHandler implements SlashCommandCreateListener {
     @Override
     public void onSlashCommandCreate(SlashCommandCreateEvent event) {
         var cmd = commands.get(event.getSlashCommandInteraction().getCommandName());
-        if(cmd == null) {
+        if (cmd == null) {
             System.out.println("Error");
             return;
         }

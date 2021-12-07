@@ -34,58 +34,67 @@ public class PlayerManager {
 
     public ApiMusicManager getMusicManager(Server server, DiscordApi api) {
         return this.musicManagers.computeIfAbsent(server.getId(), (guildId) -> {
-            final ApiMusicManager apiMusicManager = new ApiMusicManager(this.audioPlayerManager, api);
+            final ApiMusicManager apiMusicManager =
+                    new ApiMusicManager(this.audioPlayerManager, api);
 
-            //server.getAudioConnection().flatMap(AudioConnection::getAudioSource);
+            // server.getAudioConnection().flatMap(AudioConnection::getAudioSource);
 
             server.getAudioConnection().get().setAudioSource(apiMusicManager.getSendHandler());
 
             return apiMusicManager;
         });
     }
-    public void loadAndPlay(MessageBuilder channel, String trackUrl, SlashCommandInteraction interaction) throws Exception{
-        final ApiMusicManager musicManager = this.getMusicManager(interaction.getServer().get(), interaction.getApi());
+
+    public void loadAndPlay(MessageBuilder channel, String trackUrl,
+            SlashCommandInteraction interaction) throws Exception {
+        final ApiMusicManager musicManager =
+                this.getMusicManager(interaction.getServer().get(), interaction.getApi());
 
 
-        this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
-            @Override
-            public void trackLoaded(AudioTrack track) {
-                musicManager.scheduler.queue(track);
+        this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl,
+                new AudioLoadResultHandler() {
+                    @Override
+                    public void trackLoaded(AudioTrack track) {
+                        musicManager.scheduler.queue(track);
 
-                channel.setContent("Adding to queue: `")
-                        .append(track.getInfo().title)
-                        .append("` by `")
-                        .append(track.getInfo().author)
-                        .append('`');
-            }
+                        channel.setContent("Adding to queue: `")
+                            .append(track.getInfo().title)
+                            .append("` by `")
+                            .append(track.getInfo().author)
+                            .append('`');
+                    }
 
-            @Override
-            public void playlistLoaded(AudioPlaylist playlist) {
-                final List<AudioTrack> tracks = playlist.getTracks();
+                    @Override
+                    public void playlistLoaded(AudioPlaylist playlist) {
+                        final List<AudioTrack> tracks = playlist.getTracks();
 
-                channel.setContent("Adding to queue: `")
-                        .append(String.valueOf(tracks.size()))
-                        .append("` tracks from playlist `")
-                        .append(playlist.getName())
-                        .append('`');
+                        channel.setContent("Adding to queue: `")
+                            .append(String.valueOf(tracks.size()))
+                            .append("` tracks from playlist `")
+                            .append(playlist.getName())
+                            .append('`');
 
-                for (final AudioTrack track : tracks) {
-                    musicManager.scheduler.queue(track);
-                }
-            }
+                        for (final AudioTrack track : tracks) {
+                            musicManager.scheduler.queue(track);
+                        }
+                    }
 
-            @Override
-            public void noMatches() {
-                interaction.createImmediateResponder().setContent("Failed 406 error").respond();
-                System.out.println("Failed at noMatches");
-            }
+                    @Override
+                    public void noMatches() {
+                        interaction.createImmediateResponder()
+                            .setContent("Failed 406 error")
+                            .respond();
+                        System.out.println("Failed at noMatches");
+                    }
 
-            @Override
-            public void loadFailed(FriendlyException exception) {
-                interaction.createImmediateResponder().setContent("Failed 405 error").respond();
-                System.out.println("Failed at loadFailed");
-            }
-        });
+                    @Override
+                    public void loadFailed(FriendlyException exception) {
+                        interaction.createImmediateResponder()
+                            .setContent("Failed 405 error")
+                            .respond();
+                        System.out.println("Failed at loadFailed");
+                    }
+                });
     }
 
 
