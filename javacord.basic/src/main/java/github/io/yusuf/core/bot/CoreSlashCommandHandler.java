@@ -5,6 +5,7 @@ import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommandBuilder;
 import org.javacord.api.listener.interaction.SlashCommandCreateListener;
 import org.javacord.api.util.logging.ExceptionLogger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +21,25 @@ public class CoreSlashCommandHandler implements SlashCommandCreateListener {
         dataCommands.add(command.getCommandData());
     }
 
-    @Override
-    public void onSlashCommandCreate(SlashCommandCreateEvent event) {
+    private void runSlashCommandEvent(@NotNull SlashCommandCreateEvent slashCommandEvent) {
+        var cmd = commands.get(slashCommandEvent.getSlashCommandInteraction().getCommandName());
+        if (this.commands.containsKey(cmd)) {
+            Command onSlashCommand = this.commands.get(cmd);
+            onSlashCommand.onSlashCommand(slashCommandEvent);
+        }
+    }
+
+    private void runSlashCommandCreate(@NotNull SlashCommandCreateEvent event) {
         var cmd = commands.get(event.getSlashCommandInteraction().getCommandName());
         if (cmd == null) {
             System.out.println("Error");
             return;
         }
         cmd.onSlashCommand(event);
+    }
+
+    @Override
+    public void onSlashCommandCreate(SlashCommandCreateEvent event) {
+        runSlashCommandCreate(event);
     }
 }

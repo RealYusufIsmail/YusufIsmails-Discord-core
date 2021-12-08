@@ -108,18 +108,34 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent the event that triggered the slash command.
      */
     private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
-        if (this.commandConnector.containsKey(slashCommandEvent.getName())) {
-            Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-            if (onSlashCommand.isOwnerOnly()) {
-                if (slashCommandEvent.getUser().getIdLong() == botOwnerId()) {
-                    onSlashCommand.onSlashCommand(slashCommandEvent);
-                } else {
-                    logger
-                        .error("You are not the owner of the bot so you can not run this command");
-                }
-            }
-            onSlashCommand.onSlashCommand(slashCommandEvent);
+        if(checkIfCommandNameIsNullOrRepeated(slashCommandEvent) && isCommandOwnerOnly(slashCommandEvent)) {
+            onSlashCommandEvent(slashCommandEvent);
+            return;
         }
+    }
+
+    private boolean checkIfCommandNameIsNullOrRepeated(@NotNull SlashCommandEvent slashCommandEvent) {
+        var cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
+        if (cmdName) {
+            return true;
+        }
+        logger.info("The command name is null please double check this command");
+        return false;
+    }
+
+    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent) {
+        Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+        if (onSlashCommand.isOwnerOnly() && slashCommandEvent.getUser().getIdLong() == botOwnerId()) {
+            return true;
+        }
+        logger
+                .error("You are not the owner of the bot so you can not run this command");
+        return false;
+    }
+
+    private void onSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
+        Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+        onSlashCommand.onSlashCommand(slashCommandEvent);
     }
 
     /**
