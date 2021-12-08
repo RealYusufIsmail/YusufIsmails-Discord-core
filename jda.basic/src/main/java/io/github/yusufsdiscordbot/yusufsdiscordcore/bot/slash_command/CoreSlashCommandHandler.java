@@ -108,12 +108,13 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent the event that triggered the slash command.
      */
     private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
-        if(checkIfCommandNameIsNullOrRepeated(slashCommandEvent) && isCommandOwnerOnly(slashCommandEvent)) {
+        if(checkIfCommandNameIsNullOrRepeated(slashCommandEvent) || isCommandOwnerOnly(slashCommandEvent)) {
             onSlashCommandEvent(slashCommandEvent);
             return;
         }
     }
 
+    //TODO add a check which checks if the command name is repeated more than one time
     private boolean checkIfCommandNameIsNullOrRepeated(@NotNull SlashCommandEvent slashCommandEvent) {
         var cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
         if (cmdName) {
