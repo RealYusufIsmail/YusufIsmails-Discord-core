@@ -24,7 +24,7 @@ repositories {
 dependencies {
     //Yusuf Ismail's Discord Core
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.35'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.3'
 }
 ```
 
@@ -39,7 +39,7 @@ dependencies {
     //JDA 5
     //To be released
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.3'
 }
 ```
 
@@ -67,6 +67,6 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //Basic version
     implementation group: 'io.github.yusufsdiscordbot', name: 'javacord.basic', version: '1.0.3'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.3'
 }
 ```
