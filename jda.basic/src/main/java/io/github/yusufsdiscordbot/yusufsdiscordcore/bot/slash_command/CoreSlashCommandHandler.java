@@ -111,7 +111,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
                 || isCommandOwnerOnly(slashCommandEvent)) {
             onSlashCommandEvent(slashCommandEvent);
-            return;
         }
     }
 
