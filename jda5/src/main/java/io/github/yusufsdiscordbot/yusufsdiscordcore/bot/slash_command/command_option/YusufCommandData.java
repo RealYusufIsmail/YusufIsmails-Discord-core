@@ -20,12 +20,23 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.api.utils.data.DataArray;
 import net.dv8tion.jda.api.utils.data.DataObject;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 
-public record YusufCommandData(CommandData commandData) {
+public class YusufCommandData {
+    private final CommandData commandData;
+
+    public CommandData getCommandData() {
+        return commandData;
+    }
+
+    public YusufCommandData(@Nonnull String name, @Nonnull String description) {
+        this.commandData = new CommandData(name, description);
+    }
+
     @Nonnull
     public DataObject toData() {
         return this.commandData.toData();

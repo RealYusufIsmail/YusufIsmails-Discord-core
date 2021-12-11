@@ -17,6 +17,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -34,7 +35,7 @@ public abstract class Command {
     private final String name;
     private final String description;
     private final boolean isGuildOnly;
-    private final CommandData commandData;
+    private final YusufCommandData commandData;
 
     /**
      * Were the command is registered.
@@ -44,7 +45,7 @@ public abstract class Command {
         this.description = description;
         this.isGuildOnly = isGuildOnly;
 
-        commandData = new CommandData(name, description);
+        commandData = new YusufCommandData(name, description);
     }
 
     /**
@@ -81,7 +82,7 @@ public abstract class Command {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public final @NotNull CommandData getCommandData() {
+    public final @NotNull YusufCommandData getYusufCommandData() {
         return commandData;
     }
 

@@ -23,7 +23,6 @@ import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.CommandInteraction;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -90,9 +89,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private void addCommand(Command command) {
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
-            guildCommandsData.addCommands(command.getCommandData());
+            guildCommandsData.addCommands(command.getYusufCommandData().getCommandData());
         } else if (!command.checkIfIsGuildOnly()) {
-            globalCommandsData.addCommands(command.getCommandData());
+            globalCommandsData.addCommands(command.getYusufCommandData().getCommandData());
         }
     }
 
@@ -135,7 +134,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         if (cmdName) {
             return true;
         }
-        logger.info("The command name is null please double check this command '{}", slashCommandEvent.getCommandPath());
+        logger.info("The command name is null please double check this command '{}",
+                slashCommandEvent.getCommandPath());
         return false;
     }
 
@@ -145,17 +145,18 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         if (onSlashCommand.isOwnerOnly() && slashCommandEvent.getUser().getIdLong() == botOwnerId) {
             return true;
         }
-        logger.error("You are not the owner of the bot so you can not run this command '{}'", slashCommandEvent.getCommandPath());
+        logger.error("You are not the owner of the bot so you can not run this command '{}'",
+                slashCommandEvent.getCommandPath());
         return false;
     }
 
     private boolean isCommandNameRepeated(@NotNull SlashCommandEvent slashCommandEvent) {
         Command cmdName = this.commandConnector.get(slashCommandEvent.getName());
-        boolean containsSlashCommand = this.commandConnector.containsKey(slashCommandEvent.getName());
-        if (!cmdName.getName().equals(containsSlashCommand)) {
+        if (!cmdName.getName().equals(slashCommandEvent.getName())) {
             return true;
         }
-        logger.error("The command name is repeated please double check this command '{}'", slashCommandEvent.getCommandPath());
+        logger.error("The command name is repeated please double check this command '{}'",
+                slashCommandEvent.getCommandPath());
         return false;
     }
 

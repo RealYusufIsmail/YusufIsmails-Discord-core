@@ -1,10 +1,8 @@
 package github.io.yusuf.core.bot;
 
-import org.javacord.api.DiscordApi;
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommandBuilder;
 import org.javacord.api.listener.interaction.SlashCommandCreateListener;
-import org.javacord.api.util.logging.ExceptionLogger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
