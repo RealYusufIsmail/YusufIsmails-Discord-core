@@ -4,6 +4,8 @@ import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommandBuilder;
 import org.javacord.api.listener.interaction.SlashCommandCreateListener;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class CoreSlashCommandHandler implements SlashCommandCreateListener {
+    private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
+
     private final Map<String, Command> commands = new HashMap<>();
     public List<SlashCommandBuilder> dataCommands = new ArrayList<>();
 
@@ -30,7 +34,7 @@ public class CoreSlashCommandHandler implements SlashCommandCreateListener {
     private void runSlashCommandCreate(@NotNull SlashCommandCreateEvent event) {
         var cmd = commands.get(event.getSlashCommandInteraction().getCommandName());
         if (cmd == null) {
-            System.out.println("Error");
+            logger.error("Error");
             return;
         }
         cmd.onSlashCommand(event);
