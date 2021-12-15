@@ -15,22 +15,23 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import org.jetbrains.annotations.NotNull;
 
 public class GuildMusicManager {
     public final AudioPlayer audioPlayer;
 
-    public final TrackScheduler scheduler;
+    public final @NotNull TrackScheduler scheduler;
 
-    private final AudioPlayerSendHandler sendHandler;
+    private final @NotNull AudioPlayerSendHandler sendHandler;
 
-    public GuildMusicManager(AudioPlayerManager manager) {
+    public GuildMusicManager(@NotNull AudioPlayerManager manager) {
         this.audioPlayer = manager.createPlayer();
         this.scheduler = new TrackScheduler(this.audioPlayer);
         this.audioPlayer.addListener(this.scheduler);
         this.sendHandler = new AudioPlayerSendHandler(this.audioPlayer);
     }
 
-    public AudioPlayerSendHandler getSendHandler() {
+    public @NotNull AudioPlayerSendHandler getSendHandler() {
         return sendHandler;
     }
 }

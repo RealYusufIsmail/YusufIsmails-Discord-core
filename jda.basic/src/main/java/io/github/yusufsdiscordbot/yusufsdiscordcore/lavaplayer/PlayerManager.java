@@ -22,6 +22,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +33,8 @@ import java.util.Map;
 public class PlayerManager {
     private static final Logger logger = LoggerFactory.getLogger(PlayerManager.class);
     private static PlayerManager INSTANCE;
-    private final Map<Long, GuildMusicManager> musicManagers;
-    private final AudioPlayerManager audioPlayerManager;
+    private final @NotNull Map<Long, GuildMusicManager> musicManagers;
+    private final @NotNull AudioPlayerManager audioPlayerManager;
 
     public PlayerManager() {
         this.musicManagers = new HashMap<>();
@@ -43,7 +44,7 @@ public class PlayerManager {
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
     }
 
-    public GuildMusicManager getMusicManager(Guild guild) {
+    public GuildMusicManager getMusicManager(@NotNull Guild guild) {
         return this.musicManagers.computeIfAbsent(guild.getIdLong(), (guildId) -> {
             final GuildMusicManager guildMusicManager =
                     new GuildMusicManager(this.audioPlayerManager);
@@ -54,13 +55,13 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(TextChannel channel, String trackUrl) {
+    public void loadAndPlay(@NotNull TextChannel channel, String trackUrl) {
         final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl,
                 new AudioLoadResultHandler() {
                     @Override
-                    public void trackLoaded(AudioTrack track) {
+                    public void trackLoaded(@NotNull AudioTrack track) {
                         musicManager.scheduler.queue(track);
 
                         channel.sendMessage("Adding to queue: `")
@@ -72,7 +73,7 @@ public class PlayerManager {
                     }
 
                     @Override
-                    public void playlistLoaded(AudioPlaylist playlist) {
+                    public void playlistLoaded(@NotNull AudioPlaylist playlist) {
                         final List<AudioTrack> tracks = playlist.getTracks();
 
                         channel.sendMessage("Adding to queue: `")

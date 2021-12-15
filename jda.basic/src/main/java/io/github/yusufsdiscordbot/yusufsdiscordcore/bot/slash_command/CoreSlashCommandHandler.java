@@ -49,8 +49,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * Used to determine whether the commands should be global or guild only.
      */
-    private final CommandListUpdateAction globalCommandsData;
-    private final CommandListUpdateAction guildCommandsData;
+    private final @NotNull CommandListUpdateAction globalCommandsData;
+    private final @NotNull CommandListUpdateAction guildCommandsData;
 
     /**
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
@@ -79,7 +79,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        command should be global or guild only. determines whether the command should be
      *        Global or Guild only.
      */
-    private void addCommand(Command command) {
+    private void addCommand(@NotNull Command command) {
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());

@@ -48,7 +48,7 @@ public @interface ToBeRemoved {
      *
      * @since 1.0.1
      */
-    boolean willBeRemovedSoon() default true;
+    boolean willBeRemovedSoon() default false;
 
     /**
      * @return The reason why the command will be removed.

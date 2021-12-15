@@ -16,13 +16,14 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.lavaplayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.ByteBuffer;
 
 public class AudioPlayerSendHandler implements AudioSendHandler {
     private final AudioPlayer audioPlayer;
-    private final ByteBuffer buffer;
-    private final MutableAudioFrame frame;
+    private final @NotNull ByteBuffer buffer;
+    private final @NotNull MutableAudioFrame frame;
 
     public AudioPlayerSendHandler(AudioPlayer audioPlayer) {
         this.audioPlayer = audioPlayer;

@@ -1,14 +1,15 @@
 /*
- * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
- * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
- * license document, but changing it is not allowed. Yusuf Arfan Ismail The GNU General Public
- * License is a free, copyleft license for software and other kinds of works. The licenses for most
- * software and other practical works are designed to take away your freedom to share and change the
- * works. By contrast, the GNU General Public License is intended to guarantee your freedom to share
- * and change all versions of a program--to make sure it remains free software for all its users.
- * We, the Free Software Foundation, use the GNU General Public License for most of our software; it
- * applies also to any other work released this way by its authors. You can apply it to your
- * programs, too.
+ * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ * Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/> Everyone is permitted to
+ * copy and distribute verbatim copies of this license document, but changing it is not allowed.
+ * Yusuf Arfan Ismail
+ * The GNU General Public License is a free, copyleft license for software and other kinds of works.
+ * The licenses for most software and other practical works are designed to take away your freedom
+ * to share and change the works. By contrast, the GNU General Public License is intended to
+ * guarantee your freedom to share and change all versions of a program--to make sure it remains
+ * free software for all its users. We, the Free Software Foundation, use the GNU General Public
+ * License for most of our software; it applies also to any other work released this way by its
+ * authors. You can apply it to your programs, too.
  */
 
 // Originally from
@@ -32,15 +33,15 @@ import javax.annotation.Nonnull;
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
 public abstract class Command {
-    private final String name;
-    private final String description;
+    private final @NotNull String name;
+    private final @NotNull String description;
     private final boolean isGuildOnly;
-    private final YusufCommandData commandData;
+    private final @NotNull YusufCommandData commandData;
 
     /**
      * Were the command is registered.
      */
-    protected Command(String name, String description, boolean isGuildOnly) {
+    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly) {
         this.name = name;
         this.description = description;
         this.isGuildOnly = isGuildOnly;
@@ -75,8 +76,8 @@ public abstract class Command {
      * Retrieves all the command data such as the name and description of the command. Also used to
      * create options and sub commands.
      *
-     * @return {@link CommandData#CommandData(String, String)} and can also return
-     *         {@link CommandData#addOption(OptionType, String, String)} <br >
+     * @return {@link YusufCommandData#YusufCommandData(String, String)} and can also return
+     *         {@link YusufCommandData#addOption(OptionType, String, String)} <br >
      *         <br >
      *         Choices can also be used which makes it easier for the user. which returns
      *         {@link OptionData#addChoice(String, long)} <br>

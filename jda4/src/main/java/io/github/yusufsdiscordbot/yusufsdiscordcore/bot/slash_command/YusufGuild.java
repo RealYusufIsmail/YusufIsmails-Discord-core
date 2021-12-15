@@ -1,14 +1,15 @@
 /*
- * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
- * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
- * license document, but changing it is not allowed. Yusuf Arfan Ismail The GNU General Public
- * License is a free, copyleft license for software and other kinds of works. The licenses for most
- * software and other practical works are designed to take away your freedom to share and change the
- * works. By contrast, the GNU General Public License is intended to guarantee your freedom to share
- * and change all versions of a program--to make sure it remains free software for all its users.
- * We, the Free Software Foundation, use the GNU General Public License for most of our software; it
- * applies also to any other work released this way by its authors. You can apply it to your
- * programs, too.
+ * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ * Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/> Everyone is permitted to
+ * copy and distribute verbatim copies of this license document, but changing it is not allowed.
+ * Yusuf Arfan Ismail
+ * The GNU General Public License is a free, copyleft license for software and other kinds of works.
+ * The licenses for most software and other practical works are designed to take away your freedom
+ * to share and change the works. By contrast, the GNU General Public License is intended to
+ * guarantee your freedom to share and change all versions of a program--to make sure it remains
+ * free software for all its users. We, the Free Software Foundation, use the GNU General Public
+ * License for most of our software; it applies also to any other work released this way by its
+ * authors. You can apply it to your programs, too.
  */
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
@@ -248,7 +249,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.retrieveVanityInvite();
     }
 
-    public @NotNull AuditableRestAction<Void> changeUserNickname(Member member, String nickname) {
+    public @NotNull AuditableRestAction<Void> changeUserNickname(@NotNull Member member, String nickname) {
         return this.guild.modifyNickname(member, nickname);
     }
 
@@ -263,7 +264,7 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     public @NotNull Boolean checkReasonLength(@NotNull String reason,
-            YusufSlashCommandEvent event) {
+                                              @NotNull YusufSlashCommandEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
             event.replyEphemeral("You have gone over the reason character limit which is "
                     + REASON_MAX_LENGTH + " .");
@@ -277,17 +278,17 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> unBan(User user, String reason) {
+    public @NotNull AuditableRestAction<Void> unBan(@NotNull User user, String reason) {
         return this.guild.unban(user).reason(reason);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> unBan(User user) {
+    public @NotNull AuditableRestAction<Void> unBan(@NotNull User user) {
         return this.guild.unban(user);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> unBan(String userId) {
+    public @NotNull AuditableRestAction<Void> unBan(@NotNull String userId) {
         return this.guild.unban(userId);
     }
 
@@ -303,7 +304,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouUnBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                            @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.BAN_MEMBERS)) {
             event.replyEphemeral("You don't have the permission to unban users!");
             return false;
@@ -311,7 +312,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotUnBanUser(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotUnBanUser(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)) {
             event.replyEphemeral("I don't have the permission to unban users!");
             return false;
@@ -320,7 +321,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotUnBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                  @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
                 && !member.hasPermission(Permission.BAN_MEMBERS)) {
             event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
@@ -346,32 +347,32 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> ban(Member member) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull Member member) {
         return this.guild.ban(member, 0);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> ban(Member member, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull Member member, String reason) {
         return this.guild.ban(member, 0, reason);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> ban(Member member, int days, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull Member member, int days, String reason) {
         return this.guild.ban(member, days, reason);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> ban(User user) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull User user) {
         return this.guild.ban(user, 0);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> ban(User user, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull User user, String reason) {
         return this.guild.ban(user, 0, reason);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> ban(User user, int days, String reason) {
+    public @NotNull AuditableRestAction<Void> ban(@NotNull User user, int days, String reason) {
         return this.guild.ban(user, days, reason);
     }
 
@@ -392,7 +393,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                          @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.BAN_MEMBERS)) {
             event.replyEphemeral("You don't have the permission to ban users!");
             return false;
@@ -400,7 +401,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotBanUser(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotBanUser(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)) {
             event.replyEphemeral("I don't have the permission to ban users!");
             return false;
@@ -409,7 +410,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotBanUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.BAN_MEMBERS)
                 && !member.hasPermission(Permission.BAN_MEMBERS)) {
             event.replyEphemeral("You or the bot do not have the permission BAN_MEMBERS");
@@ -429,22 +430,22 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> kick(Member user) {
+    public @NotNull AuditableRestAction<Void> kick(@NotNull Member user) {
         return this.guild.kick(user, null);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> kick(Member member, String reason) {
+    public @NotNull AuditableRestAction<Void> kick(@NotNull Member member, String reason) {
         return this.guild.kick(member, reason);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> kick(String userId, String reason) {
+    public @NotNull AuditableRestAction<Void> kick(@NotNull String userId, String reason) {
         return this.guild.kick(userId, reason);
     }
 
     public @NotNull Boolean canYouKickUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                           @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.KICK_MEMBERS)) {
             event.replyEphemeral("You don't have the permission to kick users!");
             return false;
@@ -452,7 +453,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotKickUser(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotKickUser(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.KICK_MEMBERS)) {
             event.replyEphemeral("I don't have the permission to kick users!");
             return false;
@@ -461,7 +462,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotKickUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                 @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.KICK_MEMBERS)
                 && !member.hasPermission(Permission.KICK_MEMBERS)) {
             event.replyEphemeral("You or the bot do not have the permission KICK_MEMBERS");
@@ -471,7 +472,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> mute(Member member, Boolean mute, String reason) {
+    public @NotNull AuditableRestAction<Void> mute(@NotNull Member member, Boolean mute, String reason) {
         return this.guild.mute(member, mute).reason(reason);
     }
 
@@ -482,7 +483,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouMuteUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                           @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
             event.replyEphemeral("You don't have the permission to mute users!");
             return false;
@@ -490,7 +491,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotMuteUser(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotMuteUser(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.VOICE_MUTE_OTHERS)) {
             event.replyEphemeral("I don't have the permission to mute users!");
             return false;
@@ -499,7 +500,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotMuteUser(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                 @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.VOICE_MUTE_OTHERS)
                 && !member.hasPermission(Permission.VOICE_MUTE_OTHERS)) {
             event.replyEphemeral("You or the bot do not have the permission VOICE_MUTE_OTHERS");
@@ -526,7 +527,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> addRoleToMember(String userId, @Nonnull Role role) {
+    public @NotNull AuditableRestAction<Void> addRoleToMember(@NotNull String userId, @Nonnull Role role) {
         return this.guild.addRoleToMember(userId, role);
     }
 
@@ -535,7 +536,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAddRoleToMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                  @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("You don't have the permission to add roles to users!");
             return false;
@@ -543,7 +544,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotAddRoleToMember(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotAddRoleToMember(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("I don't have the permission to add roles to users!");
             return false;
@@ -552,7 +553,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotAddRoleToMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                        @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
@@ -586,7 +587,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouRemoveRoleFromMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                       @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("You don't have the permission to remove roles from users!");
             return false;
@@ -594,7 +595,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotRemoveRoleFromMember(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotRemoveRoleFromMember(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("I don't have the permission to remove roles from users!");
             return false;
@@ -603,7 +604,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotRemoveRoleFromMember(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                             @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);
@@ -628,7 +629,7 @@ public record YusufGuild(Guild guild) {
         return member.hasPermission(Permission.MESSAGE_MANAGE);
     }
 
-    public @NotNull Boolean canYouPrune(@NotNull YusufMember member, YusufSlashCommandEvent event) {
+    public @NotNull Boolean canYouPrune(@NotNull YusufMember member, @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("You don't have the permission to remove messages in this guild!");
             return false;
@@ -636,7 +637,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotPrune(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotPrune(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MESSAGE_MANAGE)) {
             event.replyEphemeral("I don't have the permission to remove messages in this guild!");
             return false;
@@ -645,7 +646,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotPrune(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                              @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MESSAGE_MANAGE)
                 && !member.hasPermission(Permission.MESSAGE_MANAGE)) {
             event.replyEphemeral("You or the bot do not have the permission MESSAGE_MANAGE");
@@ -781,7 +782,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouCreateRole(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                             @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("You don't have the permission to create roles!");
             return false;
@@ -789,7 +790,7 @@ public record YusufGuild(Guild guild) {
         return true;
     }
 
-    public @NotNull Boolean canBotCreateRole(YusufSlashCommandEvent event) {
+    public @NotNull Boolean canBotCreateRole(@NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral("I don't have the permission to create roles!");
             return false;
@@ -798,7 +799,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull Boolean canYouAndBotCreateRole(@NotNull YusufMember member,
-            YusufSlashCommandEvent event) {
+                                                   @NotNull YusufSlashCommandEvent event) {
         if (!this.getBot().hasPermission(Permission.MANAGE_ROLES)
                 && !member.hasPermission(Permission.MANAGE_ROLES)) {
             event.replyEphemeral(USER_AND_BOT_MANAGER_ROLE_PERMISSION);

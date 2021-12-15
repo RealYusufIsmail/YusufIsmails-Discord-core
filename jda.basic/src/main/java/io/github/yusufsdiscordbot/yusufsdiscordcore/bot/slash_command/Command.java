@@ -1,6 +1,3 @@
-// Originally from
-// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
-// then modified by Yusuf
 /*
  * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
  * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
@@ -14,6 +11,9 @@
  * programs, too.
  */
 
+// Originally from
+// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
+// then modified by Yusuf
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
@@ -31,15 +31,15 @@ import javax.annotation.Nonnull;
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
 public abstract class Command {
-    private final String name;
-    private final String description;
+    private final @NotNull String name;
+    private final @NotNull String description;
     private final boolean isGuildOnly;
-    private final CommandData commandData;
+    private final @NotNull CommandData commandData;
 
     /**
      * Were the command is registered.
      */
-    protected Command(String name, String description, boolean isGuildOnly) {
+    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly) {
         this.name = name;
         this.description = description;
         this.isGuildOnly = isGuildOnly;
@@ -85,7 +85,7 @@ public abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
-    public final CommandData getCommandData() {
+    public final @NotNull CommandData getCommandData() {
         return commandData;
     }
 

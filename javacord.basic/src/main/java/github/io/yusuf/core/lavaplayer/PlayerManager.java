@@ -1,3 +1,16 @@
+/*
+ * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
+ * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
+ * license document, but changing it is not allowed. Yusuf Arfan Ismail The GNU General Public
+ * License is a free, copyleft license for software and other kinds of works. The licenses for most
+ * software and other practical works are designed to take away your freedom to share and change the
+ * works. By contrast, the GNU General Public License is intended to guarantee your freedom to share
+ * and change all versions of a program--to make sure it remains free software for all its users.
+ * We, the Free Software Foundation, use the GNU General Public License for most of our software; it
+ * applies also to any other work released this way by its authors. You can apply it to your
+ * programs, too.
+ */
+
 package github.io.yusuf.core.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
@@ -11,6 +24,7 @@ import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.interaction.SlashCommandInteraction;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +32,8 @@ import java.util.Map;
 
 public class PlayerManager {
     private static PlayerManager INSTANCE;
-    private final Map<Long, ApiMusicManager> musicManagers;
-    private final AudioPlayerManager audioPlayerManager;
+    private final @NotNull Map<Long, ApiMusicManager> musicManagers;
+    private final @NotNull AudioPlayerManager audioPlayerManager;
 
 
     public PlayerManager() {
@@ -32,7 +46,7 @@ public class PlayerManager {
 
 
 
-    public ApiMusicManager getMusicManager(Server server, DiscordApi api) {
+    public ApiMusicManager getMusicManager(@NotNull Server server, @NotNull DiscordApi api) {
         return this.musicManagers.computeIfAbsent(server.getId(), (guildId) -> {
             final ApiMusicManager apiMusicManager =
                     new ApiMusicManager(this.audioPlayerManager, api);
@@ -45,8 +59,8 @@ public class PlayerManager {
         });
     }
 
-    public void loadAndPlay(MessageBuilder channel, String trackUrl,
-            SlashCommandInteraction interaction) throws Exception {
+    public void loadAndPlay(@NotNull MessageBuilder channel, String trackUrl,
+            @NotNull SlashCommandInteraction interaction) throws Exception {
         final ApiMusicManager musicManager =
                 this.getMusicManager(interaction.getServer().get(), interaction.getApi());
 
@@ -54,7 +68,7 @@ public class PlayerManager {
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl,
                 new AudioLoadResultHandler() {
                     @Override
-                    public void trackLoaded(AudioTrack track) {
+                    public void trackLoaded(@NotNull AudioTrack track) {
                         musicManager.scheduler.queue(track);
 
                         channel.setContent("Adding to queue: `")
@@ -65,7 +79,7 @@ public class PlayerManager {
                     }
 
                     @Override
-                    public void playlistLoaded(AudioPlaylist playlist) {
+                    public void playlistLoaded(@NotNull AudioPlaylist playlist) {
                         final List<AudioTrack> tracks = playlist.getTracks();
 
                         channel.setContent("Adding to queue: `")

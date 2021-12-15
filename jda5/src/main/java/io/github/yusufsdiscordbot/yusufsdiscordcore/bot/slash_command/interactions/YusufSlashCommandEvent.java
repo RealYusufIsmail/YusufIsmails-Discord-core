@@ -1,21 +1,21 @@
 /*
- * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 Copyright (C) 2007 Free Software Foundation,
- * Inc. <https://fsf.org/> Everyone is permitted to copy and distribute verbatim copies of this
- * license document, but changing it is not allowed. Yusuf Arfan Ismail The GNU General Public
- * License is a free, copyleft license for software and other kinds of works. The licenses for most
- * software and other practical works are designed to take away your freedom to share and change the
- * works. By contrast, the GNU General Public License is intended to guarantee your freedom to share
- * and change all versions of a program--to make sure it remains free software for all its users.
- * We, the Free Software Foundation, use the GNU General Public License for most of our software; it
- * applies also to any other work released this way by its authors. You can apply it to your
- * programs, too.
+ * GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+ * Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/> Everyone is permitted to
+ * copy and distribute verbatim copies of this license document, but changing it is not allowed.
+ * Yusuf Arfan Ismail
+ * The GNU General Public License is a free, copyleft license for software and other kinds of works.
+ * The licenses for most software and other practical works are designed to take away your freedom
+ * to share and change the works. By contrast, the GNU General Public License is intended to
+ * guarantee your freedom to share and change all versions of a program--to make sure it remains
+ * free software for all its users. We, the Free Software Foundation, use the GNU General Public
+ * License for most of our software; it applies also to any other work released this way by its
+ * authors. You can apply it to your programs, too.
  */
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionType;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -52,7 +52,7 @@ public class YusufSlashCommandEvent extends YusufInteraction {
         return this.event.getName();
     }
 
-    public String getCommandString() {
+    public @NotNull String getCommandString() {
         return this.event.getCommandString();
     }
 
@@ -67,37 +67,33 @@ public class YusufSlashCommandEvent extends YusufInteraction {
     }
 
     @Contract("_ -> new")
-    public @NotNull YusufOptionMapping getOption(String option) {
+    public @NotNull YusufOptionMapping getOption(@NotNull String option) {
         return new YusufOptionMapping(this.event.getOption(option));
     }
 
-    public @NotNull List<OptionMapping> getOptionByType(OptionType type) {
+    public @NotNull List<OptionMapping> getOptionByType(@NotNull OptionType type) {
         return this.event.getOptionsByType(type);
     }
 
-    public @NotNull List<OptionMapping> getOptionByType(@NotNull YusufOptionType type) {
-        return this.event.getOptionsByType(type.getOptionType());
-    }
-
-    public void replyQueuedMessage(String message) {
+    public void replyQueuedMessage(@NotNull String message) {
         this.event.reply(message).queue();
     }
 
     /**
      * replays as an ephemeral message.
      */
-    public void replyQueuedEphemeral(String message) {
+    public void replyQueuedEphemeral(@NotNull String message) {
         this.event.reply(message).setEphemeral(true).queue();
     }
 
     /**
      * replays as an embed message.
      */
-    public void replyQueuedEmbed(MessageEmbed messageEmbed) {
+    public void replyQueuedEmbed(@NotNull MessageEmbed messageEmbed) {
         this.event.replyEmbeds(messageEmbed).queue();
     }
 
-    public void replyQueuedEphemeralEmbed(MessageEmbed messageEmbed) {
+    public void replyQueuedEphemeralEmbed(@NotNull MessageEmbed messageEmbed) {
         this.event.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
 }
