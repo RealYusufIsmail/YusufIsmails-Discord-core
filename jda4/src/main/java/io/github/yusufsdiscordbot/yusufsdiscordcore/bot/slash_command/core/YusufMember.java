@@ -285,17 +285,6 @@ public record YusufMember(Member member) {
         return this.member;
     }
 
-
-    @Deprecated(since = "1.0.36", forRemoval = true)
-    public @NotNull String getUserId() {
-        return this.getYusufUser().getUserId();
-    }
-
-    @Deprecated(since = "1.0.36", forRemoval = true)
-    public @NotNull Long getUserIdLong() {
-        return this.getYusufUser().getUserIdLong();
-    }
-
     /**
      * @see Member#getId()
      */
