@@ -13,7 +13,7 @@ application {
 
 archivesBaseName = 'yusufsdiscordcore_basic_javacord'
 description = "A core discord bot library for my youtube toturial"
-version = '1.0.3'
+version = '1.0.4'
 
 repositories {
     mavenCentral()
