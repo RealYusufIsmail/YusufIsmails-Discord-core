@@ -11,28 +11,7 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
-
-import io.github.yusufsdiscordbot.annotations.ToBeRemoved;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-
 /**
- * @deprecated this class will be removed on version 2.0.0
+ * All the core classes for the core are found here such as YusufUser of YusufMember.
  */
-@Deprecated(since = "1.0.36", forRemoval = true)
-@ToBeRemoved(versionOfRemoval = "2.0.0", reasonForRemoval = "This class is not needed",
-        willBeRemovedSoon = true)
-public record YusufOptionType(OptionType optionType) {
-
-    public OptionType getOptionType() {
-        return optionType;
-    }
-
-    public int getKet() {
-        return this.optionType.getKey();
-    }
-
-    public boolean canSupportChoices() {
-        return this.optionType.canSupportChoices();
-    }
-}
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;

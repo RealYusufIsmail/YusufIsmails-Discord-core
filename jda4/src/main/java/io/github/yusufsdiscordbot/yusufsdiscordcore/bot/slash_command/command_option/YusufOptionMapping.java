@@ -11,10 +11,12 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
-import io.github.yusufsdiscordbot.annotations.ToBeChanged;
 import io.github.yusufsdiscordbot.annotations.ToBeRemoved;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuildChannel;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

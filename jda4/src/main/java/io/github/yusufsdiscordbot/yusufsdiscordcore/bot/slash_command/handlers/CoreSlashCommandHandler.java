@@ -11,9 +11,11 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -101,7 +103,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * Queues the command after the command has been registered.
      */
-    public void onFinishedRegistration() {
+    private void onFinishedRegistration() {
         globalCommandsData.queue();
         guildCommandsData.queue();
     }
@@ -141,6 +143,11 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
+    /**
+     * Register the onSelectionMenu event
+     *
+     * @param selectionMenuEvent the select menu event.
+     */
     private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
         if (this.commandConnector.containsKey(selectionMenuEvent.getId())) {
             Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getId());

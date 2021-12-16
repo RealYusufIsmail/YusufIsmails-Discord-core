@@ -11,22 +11,28 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
-import org.jetbrains.annotations.NotNull;
+import io.github.yusufsdiscordbot.annotations.ToBeRemoved;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 
-class ExampleCommand extends Command {
-    /**
-     * Were the command is registered.
-     */
-    protected ExampleCommand() {
-        super("example", "This is an example", true);
+/**
+ * @deprecated this class will be removed on version 2.0.0
+ */
+@Deprecated(since = "1.0.36", forRemoval = true)
+@ToBeRemoved(versionOfRemoval = "2.0.0", reasonForRemoval = "This class is not needed",
+        willBeRemovedSoon = true)
+public record YusufOptionType(OptionType optionType) {
+
+    public OptionType getOptionType() {
+        return optionType;
     }
 
-    @Override
-    public void onSlashCommand(@NotNull YusufSlashCommandEvent yusufSlashCommandEvent) {
-        yusufSlashCommandEvent.replyMessage("example");
+    public int getKet() {
+        return this.optionType.getKey();
+    }
+
+    public boolean canSupportChoices() {
+        return this.optionType.canSupportChoices();
     }
 }

@@ -37,7 +37,7 @@ repositories {
 dependencies {
     //Yusuf Ismail's Discord Core
     //JDA 5
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-beta.1'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.2'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
 }
 ```

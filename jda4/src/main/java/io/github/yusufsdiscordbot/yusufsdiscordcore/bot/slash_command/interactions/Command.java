@@ -14,7 +14,7 @@
 // Originally from
 // https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
 // then modified by Yusuf
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
 import io.github.yusufsdiscordbot.annotations.ToBeChanged;
@@ -51,7 +51,7 @@ public abstract class Command {
     /**
      * Were the command is created.
      */
-    protected abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
+    public abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
 
     /**
      * Provides the user with name of the command
