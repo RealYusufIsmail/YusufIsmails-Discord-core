@@ -42,8 +42,10 @@ import java.util.Map;
  * <p>
  * The is class which process the registration of the commands. <br>
  * <br>
- * Commands are register by using addCommand with an example being <br>
- * addCommand(new TestCommand())
+ * Commands are register by using List<Command> with an example being <br>
+ * List<Command> handler = new ArrayList<>(); <br>
+ * handler.add(new ExampleCommand()); <br>
+ * queueAndRegisterCommands(handler);
  */
 @SuppressWarnings("unused")
 @Authors(namesOfTheAuthors = {"Yusuf Arfan Ismail", "Serkwi Bruno Ndzi"},
@@ -109,11 +111,10 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * Queues the command after the command has been registered.
      */
-    public void onFinishedRegistration() {
+    private void onFinishedRegistration() {
         globalCommandsData.queue();
         guildCommandsData.queue();
     }
-
 
     /**
      * This method is called when the slash command is triggered.
@@ -178,6 +179,11 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
+    /**
+     * Register the onSelectionMenu event
+     *
+     * @param selectionMenuEvent the select menu event.
+     */
     private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
         if (this.commandConnector.containsKey(selectionMenuEvent.getId())) {
             Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getId());

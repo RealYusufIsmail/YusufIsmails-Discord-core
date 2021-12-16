@@ -11,22 +11,8 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
-
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
-import org.jetbrains.annotations.NotNull;
-
-class ExampleCommand extends Command {
-    /**
-     * Were the command is registered.
-     */
-    protected ExampleCommand() {
-        super("example", "This is an example", true);
-    }
-
-    @Override
-    public void onSlashCommand(@NotNull YusufSlashCommandEvent yusufSlashCommandEvent) {
-        yusufSlashCommandEvent.replyMessage("example");
-    }
-}
+/**
+ * This is where all the command interactions such the abstract class Command which is extended by
+ * every command class.
+ */
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
