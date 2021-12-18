@@ -11,8 +11,8 @@ application {
     mainClass = 'io.github.yusufsdiscordbot.yusufdiscordcore.bot.slash_command.example.Bot'
 }
 
-archivesBaseName = 'yusufsdiscordcore'
-description = "A core discord bot library for my bots"
+archivesBaseName = 'jda5'
+description = "An open source core dependecny for my Discord bots and for others which uses JDA %."
 version = bot_version
 
 repositories {
@@ -34,18 +34,18 @@ dependencies {
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.0'
 }
 jar {
-    manifest {
+    manifest(({
         attributes('Implementation-Title': project.description,
                 'Implementation-Version': project.version,
-                'Main-Class': 'io.github.yusufsdiscordbot.yusufdiscordcore.bot.slash_command.example.Bot'
+                'Main-Class': application.mainClass
         )
-    }
+    } as Closure<?>))
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = 'yusufsdiscordcore'
-                    description = 'An open source core dependecny for my Discord bots and for others which uses JDA.'
+                    name = project.name
+                    description = project.description
                 }
             }
         }

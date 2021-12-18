@@ -35,15 +35,15 @@ jar {
     manifest {
         attributes('Implementation-Title': project.description,
                 'Implementation-Version': project.version,
-                'Main-Class': 'com.github.yusufsdiscordbot.core.Bot',
+                'Main-Class': application.mainClass
         )
     }
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = 'yusufsdiscordcore_javacord'
-                    description = 'An open source core dependecny for my Discord bots and for others which uses JavaCord.'
+                    name = project.name
+                    description = project.description
                 }
             }
         }

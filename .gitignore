@@ -11,6 +11,7 @@ out
 *.ipr
 *.iws
 *.iml
+*.log
 .idea
 
 # gradle
@@ -21,3 +22,4 @@ build
 eclipse
 run
 .DS_Store
+.env

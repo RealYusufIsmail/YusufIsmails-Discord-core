@@ -8,11 +8,11 @@ plugins {
 }
 
 archivesBaseName = 'configs'
-description = "All the Configs for the yusufsdiscordcore library"
+description = "Config plugin"
 version = config_version
 
 application {
-    mainClass = 'com.github.yusufsdiscordbot.config.Config'
+    mainClass = 'io.github.yusufsdiscordbot.config.Config'
 }
 
 repositories {
@@ -20,24 +20,24 @@ repositories {
 }
 
 dependencies {
-    implementation project(':annotations')
-
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.3'
     implementation 'org.jetbrains:annotations:22.0.0'
 }
 
 jar {
-    manifest {
+    manifest(({
         attributes('Implementation-Title': project.description,
-                'Implementation-Version': project.version
+                'Implementation-Version': project.version,
+                'Main-Class': application.mainClass
         )
-    }
+    } as Closure<?>))
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = 'configs'
-                    description = 'All the configs for the yusufsdiscordcore library'
+                    name = project.name
+                    description = project.description
                 }
             }
         }

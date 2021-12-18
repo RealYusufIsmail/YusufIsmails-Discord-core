@@ -12,7 +12,7 @@ description = "All the annotations for the yusufsdiscordcore library"
 version = annotations_version
 
 application {
-    mainClass = 'com.github.yusufsdiscordbot.annotations.Author'
+    mainClass = 'io.github.yusufsdiscordbot.annotations.Author'
 }
 
 repositories {
@@ -26,15 +26,16 @@ dependencies {
 jar {
     manifest {
         attributes('Implementation-Title': project.description,
-                'Implementation-Version': project.version
+                'Implementation-Version': project.version,
+                'Main-Class': application.mainClass
         )
     }
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = 'annotations'
-                    description = 'All the annotations for the yusufsdiscordcore library'
+                    name = project.name
+                    description = project.description
                 }
             }
         }

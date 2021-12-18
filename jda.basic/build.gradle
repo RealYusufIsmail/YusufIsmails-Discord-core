@@ -11,8 +11,8 @@ application {
     mainClass = 'com.github.yusufsdiscordbot.bot.slash_command.example.Bot'
 }
 
-archivesBaseName = 'yusufsdiscordcore_basic'
-description = "A core discord bot library for my youtube toturial"
+archivesBaseName = 'yusufsdiscordcore'
+description = "A core discord bot library for my youtube toturial which uses JDA 4"
 version = bot_version
 
 repositories {
@@ -38,15 +38,15 @@ jar {
     manifest {
         attributes('Implementation-Title': project.description,
                 'Implementation-Version': project.version,
-                'Main-Class': 'com.github.yusufsdiscordbot.core.Bot',
+                'Main-Class': application.mainClass
         )
     }
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = 'yusufsdiscordcore'
-                    description = 'An open source core dependecny for my Discord bots and for others which uses JDA.'
+                    name = project.name
+                    description = project.description
                 }
             }
         }

@@ -7,13 +7,14 @@ plugins {
     id 'java-library'
 }
 
+
+archivesBaseName = 'jda4'
+description = "An open source core dependecny for my Discord bots and for others which uses JDA 4."
+version = bot_version
+
 application {
     mainClass = 'io.github.yusufsdiscordbot.yusufdiscordcore.bot.slash_command.example.Bot'
 }
-
-archivesBaseName = 'yusufsdiscordcore'
-description = "A core discord bot library for my bots"
-version = bot_version
 
 repositories {
     mavenCentral()
@@ -25,28 +26,27 @@ repositories {
 
 dependencies {
     implementation project(':annotations')
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     //JDA
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.78'
     implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.0'
 }
 jar {
-    manifest {
+    manifest(({
         attributes('Implementation-Title': project.description,
                 'Implementation-Version': project.version,
-                'Main-Class': 'io.github.yusufsdiscordbot.yusufdiscordcore.bot.slash_command.example.Bot'
+                'Main-Class': application.mainClass
         )
-    }
+    } as Closure<?>))
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = 'yusufsdiscordcore'
-                    description = 'An open source core dependecny for my Discord bots and for others which uses JDA.'
+                    name = project.name
+                    description = project.description
                 }
             }
         }

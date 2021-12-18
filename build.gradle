@@ -25,7 +25,7 @@ ext {
     dev_organizationUrl = 'https://github.com/YusufsDiscordbot'
 
     gpl_name = 'GNU Library General Public License version 3'
-    gpl_url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core/blob/JDA/LICENSE'
+    gpl_url = 'https://github.com/YusufsDiscordbot/YusufIsmails-Discord-core/blob/Master/LICENSE'
 
     // Make sure we have a default for initial configuration evaluation
     isReleaseVersion = false
@@ -84,7 +84,7 @@ subprojects {
 
     javadoc {
         if (JavaVersion.current().isJava8Compatible()) {
-            options.addStringOption('Xdoclint:none', '-quiet')
+            options.addStringOption('Xdoclint:none')
             logging.captureStandardError LogLevel.INFO
             logging.captureStandardOutput LogLevel.INFO
         }
