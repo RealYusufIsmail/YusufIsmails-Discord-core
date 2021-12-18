@@ -11,8 +11,9 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -96,7 +97,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * Queues the command after the command has been registered.
      */
-    public void onFinishedRegistration() {
+    private void onFinishedRegistration() {
         globalCommandsData.queue();
         guildCommandsData.queue();
     }
@@ -109,29 +110,41 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
-                || isCommandOwnerOnly(slashCommandEvent)) {
+                && isCommandNameRepeated(slashCommandEvent)
+                || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
             onSlashCommandEvent(slashCommandEvent);
         }
     }
 
-    // TODO add a check which checks if the command name is repeated more than one time
     private boolean checkIfCommandNameIsNullOrRepeated(
             @NotNull SlashCommandEvent slashCommandEvent) {
-        var cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
+        boolean cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
         if (cmdName) {
             return true;
         }
-        logger.info("The command name is null please double check this command");
+        logger.info("The command name is null please double check this command '{}",
+                slashCommandEvent.getCommandPath());
         return false;
     }
 
-    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent) {
+    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
+            long botOwnerId) {
         Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        if (onSlashCommand.isOwnerOnly()
-                && slashCommandEvent.getUser().getIdLong() == botOwnerId()) {
+        if (onSlashCommand.isOwnerOnly() && slashCommandEvent.getUser().getIdLong() == botOwnerId) {
             return true;
         }
-        logger.error("You are not the owner of the bot so you can not run this command");
+        logger.error("You are not the owner of the bot so you can not run this command '{}'",
+                slashCommandEvent.getCommandPath());
+        return false;
+    }
+
+    private boolean isCommandNameRepeated(@NotNull SlashCommandEvent slashCommandEvent) {
+        Command cmdName = this.commandConnector.get(slashCommandEvent.getName());
+        if (!cmdName.getName().equals(slashCommandEvent.getName())) {
+            return true;
+        }
+        logger.error("The command name is repeated please double check this command '{}'",
+                slashCommandEvent.getCommandPath());
         return false;
     }
 

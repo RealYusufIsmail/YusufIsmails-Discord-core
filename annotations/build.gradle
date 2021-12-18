@@ -9,7 +9,7 @@ plugins {
 
 archivesBaseName = 'annotations'
 description = "All the annotations for the yusufsdiscordcore library"
-version = bot_version
+version = annotations_version
 
 application {
     mainClass = 'com.github.yusufsdiscordbot.annotations.Author'
