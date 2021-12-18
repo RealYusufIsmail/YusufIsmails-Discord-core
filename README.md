@@ -3,6 +3,8 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda.basic/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda.basic)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/javacord.basic/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/javacord.basic)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/config/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/config)
+
 
 # YusufIsmail's-Discord-core
 All the core JDA classes for my bots and for others.
