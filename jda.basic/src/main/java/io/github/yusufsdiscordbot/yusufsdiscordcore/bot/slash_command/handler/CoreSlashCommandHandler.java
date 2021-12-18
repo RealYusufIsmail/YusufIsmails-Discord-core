@@ -129,7 +129,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
             long botOwnerId) {
         Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        if (onSlashCommand.isOwnerOnly() && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
+        if (onSlashCommand.isOwnerOnly()
+                && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
             return true;
         }
         logger.error("You are not the owner of the bot so you can not run this command '{}'",

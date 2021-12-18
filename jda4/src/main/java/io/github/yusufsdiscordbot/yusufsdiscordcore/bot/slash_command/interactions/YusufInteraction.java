@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
-@ToBeChanged(toBeChangedTo = "Will replace YusufSlashCommandUtility", versionOfChange = "2.0.0",
+@ToBeChanged(reasonForChange = "Will replace YusufSlashCommandUtility", versionOfChange = "2.0.0",
         willBeChangedSoon = true)
 public record YusufInteraction(Interaction interaction) {
 

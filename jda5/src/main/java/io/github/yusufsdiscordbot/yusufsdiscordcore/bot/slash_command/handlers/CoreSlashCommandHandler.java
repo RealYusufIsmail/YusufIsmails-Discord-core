@@ -42,10 +42,13 @@ import java.util.Map;
  * <p>
  * The is class which process the registration of the commands. <br>
  * <br>
- * Commands are register by using List<Command> with an example being <br>
+ * Commands are register by using a List with an example being
+ * 
+ * <pre>
  * List<Command> handler = new ArrayList<>(); <br>
  * handler.add(new ExampleCommand()); <br>
  * queueAndRegisterCommands(handler);
+ * </pre>
  */
 @SuppressWarnings("unused")
 @Authors(namesOfTheAuthors = {"Yusuf Arfan Ismail", "Serkwi Bruno Ndzi"},

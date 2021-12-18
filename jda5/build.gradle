@@ -7,13 +7,13 @@ plugins {
     id 'java-library'
 }
 
-application {
-    mainClass = 'io.github.yusufsdiscordbot.yusufdiscordcore.bot.slash_command.example.Bot'
-}
-
 archivesBaseName = 'jda5'
 description = "An open source core dependecny for my Discord bots and for others which uses JDA %."
 version = bot_version
+
+application {
+    mainClass = 'io.github.yusufsdiscordbot.yusufdiscordcore.bot.slash_command.example.Bot'
+}
 
 repositories {
     mavenCentral()
@@ -24,11 +24,9 @@ repositories {
 }
 
 dependencies {
-    implementation project(':annotations')
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
-
     //JDA
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.2'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.3'
     implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.78'
     implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.0'
@@ -44,7 +42,7 @@ jar {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = project.name
+                    name = project.archivesBaseName
                     description = project.description
                 }
             }

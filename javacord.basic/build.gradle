@@ -42,7 +42,7 @@ jar {
         publications {
             mavenJava(MavenPublication) {
                 pom {
-                    name = project.name
+                    name = project.archivesBaseName
                     description = project.description
                 }
             }

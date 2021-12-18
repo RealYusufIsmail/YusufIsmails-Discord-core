@@ -85,7 +85,7 @@ public abstract class Command {
      *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
      *         and modified by Yusuf
      */
-    @ToBeChanged(toBeChangedTo = "YusufCommandData", versionOfChange = "2.0.0")
+    @ToBeChanged(reasonForChange = "YusufCommandData", versionOfChange = "2.0.0")
     public final @NotNull CommandData getCommandData() {
         return commandData;
     }

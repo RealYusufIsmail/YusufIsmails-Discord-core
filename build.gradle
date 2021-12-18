@@ -84,7 +84,7 @@ subprojects {
 
     javadoc {
         if (JavaVersion.current().isJava8Compatible()) {
-            options.addStringOption('Xdoclint:none')
+            options.addStringOption('Xdoclint:none', '-quiet')
             logging.captureStandardError LogLevel.INFO
             logging.captureStandardOutput LogLevel.INFO
         }
