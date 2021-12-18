@@ -27,7 +27,7 @@ dependencies {
     //Yusuf Ismail's Discord Core
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.37'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
 }
 ```
@@ -42,8 +42,8 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //JDA 5
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.2'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.2'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
 }
 ```
@@ -58,8 +58,8 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //Basic version
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.4'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.5'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
 }
 ```
@@ -75,7 +75,7 @@ dependencies {
     //Basic version
     implementation group: 'org.javacord', name: 'javacord', version: '3.3.2'
     implementation group: 'io.github.yusufsdiscordbot', name: 'javacord.basic', version: '1.0.4'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.4'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
 }
 ```

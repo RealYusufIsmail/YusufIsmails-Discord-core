@@ -110,8 +110,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
-                && isCommandNameRepeated(slashCommandEvent)
-                || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
+                && isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
             onSlashCommandEvent(slashCommandEvent);
         }
     }
@@ -130,20 +129,10 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
             long botOwnerId) {
         Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        if (onSlashCommand.isOwnerOnly() && slashCommandEvent.getUser().getIdLong() == botOwnerId) {
+        if (onSlashCommand.isOwnerOnly() && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
             return true;
         }
         logger.error("You are not the owner of the bot so you can not run this command '{}'",
-                slashCommandEvent.getCommandPath());
-        return false;
-    }
-
-    private boolean isCommandNameRepeated(@NotNull SlashCommandEvent slashCommandEvent) {
-        Command cmdName = this.commandConnector.get(slashCommandEvent.getName());
-        if (!cmdName.getName().equals(slashCommandEvent.getName())) {
-            return true;
-        }
-        logger.error("The command name is repeated please double check this command '{}'",
                 slashCommandEvent.getCommandPath());
         return false;
     }
