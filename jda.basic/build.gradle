@@ -8,10 +8,10 @@ plugins {
 }
 
 application {
-    mainClass = 'com.github.yusufsdiscordbot.bot.slash_command.example.Bot'
+    mainClass = 'io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.Bot'
 }
 
-archivesBaseName = 'yusufsdiscordcore'
+archivesBaseName = "Yusuf's Discord Core JDA basic"
 description = "A core discord bot library for my youtube toturial which uses JDA 4"
 version = bot_version
 
@@ -29,7 +29,7 @@ dependencies {
     //JDA
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.3'
-    implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.78'
+    implementation group: 'com.sedmelluq', name: 'io.github.yusufsdiscordbot.yusufdiscordcor.lavaplayer', version: '1.3.78'
     implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.0'
 }

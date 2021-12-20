@@ -11,7 +11,7 @@
  * programs, too.
  */
 
-package github.io.yusuf.core.lavaplayer;
+package io.github.yusufsdiscordbot.yusufdiscordcor.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;

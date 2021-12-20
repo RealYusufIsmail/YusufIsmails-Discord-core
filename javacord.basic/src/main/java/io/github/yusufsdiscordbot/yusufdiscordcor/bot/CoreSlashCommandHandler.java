@@ -11,7 +11,7 @@
  * programs, too.
  */
 
-package github.io.yusuf.core.bot;
+package io.github.yusufsdiscordbot.yusufdiscordcor.bot;
 
 import org.javacord.api.event.interaction.SlashCommandCreateEvent;
 import org.javacord.api.interaction.SlashCommandBuilder;

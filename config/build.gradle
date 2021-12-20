@@ -7,7 +7,7 @@ plugins {
     id 'java-library'
 }
 
-archivesBaseName = 'configs'
+archivesBaseName = "Yusuf's Discord Core configs"
 description = "Config plugin"
 version = config_version
 

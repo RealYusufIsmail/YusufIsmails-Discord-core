@@ -13,17 +13,11 @@
 
 package io.github.yusufsdiscordbot.annotations;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.CONSTRUCTOR;
+import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = {METHOD, TYPE, LOCAL_VARIABLE, CONSTRUCTOR})
 @Documented
+@Repeatable(credits.class)
 public @interface Credits {
     /**
      * @return The link or the class name of were the code was taken from or where inspiration was
@@ -32,4 +26,21 @@ public @interface Credits {
      * @since 1.0.1
      */
     String source();
+
+    /**
+     * @return A description for the reason you are giving credits
+     *
+     * @since 1.0.6
+     */
+    String reason() default "";
+}
+/**
+ * Used to determine when a class was created.
+ *
+ * @since 1.0.3
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@interface credits {
+    Credits[] value();
 }

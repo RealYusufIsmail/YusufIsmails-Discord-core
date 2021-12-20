@@ -22,7 +22,6 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = {METHOD, TYPE, LOCAL_VARIABLE, CONSTRUCTOR})
 @Documented
 public @interface VersionOfCreation {
     /**

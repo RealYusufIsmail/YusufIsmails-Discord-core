@@ -11,7 +11,21 @@
  * programs, too.
  */
 
-package github.io.yusuf.core;
+package io.github.yusufsdiscordbot.yusufdiscordcor.bot;
 
-public class Core {
+import org.javacord.api.event.interaction.SlashCommandCreateEvent;
+import org.javacord.api.interaction.SlashCommandBuilder;
+import org.jetbrains.annotations.NotNull;
+
+public interface Command {
+    void onSlashCommand(SlashCommandCreateEvent event);
+
+    @NotNull
+    String getName();
+
+    @NotNull
+    String getDescription();
+
+    @NotNull
+    SlashCommandBuilder getCommandData();
 }

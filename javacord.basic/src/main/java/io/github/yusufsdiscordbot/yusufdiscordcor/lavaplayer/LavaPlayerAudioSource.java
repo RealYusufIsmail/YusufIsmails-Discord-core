@@ -11,7 +11,7 @@
  * programs, too.
  */
 
-package github.io.yusuf.core.lavaplayer;
+package io.github.yusufsdiscordbot.yusufdiscordcor.lavaplayer;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
@@ -26,7 +26,7 @@ public class LavaPlayerAudioSource extends AudioSourceBase {
     private AudioFrame lastFrame;
 
     /**
-     * Creates a new lavaplayer audio source.
+     * Creates a new io.github.yusufsdiscordbot.yusufdiscordcor.lavaplayer audio source.
      *
      * @param audioPlayer An audio player from Lavaplayer.
      * @param api A discord api instance.

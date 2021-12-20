@@ -24,11 +24,11 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    //Yusuf Ismail's Discord Core
+    //Yusuf Ismail's Discord io.github.yusufsdiscordbot.yusufdiscordcor.Core
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.37'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.38'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.6'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.1'
 }
 ```
 
@@ -39,12 +39,13 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    //Yusuf Ismail's Discord Core
+    //Yusuf Ismail's Discord io.github.yusufsdiscordbot.yusufdiscordcor.Core
     //JDA 5
+    //In alpha stage
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.2'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.4'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.5'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.6'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.1'
 }
 ```
 
@@ -55,12 +56,12 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    //Yusuf Ismail's Discord Core
+    //Yusuf Ismail's Discord io.github.yusufsdiscordbot.yusufdiscordcor.Core
     //Basic version
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.6'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.7'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.6'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.1'
 }
 ```
 
@@ -71,11 +72,11 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    //Yusuf Ismail's Discord Core
+    //Yusuf Ismail's Discord io.github.yusufsdiscordbot.yusufdiscordcor.Core
     //Basic version
     implementation group: 'org.javacord', name: 'javacord', version: '3.3.2'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'javacord.basic', version: '1.0.4'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.0'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'javacord.basic', version: '1.0.5'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.6'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.1'
 }
 ```

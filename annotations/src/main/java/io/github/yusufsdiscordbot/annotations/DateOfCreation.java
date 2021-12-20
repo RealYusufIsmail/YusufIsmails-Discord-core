@@ -25,6 +25,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @since 1.0.3
  */
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(dates.class)
 public @interface DateOfCreation {
