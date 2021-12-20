@@ -27,7 +27,7 @@ dependencies {
     //JDA
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.2'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.3'
-    implementation group: 'com.sedmelluq', name: 'io.github.yusufsdiscordbot.yusufdiscordcor.lavaplayer', version: '1.3.78'
+    implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.77'
     implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.0'
 }
