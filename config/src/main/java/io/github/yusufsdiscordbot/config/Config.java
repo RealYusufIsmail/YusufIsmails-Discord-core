@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class Config {
     private Config() {}
 
-    private static final Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+    private static final Dotenv dotenv = Dotenv.configure().load();
 
     private static String get(@NotNull String key) {
         return dotenv.get(key);
@@ -108,12 +108,11 @@ public class Config {
         return get(key, Character.toString(defaultValue)).charAt(0);
     }
 
-
     public static String @NotNull [] getStringArray(@NotNull String key) {
         return get(key).split(",");
     }
 
-    public static String @NotNull [] getStringArray(@NotNull String key, String[] defaultValue) {
+    public static String @NotNull [] getStringArray(@NotNull String key, @NotNull String[] defaultValue) {
         return get(key, String.join(",", defaultValue)).split(",");
     }
 

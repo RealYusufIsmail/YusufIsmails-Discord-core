@@ -15,7 +15,8 @@ package io.github.yusufsdiscordbot.config;
 
 import org.jetbrains.annotations.NotNull;
 
-public enum ConfigExample {
+@SuppressWarnings("unused")
+enum ConfigExample {
     ;
     public static String getToken() {
         return Config.getString("TOKEN");
