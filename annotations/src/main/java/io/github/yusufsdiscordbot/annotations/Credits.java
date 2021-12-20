@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Repeatable(credits.class)
+@Repeatable(repeatableCredits.class)
 public @interface Credits {
     /**
      * @return The link or the class name of were the code was taken from or where inspiration was
@@ -43,6 +43,6 @@ public @interface Credits {
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@interface credits {
+@interface repeatableCredits {
     Credits[] value();
 }
