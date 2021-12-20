@@ -34,15 +34,18 @@ public abstract class Command {
     private final @NotNull String name;
     private final @NotNull String description;
     private final boolean isGuildOnly;
+    private final boolean isOwnerOnlyCommand;
     private final @NotNull CommandData commandData;
 
     /**
      * Were the command is registered.
      */
-    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly) {
+    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly,
+            boolean isOwnerOnlyCommand) {
         this.name = name;
         this.description = description;
         this.isGuildOnly = isGuildOnly;
+        this.isOwnerOnlyCommand = isOwnerOnlyCommand;
 
         commandData = new CommandData(name, description);
     }
@@ -117,7 +120,7 @@ public abstract class Command {
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      */
-    public boolean isOwnerOnly() {
-        return false;
+    public boolean isOwnerOnlyCommand() {
+        return isOwnerOnlyCommand;
     }
 }

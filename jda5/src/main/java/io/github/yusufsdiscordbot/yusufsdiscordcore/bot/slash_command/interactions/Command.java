@@ -114,7 +114,7 @@ public abstract class Command {
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      */
-    public boolean isOwnerOnly() {
+    public boolean isOwnerOnlyCommand() {
         return false;
     }
 }
