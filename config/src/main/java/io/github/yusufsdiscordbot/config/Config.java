@@ -112,7 +112,8 @@ public class Config {
         return get(key).split(",");
     }
 
-    public static String @NotNull [] getStringArray(@NotNull String key, @NotNull String[] defaultValue) {
+    public static String @NotNull [] getStringArray(@NotNull String key,
+            @NotNull String[] defaultValue) {
         return get(key, String.join(",", defaultValue)).split(",");
     }
 
