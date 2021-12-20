@@ -9,7 +9,7 @@ plugins {
 
 archivesBaseName = "Yusuf's Discord Core configs"
 description = "Config plugin"
-version = config_version
+version = config_version as Object
 
 application {
     mainClass = 'io.github.yusufsdiscordbot.config.Config'
