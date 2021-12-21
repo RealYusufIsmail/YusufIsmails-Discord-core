@@ -46,7 +46,7 @@ public record YusufGuild(Guild guild) {
     }
 
     /**
-     * @see Guild#retrieveCommands();
+     * @see Guild#retrieveCommands()
      */
     @CheckReturnValue
     public @NotNull RestAction<List<Command>> retrieveCommands() {

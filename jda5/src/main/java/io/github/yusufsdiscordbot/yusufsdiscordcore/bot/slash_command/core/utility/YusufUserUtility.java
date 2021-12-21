@@ -107,19 +107,4 @@ public class YusufUserUtility {
     public @NotNull String getBotEffectiveAvatarUrl() {
         return this.getBot().getBotEffectiveAvatarUrl();
     }
-
-    /**
-     * @param user the user who you want to check is null
-     * @param event the slash command event.
-     * @return not null
-     */
-    @Contract("null,_->false;!null,_->true")
-    public boolean userIsNotNull(@Nullable YusufUser user, @NotNull YusufSlashCommandEvent event) {
-        boolean result = user == null;
-        if (result) {
-            event.replyQueuedEphemeral("The given user is null");
-            return false;
-        }
-        return true;
-    }
 }

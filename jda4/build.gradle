@@ -25,6 +25,8 @@ repositories {
 }
 
 dependencies {
+    implementation project(':config')
+
     //JDA
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.5'

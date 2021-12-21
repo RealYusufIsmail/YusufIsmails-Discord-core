@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public class YusufUser extends YusufUserUtility implements IMentionable {
+public class YusufUser extends YusufUserUtility {
     private final User user;
 
     public YusufUser(User user) {
@@ -168,10 +168,5 @@ public class YusufUser extends YusufUserUtility implements IMentionable {
      */
     public @NotNull String getAsMention() {
         return this.user.getAsMention();
-    }
-
-    @Override
-    public long getIdLong() {
-        return this.user.getIdLong();
     }
 }

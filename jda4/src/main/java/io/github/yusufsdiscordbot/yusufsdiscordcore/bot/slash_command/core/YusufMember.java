@@ -416,6 +416,7 @@ public record YusufMember(Member member) {
      * @param event the slash command event.
      * @return not null
      */
+    @Deprecated(since = "1.0.39", forRemoval = true)
     @Contract("null,_->false;!null,_->true")
     public boolean memberIsNotNull(@org.jetbrains.annotations.Nullable YusufMember member,
             @NotNull YusufSlashCommandEvent event) {

@@ -43,7 +43,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class YusufGuild extends YusufGuildUtility implements ISnowflake {
+public class YusufGuild extends YusufGuildUtility {
     private final Guild guild;
 
     public YusufGuild(Guild guild) {
@@ -58,8 +58,21 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild;
     }
 
+    public @NotNull String getGuildId() {
+        return this.guild.getId();
+    }
+
+    public @NotNull Long getGuildILong() {
+        return this.guild.getIdLong();
+    }
+
+    public @NotNull String getGuildName() {
+        return this.guild.getName();
+    }
+
+
     /**
-     * @see Guild#retrieveCommands();
+     * @see Guild#retrieveCommands()
      */
     @CheckReturnValue
     public @NotNull RestAction<List<Command>> retrieveCommands() {
@@ -249,15 +262,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
         return this.guild.getVanityCode();
     }
 
-    @Override
-    public @NotNull String getId() {
-        return this.guild.getId();
-    }
-
-    public long getIdLong() {
-        return this.guild.getIdLong();
-    }
-
     public @NotNull String getOwnerId() {
         return this.guild.getOwnerId();
     }
@@ -333,15 +337,6 @@ public class YusufGuild extends YusufGuildUtility implements ISnowflake {
     public @NotNull AuditableRestAction<Void> changeUserNickname(@NotNull YusufMember member,
             String nickname) {
         return this.guild.modifyNickname(member.getMember(), nickname);
-    }
-
-    public @NotNull String getGuildId() {
-        return this.guild.getId();
-    }
-
-
-    public @NotNull String getGuildName() {
-        return this.guild.getName();
     }
 
     @CheckReturnValue

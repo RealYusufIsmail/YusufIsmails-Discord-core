@@ -171,6 +171,7 @@ public record YusufUser(User user) {
      * @param event the slash command event.
      * @return not null
      */
+    @Deprecated(since = "1.0.39", forRemoval = true)
     @Contract("null,_->false;!null,_->true")
     public boolean userIsNotNull(@Nullable YusufUser user, @NotNull YusufSlashCommandEvent event) {
         boolean result = user == null;

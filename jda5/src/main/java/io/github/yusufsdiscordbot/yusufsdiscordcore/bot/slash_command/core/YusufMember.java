@@ -428,20 +428,4 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     public long getIdLong() {
         return this.member.getIdLong();
     }
-
-    /**
-     * @param member the member who you want to check is null
-     * @param event the slash command event.
-     * @return not null
-     */
-    @Contract("null,_->false;!null,_->true")
-    public boolean memberIsNotNull(@org.jetbrains.annotations.Nullable YusufMember member,
-            @NotNull YusufSlashCommandEvent event) {
-        boolean result = member == null;
-        if (result) {
-            event.replyQueuedEphemeral("The given member is null");
-            return false;
-        }
-        return true;
-    }
 }

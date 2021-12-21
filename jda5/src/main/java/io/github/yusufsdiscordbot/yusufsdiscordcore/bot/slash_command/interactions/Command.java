@@ -56,7 +56,7 @@ public abstract class Command {
     /**
      * Provides the user with name of the command
      *
-     * @return {@link CommandData#getName()}
+     * @return {@link YusufCommandData#getName()}
      */
     public final @NotNull String getName() {
         return name;
@@ -65,7 +65,7 @@ public abstract class Command {
     /**
      * Provides the user information on what the command is about.
      *
-     * @return {@link CommandData#getDescription()}
+     * @return {@link YusufCommandData#getDescription()}
      */
     public final @NotNull String getDescription() {
         return description;

@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
 
+import net.dv8tion.jda.api.exceptions.ParsingException;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -38,7 +39,17 @@ public class YusufCommandData {
     }
 
     @Nonnull
-    public DataObject toData() {
+    public String getName() {
+        return this.commandData.getName();
+    }
+
+    @Nonnull
+    public String getDescription() {
+        return this.commandData.getDescription();
+    }
+
+    @Nonnull
+    public DataObject toDataObject() {
         return this.commandData.toData();
     }
 
@@ -96,7 +107,7 @@ public class YusufCommandData {
      * @return The CommandData instance, for chaining
      */
     @Nonnull
-    public CommandData addOptions(@Nonnull OptionData... options) {
+    public CommandData addOptionData(@Nonnull OptionData... options) {
         return this.commandData.addOptions(options);
     }
 
@@ -121,7 +132,7 @@ public class YusufCommandData {
      * @return The CommandData instance, for chaining
      */
     @Nonnull
-    public CommandData addOptions(@Nonnull Collection<? extends OptionData> options) {
+    public CommandData addOptionData(@Nonnull Collection<? extends OptionData> options) {
         return this.commandData.addOptions(options);
     }
 
@@ -196,7 +207,7 @@ public class YusufCommandData {
      * @return The CommandData instance, for chaining
      */
     @Nonnull
-    public CommandData addSubcommands(@Nonnull SubcommandData... subcommands) {
+    public CommandData addSubcommandData(@Nonnull SubcommandData... subcommands) {
         return this.commandData.addSubcommands(subcommands);
     }
 
@@ -211,7 +222,7 @@ public class YusufCommandData {
      * @return The CommandData instance, for chaining
      */
     @Nonnull
-    public CommandData addSubcommands(@Nonnull Collection<? extends SubcommandData> subcommands) {
+    public CommandData addSubcommandData(@Nonnull Collection<? extends SubcommandData> subcommands) {
         return this.commandData.addSubcommands(subcommands);
     }
 
@@ -226,7 +237,7 @@ public class YusufCommandData {
      * @return The CommandData instance, for chaining
      */
     @Nonnull
-    public CommandData addSubcommandGroups(@Nonnull SubcommandGroupData... groups) {
+    public CommandData addSubcommandGroupData(@Nonnull SubcommandGroupData... groups) {
         return this.commandData.addSubcommandGroups(groups);
     }
 
@@ -241,18 +252,18 @@ public class YusufCommandData {
      * @return The CommandData instance, for chaining
      */
     @Nonnull
-    public CommandData addSubcommandGroups(
+    public CommandData addSubcommandGroupData(
             @Nonnull Collection<? extends SubcommandGroupData> groups) {
         return this.commandData.addSubcommandGroups(groups);
     }
 
     /**
      * Parses the provided serialization back into an CommandData instance. <br>
-     * This is the reverse function for {@link #toData()}.
+     * This is the reverse function for {@link #toDataObject()}.
      *
      * @param object The serialized {@link DataObject} representing the command
      *
-     * @throws net.dv8tion.jda.api.exceptions.ParsingException If the serialized object is missing
+     * @throws ParsingException If the serialized object is missing
      *         required fields
      * @throws IllegalArgumentException If any of the values are failing the respective checks such
      *         as length
@@ -260,17 +271,17 @@ public class YusufCommandData {
      * @return The parsed CommandData instance, which can be further configured through setters
      */
     @Nonnull
-    public static CommandData fromData(@Nonnull DataObject object) {
+    public static CommandData fromDataObject(@Nonnull DataObject object) {
         return CommandData.fromData(object);
     }
 
     /**
      * Parses the provided serialization back into an CommandData instance. <br>
-     * This is the reverse function for {@link #toData()}.
+     * This is the reverse function for {@link #toDataObject()}.
      *
      * @param array Array of serialized {@link DataObject} representing the commands
      *
-     * @throws net.dv8tion.jda.api.exceptions.ParsingException If the serialized object is missing
+     * @throws ParsingException If the serialized object is missing
      *         required fields
      * @throws IllegalArgumentException If any of the values are failing the respective checks such
      *         as length
@@ -278,17 +289,17 @@ public class YusufCommandData {
      * @return The parsed CommandData instances, which can be further configured through setters
      */
     @Nonnull
-    public static List<CommandData> fromList(@Nonnull DataArray array) {
+    public static List<CommandData> fromDataArray(@Nonnull DataArray array) {
         return CommandData.fromList(array);
     }
 
     /**
      * Parses the provided serialization back into an CommandData instance. <br>
-     * This is the reverse function for {@link #toData()}.
+     * This is the reverse function for {@link #toDataObject()}.
      *
      * @param collection Collection of serialized {@link DataObject} representing the commands
      *
-     * @throws net.dv8tion.jda.api.exceptions.ParsingException If the serialized object is missing
+     * @throws ParsingException If the serialized object is missing
      *         required fields
      * @throws IllegalArgumentException If any of the values are failing the respective checks such
      *         as length
@@ -296,7 +307,7 @@ public class YusufCommandData {
      * @return The parsed CommandData instances, which can be further configured through setters
      */
     @Nonnull
-    public static List<CommandData> fromList(@Nonnull Collection<? extends DataObject> collection) {
+    public static List<CommandData> fromDataObject(@Nonnull Collection<? extends DataObject> collection) {
         return CommandData.fromList(collection);
     }
 }

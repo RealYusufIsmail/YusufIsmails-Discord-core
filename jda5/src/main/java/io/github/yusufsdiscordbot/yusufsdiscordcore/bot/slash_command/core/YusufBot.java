@@ -30,7 +30,7 @@ import java.util.Objects;
  * 
  * @author Yusuf Arfan Ismail
  */
-public record YusufBot(SelfUser user) implements User {
+public record YusufBot(SelfUser user) {
 
     /**
      * @return the id of the bot.
@@ -104,7 +104,6 @@ public record YusufBot(SelfUser user) implements User {
     /**
      * @return the bots' avatar url.
      */
-    @Override
     public @NotNull String getAvatarUrl() {
         return Objects.requireNonNull(user.getAvatarUrl());
     }
@@ -119,63 +118,46 @@ public record YusufBot(SelfUser user) implements User {
     /**
      * @return the bots' default avatar url.
      */
-    @Override
     public @NotNull String getDefaultAvatarUrl() {
         return Objects.requireNonNull(user.getDefaultAvatarUrl());
     }
 
     @NotNull
-    @Override
-    public RestAction<Profile> retrieveProfile() {
+    public RestAction<User.Profile> retrieveProfile() {
         return user.retrieveProfile();
     }
 
-    @NotNull
-    @Override
-    public String getAsTag() {
-        return user.getAsTag();
-    }
-
-    @Override
     public boolean hasPrivateChannel() {
         return user.hasPrivateChannel();
     }
 
     @NotNull
-    @Override
     public RestAction<PrivateChannel> openPrivateChannel() {
         return user.openPrivateChannel();
     }
 
     @NotNull
-    @Override
     public List<Guild> getMutualGuilds() {
         return user.getMutualGuilds();
     }
 
-    @Override
     public boolean isBot() {
         return user.isBot();
     }
 
-    @Override
     public boolean isSystem() {
         return user.isSystem();
     }
 
-    @NotNull
-    @Override
-    public JDA getJDA() {
+    public @NotNull JDA getJDA() {
         return user.getJDA();
     }
 
     @NotNull
-    @Override
-    public EnumSet<UserFlag> getFlags() {
+    public EnumSet<User.UserFlag> getFlags() {
         return user.getFlags();
     }
 
-    @Override
     public int getFlagsRaw() {
         return user.getFlagsRaw();
     }
@@ -195,13 +177,7 @@ public record YusufBot(SelfUser user) implements User {
     }
 
     @NotNull
-    @Override
     public String getAsMention() {
         return user.getAsMention();
-    }
-
-    @Override
-    public long getIdLong() {
-        return user.getIdLong();
     }
 }
