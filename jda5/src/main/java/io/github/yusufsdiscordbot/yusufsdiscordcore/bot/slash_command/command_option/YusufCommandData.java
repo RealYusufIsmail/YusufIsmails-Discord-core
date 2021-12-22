@@ -222,7 +222,8 @@ public class YusufCommandData {
      * @return The CommandData instance, for chaining
      */
     @Nonnull
-    public CommandData addSubcommandData(@Nonnull Collection<? extends SubcommandData> subcommands) {
+    public CommandData addSubcommandData(
+            @Nonnull Collection<? extends SubcommandData> subcommands) {
         return this.commandData.addSubcommands(subcommands);
     }
 
@@ -263,8 +264,7 @@ public class YusufCommandData {
      *
      * @param object The serialized {@link DataObject} representing the command
      *
-     * @throws ParsingException If the serialized object is missing
-     *         required fields
+     * @throws ParsingException If the serialized object is missing required fields
      * @throws IllegalArgumentException If any of the values are failing the respective checks such
      *         as length
      *
@@ -281,8 +281,7 @@ public class YusufCommandData {
      *
      * @param array Array of serialized {@link DataObject} representing the commands
      *
-     * @throws ParsingException If the serialized object is missing
-     *         required fields
+     * @throws ParsingException If the serialized object is missing required fields
      * @throws IllegalArgumentException If any of the values are failing the respective checks such
      *         as length
      *
@@ -299,15 +298,15 @@ public class YusufCommandData {
      *
      * @param collection Collection of serialized {@link DataObject} representing the commands
      *
-     * @throws ParsingException If the serialized object is missing
-     *         required fields
+     * @throws ParsingException If the serialized object is missing required fields
      * @throws IllegalArgumentException If any of the values are failing the respective checks such
      *         as length
      *
      * @return The parsed CommandData instances, which can be further configured through setters
      */
     @Nonnull
-    public static List<CommandData> fromDataObject(@Nonnull Collection<? extends DataObject> collection) {
+    public static List<CommandData> fromDataObject(
+            @Nonnull Collection<? extends DataObject> collection) {
         return CommandData.fromList(collection);
     }
 }

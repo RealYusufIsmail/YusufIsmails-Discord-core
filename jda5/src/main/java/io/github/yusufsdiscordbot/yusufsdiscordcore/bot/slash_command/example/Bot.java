@@ -23,12 +23,12 @@ import javax.security.auth.login.LoginException;
 class Bot {
     public static void main(String[] args) throws InterruptedException, LoginException {
         JDA jda = JDABuilder.createDefault(ExampleConfig.getBotId())
-                .setActivity(Activity.watching("/example"))
-                .setStatus(OnlineStatus.ONLINE)
-                .build();
+            .setActivity(Activity.watching("/example"))
+            .setStatus(OnlineStatus.ONLINE)
+            .build();
 
         jda.awaitReady()
-                .getGuildCache()
-                .forEach(guild -> jda.addEventListener(new ExampleCommandHandler(jda, guild)));
+            .getGuildCache()
+            .forEach(guild -> jda.addEventListener(new ExampleCommandHandler(jda, guild)));
     }
 }
