@@ -32,7 +32,7 @@ class ExampleCommand extends Command {
     protected ExampleCommand() {
         super("example", "This is an example", true);
 
-        getCommandData().addOptions(
+        getYusufCommandData().addOptionData(
                 new OptionData(OptionType.STRING, EXAMPLE_OPTION, "This is an example option")
                     .addChoice("Test", "Works"));
     }

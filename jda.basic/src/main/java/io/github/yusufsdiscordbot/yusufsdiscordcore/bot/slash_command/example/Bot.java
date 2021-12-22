@@ -22,7 +22,7 @@ import javax.security.auth.login.LoginException;
 
 class Bot {
     public static void main(String[] args) throws InterruptedException, LoginException {
-        JDA jda = JDABuilder.createDefault(Config.get("TOKEN"))
+        JDA jda = JDABuilder.createDefault(ExampleConfig.getBotId())
             .setActivity(Activity.watching("/example"))
             .setStatus(OnlineStatus.ONLINE)
             .build();

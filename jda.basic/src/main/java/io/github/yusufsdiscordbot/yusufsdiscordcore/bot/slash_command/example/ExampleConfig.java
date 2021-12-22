@@ -13,13 +13,17 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import io.github.yusufsdiscordbot.config.Config;
 import org.jetbrains.annotations.NotNull;
 
-class Config {
-    private static final Dotenv dotenv = Dotenv.load();
+enum ExampleConfig {
+    ;
+    static @NotNull Long getOwnerId() {
+        return Config.getLong("OWNER_ID");
+    }
 
-    public static String get(@NotNull String key) {
-        return dotenv.get(key.toUpperCase());
+    static @NotNull String getBotId() {
+        return Config.getString("BOT_ID");
     }
 }
+

@@ -20,10 +20,9 @@ import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Inspiration from {@link SelfUser}
@@ -154,7 +153,7 @@ public record YusufBot(SelfUser user) {
     }
 
     @NotNull
-    public EnumSet<User.UserFlag> getFlags() {
+    public Set<User.UserFlag> getFlags() {
         return user.getFlags();
     }
 
