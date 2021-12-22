@@ -31,6 +31,10 @@ import java.util.Set;
  */
 public record YusufBot(SelfUser user) {
 
+    public SelfUser getSelfUser() {
+        return this.user;
+    }
+
     /**
      * @return the id of the bot.
      */
@@ -178,5 +182,9 @@ public record YusufBot(SelfUser user) {
     @NotNull
     public String getAsMention() {
         return user.getAsMention();
+    }
+
+    public String toString() {
+        return this.user.toString();
     }
 }

@@ -20,6 +20,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import io.github.yusufsdiscordbot.annotations.ToBeChanged;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +31,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @deprecated to be replaced with one that does not use YouTube as a source
+ */
+@Deprecated(since = "1.0.40")
+@ToBeChanged(reasonForChange = "So there no is issues with youtube")
 public class PlayerManager {
     private static final Logger logger = LoggerFactory.getLogger(PlayerManager.class);
     private static PlayerManager instance;
@@ -72,11 +78,11 @@ public class PlayerManager {
                         musicManager.scheduler.queue(track);
 
                         channel.sendMessage("Adding to queue: `")
-                            .append(track.getInfo().title)
-                            .append("` by `")
-                            .append(track.getInfo().author)
-                            .append('`')
-                            .queue();
+                                .append(track.getInfo().title)
+                                .append("` by `")
+                                .append(track.getInfo().author)
+                                .append('`')
+                                .queue();
                     }
 
                     @Override
@@ -84,11 +90,11 @@ public class PlayerManager {
                         final List<AudioTrack> tracks = playlist.getTracks();
 
                         channel.sendMessage("Adding to queue: `")
-                            .append(String.valueOf(tracks.size()))
-                            .append("` tracks from playlist `")
-                            .append(playlist.getName())
-                            .append('`')
-                            .queue();
+                                .append(String.valueOf(tracks.size()))
+                                .append("` tracks from playlist `")
+                                .append(playlist.getName())
+                                .append('`')
+                                .queue();
 
                         for (final AudioTrack track : tracks) {
                             musicManager.scheduler.queue(track);
@@ -105,8 +111,8 @@ public class PlayerManager {
                     @Override
                     public void loadFailed(FriendlyException exception) {
                         channel.sendMessage(
-                                "The bot could not load the music. Please type /support for help.")
-                            .queue();
+                                        "The bot could not load the music. Please type /support for help.")
+                                .queue();
                         logger.error("The bot has failed while trying to load the music.");
                     }
                 });

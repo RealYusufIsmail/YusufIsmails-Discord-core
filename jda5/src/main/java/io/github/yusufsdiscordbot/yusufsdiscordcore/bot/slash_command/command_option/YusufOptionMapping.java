@@ -105,5 +105,4 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
             return false;
         return getType() == data.getType() && getName().equals(data.getName());
     }
-
 }

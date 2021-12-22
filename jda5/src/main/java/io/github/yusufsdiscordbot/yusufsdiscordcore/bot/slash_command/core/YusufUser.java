@@ -13,15 +13,11 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.utility.YusufUserUtility;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,13 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public class YusufUser extends YusufUserUtility {
-    private final User user;
-
-    public YusufUser(User user) {
-        super(user);
-        this.user = user;
-    }
+public record YusufUser(User user) {
 
     /**
      * @see User
@@ -168,5 +158,16 @@ public class YusufUser extends YusufUserUtility {
      */
     public @NotNull String getAsMention() {
         return this.user.getAsMention();
+    }
+
+    /**
+     * @see YusufBot
+     */
+    public @NotNull YusufBot getBot() {
+        return new YusufBot(this.user.getJDA().getSelfUser());
+    }
+
+    public String toString() {
+        return this.user.toString();
     }
 }

@@ -29,6 +29,10 @@ import java.util.List;
 public record YusufPermissionContainer(
         IPermissionContainer iPermissionContainer) implements GuildChannel {
 
+    public IPermissionContainer getIPermissionContainer() {
+        return this.iPermissionContainer;
+    }
+
     public @Nullable PermissionOverride getPermissionOverride(
             @Nonnull IPermissionHolder permissionHolder) {
         return iPermissionContainer.getPermissionOverride(permissionHolder);
@@ -113,5 +117,9 @@ public record YusufPermissionContainer(
     @Override
     public long getIdLong() {
         return iPermissionContainer.getIdLong();
+    }
+
+    public String toString() {
+        return this.iPermissionContainer.toString();
     }
 }

@@ -20,12 +20,12 @@ import net.dv8tion.jda.api.entities.Guild;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
-public class YusufGuildUtility {
+public class PermissionChecker {
     private final Guild guild;
 
     private static final Integer REASON_MAX_LENGTH = 512;
 
-    public YusufGuildUtility(Guild guild) {
+    public PermissionChecker(Guild guild) {
         this.guild = guild;
     }
 

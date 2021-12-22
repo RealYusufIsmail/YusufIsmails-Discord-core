@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//TODO change this so it does not use Youtube
 public class PlayerManager {
     private static final Logger logger = LoggerFactory.getLogger(PlayerManager.class);
     private static PlayerManager instance;

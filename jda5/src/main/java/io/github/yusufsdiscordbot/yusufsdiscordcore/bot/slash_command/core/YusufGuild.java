@@ -13,7 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.utility.YusufGuildUtility;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.utility.PermissionChecker;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.*;
@@ -43,13 +43,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class YusufGuild extends YusufGuildUtility {
-    private final Guild guild;
-
-    public YusufGuild(Guild guild) {
-        super(guild);
-        this.guild = guild;
-    }
+public record YusufGuild(Guild guild) {
 
     /**
      * @see Guild
@@ -58,18 +52,22 @@ public class YusufGuild extends YusufGuildUtility {
         return this.guild;
     }
 
+    @Contract(value = " -> new", pure = true)
+    public @NotNull PermissionChecker getPermissionChecker() {
+        return new PermissionChecker(this.guild);
+    }
+
     public @NotNull String getGuildId() {
         return this.guild.getId();
     }
 
-    public @NotNull Long getGuildILong() {
+    public @NotNull Long getGuildIdLong() {
         return this.guild.getIdLong();
     }
 
     public @NotNull String getGuildName() {
         return this.guild.getName();
     }
-
 
     /**
      * @see Guild#retrieveCommands()
@@ -262,10 +260,6 @@ public class YusufGuild extends YusufGuildUtility {
         return this.guild.getVanityCode();
     }
 
-    public @NotNull String getOwnerId() {
-        return this.guild.getOwnerId();
-    }
-
     @NotNull
     public Guild.Timeout getAfkTimeout() {
         return this.guild.getAfkTimeout();
@@ -285,7 +279,7 @@ public class YusufGuild extends YusufGuildUtility {
         return this.guild.getNSFWLevel();
     }
 
-    @Nullable
+    @Nonnull
     public YusufMember getMember(@NotNull User user) {
         return new YusufMember(this.guild.getMember(user));
     }
@@ -354,6 +348,10 @@ public class YusufGuild extends YusufGuildUtility {
         return this.guild.unban(userId);
     }
 
+    @NotNull
+    public AuditableRestAction<Void> unban(@NotNull Long userId) {
+        return this.guild.unban(User.fromId(userId));
+    }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> unBan(@NotNull YusufUser user, String reason) {
@@ -964,7 +962,15 @@ public class YusufGuild extends YusufGuildUtility {
         return new YusufMember(this.guild.getOwner());
     }
 
+    public @NotNull String getOwnerId() {
+        return this.guild.getOwnerId();
+    }
+
     public long getOwnerIdLong() {
         return this.guild.getOwnerIdLong();
+    }
+
+    public String toString() {
+        return this.guild.toString();
     }
 }

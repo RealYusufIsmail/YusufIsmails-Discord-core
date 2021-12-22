@@ -109,4 +109,8 @@ public class YusufInteraction {
     public @NotNull YusufBot getBot() {
         return new YusufBot(this.getJDA().getSelfUser());
     }
+
+    public String toString() {
+        return this.interaction.toString();
+    }
 }

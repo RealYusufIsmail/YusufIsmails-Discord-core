@@ -309,4 +309,8 @@ public class YusufCommandData {
             @Nonnull Collection<? extends DataObject> collection) {
         return CommandData.fromList(collection);
     }
+
+    public String toString() {
+        return this.commandData.toString();
+    }
 }

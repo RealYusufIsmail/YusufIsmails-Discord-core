@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  */
 @Deprecated(since = "1.0.36")
 @ToBeRemoved(versionOfRemoval = "2.0.0",
-        reasonForRemoval = "This class will be replace with YusufInteraction",
+        reasonForRemoval = "This class will be replaced with YusufInteraction",
         willBeRemovedSoon = true)
 public class YusufSlashCommandUtility {
     private final SlashCommandEvent event;
