@@ -1,14 +1,9 @@
 plugins {
     id'java'
-    id'application'
     id'com.github.johnrengelman.shadow' version '7.0.0'
     id 'maven-publish'
     id 'signing'
     id 'java-library'
-}
-
-application {
-    mainClass = 'io.github.yusufsdiscordbot.yusufdiscordcore.bot.Command'
 }
 
 archivesBaseName = "Yusuf's Discord Core Javacord basic"
@@ -36,12 +31,11 @@ dependencies {
     implementation 'org.jetbrains:annotations:23.0.0'
 }
 jar {
-    manifest {
+    manifest(({
         attributes('Implementation-Title': project.description,
-                'Implementation-Version': project.version,
-                'Main-Class': application.mainClass
+                'Implementation-Version': project.version
         )
-    }
+    } as Closure<?>))
     publishing {
         publications {
             mavenJava(MavenPublication) {

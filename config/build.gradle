@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.1'
     id 'maven-publish'
     id 'signing'
@@ -10,10 +9,6 @@ plugins {
 archivesBaseName = "Yusuf's Discord Core configs"
 description = "Config plugin"
 version = config_version as Object
-
-application {
-    mainClass = 'io.github.yusufsdiscordbot.config.Config'
-}
 
 repositories {
     mavenCentral()
@@ -30,8 +25,7 @@ dependencies {
 jar {
     manifest(({
         attributes('Implementation-Title': project.description,
-                'Implementation-Version': project.version,
-                'Main-Class': application.mainClass
+                'Implementation-Version': project.version
         )
     } as Closure<?>))
     publishing {
