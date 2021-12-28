@@ -20,7 +20,6 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,7 +50,7 @@ public class YusufSlashCommandEvent extends YusufInteraction {
         return this.event.getName();
     }
 
-    public @NotNull String getCommandString() {
+    public @Nonnull String getCommandString() {
         return this.event.getCommandString();
     }
 
@@ -66,33 +65,33 @@ public class YusufSlashCommandEvent extends YusufInteraction {
     }
 
     @Contract("_ -> new")
-    public @NotNull YusufOptionMapping getOption(@NotNull String option) {
+    public @Nonnull YusufOptionMapping getOption(@Nonnull String option) {
         return new YusufOptionMapping(this.event.getOption(option));
     }
 
-    public @NotNull List<OptionMapping> getOptionByType(@NotNull OptionType type) {
+    public @Nonnull List<OptionMapping> getOptionByType(@Nonnull OptionType type) {
         return this.event.getOptionsByType(type);
     }
 
-    public void replyQueuedMessage(@NotNull String message) {
+    public void replyQueuedMessage(@Nonnull String message) {
         this.event.reply(message).queue();
     }
 
     /**
      * replays as an ephemeral message.
      */
-    public void replyQueuedEphemeral(@NotNull String message) {
+    public void replyQueuedEphemeral(@Nonnull String message) {
         this.event.reply(message).setEphemeral(true).queue();
     }
 
     /**
      * replays as an embed message.
      */
-    public void replyQueuedEmbed(@NotNull MessageEmbed messageEmbed) {
+    public void replyQueuedEmbed(@Nonnull MessageEmbed messageEmbed) {
         this.event.replyEmbeds(messageEmbed).queue();
     }
 
-    public void replyQueuedEphemeralEmbed(@NotNull MessageEmbed messageEmbed) {
+    public void replyQueuedEphemeralEmbed(@Nonnull MessageEmbed messageEmbed) {
         this.event.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
 }

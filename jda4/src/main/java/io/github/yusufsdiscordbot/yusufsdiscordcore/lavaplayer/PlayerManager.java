@@ -78,11 +78,11 @@ public class PlayerManager {
                         musicManager.scheduler.queue(track);
 
                         channel.sendMessage("Adding to queue: `")
-                                .append(track.getInfo().title)
-                                .append("` by `")
-                                .append(track.getInfo().author)
-                                .append('`')
-                                .queue();
+                            .append(track.getInfo().title)
+                            .append("` by `")
+                            .append(track.getInfo().author)
+                            .append('`')
+                            .queue();
                     }
 
                     @Override
@@ -90,11 +90,11 @@ public class PlayerManager {
                         final List<AudioTrack> tracks = playlist.getTracks();
 
                         channel.sendMessage("Adding to queue: `")
-                                .append(String.valueOf(tracks.size()))
-                                .append("` tracks from playlist `")
-                                .append(playlist.getName())
-                                .append('`')
-                                .queue();
+                            .append(String.valueOf(tracks.size()))
+                            .append("` tracks from playlist `")
+                            .append(playlist.getName())
+                            .append('`')
+                            .queue();
 
                         for (final AudioTrack track : tracks) {
                             musicManager.scheduler.queue(track);
@@ -111,8 +111,8 @@ public class PlayerManager {
                     @Override
                     public void loadFailed(FriendlyException exception) {
                         channel.sendMessage(
-                                        "The bot could not load the music. Please type /support for help.")
-                                .queue();
+                                "The bot could not load the music. Please type /support for help.")
+                            .queue();
                         logger.error("The bot has failed while trying to load the music.");
                     }
                 });

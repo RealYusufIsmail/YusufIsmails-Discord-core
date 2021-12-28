@@ -101,6 +101,10 @@ public class YusufInteraction {
         return this.interaction.getJDA();
     }
 
+    public String getId() {
+        return this.interaction.getId();
+    }
+
     public long getIdLong() {
         return this.interaction.getIdLong();
     }

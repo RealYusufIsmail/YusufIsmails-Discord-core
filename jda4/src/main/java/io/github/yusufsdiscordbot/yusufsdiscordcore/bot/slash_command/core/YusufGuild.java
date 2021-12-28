@@ -263,8 +263,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.getId();
     }
 
-    @CheckReturnValue
-    public @NotNull Boolean checkReasonLength(@NotNull String reason,
+    public @NotNull boolean checkReasonLength(@NotNull String reason,
             @NotNull YusufSlashCommandEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
             event.replyEphemeral("You have gone over the reason character limit which is "

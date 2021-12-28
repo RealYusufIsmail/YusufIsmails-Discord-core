@@ -14,12 +14,10 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.PrivateChannel;
-import net.dv8tion.jda.api.entities.SelfUser;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.requests.RestAction;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -29,6 +27,7 @@ import java.util.Set;
  * 
  * @author Yusuf Arfan Ismail
  */
+@SuppressWarnings("unused")
 public record YusufBot(SelfUser user) {
 
     public SelfUser getSelfUser() {
@@ -45,7 +44,7 @@ public record YusufBot(SelfUser user) {
     /**
      * @return the id of the bot.
      */
-    public @NotNull String getBotId() {
+    public @Nonnull String getBotId() {
         return user.getApplicationId();
     }
 
@@ -53,7 +52,7 @@ public record YusufBot(SelfUser user) {
     /**
      * @return the tags of the bot
      */
-    public @NotNull String getBotTag() {
+    public @Nonnull String getBotTag() {
         return user.getAsTag();
     }
 
@@ -80,11 +79,11 @@ public record YusufBot(SelfUser user) {
 
     /**
      * Returns the maximum size for files that can be uploaded with this account. <br>
-     * Returns {@value net.dv8tion.jda.api.entities.Message#MAX_FILE_SIZE} for bots.
+     * Returns {@value Message#MAX_FILE_SIZE} for bots.
      *
      * @return The maximum size for files that can be uploaded with this account
      *
-     * @see net.dv8tion.jda.api.entities.Message#MAX_FILE_SIZE
+     * @see Message#MAX_FILE_SIZE
      */
     public long getMaxFileSize() {
         return user.getAllowedFileSize();
@@ -93,39 +92,39 @@ public record YusufBot(SelfUser user) {
     /**
      * @return the name of the bot.
      */
-    public @NotNull String getName() {
+    public @Nonnull String getName() {
         return user.getName();
     }
 
     /**
      * @return the bots' avatar id.
      */
-    public @NotNull String getAvatarId() {
+    public @Nonnull String getAvatarId() {
         return Objects.requireNonNull(user.getAvatarId());
     }
 
     /**
      * @return the bots' avatar url.
      */
-    public @NotNull String getAvatarUrl() {
+    public @Nonnull String getAvatarUrl() {
         return Objects.requireNonNull(user.getAvatarUrl());
     }
 
     /**
      * @return the bots' default avatar id.
      */
-    public @NotNull String getDefaultAvatarId() {
+    public @Nonnull String getDefaultAvatarId() {
         return Objects.requireNonNull(user.getDefaultAvatarId());
     }
 
     /**
      * @return the bots' default avatar url.
      */
-    public @NotNull String getDefaultAvatarUrl() {
+    public @Nonnull String getDefaultAvatarUrl() {
         return Objects.requireNonNull(user.getDefaultAvatarUrl());
     }
 
-    @NotNull
+    @Nonnull
     public RestAction<User.Profile> retrieveProfile() {
         return user.retrieveProfile();
     }
@@ -134,12 +133,12 @@ public record YusufBot(SelfUser user) {
         return user.hasPrivateChannel();
     }
 
-    @NotNull
+    @Nonnull
     public RestAction<PrivateChannel> openPrivateChannel() {
         return user.openPrivateChannel();
     }
 
-    @NotNull
+    @Nonnull
     public List<Guild> getMutualGuilds() {
         return user.getMutualGuilds();
     }
@@ -152,11 +151,11 @@ public record YusufBot(SelfUser user) {
         return user.isSystem();
     }
 
-    public @NotNull JDA getJDA() {
+    public @Nonnull JDA getJDA() {
         return user.getJDA();
     }
 
-    @NotNull
+    @Nonnull
     public Set<User.UserFlag> getFlags() {
         return user.getFlags();
     }
@@ -168,18 +167,18 @@ public record YusufBot(SelfUser user) {
     /**
      * @return the bots' effective avatar url.
      */
-    public @NotNull String getBotEffectiveAvatarUrl() {
+    public @Nonnull String getBotEffectiveAvatarUrl() {
         return Objects.requireNonNull(user.getEffectiveAvatarUrl());
     }
 
     /**
      * @return the bots' discriminator.
      */
-    public @NotNull String getDiscriminator() {
+    public @Nonnull String getDiscriminator() {
         return Objects.requireNonNull(user.getDiscriminator());
     }
 
-    @NotNull
+    @Nonnull
     public String getAsMention() {
         return user.getAsMention();
     }

@@ -22,7 +22,6 @@ import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -31,15 +30,15 @@ import javax.annotation.Nonnull;
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
 public abstract class Command {
-    private final @NotNull String name;
-    private final @NotNull String description;
+    private final @Nonnull String name;
+    private final @Nonnull String description;
     private final boolean isGuildOnly;
-    private final @NotNull YusufCommandData commandData;
+    private final @Nonnull YusufCommandData commandData;
 
     /**
      * Were the command is registered.
      */
-    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly) {
+    protected Command(@Nonnull String name, @Nonnull String description, boolean isGuildOnly) {
         this.name = name;
         this.description = description;
         this.isGuildOnly = isGuildOnly;
@@ -57,7 +56,7 @@ public abstract class Command {
      *
      * @return {@link YusufCommandData#getName()}
      */
-    public final @NotNull String getName() {
+    public final @Nonnull String getName() {
         return name;
     }
 
@@ -66,7 +65,7 @@ public abstract class Command {
      *
      * @return {@link YusufCommandData#getDescription()}
      */
-    public final @NotNull String getDescription() {
+    public final @Nonnull String getDescription() {
         return description;
     }
 
@@ -81,7 +80,7 @@ public abstract class Command {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public final @NotNull YusufCommandData getYusufCommandData() {
+    public final @Nonnull YusufCommandData getYusufCommandData() {
         return commandData;
     }
 
@@ -99,7 +98,7 @@ public abstract class Command {
      * @see ButtonClickEvent
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onButtonClick(@NotNull ButtonClickEvent event) {}
+    public void onButtonClick(@Nonnull ButtonClickEvent event) {}
 
     /**
      * Used to create a selection menu for the user to interact with.

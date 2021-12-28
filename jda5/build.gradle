@@ -22,7 +22,7 @@ dependencies {
     implementation project(':config')
 
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.2'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.3'
     //annotation
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.8'
     //lava layer

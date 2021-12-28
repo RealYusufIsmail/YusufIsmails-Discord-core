@@ -18,9 +18,9 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -37,42 +37,42 @@ public record YusufUser(User user) {
     /**
      * @see User#getAsTag()
      */
-    public @NotNull String getUserTag() {
+    public @Nonnull String getUserTag() {
         return this.user.getAsTag();
     }
 
     /**
      * @see User#getId()
      */
-    public @NotNull String getUserId() {
+    public @Nonnull String getUserId() {
         return this.user.getId();
     }
 
     /**
      * @see User#getIdLong()
      */
-    public @NotNull Long getUserIdLong() {
+    public @Nonnull Long getUserIdLong() {
         return this.user.getIdLong();
     }
 
     /**
      * @see User#getName()
      */
-    public @NotNull String getName() {
+    public @Nonnull String getName() {
         return this.user.getName();
     }
 
     /**
      * @see User#isBot()
      */
-    public @NotNull Boolean isBot() {
+    public @Nonnull Boolean isBot() {
         return this.user.isBot();
     }
 
     /**
      * @see User#getDiscriminator()
      */
-    public @NotNull String getDiscriminator() {
+    public @Nonnull String getDiscriminator() {
         return this.user.getDiscriminator();
     }
 
@@ -93,14 +93,14 @@ public record YusufUser(User user) {
     /**
      * @see User#getDefaultAvatarId()
      */
-    public @NotNull String getDefaultAvatarId() {
+    public @Nonnull String getDefaultAvatarId() {
         return this.user.getDefaultAvatarId();
     }
 
     /**
      * @see User#getDefaultAvatarUrl()
      */
-    public @NotNull String getEffectiveAvatarUrl() {
+    public @Nonnull String getEffectiveAvatarUrl() {
         return this.user.getEffectiveAvatarUrl();
     }
 
@@ -114,14 +114,14 @@ public record YusufUser(User user) {
     /**
      * @see User#openPrivateChannel()
      */
-    public @NotNull RestAction<PrivateChannel> openPrivateChannel() {
+    public @Nonnull RestAction<PrivateChannel> openPrivateChannel() {
         return this.user.openPrivateChannel();
     }
 
     /**
      * @see User#getMutualGuilds()
      */
-    public @NotNull List<Guild> getMutualGuilds() {
+    public @Nonnull List<Guild> getMutualGuilds() {
         return this.user.getMutualGuilds();
     }
 
@@ -135,14 +135,14 @@ public record YusufUser(User user) {
     /**
      * @see User#getJDA()
      */
-    public @NotNull JDA getJDA() {
+    public @Nonnull JDA getJDA() {
         return this.user.getJDA();
     }
 
     /**
      * @see User#getFlags()
      */
-    public @NotNull Set<User.UserFlag> getFlags() {
+    public @Nonnull Set<User.UserFlag> getFlags() {
         return this.user.getFlags();
     }
 
@@ -156,14 +156,14 @@ public record YusufUser(User user) {
     /**
      * @see User#getAsMention()
      */
-    public @NotNull String getAsMention() {
+    public @Nonnull String getAsMention() {
         return this.user.getAsMention();
     }
 
     /**
      * @see YusufBot
      */
-    public @NotNull YusufBot getBot() {
+    public @Nonnull YusufBot getBot() {
         return new YusufBot(this.user.getJDA().getSelfUser());
     }
 
