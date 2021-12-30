@@ -19,6 +19,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.Yusuf
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
+import net.dv8tion.jda.annotations.ReplaceWith;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -78,6 +79,7 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
     }
 
     @Contract(" -> new")
+    @ReplaceWith("getYusufInteraction")
     @Deprecated(since = "1.0.36", forRemoval = true)
     public @NotNull YusufSlashCommandUtility getMessageUtils() {
         return new YusufSlashCommandUtility(event);
@@ -124,11 +126,6 @@ public class YusufSlashCommandEvent extends YusufSlashCommandUtility {
 
     public Command getSlashCommand() {
         return slashCommand;
-    }
-
-    @Deprecated(since = "1.0.36", forRemoval = true)
-    public @NotNull User getSelfUser() {
-        return this.getJDA().getSelfUser();
     }
 
     @Contract(" -> new")

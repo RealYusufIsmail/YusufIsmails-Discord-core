@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.nio.ByteBuffer;
 
+@Deprecated(since = "1.0.40", forRemoval = true)
 public class AudioPlayerSendHandler implements AudioSendHandler {
     private final AudioPlayer audioPlayer;
     private final @NotNull ByteBuffer buffer;

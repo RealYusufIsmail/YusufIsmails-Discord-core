@@ -14,6 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.ToBeRemoved;
+import net.dv8tion.jda.annotations.ReplaceWith;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
@@ -27,6 +28,7 @@ import javax.annotation.Nonnull;
  * @deprecated this class will be removed on version 2.0.0
  */
 @Deprecated(since = "1.0.36")
+@ReplaceWith("YusufInteraction")
 @ToBeRemoved(versionOfRemoval = "2.0.0",
         reasonForRemoval = "This class will be replaced with YusufInteraction",
         willBeRemovedSoon = true)

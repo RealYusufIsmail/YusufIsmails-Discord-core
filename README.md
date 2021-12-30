@@ -22,11 +22,15 @@ There is 4 versions of my core:
 ```gradle
 repositories {
     mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
 }
 dependencies {
     //Yusuf Ismail's Discord Core
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.38'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.42'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.8'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.2'
 }
@@ -42,7 +46,7 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //JDA 5
     //In alpha stage
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.2'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.3'
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.5'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.8'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.2'
@@ -54,6 +58,10 @@ dependencies {
 ```gradle
 repositories {
     mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
 }
 dependencies {
     //Yusuf Ismail's Discord Core

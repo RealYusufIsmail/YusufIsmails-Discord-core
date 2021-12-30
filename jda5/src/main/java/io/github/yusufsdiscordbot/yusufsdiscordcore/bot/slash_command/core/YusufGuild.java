@@ -972,7 +972,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public boolean checkReasonLength(@Nonnull String reason,
-                                     @Nonnull YusufSlashCommandEvent event) {
+            @Nonnull YusufSlashCommandEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
             event.replyQueuedEphemeral("You have gone over the reason character limit which is "
                     + REASON_MAX_LENGTH + " .");

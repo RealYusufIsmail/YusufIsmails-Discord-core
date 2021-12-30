@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+@Deprecated(since = "1.0.40", forRemoval = true)
 public class TrackScheduler extends AudioEventAdapter {
     public static final boolean REPEATING = false;
     public final AudioPlayer player;

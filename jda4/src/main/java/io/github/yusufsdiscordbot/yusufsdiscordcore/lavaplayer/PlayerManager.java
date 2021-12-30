@@ -34,8 +34,7 @@ import java.util.Map;
 /**
  * @deprecated to be replaced with one that does not use YouTube as a source
  */
-@Deprecated(since = "1.0.40")
-@ToBeChanged(reasonForChange = "So there no is issues with youtube")
+@Deprecated(since = "1.0.40", forRemoval = true)
 public class PlayerManager {
     private static final Logger logger = LoggerFactory.getLogger(PlayerManager.class);
     private static PlayerManager instance;

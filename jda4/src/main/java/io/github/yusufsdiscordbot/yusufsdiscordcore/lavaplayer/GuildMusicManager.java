@@ -17,6 +17,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import org.jetbrains.annotations.NotNull;
 
+@Deprecated(since = "1.0.40", forRemoval = true)
 public class GuildMusicManager {
     public final AudioPlayer audioPlayer;
 
