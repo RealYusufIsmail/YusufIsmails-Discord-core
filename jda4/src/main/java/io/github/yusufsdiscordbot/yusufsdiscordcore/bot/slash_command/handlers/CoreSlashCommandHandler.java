@@ -137,8 +137,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param buttonClickEvent The button click event
      */
     private void runButtonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
-        if (this.commandConnector.containsKey(buttonClickEvent.getId())) {
-            Command onButtonClick = this.commandConnector.get(buttonClickEvent.getId());
+        if (this.commandConnector.containsKey(buttonClickEvent.getComponentId())) {
+            Command onButtonClick = this.commandConnector.get(buttonClickEvent.getComponentId());
             onButtonClick.onButtonClick(buttonClickEvent);
         }
     }
@@ -149,8 +149,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param selectionMenuEvent the select menu event.
      */
     private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        if (this.commandConnector.containsKey(selectionMenuEvent.getId())) {
-            Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getId());
+        if (this.commandConnector.containsKey(selectionMenuEvent.getComponentId())) {
+            Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getComponentId());
             onSelectMenu.onSelectionMenu(selectionMenuEvent);
         }
     }
