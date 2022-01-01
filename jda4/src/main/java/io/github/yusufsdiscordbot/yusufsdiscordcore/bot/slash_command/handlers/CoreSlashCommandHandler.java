@@ -90,7 +90,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        Global or Guild only.
      */
     private void addCommand(@NotNull Command command) {
-        this.jda.addEventListener(command); // Add the command as an event listener
         commandConnector.put(command.getName(), command); // Add the command to the commandConnector
         // add the command to the global or guild command list
         if (command.checkIfIsGuildOnly()) {
@@ -137,6 +136,38 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     /**
+     * This method is called when a button click event is triggered.
+     * 
+     * @param buttonClickEvent the event that triggered the button click.
+     */
+    private void runButtonsEvent(@NotNull ButtonClickEvent buttonClickEvent) {
+        var cmd = commandConnector.get(buttonClickEvent.getComponentId());
+        if (cmd != null) {
+            cmd.onButtonClick(buttonClickEvent);
+        } else {
+            logger.error("The button event with the id: '{}' does not exist",
+                    buttonClickEvent.getComponentId());
+        }
+
+    }
+
+    /**
+     * This method is called when a selected menu event is triggered.
+     * 
+     * @param selectionMenuEvent the event that triggered the selection menu.
+     */
+    private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
+        var cmd = commandConnector.get(selectionMenuEvent.getComponentId());
+        if (cmd != null) {
+            Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getId());
+            onSelectMenu.onSelectionMenu(selectionMenuEvent);
+        } else {
+            logger.error("The menu event with the id: '{}' does not exist",
+                    selectionMenuEvent.getId());
+        }
+    }
+
+    /**
      * Handles the slash command event.
      *
      * @param slashCommandEvent The original slash command event,
@@ -144,5 +175,25 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
+    }
+
+    /**
+     * Handles the button click event.
+     *
+     * @param buttonClickEvent The original button click event,
+     */
+    @Override
+    public void onButtonClick(@NotNull ButtonClickEvent buttonClickEvent) {
+        this.runButtonsEvent(buttonClickEvent);
+    }
+
+    /**
+     * Handles the selection menu event.
+     *
+     * @param selectionMenuEvent The original selection menu event,
+     */
+    @Override
+    public void onSelectionMenu(@NotNull SelectionMenuEvent selectionMenuEvent) {
+        this.runSelectMenuEvent(selectionMenuEvent);
     }
 }
