@@ -23,6 +23,7 @@ import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.components.Button;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -51,6 +52,8 @@ import java.util.Map;
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, Command> commandConnector = new HashMap<>();
+    protected JDA jda;
+
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -62,6 +65,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+        this.jda = jda;
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
     }
@@ -86,14 +90,15 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        Global or Guild only.
      */
     private void addCommand(@NotNull Command command) {
-        commandConnector.put(command.getName(), command);
+        this.jda.addEventListener(command); // Add the command as an event listener
+        commandConnector.put(command.getName(), command); // Add the command to the commandConnector
+        // add the command to the global or guild command list
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
         } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getCommandData());
         }
     }
-
 
     public void queueAndRegisterCommands(@NotNull Collection<Command> commands) {
         commands.forEach(this::addCommand);
@@ -132,30 +137,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     /**
-     * Register the onButtonClick field
-     * 
-     * @param buttonClickEvent The button click event
-     */
-    private void runButtonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
-        if (this.commandConnector.containsKey(buttonClickEvent.getComponentId())) {
-            Command onButtonClick = this.commandConnector.get(buttonClickEvent.getComponentId());
-            onButtonClick.onButtonClick(buttonClickEvent);
-        }
-    }
-
-    /**
-     * Register the onSelectionMenu event
-     *
-     * @param selectionMenuEvent the select menu event.
-     */
-    private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        if (this.commandConnector.containsKey(selectionMenuEvent.getComponentId())) {
-            Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getComponentId());
-            onSelectMenu.onSelectionMenu(selectionMenuEvent);
-        }
-    }
-
-    /**
      * Handles the slash command event.
      *
      * @param slashCommandEvent The original slash command event,
@@ -163,25 +144,5 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
-    }
-
-    /**
-     * Handles the button click event.
-     *
-     * @param buttonClickEvent The original button click event,
-     */
-    @Override
-    public void onButtonClick(@NotNull ButtonClickEvent buttonClickEvent) {
-        this.runButtonClickEvent(buttonClickEvent);
-    }
-
-    /**
-     * Handles the selection menu event.
-     *
-     * @param selectionMenuEvent The original selection menu event,
-     */
-    @Override
-    public void onSelectionMenu(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        this.runSelectMenuEvent(selectionMenuEvent);
     }
 }

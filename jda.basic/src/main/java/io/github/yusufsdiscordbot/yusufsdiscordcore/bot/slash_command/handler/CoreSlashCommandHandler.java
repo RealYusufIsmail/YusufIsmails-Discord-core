@@ -46,6 +46,7 @@ import java.util.Map;
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, Command> commandConnector = new HashMap<>();
+    protected JDA jda;
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -57,6 +58,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+        this.jda = jda;
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
     }
@@ -81,6 +83,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        Global or Guild only.
      */
     private void addCommand(@NotNull Command command) {
+        jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -147,25 +150,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     /**
-     * Register the onButtonClick field
-     *
-     * @param buttonClickEvent The button click event
-     */
-    private void runButtonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
-        if (this.commandConnector.containsKey(buttonClickEvent.getId())) {
-            Command onButtonClick = this.commandConnector.get(buttonClickEvent.getId());
-            onButtonClick.onButtonClick(buttonClickEvent);
-        }
-    }
-
-    private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        if (this.commandConnector.containsKey(selectionMenuEvent.getId())) {
-            Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getId());
-            onSelectMenu.onSelectionMenu(selectionMenuEvent);
-        }
-    }
-
-    /**
      * Handles the commands
      *
      * @param slashCommandEvent The original slash command event,
@@ -173,25 +157,5 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
-    }
-
-    /**
-     * Handles the button click event.
-     *
-     * @param buttonClickEvent The original button click event,
-     */
-    @Override
-    public void onButtonClick(@NotNull ButtonClickEvent buttonClickEvent) {
-        this.runButtonClickEvent(buttonClickEvent);
-    }
-
-    /**
-     * Handles the selection menu event.
-     *
-     * @param selectionMenuEvent The original selection menu event,
-     */
-    @Override
-    public void onSelectionMenu(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        this.runSelectMenuEvent(selectionMenuEvent);
     }
 }
