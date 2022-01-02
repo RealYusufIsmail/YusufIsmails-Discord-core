@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.YusufInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
@@ -20,7 +21,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.Yusuf
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.interactions.Interaction;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.InteractionType;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
@@ -29,36 +30,36 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings({"unused", "java:S6206"})
-public class YusufInteraction {
-    private final Interaction interaction;
+public class YusufCommandInteraction {
+    private final SlashCommandEvent interaction;
 
-    public YusufInteraction(Interaction interaction) {
+    public YusufCommandInteraction(SlashCommandEvent interaction) {
         this.interaction = interaction;
     }
 
-    public Interaction getInteraction() {
-        return interaction;
+    public YusufInteraction getInteraction() {
+        return new YusufInteraction(interaction.getInteraction());
     }
 
     public int getTypeRaw() {
-        return interaction.getTypeRaw();
+        return getInteraction().getTypeRaw();
     }
 
     public @NotNull InteractionType getType() {
-        return interaction.getType();
+        return getInteraction().getType();
     }
 
     public @NotNull String getToken() {
-        return interaction.getToken();
+        return getInteraction().getToken();
     }
 
     @Contract(" -> new")
-    public @NotNull YusufGuild getGuild() {
-        return new YusufGuild(interaction.getGuild());
+    public @Nullable YusufGuild getGuild() {
+        return getInteraction().getGuild();
     }
 
     public boolean isFromGuild() {
-        return interaction.isFromGuild();
+        return getInteraction().isFromGuild();
     }
 
     public @NotNull ChannelType getChannelType() {
@@ -68,45 +69,45 @@ public class YusufInteraction {
     @Contract(" -> new")
     @NotNull
     public YusufUser getUser() {
-        return new YusufUser(interaction.getUser());
+        return getInteraction().getUser();
     }
 
     @Contract(" -> new")
     @NotNull
     public YusufMember getMember() {
-        return new YusufMember(interaction.getMember());
+        return getInteraction().getMember();
     }
 
     @Nullable
     public Channel getChannel() {
-        return this.interaction.getChannel();
+        return this.getInteraction().getChannel();
     }
 
     @NotNull
     public InteractionHook getHook() {
-        return this.interaction.getHook();
+        return this.getInteraction().getHook();
     }
 
     public boolean isAcknowledged() {
-        return this.interaction.isAcknowledged();
+        return this.getInteraction().isAcknowledged();
     }
 
     @NotNull
     public ReplyAction deferReply() {
-        return this.interaction.deferReply();
+        return this.getInteraction().deferReply();
     }
 
     @NotNull
     public JDA getJDA() {
-        return this.interaction.getJDA();
+        return this.getInteraction().getJDA();
     }
 
     public String getId() {
-        return this.interaction.getId();
+        return this.getInteraction().getInteractionId();
     }
 
     public long getIdLong() {
-        return this.interaction.getIdLong();
+        return this.getInteraction().getInteractionIdLong();
     }
 
     @Contract(" -> new")
@@ -115,6 +116,6 @@ public class YusufInteraction {
     }
 
     public String toString() {
-        return this.interaction.toString();
+        return this.getInteraction().toString();
     }
 }

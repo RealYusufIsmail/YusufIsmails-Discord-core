@@ -14,13 +14,13 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.button.interaction.YusufButtonClickEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -94,11 +95,12 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addCommand(@NotNull Command command) {
+        jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
-            guildCommandsData.addCommands(command.getYusufCommandData().getCommandData());
+            guildCommandsData.addCommands(command.getCommandData());
         } else if (!command.checkIfIsGuildOnly()) {
-            globalCommandsData.addCommands(command.getYusufCommandData().getCommandData());
+            globalCommandsData.addCommands(command.getCommandData());
         }
     }
 
@@ -166,38 +168,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     /**
-     * This method is called when a button click event is triggered.
-     * 
-     * @param buttonClickEvent the event that triggered the button click.
-     */
-    private void runButtonsEvent(@NotNull ButtonClickEvent buttonClickEvent) {
-        var cmd = commandConnector.get(buttonClickEvent.getComponentId());
-        if (cmd != null) {
-            cmd.onButtonClick(buttonClickEvent);
-        } else {
-            logger.error("The button event with the id: '{}' does not exist",
-                    buttonClickEvent.getComponentId());
-        }
-
-    }
-
-    /**
-     * This method is called when a selected menu event is triggered.
-     * 
-     * @param selectionMenuEvent the event that triggered the selection menu.
-     */
-    private void runSelectMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        var cmd = commandConnector.get(selectionMenuEvent.getComponentId());
-        if (cmd != null) {
-            Command onSelectMenu = this.commandConnector.get(selectionMenuEvent.getId());
-            onSelectMenu.onSelectionMenu(selectionMenuEvent);
-        } else {
-            logger.error("The menu event with the id: '{}' does not exist",
-                    selectionMenuEvent.getId());
-        }
-    }
-
-    /**
      * Handles the slash command event.
      *
      * @param slashCommandEvent The original slash command event,
@@ -208,22 +178,14 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     /**
-     * Handles the button click event.
+     * Handles the button click event event.
      *
      * @param buttonClickEvent The original button click event,
      */
     @Override
-    public void onButtonClick(@NotNull ButtonClickEvent buttonClickEvent) {
-        this.runButtonsEvent(buttonClickEvent);
-    }
-
-    /**
-     * Handles the selection menu event.
-     *
-     * @param selectionMenuEvent The original selection menu event,
-     */
-    @Override
-    public void onSelectionMenu(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        this.runSelectMenuEvent(selectionMenuEvent);
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {
+        var onButtonClick = commandConnector.get(buttonClickEvent.getComponentId());
+        onButtonClick.onButtonClick(new YusufButtonClickEvent(onButtonClick, buttonClickEvent));
     }
 }
