@@ -37,7 +37,7 @@ class ExampleCommand extends Command {
 
         getCommandData().addOptions(
                 new OptionData(OptionType.STRING, EXAMPLE_OPTION, "This is an example option")
-                        .addChoice("Test", "Works"));
+                    .addChoice("Test", "Works"));
     }
 
     @Override
@@ -69,6 +69,6 @@ class ExampleCommand extends Command {
 
     @Override
     public void onButtonClick(YusufButtonClickEvent yusufButtonClickEvent) {
-        //example
+        // example
     }
 }
