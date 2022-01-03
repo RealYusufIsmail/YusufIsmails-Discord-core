@@ -1,6 +1,9 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.button.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button;
 
+import net.dv8tion.jda.api.entities.Emoji;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.Button;
+import net.dv8tion.jda.api.interactions.components.ButtonStyle;
 import net.dv8tion.jda.api.interactions.components.Component;
 import net.dv8tion.jda.api.utils.data.DataObject;
 import org.jetbrains.annotations.NotNull;
@@ -8,7 +11,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public record YusufComponent(Component component) {
+public record YusufButton(Button button) {
+    public Button getButton() {
+        return button;
+    }
+
+
     /**
      * Indicates whether some other object is "equal to" this one. In addition to the general
      * contract of {@link Object#equals(Object) Object.equals}, record classes must further obey the
@@ -48,7 +56,7 @@ public record YusufComponent(Component component) {
      * @see Objects#equals(Object, Object)
      */
     public boolean equals(Object obj) {
-        return this.component.equals(obj);
+        return button.equals(obj);
     }
 
     /**
@@ -69,7 +77,7 @@ public record YusufComponent(Component component) {
      * @see Object#hashCode()
      */
     public int hashCode() {
-        return this.component.hashCode();
+        return button.hashCode();
     }
 
     /**
@@ -93,7 +101,161 @@ public record YusufComponent(Component component) {
      * @see Object#toString()
      */
     public String toString() {
-        return this.component.toString();
+        return button.toString();
+    }
+
+    /**
+     * The visible text on the button.
+     *
+     * @return The button label
+     */
+    @NotNull
+    public String getLabel() {
+        return button.getLabel();
+    }
+
+    /**
+     * The style of this button.
+     *
+     * @return {@link ButtonStyle}
+     */
+    @NotNull
+    public ButtonStyle getStyle() {
+        return button.getStyle();
+    }
+
+    /**
+     * The target URL for this button, if it is a {@link ButtonStyle#LINK LINK}-Style Button.
+     *
+     * @return The target URL or null
+     */
+    @Nullable
+    public String getUrl() {
+        return button.getUrl();
+    }
+
+    /**
+     * The emoji attached to this button. <br>
+     * This can be either {@link Emoji#isUnicode() unicode} or {@link Emoji#isCustom()} custom.
+     *
+     * <p>
+     * You can use {@link #withEmoji(Emoji)} to create a button with an Emoji.
+     *
+     * @return {@link Emoji} for this button
+     */
+    @Nullable
+    public Emoji getEmoji() {
+        return button.getEmoji();
+    }
+
+    /**
+     * Whether this button is disabled.
+     *
+     * <p>
+     * You can use {@link #asDisabled()} or {@link #asEnabled()} to create enabled/disabled
+     * instances.
+     *
+     * @return True, if this button is disabled
+     */
+    public boolean isDisabled() {
+        return button.isDisabled();
+    }
+
+    /**
+     * Returns a copy of this button with {@link #isDisabled()} set to true.
+     *
+     * @return New disabled button instance
+     */
+    @NotNull
+    public Button asDisabled() {
+        return button.asDisabled();
+    }
+
+    /**
+     * Returns a copy of this button with {@link #isDisabled()} set to false.
+     *
+     * @return New enabled button instance
+     */
+    @NotNull
+    public Button asEnabled() {
+        return button.asEnabled();
+    }
+
+    /**
+     * Returns a copy of this button with {@link #isDisabled()} set to the provided value.
+     *
+     * @param disabled True, if this button should be disabled
+     * @return New enabled/disabled button instance
+     */
+    @NotNull
+    public Button withDisabled(boolean disabled) {
+        return button.withDisabled(disabled);
+    }
+
+    /**
+     * Returns a copy of this button with the attached Emoji.
+     *
+     * @param emoji The emoji to use
+     * @return New button with emoji
+     */
+    @NotNull
+    public Button withEmoji(@Nullable Emoji emoji) {
+        return button.withEmoji(emoji);
+    }
+
+    /**
+     * Returns a copy of this button with the provided label.
+     *
+     * @param label The label to use
+     * @return New button with the changed label
+     *
+     */
+    @NotNull
+    public Button withLabel(@NotNull String label) {
+        return button.withLabel(label);
+    }
+
+    /**
+     * Returns a copy of this button with the provided id.
+     *
+     * @param id The id to use
+     * @return New button with the changed id
+     *
+     */
+    @NotNull
+    public Button withId(@NotNull String id) {
+        return button.withUrl(id);
+    }
+
+    /**
+     * Returns a copy of this button with the provided url.
+     *
+     * @param url The url to use
+     * @return New button with the changed url
+     */
+    @NotNull
+    public Button withUrl(@NotNull String url) {
+        return button.withUrl(url);
+    }
+
+    /**
+     * Returns a copy of this button with the provided style.
+     *
+     * <p>
+     * You cannot use this convert link buttons.
+     *
+     * @param style The style to use
+     * @return New button with the changed style
+     * @throws IllegalArgumentException
+     *         <ul>
+     *         <li>If the provided {@code style} is null.</li>
+     *         <li>If the provided {@code style} tries to change whether this button is a
+     *         {@link ButtonStyle#LINK LINK} button.</li>
+     *         </ul>
+     */
+    @NotNull
+    public Button withStyle(@NotNull ButtonStyle style) {
+        return button.withStyle(style);
     }
 
     /**
@@ -101,9 +263,8 @@ public record YusufComponent(Component component) {
      *
      * @return {@link Component.Type}
      */
-    @NotNull
-    public Component.Type getType() {
-        return this.component.getType();
+    public Component.@NotNull Type getType() {
+        return button.getType();
     }
 
     /**
@@ -117,8 +278,8 @@ public record YusufComponent(Component component) {
      * @return The component ID or null if not present
      */
     @Nullable
-    public String getComponentId() {
-        return this.component.getId();
+    public String getButtonId() {
+        return button.getId();
     }
 
     /**
@@ -127,7 +288,7 @@ public record YusufComponent(Component component) {
      * @return The maximum amount an action row can contain
      */
     public int getMaxPerRow() {
-        return this.component.getMaxPerRow();
+        return button.getMaxPerRow();
     }
 
     /**
@@ -137,6 +298,6 @@ public record YusufComponent(Component component) {
      */
     @NotNull
     public DataObject toData() {
-        return this.component.toData();
+        return button.toData();
     }
 }

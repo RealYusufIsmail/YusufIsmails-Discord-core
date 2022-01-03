@@ -1,6 +1,7 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.button.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.button.YusufButton;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteractionHook;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
@@ -8,44 +9,46 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.InteractionType;
-import net.dv8tion.jda.api.interactions.components.*;
+import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.Component;
+import net.dv8tion.jda.api.interactions.components.ComponentInteraction;
+import net.dv8tion.jda.api.interactions.components.ComponentLayout;
 import net.dv8tion.jda.api.requests.ErrorResponse;
-import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 import net.dv8tion.jda.api.requests.restaction.interactions.UpdateInteractionAction;
-import net.dv8tion.jda.api.utils.TimeUtil;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.OffsetDateTime;
 import java.util.Collection;
 
-@SuppressWarnings({"unused", "java:S6206"})
-public class YusufButtonInteraction extends YusufComponentInteraction {
-    private final ButtonInteraction buttonInteraction;
+@SuppressWarnings({"unused"})
+public class YusufComponentInteraction {
+    private final ComponentInteraction componentInteraction;
 
-    public YusufButtonInteraction(ButtonInteraction buttonInteraction) {
-        super(buttonInteraction);
-        this.buttonInteraction = buttonInteraction;
+    public YusufComponentInteraction(ComponentInteraction componentInteraction) {
+        this.componentInteraction = componentInteraction;
     }
 
-    public ButtonInteraction getButtonInteraction() {
-        return buttonInteraction;
+    public YusufInteractionHook getInteractionHook() {
+        return new YusufInteractionHook(componentInteraction.getHook());
     }
 
-    public YusufComponentInteraction getYusufButtonInteraction() {
-        return new YusufComponentInteraction(buttonInteraction);
+    public YusufInteraction getInteraction() {
+        return getInteractionHook().getInteraction();
     }
 
-    @Nullable
-    public YusufButton getButton() {
-        return new YusufButton(this.buttonInteraction.getButton());
-    }
-
+    /**
+     * The custom component Id provided to the component when it was originally created. <br>
+     * This value should be used to determine what action to take in regards to this interaction.
+     *
+     * <br>
+     * This id does not have to be numerical.
+     *
+     * @return The component ID
+     */
     @NotNull
     public String getComponentId() {
-        return buttonInteraction.getComponentId();
+        return componentInteraction.getComponentId();
     }
 
     /**
@@ -56,16 +59,26 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @Nullable
     public YusufComponent getComponent() {
-        return getYusufButtonInteraction().getComponent();
+        return new YusufComponent(componentInteraction.getComponent());
     }
 
+    /**
+     * The {@link Message} instance.
+     *
+     * @return The {@link Message}
+     */
     @NotNull
     public Message getMessage() {
-        return buttonInteraction.getMessage();
+        return componentInteraction.getMessage();
     }
 
+    /**
+     * The id of the message.
+     *
+     * @return The message id
+     */
     public long getMessageIdLong() {
-        return buttonInteraction.getMessageIdLong();
+        return componentInteraction.getMessageIdLong();
     }
 
     /**
@@ -75,16 +88,27 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public String getMessageId() {
-        return this.buttonInteraction.getMessageId();
+        return componentInteraction.getMessageId();
     }
 
+    /**
+     * The {@link Component.Type}
+     *
+     * @return The {@link Component.Type}
+     */
     @NotNull
     public Component.Type getComponentType() {
-        return buttonInteraction.getComponentType();
+        return componentInteraction.getComponentType();
     }
 
+    /**
+     * The raw interaction type. <br>
+     * It is recommended to use {@link #getType()} instead.
+     *
+     * @return The raw interaction type
+     */
     public int getTypeRaw() {
-        return buttonInteraction.getTypeRaw();
+        return getInteraction().getTypeRaw();
     }
 
     /**
@@ -94,17 +118,28 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public InteractionType getType() {
-        return this.buttonInteraction.getType();
+        return componentInteraction.getType();
     }
 
+    /**
+     * The interaction token used for responding to an interaction.
+     *
+     * @return The interaction token
+     */
     @NotNull
     public String getToken() {
-        return buttonInteraction.getToken();
+        return getInteraction().getToken();
     }
 
-    @Contract(" -> new")
-    public @NotNull YusufGuild getGuild() {
-        return new YusufGuild(buttonInteraction.getGuild());
+    /**
+     * The {@link Guild} this interaction happened in. <br>
+     * This is null in direct messages.
+     *
+     * @return The {@link Guild} or null
+     */
+    @Nullable
+    public YusufGuild getGuild() {
+        return getInteraction().getGuild();
     }
 
     /**
@@ -114,7 +149,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      * @return True, if this interaction happened in a guild
      */
     public boolean isFromGuild() {
-        return this.buttonInteraction.isFromGuild();
+        return getInteraction().isFromGuild();
     }
 
     /**
@@ -125,38 +160,87 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ChannelType getChannelType() {
-        return this.buttonInteraction.getChannelType();
+        return getInteraction().getChannelType();
     }
 
-    @Contract(" -> new")
+    /**
+     * The {@link User} who caused this interaction.
+     *
+     * @return The {@link User}
+     */
     @NotNull
     public YusufUser getUser() {
-        return new YusufUser(buttonInteraction.getUser());
+        return getInteraction().getUser();
     }
 
-    @Contract(" -> new")
-    @NotNull
+    /**
+     * The {@link Member} who caused this interaction. <br>
+     * This is null if the interaction is not from a guild.
+     *
+     * @return The {@link Member}
+     */
+    @Nullable
     public YusufMember getMember() {
-        return new YusufMember(buttonInteraction.getMember());
+        return getInteraction().getMember();
     }
 
+    /**
+     * The respective {@link MessageChannel} for this interaction.
+     *
+     * @return The {@link MessageChannel}
+     */
     @NotNull
     public MessageChannel getChannel() {
-        return buttonInteraction.getChannel();
+        return getInteraction().getMessageChannel();
     }
 
+    /**
+     * The {@link InteractionHook} which can be used to send deferred replies or followup messages.
+     *
+     * @return The interaction hook
+     * @throws UnsupportedOperationException If this interaction does not support deferred replies
+     *         and followup messages
+     */
     @NotNull
     public InteractionHook getHook() {
-        return buttonInteraction.getHook();
+        return getInteraction().getHook();
     }
 
+    /**
+     * Whether this interaction has already been acknowledged. <br>
+     * Both {@link #deferReply()} and {@link #reply(String)} acknowledge an interaction. Each
+     * interaction can only be acknowledged once.
+     *
+     * @return True, if this interaction has already been acknowledged
+     */
     public boolean isAcknowledged() {
-        return buttonInteraction.isAcknowledged();
+        return getInteraction().isAcknowledged();
     }
 
+    /**
+     * Acknowledge this interaction and defer the reply to a later time. <br>
+     * This will send a {@code <Bot> is thinking...} message in chat that will be updated later
+     * through either {@link InteractionHook#editOriginal(String)} or
+     * {@link InteractionHook#sendMessage(String)}.
+     *
+     * <p>
+     * You can use {@link #deferReply(boolean) deferReply(true)} to send a deferred ephemeral reply.
+     * If your initial deferred message is not ephemeral it cannot be made ephemeral later. Your
+     * first message to the {@link InteractionHook} will inherit whether the message is ephemeral or
+     * not from this deferred reply.
+     *
+     * <p>
+     * <b>You only have 3 seconds to acknowledge an interaction!</b> <br>
+     * When the acknowledgement is sent after the interaction expired, you will receive
+     * {@link ErrorResponse#UNKNOWN_INTERACTION ErrorResponse.UNKNOWN_INTERACTION}.
+     * <p>
+     * Use {@link #reply(String)} to reply directly.
+     *
+     * @return {@link ReplyAction}
+     */
     @NotNull
     public ReplyAction deferReply() {
-        return buttonInteraction.deferReply();
+        return getInteraction().deferReply();
     }
 
     /**
@@ -196,7 +280,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction deferReply(boolean ephemeral) {
-        return this.buttonInteraction.deferReply(ephemeral);
+        return componentInteraction.deferReply(ephemeral);
     }
 
     /**
@@ -219,7 +303,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction reply(@NotNull Message message) {
-        return this.buttonInteraction.reply(message);
+        return componentInteraction.reply(message);
     }
 
     /**
@@ -243,7 +327,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction reply(@NotNull String content) {
-        return this.buttonInteraction.reply(content);
+        return componentInteraction.reply(content);
     }
 
     /**
@@ -266,7 +350,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction replyEmbeds(@NotNull Collection<? extends MessageEmbed> embeds) {
-        return this.buttonInteraction.replyEmbeds(embeds);
+        return componentInteraction.replyEmbeds(embeds);
     }
 
     /**
@@ -290,7 +374,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction replyEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... embeds) {
-        return this.buttonInteraction.replyEmbeds(embed, embeds);
+        return componentInteraction.replyEmbeds(embed, embeds);
     }
 
     /**
@@ -315,7 +399,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction replyFormat(@NotNull String format, @NotNull Object... args) {
-        return this.buttonInteraction.replyFormat(format, args);
+        return componentInteraction.replyFormat(format, args);
     }
 
     /**
@@ -327,7 +411,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public GuildChannel getGuildChannel() {
-        return this.buttonInteraction.getGuildChannel();
+        return componentInteraction.getGuildChannel();
     }
 
     /**
@@ -340,7 +424,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public MessageChannel getMessageChannel() {
-        return this.buttonInteraction.getMessageChannel();
+        return componentInteraction.getMessageChannel();
     }
 
     /**
@@ -353,7 +437,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public TextChannel getTextChannel() {
-        return this.buttonInteraction.getTextChannel();
+        return componentInteraction.getTextChannel();
     }
 
     /**
@@ -366,7 +450,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public NewsChannel getNewsChannel() {
-        return this.buttonInteraction.getNewsChannel();
+        return componentInteraction.getNewsChannel();
     }
 
     /**
@@ -379,7 +463,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public VoiceChannel getVoiceChannel() {
-        return this.buttonInteraction.getVoiceChannel();
+        return componentInteraction.getVoiceChannel();
     }
 
     /**
@@ -392,17 +476,39 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public PrivateChannel getPrivateChannel() {
-        return this.buttonInteraction.getPrivateChannel();
+        return componentInteraction.getPrivateChannel();
     }
 
+    /**
+     * Returns the {@link JDA JDA} instance of this interaction
+     *
+     * @return the corresponding JDA instance
+     */
     @NotNull
     public JDA getJDA() {
-        return this.buttonInteraction.getJDA();
+        return getInteraction().getJDA();
     }
 
+    /**
+     * No-op acknowledgement of this interaction. <br>
+     * This tells discord you intend to update the message that the triggering component is a part
+     * of using the {@link #getHook() InteractionHook} instead of sending a reply message. You are
+     * not required to actually update the message, this will simply acknowledge that you accepted
+     * the interaction.
+     *
+     * <p>
+     * <b>You only have 3 seconds to acknowledge an interaction!</b> <br>
+     * When the acknowledgement is sent after the interaction expired, you will receive
+     * {@link ErrorResponse#UNKNOWN_INTERACTION ErrorResponse.UNKNOWN_INTERACTION}.
+     * <p>
+     * Use {@link #editMessage(String)} to edit it directly.
+     *
+     * @return {@link UpdateInteractionAction} that can be used to update the message
+     * @see #editMessage(String)
+     */
     @NotNull
     public UpdateInteractionAction deferEdit() {
-        return buttonInteraction.deferEdit();
+        return componentInteraction.deferEdit();
     }
 
     /**
@@ -424,7 +530,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editMessage(@NotNull Message message) {
-        return this.buttonInteraction.editMessage(message);
+        return componentInteraction.editMessage(message);
     }
 
     /**
@@ -446,7 +552,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editMessage(@NotNull String content) {
-        return this.buttonInteraction.editMessage(content);
+        return componentInteraction.editMessage(content);
     }
 
     /**
@@ -469,7 +575,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
     @NotNull
     public UpdateInteractionAction editComponents(
             @NotNull Collection<? extends ComponentLayout> components) {
-        return this.buttonInteraction.editComponents(components);
+        return componentInteraction.editComponents(components);
     }
 
     /**
@@ -491,7 +597,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editComponents(@NotNull ComponentLayout... components) {
-        return this.buttonInteraction.editComponents(components);
+        return componentInteraction.editComponents(components);
     }
 
     /**
@@ -514,7 +620,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
     @NotNull
     public UpdateInteractionAction editMessageEmbeds(
             @NotNull Collection<? extends MessageEmbed> embeds) {
-        return this.buttonInteraction.editMessageEmbeds(embeds);
+        return componentInteraction.editMessageEmbeds(embeds);
     }
 
     /**
@@ -536,7 +642,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editMessageEmbeds(@NotNull MessageEmbed... embeds) {
-        return this.buttonInteraction.editMessageEmbeds(embeds);
+        return componentInteraction.editMessageEmbeds(embeds);
     }
 
     /**
@@ -560,7 +666,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
     @NotNull
     public UpdateInteractionAction editMessageFormat(@NotNull String format,
             @NotNull Object... args) {
-        return this.buttonInteraction.editMessageFormat(format, args);
+        return componentInteraction.editMessageFormat(format, args);
     }
 
     /**
@@ -569,27 +675,16 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      * @return Never-null String containing the Id.
      */
     @NotNull
-    public String getButtonId() {
-        return this.buttonInteraction.getId();
-    }
-
-    public long getButtonIdLong() {
-        return buttonInteraction.getIdLong();
+    public String getId() {
+        return componentInteraction.getId();
     }
 
     /**
-     * The time this entity was created. Calculated through the Snowflake in
-     * {@link #getButtonIdLong}.
+     * The Snowflake id of this entity. This is unique to every entity and will never change.
      *
-     * @return OffsetDateTime - Time this entity was created at.
-     * @see TimeUtil#getTimeCreated(long)
+     * @return Long containing the Id.
      */
-    @NotNull
-    public OffsetDateTime getTimeCreated() {
-        return this.buttonInteraction.getTimeCreated();
-    }
-
-    public RestAction<Void> editButton(@Nullable Button newButton) {
-        return buttonInteraction.editButton(newButton);
+    public long getIdLong() {
+        return componentInteraction.getIdLong();
     }
 }
