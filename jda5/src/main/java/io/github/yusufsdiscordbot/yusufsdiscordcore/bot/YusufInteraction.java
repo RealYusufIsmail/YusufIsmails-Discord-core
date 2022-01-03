@@ -1,5 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
@@ -11,6 +12,7 @@ import net.dv8tion.jda.api.interactions.InteractionType;
 import net.dv8tion.jda.api.requests.ErrorResponse;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
 import net.dv8tion.jda.api.utils.TimeUtil;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +22,12 @@ import java.util.Collection;
 import java.util.Objects;
 
 // TODO: not finished.
-public record YusufInteraction(Interaction interaction) {
+public abstract class YusufInteraction {
+    private final Interaction interaction;
+
+    public YusufInteraction(Interaction interaction) {
+        this.interaction = interaction;
+    }
 
     public Interaction getInteraction() {
         return interaction;
@@ -149,7 +156,7 @@ public record YusufInteraction(Interaction interaction) {
      *
      * @return The {@link YusufGuild} or null
      */
-    public @Nullable YusufGuild getGuild() {
+    public @NotNull YusufGuild getGuild() {
         return new YusufGuild(interaction.getGuild());
     }
 
@@ -213,8 +220,8 @@ public record YusufInteraction(Interaction interaction) {
      *         and followup messages
      */
     @NotNull
-    public InteractionHook getHook() {
-        return interaction.getHook();
+    public YusufInteractionHook getHook() {
+        return new YusufInteractionHook(interaction.getHook());
     }
 
     /**
@@ -552,4 +559,7 @@ public record YusufInteraction(Interaction interaction) {
     public void replyQueuedEphemeralEmbed(@Nonnull MessageEmbed messageEmbed) {
         this.interaction.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
+
+    @Contract(" -> new")
+    public abstract @NotNull YusufBot getBot();
 }

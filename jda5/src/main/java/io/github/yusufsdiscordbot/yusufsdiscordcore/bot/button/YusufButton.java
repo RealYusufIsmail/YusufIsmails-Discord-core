@@ -12,10 +12,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public record YusufButton(Button button) {
+
+    /**
+     * The original {@link Button} instance.
+     * @return The original {@link Button} instance.
+     */
     public Button getButton() {
         return button;
     }
-
 
     /**
      * Indicates whether some other object is "equal to" this one. In addition to the general

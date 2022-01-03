@@ -1,4 +1,4 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot;
 
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.Component;

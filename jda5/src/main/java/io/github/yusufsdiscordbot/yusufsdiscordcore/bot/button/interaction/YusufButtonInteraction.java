@@ -1,5 +1,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufComponent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufComponentInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteractionHook;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.YusufButton;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
@@ -38,6 +42,14 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
         return new YusufComponentInteraction(buttonInteraction);
     }
 
+    public YusufInteractionHook getYusufInteractionHook() {
+        return new YusufInteractionHook(buttonInteraction.getHook());
+    }
+
+    public YusufInteraction getYusufInteraction() {
+        return getYusufInteractionHook().getInteraction();
+    }
+
     @Nullable
     public YusufButton getButton() {
         return new YusufButton(this.buttonInteraction.getButton());
@@ -45,7 +57,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
 
     @NotNull
     public String getComponentId() {
-        return buttonInteraction.getComponentId();
+        return getYusufButtonInteraction().getComponentId();
     }
 
     /**
@@ -61,11 +73,11 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
 
     @NotNull
     public Message getMessage() {
-        return buttonInteraction.getMessage();
+        return getYusufButtonInteraction().getMessage();
     }
 
     public long getMessageIdLong() {
-        return buttonInteraction.getMessageIdLong();
+        return getYusufButtonInteraction().getMessageIdLong();
     }
 
     /**
@@ -75,16 +87,16 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public String getMessageId() {
-        return this.buttonInteraction.getMessageId();
+        return this.getYusufButtonInteraction().getMessageId();
     }
 
     @NotNull
     public Component.Type getComponentType() {
-        return buttonInteraction.getComponentType();
+        return getYusufButtonInteraction().getComponentType();
     }
 
     public int getTypeRaw() {
-        return buttonInteraction.getTypeRaw();
+        return getYusufInteraction().getTypeRaw();
     }
 
     /**
@@ -94,7 +106,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public InteractionType getType() {
-        return this.buttonInteraction.getType();
+        return getYusufInteraction().getType();
     }
 
     @NotNull
@@ -104,7 +116,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
 
     @Contract(" -> new")
     public @NotNull YusufGuild getGuild() {
-        return new YusufGuild(buttonInteraction.getGuild());
+        return getYusufInteraction().getGuild();
     }
 
     /**
@@ -114,7 +126,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      * @return True, if this interaction happened in a guild
      */
     public boolean isFromGuild() {
-        return this.buttonInteraction.isFromGuild();
+        return getYusufInteraction().isFromGuild();
     }
 
     /**
@@ -125,38 +137,38 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ChannelType getChannelType() {
-        return this.buttonInteraction.getChannelType();
+        return getYusufInteraction().getChannelType();
     }
 
     @Contract(" -> new")
     @NotNull
     public YusufUser getUser() {
-        return new YusufUser(buttonInteraction.getUser());
+        return getYusufInteraction().getUser();
     }
 
     @Contract(" -> new")
     @NotNull
     public YusufMember getMember() {
-        return new YusufMember(buttonInteraction.getMember());
+        return getYusufInteraction().getMember();
     }
 
     @NotNull
     public MessageChannel getChannel() {
-        return buttonInteraction.getChannel();
+        return getYusufButtonInteraction().getChannel();
     }
 
     @NotNull
-    public InteractionHook getHook() {
-        return buttonInteraction.getHook();
+    public YusufInteractionHook getHook() {
+        return getYusufInteraction().getHook();
     }
 
     public boolean isAcknowledged() {
-        return buttonInteraction.isAcknowledged();
+        return getYusufInteraction().isAcknowledged();
     }
 
     @NotNull
     public ReplyAction deferReply() {
-        return buttonInteraction.deferReply();
+        return getYusufInteraction().deferReply();
     }
 
     /**
@@ -196,7 +208,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction deferReply(boolean ephemeral) {
-        return this.buttonInteraction.deferReply(ephemeral);
+        return getYusufInteraction().deferReply(ephemeral);
     }
 
     /**
@@ -219,7 +231,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction reply(@NotNull Message message) {
-        return this.buttonInteraction.reply(message);
+        return getYusufInteraction().reply(message);
     }
 
     /**
@@ -243,7 +255,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction reply(@NotNull String content) {
-        return this.buttonInteraction.reply(content);
+        return getYusufInteraction().reply(content);
     }
 
     /**
@@ -266,7 +278,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction replyEmbeds(@NotNull Collection<? extends MessageEmbed> embeds) {
-        return this.buttonInteraction.replyEmbeds(embeds);
+        return getYusufInteraction().replyEmbeds(embeds);
     }
 
     /**
@@ -290,7 +302,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction replyEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... embeds) {
-        return this.buttonInteraction.replyEmbeds(embed, embeds);
+        return getYusufInteraction().replyEmbeds(embed, embeds);
     }
 
     /**
@@ -315,7 +327,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public ReplyAction replyFormat(@NotNull String format, @NotNull Object... args) {
-        return this.buttonInteraction.replyFormat(format, args);
+        return getYusufInteraction().replyFormat(format, args);
     }
 
     /**
@@ -327,7 +339,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public GuildChannel getGuildChannel() {
-        return this.buttonInteraction.getGuildChannel();
+        return getYusufInteraction().getGuildChannel();
     }
 
     /**
@@ -340,7 +352,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public MessageChannel getMessageChannel() {
-        return this.buttonInteraction.getMessageChannel();
+        return getYusufInteraction().getMessageChannel();
     }
 
     /**
@@ -353,7 +365,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public TextChannel getTextChannel() {
-        return this.buttonInteraction.getTextChannel();
+        return getYusufInteraction().getTextChannel();
     }
 
     /**
@@ -366,7 +378,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public NewsChannel getNewsChannel() {
-        return this.buttonInteraction.getNewsChannel();
+        return getYusufInteraction().getNewsChannel();
     }
 
     /**
@@ -392,17 +404,17 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public PrivateChannel getPrivateChannel() {
-        return this.buttonInteraction.getPrivateChannel();
+        return getYusufInteraction().getPrivateChannel();
     }
 
     @NotNull
     public JDA getJDA() {
-        return this.buttonInteraction.getJDA();
+        return getYusufInteraction().getJDA();
     }
 
     @NotNull
     public UpdateInteractionAction deferEdit() {
-        return buttonInteraction.deferEdit();
+        return getYusufButtonInteraction().deferEdit();
     }
 
     /**
@@ -424,7 +436,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editMessage(@NotNull Message message) {
-        return this.buttonInteraction.editMessage(message);
+        return getYusufButtonInteraction().editMessage(message);
     }
 
     /**
@@ -446,7 +458,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editMessage(@NotNull String content) {
-        return this.buttonInteraction.editMessage(content);
+        return getYusufButtonInteraction().editMessage(content);
     }
 
     /**
@@ -469,7 +481,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
     @NotNull
     public UpdateInteractionAction editComponents(
             @NotNull Collection<? extends ComponentLayout> components) {
-        return this.buttonInteraction.editComponents(components);
+        return getYusufButtonInteraction().editComponents(components);
     }
 
     /**
@@ -491,7 +503,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editComponents(@NotNull ComponentLayout... components) {
-        return this.buttonInteraction.editComponents(components);
+        return getYusufButtonInteraction().editComponents(components);
     }
 
     /**
@@ -514,7 +526,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
     @NotNull
     public UpdateInteractionAction editMessageEmbeds(
             @NotNull Collection<? extends MessageEmbed> embeds) {
-        return this.buttonInteraction.editMessageEmbeds(embeds);
+        return getYusufButtonInteraction().editMessageEmbeds(embeds);
     }
 
     /**
@@ -536,7 +548,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public UpdateInteractionAction editMessageEmbeds(@NotNull MessageEmbed... embeds) {
-        return this.buttonInteraction.editMessageEmbeds(embeds);
+        return getYusufButtonInteraction().editMessageEmbeds(embeds);
     }
 
     /**
@@ -560,7 +572,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
     @NotNull
     public UpdateInteractionAction editMessageFormat(@NotNull String format,
             @NotNull Object... args) {
-        return this.buttonInteraction.editMessageFormat(format, args);
+        return getYusufButtonInteraction().editMessageFormat(format, args);
     }
 
     /**
@@ -570,7 +582,7 @@ public class YusufButtonInteraction extends YusufComponentInteraction {
      */
     @NotNull
     public String getButtonId() {
-        return this.buttonInteraction.getId();
+        return buttonInteraction.getId();
     }
 
     public long getButtonIdLong() {

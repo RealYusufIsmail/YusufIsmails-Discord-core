@@ -1,5 +1,6 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufComponent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteractionHook;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
@@ -202,7 +203,7 @@ public class YusufComponentInteraction {
      *         and followup messages
      */
     @NotNull
-    public InteractionHook getHook() {
+    public YusufInteractionHook getHook() {
         return getInteraction().getHook();
     }
 

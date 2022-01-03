@@ -15,107 +15,119 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interacti
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Channel;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.InteractionHook;
-import net.dv8tion.jda.api.interactions.InteractionType;
-import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction;
+import net.dv8tion.jda.api.interactions.commands.CommandInteraction;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings({"unused", "java:S6206"})
-public class YusufCommandInteraction {
-    private final SlashCommandEvent interaction;
+import java.util.List;
 
-    public YusufCommandInteraction(SlashCommandEvent interaction) {
+@SuppressWarnings({"unused", "java:S6206"})
+public class YusufCommandInteraction extends YusufInteraction {
+    private final CommandInteraction interaction;
+
+    public YusufCommandInteraction(CommandInteraction interaction) {
+        super(interaction);
         this.interaction = interaction;
     }
 
-    public YusufInteraction getInteraction() {
-        return new YusufInteraction(interaction.getInteraction());
-    }
-
-    public int getTypeRaw() {
-        return getInteraction().getTypeRaw();
-    }
-
-    public @NotNull InteractionType getType() {
-        return getInteraction().getType();
-    }
-
-    public @NotNull String getToken() {
-        return getInteraction().getToken();
-    }
-
-    @Contract(" -> new")
-    public @Nullable YusufGuild getGuild() {
-        return getInteraction().getGuild();
-    }
-
-    public boolean isFromGuild() {
-        return getInteraction().isFromGuild();
-    }
-
-    public @NotNull ChannelType getChannelType() {
-        return interaction.getChannelType();
-    }
-
-    @Contract(" -> new")
-    @NotNull
-    public YusufUser getUser() {
-        return getInteraction().getUser();
-    }
-
-    @Contract(" -> new")
-    @NotNull
-    public YusufMember getMember() {
-        return getInteraction().getMember();
-    }
-
-    @Nullable
-    public Channel getChannel() {
-        return this.getInteraction().getChannel();
-    }
-
-    @NotNull
-    public InteractionHook getHook() {
-        return this.getInteraction().getHook();
-    }
-
-    public boolean isAcknowledged() {
-        return this.getInteraction().isAcknowledged();
-    }
-
-    @NotNull
-    public ReplyAction deferReply() {
-        return this.getInteraction().deferReply();
-    }
-
-    @NotNull
-    public JDA getJDA() {
-        return this.getInteraction().getJDA();
-    }
-
-    public String getId() {
-        return this.getInteraction().getInteractionId();
-    }
-
-    public long getIdLong() {
-        return this.getInteraction().getInteractionIdLong();
-    }
-
+    @Override
     @Contract(" -> new")
     public @NotNull YusufBot getBot() {
         return new YusufBot(this.getJDA().getSelfUser());
     }
 
-    public String toString() {
-        return this.getInteraction().toString();
+    /**
+     * The command name.
+     * <br>This can be useful for abstractions.
+     *
+     * <p>Note that commands can have these following structures:
+     * <ul>
+     *     <li>{@code /name subcommandGroup subcommandName}</li>
+     *     <li>{@code /name subcommandName}</li>
+     *     <li>{@code /name}</li>
+     * </ul>
+     * <p>
+     * You can use {@link #getCommandPath()} to simplify your checks.
+     *
+     * @return The command name
+     */
+    @NotNull
+    public String getName() {
+        return interaction.getName();
+    }
+
+    /**
+     * The subcommand name.
+     * <br>This can be useful for abstractions.
+     *
+     * <p>Note that commands can have these following structures:
+     * <ul>
+     *     <li>{@code /name subcommandGroup subcommandName}</li>
+     *     <li>{@code /name subcommandName}</li>
+     *     <li>{@code /name}</li>
+     * </ul>
+     * <p>
+     * You can use {@link #getCommandPath()} to simplify your checks.
+     *
+     * @return The subcommand name, or null if this is not a subcommand
+     */
+    @Nullable
+    public String getSubcommandName() {
+        return interaction.getSubcommandName();
+    }
+
+    /**
+     * The subcommand group name.
+     * <br>This can be useful for abstractions.
+     *
+     * <p>Note that commands can have these following structures:
+     * <ul>
+     *     <li>{@code /name subcommandGroup subcommandName}</li>
+     *     <li>{@code /name subcommandName}</li>
+     *     <li>{@code /name}</li>
+     * </ul>
+     * <p>
+     * You can use {@link #getCommandPath()} to simplify your checks.
+     *
+     * @return The subcommand group name, or null if this is not a subcommand group
+     */
+    @Nullable
+    public String getSubcommandGroup() {
+        return interaction.getSubcommandGroup();
+    }
+
+    /**
+     * The command id
+     *
+     * @return The command id
+     */
+    public long getCommandIdLong() {
+        return interaction.getCommandIdLong();
+    }
+
+    /**
+     * The options provided by the user when this command was executed.
+     * <br>Each option has a name and value.
+     *
+     * @return The options passed for this command
+     */
+    @NotNull
+    public List<OptionMapping> getOptions() {
+        return interaction.getOptions();
+    }
+
+    /**
+     * The Snowflake id of this entity. This is unique to every entity and will never change.
+     *
+     * @return Long containing the Id.
+     */
+    public long getIdLong() {
+        return interaction.getIdLong();
+    }
+
+    public String getCommandPath() {
+        return interaction.getCommandPath();
     }
 }
