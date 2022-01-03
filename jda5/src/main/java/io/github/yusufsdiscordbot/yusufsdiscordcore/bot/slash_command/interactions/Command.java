@@ -17,10 +17,13 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import javax.annotation.Nonnull;
@@ -29,11 +32,11 @@ import javax.annotation.Nonnull;
  * Used when making a new command. Imports all the need methods into the new class.
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
-public abstract class Command {
+public abstract class Command extends ListenerAdapter {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
-    private final @Nonnull YusufCommandData commandData;
+    private final @Nonnull CommandData commandData;
 
     /**
      * Were the command is registered.
@@ -43,13 +46,8 @@ public abstract class Command {
         this.description = description;
         this.isGuildOnly = isGuildOnly;
 
-        commandData = new YusufCommandData(name, description);
+        commandData = new CommandData(name, description);
     }
-
-    /**
-     * Were the command is created.
-     */
-    public abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
 
     /**
      * Provides the user with name of the command
@@ -80,7 +78,7 @@ public abstract class Command {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public final @Nonnull YusufCommandData getYusufCommandData() {
+    public final @Nonnull CommandData getCommandData() {
         return commandData;
     }
 
@@ -93,26 +91,33 @@ public abstract class Command {
     }
 
     /**
-     * Used to create buttons for the user to interact with.
-     *
-     * @see ButtonClickEvent
-     */
-    @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onButtonClick(@Nonnull ButtonClickEvent event) {}
-
-    /**
-     * Used to create a selection menu for the user to interact with.
-     *
-     * @param event The original selection menu event,
-     */
-    @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
-
-    /**
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      */
     public boolean isOwnerOnlyCommand() {
         return false;
     }
+
+    /**
+     * Were the command is created.
+     */
+    public abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
+
+
+    /**
+     * Used to create buttons for the user to interact with.
+     *
+     * @see ButtonClickEvent
+     */
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onButtonClick(YusufButtonClickEvent yusufButtonClickEvent) {}
+
+    /**
+     * Used to create a selection menu for the user to interact with.
+     *
+     * @param event The original selection menu event,
+     */
+    @Override
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
 }

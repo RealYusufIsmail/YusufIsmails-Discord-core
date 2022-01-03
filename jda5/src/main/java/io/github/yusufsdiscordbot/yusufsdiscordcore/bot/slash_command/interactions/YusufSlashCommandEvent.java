@@ -27,7 +27,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
-public class YusufSlashCommandEvent extends YusufInteraction {
+public class YusufSlashCommandEvent extends YusufCommandInteraction {
     private final Command slashCommand;
     private final SlashCommandEvent event;
 

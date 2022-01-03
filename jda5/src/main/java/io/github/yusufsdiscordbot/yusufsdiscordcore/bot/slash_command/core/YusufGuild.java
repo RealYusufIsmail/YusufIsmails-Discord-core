@@ -955,6 +955,21 @@ public record YusufGuild(Guild guild) {
         return this.guild.modifyVoiceChannelPositions(category);
     }
 
+    @Nullable
+    public TextChannel getTextChannelById(String id) {
+        return this.guild.getTextChannelById(id);
+    }
+
+    @Nullable
+    public TextChannel getTextChannelById(long id) {
+        return this.guild.getTextChannelById(id);
+    }
+
+    @Nonnull
+    public List<TextChannel> getTextChannelsByName(@Nonnull String name, boolean ignoreCase) {
+        return this.guild.getTextChannelsByName(name, ignoreCase);
+    }
+
     /**
      * @see Guild#getOwner()
      */

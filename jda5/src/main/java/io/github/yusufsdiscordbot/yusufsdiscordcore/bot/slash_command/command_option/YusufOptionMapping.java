@@ -36,7 +36,8 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
         return optionMapping.getName();
     }
 
-    @Nonnull
+    // TODO: fix this issue
+    @Nullable
     public YusufMember getAsMember() {
         return new YusufMember(optionMapping.getAsMember());
     }

@@ -29,7 +29,12 @@ import java.util.*;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record YusufMember(Member member) implements IMentionable, IPermissionHolder {
+public class YusufMember implements IMentionable, IPermissionHolder {
+    private final Member member;
+
+    public YusufMember(Member member) {
+        this.member = member;
+    }
 
     @Contract(" -> new")
     public @Nonnull YusufUser getYusufUser() {
