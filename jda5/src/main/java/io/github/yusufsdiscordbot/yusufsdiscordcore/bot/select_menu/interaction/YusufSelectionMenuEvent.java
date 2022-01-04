@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 
 // TODO : make this class
-public class YusufSelectionMenuEvent extends YusufSelectionMenuInteraction{
+public class YusufSelectionMenuEvent extends YusufSelectionMenuInteraction {
     private final SelectionMenuEvent event;
 
     public YusufSelectionMenuEvent(SelectionMenuEvent event) {

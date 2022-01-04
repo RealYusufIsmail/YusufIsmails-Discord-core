@@ -39,14 +39,15 @@ public class YusufCommandInteraction extends YusufInteraction {
     }
 
     /**
-     * The command name.
-     * <br>This can be useful for abstractions.
+     * The command name. <br>
+     * This can be useful for abstractions.
      *
-     * <p>Note that commands can have these following structures:
+     * <p>
+     * Note that commands can have these following structures:
      * <ul>
-     *     <li>{@code /name subcommandGroup subcommandName}</li>
-     *     <li>{@code /name subcommandName}</li>
-     *     <li>{@code /name}</li>
+     * <li>{@code /name subcommandGroup subcommandName}</li>
+     * <li>{@code /name subcommandName}</li>
+     * <li>{@code /name}</li>
      * </ul>
      * <p>
      * You can use {@link #getCommandPath()} to simplify your checks.
@@ -59,14 +60,15 @@ public class YusufCommandInteraction extends YusufInteraction {
     }
 
     /**
-     * The subcommand name.
-     * <br>This can be useful for abstractions.
+     * The subcommand name. <br>
+     * This can be useful for abstractions.
      *
-     * <p>Note that commands can have these following structures:
+     * <p>
+     * Note that commands can have these following structures:
      * <ul>
-     *     <li>{@code /name subcommandGroup subcommandName}</li>
-     *     <li>{@code /name subcommandName}</li>
-     *     <li>{@code /name}</li>
+     * <li>{@code /name subcommandGroup subcommandName}</li>
+     * <li>{@code /name subcommandName}</li>
+     * <li>{@code /name}</li>
      * </ul>
      * <p>
      * You can use {@link #getCommandPath()} to simplify your checks.
@@ -79,14 +81,15 @@ public class YusufCommandInteraction extends YusufInteraction {
     }
 
     /**
-     * The subcommand group name.
-     * <br>This can be useful for abstractions.
+     * The subcommand group name. <br>
+     * This can be useful for abstractions.
      *
-     * <p>Note that commands can have these following structures:
+     * <p>
+     * Note that commands can have these following structures:
      * <ul>
-     *     <li>{@code /name subcommandGroup subcommandName}</li>
-     *     <li>{@code /name subcommandName}</li>
-     *     <li>{@code /name}</li>
+     * <li>{@code /name subcommandGroup subcommandName}</li>
+     * <li>{@code /name subcommandName}</li>
+     * <li>{@code /name}</li>
      * </ul>
      * <p>
      * You can use {@link #getCommandPath()} to simplify your checks.
@@ -108,8 +111,8 @@ public class YusufCommandInteraction extends YusufInteraction {
     }
 
     /**
-     * The options provided by the user when this command was executed.
-     * <br>Each option has a name and value.
+     * The options provided by the user when this command was executed. <br>
+     * Each option has a name and value.
      *
      * @return The options passed for this command
      */

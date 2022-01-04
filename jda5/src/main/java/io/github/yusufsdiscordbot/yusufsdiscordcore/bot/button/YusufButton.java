@@ -15,6 +15,7 @@ public record YusufButton(Button button) {
 
     /**
      * The original {@link Button} instance.
+     * 
      * @return The original {@link Button} instance.
      */
     public Button getButton() {
