@@ -1,12 +1,13 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufComponent;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
-// TODO : make this class
 public class YusufSelectionMenuEvent extends YusufSelectionMenuInteraction {
     private final SelectionMenuEvent event;
 
@@ -23,6 +24,18 @@ public class YusufSelectionMenuEvent extends YusufSelectionMenuInteraction {
         return event.getMessageId();
     }
 
+    public YusufComponent getComponent() {
+        return new YusufComponent(event.getComponent());
+    }
+
+    public YusufSelectionMenuInteraction getYusufSelectionMenuInteraction() {
+        return new YusufSelectionMenuInteraction(event.getInteraction());
+    }
+
+    @Nonnull
+    public List<String> getValues() {
+        return event.getValues();
+    }
 
     public void replyQueuedMessage(@Nonnull String message) {
         this.event.reply(message).queue();

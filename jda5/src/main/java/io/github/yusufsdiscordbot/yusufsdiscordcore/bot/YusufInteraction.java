@@ -21,7 +21,6 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
-// TODO: not finished.
 public abstract class YusufInteraction {
     private final Interaction interaction;
 
@@ -540,24 +539,6 @@ public abstract class YusufInteraction {
 
     public void replyQueuedMessage(@Nonnull String message) {
         this.interaction.reply(message).queue();
-    }
-
-    /**
-     * replays as an ephemeral message.
-     */
-    public void replyQueuedEphemeral(@Nonnull String message) {
-        this.interaction.reply(message).setEphemeral(true).queue();
-    }
-
-    /**
-     * replays as an embed message.
-     */
-    public void replyQueuedEmbed(@Nonnull MessageEmbed messageEmbed) {
-        this.interaction.replyEmbeds(messageEmbed).queue();
-    }
-
-    public void replyQueuedEphemeralEmbed(@Nonnull MessageEmbed messageEmbed) {
-        this.interaction.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
 
     @Contract(" -> new")
