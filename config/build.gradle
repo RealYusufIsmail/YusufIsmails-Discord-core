@@ -15,11 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.8'
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.3'
-    implementation 'org.jetbrains:annotations:23.0.0'
-    //org apache commons-collections
-    implementation 'org.apache.commons:commons-collections4:4.4'
 }
 
 jar {

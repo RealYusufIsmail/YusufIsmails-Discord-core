@@ -41,7 +41,7 @@ allprojects {
         ext.isReleaseVersion = !version.endsWith("RELEASE")
     }
 }
-sourceCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_16
 
 subprojects {
     //some parts of this gradle copy tj's bot. 
@@ -63,6 +63,14 @@ subprojects {
 
     dependencies {
         testImplementation("junit:junit:4.13.2")
+        implementation 'org.jetbrains:annotations:23.0.0'
+        implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.8'
+        //org apache commons-collections
+        implementation 'org.apache.commons:commons-collections4:4.4'
+        //loggers
+        implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.0'
+        implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.0'
+        implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j18-impl', version: '2.17.0'
     }
 
     compileJava {
@@ -70,8 +78,8 @@ subprojects {
         dependsOn 'spotlessApply'
 
         // Nails the Java-Version of every Subproject
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_16
+        targetCompatibility = JavaVersion.VERSION_16
     }
 
     spotless {
