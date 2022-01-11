@@ -35,11 +35,15 @@ import net.dv8tion.jda.api.utils.cache.SnowflakeCacheView;
 import net.dv8tion.jda.api.utils.cache.SortedSnowflakeCacheView;
 import net.dv8tion.jda.api.utils.concurrent.Task;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.Duration;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
@@ -334,6 +338,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.modifyNickname(member.getMember(), nickname);
     }
 
+    //start of moderation commands
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull User user, String reason) {
         return this.guild.unban(user).reason(reason);
@@ -539,8 +544,6 @@ public record YusufGuild(Guild guild) {
         return this.guild.removeRoleFromMember(userId, role);
     }
 
-
-
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Integer> prune(@Nonnull Integer days,
             @Nonnull Role... roles) {
@@ -549,9 +552,89 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     @Nonnull
-    AuditableRestAction<Integer> prune(int days, boolean wait, @Nonnull Role... roles) {
+    public AuditableRestAction<Integer> prune(int days, boolean wait, @Nonnull Role... roles) {
         return this.guild.prune(days, wait, roles);
     }
+
+    @CheckReturnValue
+    @Nonnull
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, long amount, @Nonnull TimeUnit unit) {
+        return this.guild.timeoutFor(member.getMember(), amount, unit);
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, @Nonnull Duration duration) {
+        return this.guild.timeoutFor(member.getMember(), duration);
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, @Nonnull TemporalAccessor temporal) {
+        return this.guild.timeoutUntil(member.getMember(), temporal);
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, long amount, @Nonnull TimeUnit unit) {
+        return this.guild.timeoutFor(member, amount, unit);
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, @Nonnull Duration duration) {
+        return this.guild.timeoutFor(member, duration);
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, @Nonnull TemporalAccessor temporal) {
+        return this.guild.timeoutUntil(member, temporal);
+    }
+
+    @CheckReturnValue
+    public @NotNull AuditableRestAction<Void> timeoutForById(long userId, long amount, @Nonnull TimeUnit unit) {
+        return this.guild.timeoutForById(userId, amount, unit);
+    }
+
+    @CheckReturnValue
+    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId, long amount, @Nonnull TimeUnit unit) {
+        return this.guild.timeoutForById(userId, amount, unit);
+    }
+
+    @CheckReturnValue
+    public @NotNull AuditableRestAction<Void> timeoutForById(long userId, @Nonnull Duration duration) {
+        return this.guild.timeoutForById(userId, duration);
+    }
+
+    @CheckReturnValue
+    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId, @Nonnull Duration duration) {
+        return this.guild.timeoutForById(userId, duration);
+    }
+
+    @CheckReturnValue
+    public @NotNull AuditableRestAction<Void> timeoutUntilById(long userId, @Nonnull TemporalAccessor temporal) {
+        return this.guild.timeoutUntilById(userId, temporal);
+    }
+
+    @CheckReturnValue
+    public @NotNull AuditableRestAction<Void> timeoutUntilById(@Nonnull String userId, @Nonnull TemporalAccessor temporal) {
+        return this.guild.timeoutUntilById(userId, temporal);
+    }
+
+    public @NotNull AuditableRestAction<Void> removeTimeout(@Nonnull YusufMember member) {
+        return this.guild.removeTimeout(member.getMember());
+    }
+
+    public @NotNull AuditableRestAction<Void> removeTimeoutById(long userId) {
+        return this.guild.removeTimeoutById(userId);
+    }
+
+    public @NotNull AuditableRestAction<Void> removeTimeoutById(@Nonnull String userId) {
+        return this.guild.removeTimeoutById(userId);
+    }
+
+    //end of moderation commands
 
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull String id) {
