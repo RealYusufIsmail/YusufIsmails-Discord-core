@@ -258,7 +258,7 @@ public class PermissionChecker {
     }
 
     public @NotNull Boolean canYouTimeOutUsers(@NotNull YusufMember member,
-                                                @NotNull YusufSlashCommandEvent event) {
+            @NotNull YusufSlashCommandEvent event) {
         if (!member.hasPermission(Permission.MANAGE_CHANNEL)) {
             event.replyQueuedEphemeral("You don't have the permission to MODERATE_MEMBERS!");
             return false;
@@ -275,10 +275,11 @@ public class PermissionChecker {
     }
 
     public @NotNull Boolean canYouAndBotTimeOutUsers(@NotNull YusufMember member,
-                                                      @NotNull YusufSlashCommandEvent event) {
+            @NotNull YusufSlashCommandEvent event) {
         if (!this.guild.getSelfMember().hasPermission(Permission.MODERATE_MEMBERS)
                 && !member.hasPermission(Permission.MANAGE_CHANNEL)) {
-            event.replyQueuedEphemeral("You or the bot do not have the permission MODERATE_MEMBERS");
+            event
+                .replyQueuedEphemeral("You or the bot do not have the permission MODERATE_MEMBERS");
             return false;
         }
         return true;

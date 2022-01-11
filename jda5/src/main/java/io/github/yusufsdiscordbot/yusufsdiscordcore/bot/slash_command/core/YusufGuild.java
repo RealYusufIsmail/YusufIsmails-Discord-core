@@ -338,7 +338,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.modifyNickname(member.getMember(), nickname);
     }
 
-    //start of moderation commands
+    // start of moderation commands
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull User user, String reason) {
         return this.guild.unban(user).reason(reason);
@@ -558,67 +558,79 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, long amount, @Nonnull TimeUnit unit) {
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, long amount,
+            @Nonnull TimeUnit unit) {
         return this.guild.timeoutFor(member.getMember(), amount, unit);
     }
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, @Nonnull Duration duration) {
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
+            @Nonnull Duration duration) {
         return this.guild.timeoutFor(member.getMember(), duration);
     }
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, @Nonnull TemporalAccessor temporal) {
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
+            @Nonnull TemporalAccessor temporal) {
         return this.guild.timeoutUntil(member.getMember(), temporal);
     }
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, long amount, @Nonnull TimeUnit unit) {
+    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, long amount,
+            @Nonnull TimeUnit unit) {
         return this.guild.timeoutFor(member, amount, unit);
     }
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, @Nonnull Duration duration) {
+    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member,
+            @Nonnull Duration duration) {
         return this.guild.timeoutFor(member, duration);
     }
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, @Nonnull TemporalAccessor temporal) {
+    public AuditableRestAction<Void> timeoutFor(@Nonnull Member member,
+            @Nonnull TemporalAccessor temporal) {
         return this.guild.timeoutUntil(member, temporal);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(long userId, long amount, @Nonnull TimeUnit unit) {
+    public @NotNull AuditableRestAction<Void> timeoutForById(long userId, long amount,
+            @Nonnull TimeUnit unit) {
         return this.guild.timeoutForById(userId, amount, unit);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId, long amount, @Nonnull TimeUnit unit) {
+    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId, long amount,
+            @Nonnull TimeUnit unit) {
         return this.guild.timeoutForById(userId, amount, unit);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(long userId, @Nonnull Duration duration) {
+    public @NotNull AuditableRestAction<Void> timeoutForById(long userId,
+            @Nonnull Duration duration) {
         return this.guild.timeoutForById(userId, duration);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId, @Nonnull Duration duration) {
+    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId,
+            @Nonnull Duration duration) {
         return this.guild.timeoutForById(userId, duration);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutUntilById(long userId, @Nonnull TemporalAccessor temporal) {
+    public @NotNull AuditableRestAction<Void> timeoutUntilById(long userId,
+            @Nonnull TemporalAccessor temporal) {
         return this.guild.timeoutUntilById(userId, temporal);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutUntilById(@Nonnull String userId, @Nonnull TemporalAccessor temporal) {
+    public @NotNull AuditableRestAction<Void> timeoutUntilById(@Nonnull String userId,
+            @Nonnull TemporalAccessor temporal) {
         return this.guild.timeoutUntilById(userId, temporal);
     }
 
@@ -634,7 +646,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.removeTimeoutById(userId);
     }
 
-    //end of moderation commands
+    // end of moderation commands
 
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull String id) {

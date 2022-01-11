@@ -18,6 +18,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
@@ -118,7 +119,6 @@ public abstract class Command extends ListenerAdapter {
      *
      * @param event The original selection menu event,
      */
-    @Override
     @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
+    public void onSelectionMenu(@Nonnull YusufSelectionMenuEvent event) {}
 }
