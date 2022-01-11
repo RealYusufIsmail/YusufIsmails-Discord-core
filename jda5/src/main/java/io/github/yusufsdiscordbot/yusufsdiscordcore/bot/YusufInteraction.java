@@ -21,7 +21,7 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
-public abstract class YusufInteraction {
+public class YusufInteraction {
     private final Interaction interaction;
 
     public YusufInteraction(Interaction interaction) {
@@ -542,5 +542,7 @@ public abstract class YusufInteraction {
     }
 
     @Contract(" -> new")
-    public abstract @NotNull YusufBot getBot();
+    public @NotNull YusufBot getBot() {
+        return new YusufBot(this.interaction.getJDA().getSelfUser());
+    }
 }
