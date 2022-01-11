@@ -99,9 +99,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
-            guildCommandsData.addCommands(command.getCommandData());
+            guildCommandsData.addCommands(command.getYusufCommandData().getCommandData());
         } else if (!command.checkIfIsGuildOnly()) {
-            globalCommandsData.addCommands(command.getCommandData());
+            globalCommandsData.addCommands(command.getYusufCommandData().getCommandData());
         }
     }
 

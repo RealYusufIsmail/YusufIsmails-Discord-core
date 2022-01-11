@@ -38,7 +38,7 @@ public abstract class Command extends ListenerAdapter {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
-    private final @Nonnull CommandData commandData;
+    private final @Nonnull YusufCommandData commandData;
 
     /**
      * Were the command is registered.
@@ -48,7 +48,7 @@ public abstract class Command extends ListenerAdapter {
         this.description = description;
         this.isGuildOnly = isGuildOnly;
 
-        commandData = new CommandData(name, description);
+        commandData = new YusufCommandData(name, description);
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class Command extends ListenerAdapter {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public final @Nonnull CommandData getCommandData() {
+    public final @Nonnull YusufCommandData getYusufCommandData() {
         return commandData;
     }
 
