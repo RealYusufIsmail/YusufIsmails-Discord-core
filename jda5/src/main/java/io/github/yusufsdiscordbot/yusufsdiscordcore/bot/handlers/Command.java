@@ -14,11 +14,13 @@
 // Originally from
 // https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
 // then modified by Yusuf
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -101,7 +103,7 @@ public abstract class Command extends ListenerAdapter {
     /**
      * Were the command is created.
      */
-    public abstract void onSlashCommand(YusufSlashCommandEvent yusufSlashCommandEvent);
+    protected abstract void onSlashCommand(@Nonnull YusufSlashCommandEvent yusufSlashCommandEvent);
 
 
     /**
@@ -110,14 +112,13 @@ public abstract class Command extends ListenerAdapter {
      * @see ButtonClickEvent
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onButtonClick(YusufButtonClickEvent yusufButtonClickEvent) {}
+    protected void onButtonClick(@Nonnull YusufButtonClickEvent yusufButtonClickEvent) {}
 
     /**
      * Used to create a selection menu for the user to interact with.
      *
      * @param event The original selection menu event,
      */
-    @Override
     @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
+    public void onSelectionMenu(@Nonnull YusufSelectionMenuEvent event) {}
 }

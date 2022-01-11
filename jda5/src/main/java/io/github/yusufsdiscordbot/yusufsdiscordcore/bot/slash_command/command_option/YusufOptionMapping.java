@@ -18,6 +18,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.Yusuf
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -37,8 +38,8 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
     }
 
     // TODO: fix this issue
-    @Nullable
-    public YusufMember getAsMember() {
+    @Contract(" -> new")
+    public @NotNull YusufMember getAsMember() {
         return new YusufMember(optionMapping.getAsMember());
     }
 

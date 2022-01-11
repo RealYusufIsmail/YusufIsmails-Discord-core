@@ -11,16 +11,17 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handlers;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -178,7 +179,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     /**
-     * Handles the button click event event.
+     * Handles the button click event.
      *
      * @param buttonClickEvent The original button click event,
      */
@@ -187,5 +188,17 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {
         var onButtonClick = commandConnector.get(buttonClickEvent.getComponentId());
         onButtonClick.onButtonClick(new YusufButtonClickEvent(onButtonClick, buttonClickEvent));
+    }
+
+    /**
+     * Handles the button click event.
+     *
+     * @param selectionMenuEvent The original select menu event,
+     */
+    @Override
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onSelectionMenu(@Nonnull SelectionMenuEvent selectionMenuEvent) {
+        var onSelectMenu = commandConnector.get(selectionMenuEvent.getComponentId());
+        onSelectMenu.onSelectionMenu(new YusufSelectionMenuEvent(onSelectMenu, selectionMenuEvent));
     }
 }

@@ -1,15 +1,25 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufComponent;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.Component;
+import net.dv8tion.jda.api.interactions.components.selections.SelectOption;
+import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 import net.dv8tion.jda.api.utils.data.DataObject;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
 
-@SuppressWarnings({"unused"})
-public record YusufComponent(Component component) {
+public record YusufSelectionMenu(SelectionMenu selectionMenu) {
+
+    @Contract(" -> new")
+    public @NotNull YusufComponent getComponent() {
+        return new YusufComponent(selectionMenu());
+    }
+
     /**
      * Indicates whether some other object is "equal to" this one. In addition to the general
      * contract of {@link Object#equals(Object) Object.equals}, record classes must further obey the
@@ -49,7 +59,7 @@ public record YusufComponent(Component component) {
      * @see Objects#equals(Object, Object)
      */
     public boolean equals(Object obj) {
-        return this.component.equals(obj);
+        return selectionMenu.equals(obj);
     }
 
     /**
@@ -70,7 +80,7 @@ public record YusufComponent(Component component) {
      * @see Object#hashCode()
      */
     public int hashCode() {
-        return this.component.hashCode();
+        return selectionMenu.hashCode();
     }
 
     /**
@@ -94,7 +104,104 @@ public record YusufComponent(Component component) {
      * @see Object#toString()
      */
     public String toString() {
-        return this.component.toString();
+        return selectionMenu.toString();
+    }
+
+    /**
+     * Placeholder which is displayed when no selections have been made yet.
+     *
+     * @return The placeholder or null
+     */
+    @Nullable
+    public String getPlaceholder() {
+        return selectionMenu.getPlaceholder();
+    }
+
+    /**
+     * The minimum amount of values a user has to select.
+     *
+     * @return The min values
+     */
+    public int getMinValues() {
+        return selectionMenu.getMinValues();
+    }
+
+    /**
+     * The maximum amount of values a user can select at once.
+     *
+     * @return The max values
+     */
+    public int getMaxValues() {
+        return selectionMenu.getMaxValues();
+    }
+
+    /**
+     * The amount of values a user has selected.
+     * 
+     * @return The {@link SelectOption SelectOptions} this menu provides
+     * @see SelectionMenu.Builder#getOptions()
+     */
+    @NotNull
+    public List<SelectOption> getOptions() {
+        return selectionMenu.getOptions();
+    }
+
+    /**
+     * Whether this menu is disabled. <br>
+     * You can quickly get a disabled menu from an existing menu with {@link #asDisabled()}.
+     *
+     * @return True, if this menu is disabled
+     * @see SelectionMenu.Builder#setDisabled(boolean)
+     */
+    public boolean isDisabled() {
+        return selectionMenu.isDisabled();
+    }
+
+    /**
+     * Creates a copy of this menu with {@link #isDisabled()} set to true.
+     *
+     * @return A new disabled SelectionMenu instance
+     * @see #withDisabled(boolean)
+     */
+    @NotNull
+    public SelectionMenu asDisabled() {
+        return selectionMenu.asDisabled();
+    }
+
+    /**
+     * Creates a copy of this menu with {@link #isDisabled()} set to false.
+     *
+     * @return A new enabled SelectionMenu instance
+     * @see #withDisabled(boolean)
+     */
+    @NotNull
+    public SelectionMenu asEnabled() {
+        return selectionMenu.asEnabled();
+    }
+
+    /**
+     * Creates a copy of this menu with {@link #isDisabled()} set to the desired value.
+     *
+     * @param disabled Whether the menu should be disabled
+     * @return A new SelectionMenu instance with {@link #isDisabled()} set to the desired value
+     * @see #withDisabled(boolean)
+     */
+    @NotNull
+    public SelectionMenu withDisabled(boolean disabled) {
+        return selectionMenu.withDisabled(disabled);
+    }
+
+    /**
+     * Creates a new preconfigured {@link SelectionMenu.Builder} with the same settings used for
+     * this selection menu. <br>
+     * This can be useful to create an updated version of this menu without needing to rebuild it
+     * from scratch.
+     *
+     * @return The {@link SelectionMenu.Builder} used to create the selection menu
+     */
+    @NotNull
+    public SelectionMenu.Builder createCopy() {
+        return selectionMenu.createCopy();
     }
 
     /**
@@ -104,7 +211,7 @@ public record YusufComponent(Component component) {
      */
     @NotNull
     public Component.Type getType() {
-        return this.component.getType();
+        return getComponent().getType();
     }
 
     /**
@@ -118,8 +225,8 @@ public record YusufComponent(Component component) {
      * @return The component ID or null if not present
      */
     @Nullable
-    public String getComponentId() {
-        return this.component.getId();
+    public String getSelectionMenuId() {
+        return getComponent().getComponentId();
     }
 
     /**
@@ -128,7 +235,7 @@ public record YusufComponent(Component component) {
      * @return The maximum amount an action row can contain
      */
     public int getMaxPerRow() {
-        return this.component.getMaxPerRow();
+        return getComponent().getMaxPerRow();
     }
 
     /**
@@ -138,6 +245,6 @@ public record YusufComponent(Component component) {
      */
     @NotNull
     public DataObject toData() {
-        return this.component.toData();
+        return selectionMenu.toData();
     }
 }
