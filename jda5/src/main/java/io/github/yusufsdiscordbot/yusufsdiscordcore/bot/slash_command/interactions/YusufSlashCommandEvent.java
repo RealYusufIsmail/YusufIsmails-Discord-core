@@ -47,6 +47,11 @@ public class YusufSlashCommandEvent extends YusufCommandInteraction {
     }
 
     @Nonnull
+    public MessageChannel getMessageChannel() {
+        return this.event.getChannel();
+    }
+
+    @Nonnull
     public String getName() {
         return this.event.getName();
     }
