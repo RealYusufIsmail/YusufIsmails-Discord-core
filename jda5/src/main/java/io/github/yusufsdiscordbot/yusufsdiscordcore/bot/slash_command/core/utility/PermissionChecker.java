@@ -256,4 +256,31 @@ public class PermissionChecker {
         }
         return true;
     }
+
+    public @NotNull Boolean canYouTimeOutUsers(@NotNull YusufMember member,
+                                                @NotNull YusufSlashCommandEvent event) {
+        if (!member.hasPermission(Permission.MANAGE_CHANNEL)) {
+            event.replyQueuedEphemeral("You don't have the permission to MODERATE_MEMBERS!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canBotTimeOutUsers(@NotNull YusufSlashCommandEvent event) {
+        if (!this.guild.getSelfMember().hasPermission(Permission.MODERATE_MEMBERS)) {
+            event.replyQueuedEphemeral("I don't have the permission to MODERATE_MEMBERS!");
+            return false;
+        }
+        return true;
+    }
+
+    public @NotNull Boolean canYouAndBotTimeOutUsers(@NotNull YusufMember member,
+                                                      @NotNull YusufSlashCommandEvent event) {
+        if (!this.guild.getSelfMember().hasPermission(Permission.MODERATE_MEMBERS)
+                && !member.hasPermission(Permission.MANAGE_CHANNEL)) {
+            event.replyQueuedEphemeral("You or the bot do not have the permission MODERATE_MEMBERS");
+            return false;
+        }
+        return true;
+    }
 }
