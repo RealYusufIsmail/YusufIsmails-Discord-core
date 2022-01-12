@@ -18,14 +18,16 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public record YusufUser(User user) {
+public record YusufUser(User user){
 
     /**
      * @see User
@@ -33,6 +35,7 @@ public record YusufUser(User user) {
     public User getUser() {
         return user;
     }
+
 
     /**
      * @see User#getAsTag()
@@ -98,10 +101,46 @@ public record YusufUser(User user) {
     }
 
     /**
+     * The URL for the for the user's default avatar image.
+     *
+     * @return Never-null String containing the {@link User User} default avatar url.
+     * @throws UnsupportedOperationException If this User was created with from id
+     */
+    @NotNull
+    public String getDefaultAvatarUrl() {
+        return this.user.getDefaultAvatarUrl();
+    }
+
+    /**
      * @see User#getDefaultAvatarUrl()
      */
     public @Nonnull String getEffectiveAvatarUrl() {
         return this.user.getEffectiveAvatarUrl();
+    }
+
+    /**
+     * Loads the user's {@link User.Profile} data.
+     * Returns a completed RestAction if this User has been retrieved using {@link JDA#retrieveUserById(long)}.
+     *
+     * @return {@link RestAction} - Type: {@link User.Profile}
+     * @throws UnsupportedOperationException If this User was created with from id
+     * @since 4.3.0
+     */
+    @NotNull
+    public RestAction<User.Profile> retrieveProfile() {
+        return this.user.retrieveProfile();
+    }
+
+    /**
+     * The "tag" for this user
+     * <p>This is the equivalent of calling {@link String#format(String, Object...) String.format}("%#s", user)
+     *
+     * @return Never-null String containing the tag for this user, for example DV8FromTheWorld#6297
+     * @throws UnsupportedOperationException If this User was created with fromId(long)
+     */
+    @NotNull
+    public String getAsTag() {
+        return this.user.getAsTag();
     }
 
     /**
@@ -169,5 +208,10 @@ public record YusufUser(User user) {
 
     public String toString() {
         return this.user.toString();
+    }
+
+    @NotNull
+    public OffsetDateTime getTimeCreated() {
+        return this.user.getTimeCreated();
     }
 }
