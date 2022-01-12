@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -608,6 +609,11 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
 
     public boolean isDeafened() {
         return Objects.requireNonNull(this.member.getVoiceState()).isDeafened();
+    }
+
+    @NotNull
+    public OffsetDateTime getTimeCreated() {
+        return this.member.getTimeCreated();
     }
 
     public String toString() {

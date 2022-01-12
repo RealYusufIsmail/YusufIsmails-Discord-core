@@ -16,8 +16,10 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -181,6 +183,16 @@ public record YusufBot(SelfUser user) {
     @Nonnull
     public String getAsMention() {
         return user.getAsMention();
+    }
+
+    @Nonnull
+    public String getAsTag() {
+        return user.getAsTag();
+    }
+
+    @NotNull
+    public OffsetDateTime getTimeCreated() {
+        return this.user.getTimeCreated();
     }
 
     public String toString() {

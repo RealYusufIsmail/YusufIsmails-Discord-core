@@ -21,6 +21,7 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
+@SuppressWarnings({"unused", "java:S6206"})
 public class YusufInteraction {
     private final Interaction interaction;
 
@@ -70,6 +71,7 @@ public class YusufInteraction {
      *           or may not perform comparisons in the order of component declaration.
      * @see Objects#equals(Object, Object)
      */
+    @Override
     public boolean equals(Object obj) {
         return interaction.equals(obj);
     }
@@ -155,7 +157,7 @@ public class YusufInteraction {
      *
      * @return The {@link YusufGuild} or null
      */
-    public @NotNull YusufGuild getGuild() {
+    public @Nullable YusufGuild getGuild() {
         return new YusufGuild(interaction.getGuild());
     }
 

@@ -133,4 +133,14 @@ public class YusufCommandInteraction extends YusufInteraction {
     public String getCommandPath() {
         return interaction.getCommandPath();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.interaction.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.interaction.hashCode();
+    }
 }

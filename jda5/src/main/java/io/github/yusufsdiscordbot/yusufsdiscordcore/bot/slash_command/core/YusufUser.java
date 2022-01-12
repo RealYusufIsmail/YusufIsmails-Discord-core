@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public record YusufUser(User user){
+public record YusufUser(User user) {
 
     /**
      * @see User
@@ -119,8 +119,8 @@ public record YusufUser(User user){
     }
 
     /**
-     * Loads the user's {@link User.Profile} data.
-     * Returns a completed RestAction if this User has been retrieved using {@link JDA#retrieveUserById(long)}.
+     * Loads the user's {@link User.Profile} data. Returns a completed RestAction if this User has
+     * been retrieved using {@link JDA#retrieveUserById(long)}.
      *
      * @return {@link RestAction} - Type: {@link User.Profile}
      * @throws UnsupportedOperationException If this User was created with from id
@@ -133,7 +133,9 @@ public record YusufUser(User user){
 
     /**
      * The "tag" for this user
-     * <p>This is the equivalent of calling {@link String#format(String, Object...) String.format}("%#s", user)
+     * <p>
+     * This is the equivalent of calling {@link String#format(String, Object...)
+     * String.format}("%#s", user)
      *
      * @return Never-null String containing the tag for this user, for example DV8FromTheWorld#6297
      * @throws UnsupportedOperationException If this User was created with fromId(long)

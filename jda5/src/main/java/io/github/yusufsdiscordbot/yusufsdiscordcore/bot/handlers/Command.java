@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
  * Used when making a new command. Imports all the need methods into the new class.
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
-public abstract class Command extends ListenerAdapter {
+public abstract class Command {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;

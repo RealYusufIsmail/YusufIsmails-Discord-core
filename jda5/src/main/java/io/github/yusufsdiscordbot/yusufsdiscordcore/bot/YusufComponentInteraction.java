@@ -1,8 +1,5 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufComponent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteractionHook;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
@@ -22,11 +19,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 
-@SuppressWarnings({"unused"})
-public class YusufComponentInteraction {
+@SuppressWarnings({"unused", "java:S6206"})
+public class YusufComponentInteraction extends YusufInteraction {
     private final ComponentInteraction componentInteraction;
 
     public YusufComponentInteraction(ComponentInteraction componentInteraction) {
+        super(componentInteraction);
         this.componentInteraction = componentInteraction;
     }
 
@@ -34,7 +32,7 @@ public class YusufComponentInteraction {
         return new YusufInteractionHook(componentInteraction.getHook());
     }
 
-    public YusufInteraction getInteraction() {
+    public YusufInteraction getYusufInteraction() {
         return getInteractionHook().getInteraction();
     }
 
@@ -108,6 +106,7 @@ public class YusufComponentInteraction {
      *
      * @return The raw interaction type
      */
+    @Override
     public int getTypeRaw() {
         return getInteraction().getTypeRaw();
     }
@@ -117,6 +116,7 @@ public class YusufComponentInteraction {
      *
      * @return The {@link InteractionType} or {@link InteractionType#UNKNOWN}
      */
+    @Override
     @NotNull
     public InteractionType getType() {
         return componentInteraction.getType();
@@ -127,6 +127,7 @@ public class YusufComponentInteraction {
      *
      * @return The interaction token
      */
+    @Override
     @NotNull
     public String getToken() {
         return getInteraction().getToken();
@@ -138,9 +139,9 @@ public class YusufComponentInteraction {
      *
      * @return The {@link Guild} or null
      */
-    @Nullable
+    @Override
     public YusufGuild getGuild() {
-        return getInteraction().getGuild();
+        return getYusufInteraction().getGuild();
     }
 
     /**
@@ -149,6 +150,7 @@ public class YusufComponentInteraction {
      *
      * @return True, if this interaction happened in a guild
      */
+    @Override
     public boolean isFromGuild() {
         return getInteraction().isFromGuild();
     }
@@ -160,6 +162,7 @@ public class YusufComponentInteraction {
      * @return The {@link ChannelType}
      */
     @NotNull
+    @Override
     public ChannelType getChannelType() {
         return getInteraction().getChannelType();
     }
@@ -170,8 +173,9 @@ public class YusufComponentInteraction {
      * @return The {@link User}
      */
     @NotNull
+    @Override
     public YusufUser getUser() {
-        return getInteraction().getUser();
+        return getYusufInteraction().getUser();
     }
 
     /**
@@ -180,9 +184,9 @@ public class YusufComponentInteraction {
      *
      * @return The {@link Member}
      */
-    @Nullable
-    public YusufMember getMember() {
-        return getInteraction().getMember();
+    @Override
+    public @NotNull YusufMember getMember() {
+        return getYusufInteraction().getMember();
     }
 
     /**
@@ -191,6 +195,7 @@ public class YusufComponentInteraction {
      * @return The {@link MessageChannel}
      */
     @NotNull
+    @Override
     public MessageChannel getChannel() {
         return getInteraction().getMessageChannel();
     }
@@ -203,8 +208,9 @@ public class YusufComponentInteraction {
      *         and followup messages
      */
     @NotNull
+    @Override
     public YusufInteractionHook getHook() {
-        return getInteraction().getHook();
+        return getYusufInteraction().getHook();
     }
 
     /**
@@ -214,6 +220,7 @@ public class YusufComponentInteraction {
      *
      * @return True, if this interaction has already been acknowledged
      */
+    @Override
     public boolean isAcknowledged() {
         return getInteraction().isAcknowledged();
     }
@@ -240,6 +247,7 @@ public class YusufComponentInteraction {
      * @return {@link ReplyAction}
      */
     @NotNull
+    @Override
     public ReplyAction deferReply() {
         return getInteraction().deferReply();
     }
@@ -280,6 +288,7 @@ public class YusufComponentInteraction {
      * @return {@link ReplyAction}
      */
     @NotNull
+    @Override
     public ReplyAction deferReply(boolean ephemeral) {
         return componentInteraction.deferReply(ephemeral);
     }
@@ -303,6 +312,7 @@ public class YusufComponentInteraction {
      * @throws IllegalArgumentException If null is provided
      */
     @NotNull
+    @Override
     public ReplyAction reply(@NotNull Message message) {
         return componentInteraction.reply(message);
     }
@@ -327,6 +337,7 @@ public class YusufComponentInteraction {
      *         {@link Message#MAX_CONTENT_LENGTH}
      */
     @NotNull
+    @Override
     public ReplyAction reply(@NotNull String content) {
         return componentInteraction.reply(content);
     }
@@ -350,6 +361,7 @@ public class YusufComponentInteraction {
      * @throws IllegalArgumentException If null is provided
      */
     @NotNull
+    @Override
     public ReplyAction replyEmbeds(@NotNull Collection<? extends MessageEmbed> embeds) {
         return componentInteraction.replyEmbeds(embeds);
     }
@@ -374,6 +386,7 @@ public class YusufComponentInteraction {
      * @throws IllegalArgumentException If null is provided
      */
     @NotNull
+    @Override
     public ReplyAction replyEmbeds(@NotNull MessageEmbed embed, @NotNull MessageEmbed... embeds) {
         return componentInteraction.replyEmbeds(embed, embeds);
     }
@@ -399,6 +412,7 @@ public class YusufComponentInteraction {
      *         longer than {@link Message#MAX_CONTENT_LENGTH}
      */
     @NotNull
+    @Override
     public ReplyAction replyFormat(@NotNull String format, @NotNull Object... args) {
         return componentInteraction.replyFormat(format, args);
     }
@@ -411,6 +425,7 @@ public class YusufComponentInteraction {
      * @throws IllegalStateException If {@link #getChannel()} is not a guild channel
      */
     @NotNull
+    @Override
     public GuildChannel getGuildChannel() {
         return componentInteraction.getGuildChannel();
     }
@@ -423,8 +438,8 @@ public class YusufComponentInteraction {
      * @return The {@link MessageChannel}
      * @throws IllegalStateException If {@link #getChannel()} is not a message channel
      */
-    @NotNull
-    public MessageChannel getMessageChannel() {
+    @Override
+    public @NotNull MessageChannel getMessageChannel() {
         return componentInteraction.getMessageChannel();
     }
 
@@ -437,6 +452,7 @@ public class YusufComponentInteraction {
      * @throws IllegalStateException If {@link #getChannel()} is not a text channel
      */
     @NotNull
+    @Override
     public TextChannel getTextChannel() {
         return componentInteraction.getTextChannel();
     }
@@ -450,6 +466,7 @@ public class YusufComponentInteraction {
      * @throws IllegalStateException If {@link #getChannel()} is not a news channel
      */
     @NotNull
+    @Override
     public NewsChannel getNewsChannel() {
         return componentInteraction.getNewsChannel();
     }
@@ -463,6 +480,7 @@ public class YusufComponentInteraction {
      * @throws IllegalStateException If {@link #getChannel()} is not a voice channel
      */
     @NotNull
+    @Override
     public VoiceChannel getVoiceChannel() {
         return componentInteraction.getVoiceChannel();
     }
@@ -475,6 +493,7 @@ public class YusufComponentInteraction {
      * @return The {@link PrivateChannel}
      * @throws IllegalStateException If {@link #getChannel()} is not a private channel
      */
+    @Override
     @NotNull
     public PrivateChannel getPrivateChannel() {
         return componentInteraction.getPrivateChannel();
@@ -485,6 +504,7 @@ public class YusufComponentInteraction {
      *
      * @return the corresponding JDA instance
      */
+    @Override
     @NotNull
     public JDA getJDA() {
         return getInteraction().getJDA();
@@ -687,5 +707,15 @@ public class YusufComponentInteraction {
      */
     public long getIdLong() {
         return componentInteraction.getIdLong();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.componentInteraction.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.componentInteraction.hashCode();
     }
 }
