@@ -96,7 +96,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addCommand(@NotNull Command command) {
-        jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getYusufCommandData().getCommandData());
