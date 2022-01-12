@@ -11,9 +11,10 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
@@ -67,6 +68,11 @@ class ExampleCommand extends Command {
 
     @Override
     public void onButtonClick(@NotNull YusufButtonClickEvent yusufButtonClickEvent) {
+        // example
+    }
+
+    @Override
+    public void onSelectionMenu(@NotNull YusufSelectionMenuEvent yusufSelectionMenuEvent) {
         // example
     }
 }

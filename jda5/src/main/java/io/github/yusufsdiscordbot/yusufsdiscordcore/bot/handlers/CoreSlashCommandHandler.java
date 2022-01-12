@@ -16,7 +16,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -58,7 +58,6 @@ import java.util.Map;
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, Command> commandConnector = new HashMap<>();
-    private final JDA jda;
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -70,7 +69,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
-        this.jda = jda;
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
     }

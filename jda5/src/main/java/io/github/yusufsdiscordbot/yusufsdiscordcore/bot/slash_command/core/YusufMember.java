@@ -342,8 +342,8 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     }
 
 
-    public @Nonnull Set<Permission> getPermissions(@Nonnull YusufPermissionContainer channel) {
-        return this.member.getPermissions(channel.iPermissionContainer());
+    public @Nonnull Set<Permission> getPermissions(@Nonnull IPermissionContainer channel) {
+        return this.member.getPermissions(channel);
     }
 
     /**
@@ -360,9 +360,8 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
         return this.member.getPermissionsExplicit(channel);
     }
 
-    public @Nonnull Set<Permission> getPermissionsExplicit(
-            @Nonnull YusufPermissionContainer channel) {
-        return this.member.getPermissionsExplicit(channel.iPermissionContainer());
+    public @Nonnull Set<Permission> getPermissionsExplicit(@Nonnull IPermissionContainer channel) {
+        return this.member.getPermissionsExplicit(channel);
     }
 
     /**
@@ -395,14 +394,14 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
         return this.member.hasPermission(channel, permissions);
     }
 
-    public boolean hasPermission(@Nonnull YusufPermissionContainer channel,
+    public boolean hasPermission(@Nonnull IPermissionContainer channel,
             @Nonnull Permission... permissions) {
-        return this.member.hasPermission(channel.iPermissionContainer(), permissions);
+        return this.member.hasPermission(channel, permissions);
     }
 
-    public boolean hasPermission(@Nonnull YusufPermissionContainer channel,
+    public boolean hasPermission(@Nonnull IPermissionContainer channel,
             @Nonnull Collection<Permission> permissions) {
-        return this.member.hasPermission(channel.iPermissionContainer(), permissions);
+        return this.member.hasPermission(channel, permissions);
     }
 
     /**
@@ -424,8 +423,8 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
         return false;
     }
 
-    public boolean hasAccess(@Nonnull YusufPermissionContainer channel) {
-        return this.member.hasAccess(channel.iPermissionContainer());
+    public boolean hasAccess(@Nonnull IPermissionContainer channel) {
+        return this.member.hasAccess(channel);
     }
 
     /**
@@ -433,10 +432,6 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     public boolean hasPermission(@Nonnull Permission permission) {
         return this.member.hasPermission(permission);
-    }
-
-    public boolean canSync(@Nonnull YusufPermissionContainer channel) {
-        return this.member.canSync(channel.iPermissionContainer());
     }
 
     /**
@@ -612,6 +607,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     }
 
     @NotNull
+    @Override
     public OffsetDateTime getTimeCreated() {
         return this.member.getTimeCreated();
     }

@@ -11,24 +11,35 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CoreSlashCommandHandler;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
+import org.jetbrains.annotations.NotNull;
 
-import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Bot {
-    public static void main(String[] args) throws InterruptedException, LoginException {
-        JDA jda = JDABuilder.createDefault(ExampleConfig.getBotId())
-            .setActivity(Activity.watching("/example"))
-            .setStatus(OnlineStatus.ONLINE)
-            .build();
+public class ExampleCommandHandler extends CoreSlashCommandHandler {
+    /**
+     * Handles and registers the commands
+     *
+     * @param jda used to register global command
+     * @param guild used to register guild commands
+     */
+    public ExampleCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+        super(jda, guild);
 
-        jda.awaitReady()
-            .getGuildCache()
-            .forEach(guild -> jda.addEventListener(new ExampleCommandHandler(jda, guild)));
+        List<Command> handler = new ArrayList<>();
+
+        handler.add(new ExampleCommand());
+        queueAndRegisterCommands(handler);
+    }
+
+    @Override
+    protected long botOwnerId() {
+        return ExampleConfig.getOwnerId();
     }
 }

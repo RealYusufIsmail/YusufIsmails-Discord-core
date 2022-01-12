@@ -58,8 +58,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
 public record YusufGuild(Guild guild) {
@@ -388,7 +386,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public List<YusufMember> getMembers() {
-        return this.guild.getMembers().stream().map(YusufMember::new).collect(Collectors.toList());
+        return this.guild.getMembers().stream().map(YusufMember::new).toList();
     }
 
     @Nullable

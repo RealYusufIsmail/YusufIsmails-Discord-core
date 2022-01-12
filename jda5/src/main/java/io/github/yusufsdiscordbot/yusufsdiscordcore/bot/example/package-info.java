@@ -11,18 +11,8 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
-
-import io.github.yusufsdiscordbot.config.Config;
-import org.jetbrains.annotations.NotNull;
-
-enum ExampleConfig {
-    ;
-    static @NotNull Long getOwnerId() {
-        return Config.getLong("OWNER_ID");
-    }
-
-    static @NotNull String getBotId() {
-        return Config.getString("BOT_ID");
-    }
-}
+/**
+ * The example classes are here, so they can be used by a developer who needs an example of a
+ * command or the command handler.
+ */
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;

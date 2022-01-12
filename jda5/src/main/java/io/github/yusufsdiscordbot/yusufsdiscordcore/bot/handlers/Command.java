@@ -22,10 +22,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import javax.annotation.Nonnull;
@@ -111,14 +108,12 @@ public abstract class Command {
      *
      * @see ButtonClickEvent
      */
-    @SuppressWarnings("NoopMethodInAbstractClass")
     protected void onButtonClick(@Nonnull YusufButtonClickEvent yusufButtonClickEvent) {}
 
     /**
      * Used to create a selection menu for the user to interact with.
      *
-     * @param event The original selection menu event,
+     * @param yusufSelectionMenuEvent The original selection menu event,
      */
-    @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onSelectionMenu(@Nonnull YusufSelectionMenuEvent event) {}
+    protected void onSelectionMenu(@Nonnull YusufSelectionMenuEvent yusufSelectionMenuEvent) {}
 }
