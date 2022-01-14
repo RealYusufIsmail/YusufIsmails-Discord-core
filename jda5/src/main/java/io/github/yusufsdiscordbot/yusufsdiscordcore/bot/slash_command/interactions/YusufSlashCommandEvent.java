@@ -79,6 +79,7 @@ public class YusufSlashCommandEvent extends YusufCommandInteraction {
         return this.event.getOptionsByType(type);
     }
 
+    @Override
     public void replyQueuedMessage(@Nonnull String message) {
         this.event.reply(message).queue();
     }

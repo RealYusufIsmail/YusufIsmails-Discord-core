@@ -28,7 +28,7 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import javax.annotation.Nonnull;
 
 /**
- * Used when making a new command. Imports all the need methods into the new class.
+ * Used when making a new command. Imports all the need methods into a new class.
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
 public abstract class Command {
@@ -85,7 +85,7 @@ public abstract class Command {
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      */
-    public boolean checkIfIsGuildOnly() {
+    protected boolean checkIfIsGuildOnly() {
         return isGuildOnly;
     }
 
@@ -93,7 +93,7 @@ public abstract class Command {
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      */
-    public boolean isOwnerOnlyCommand() {
+    protected boolean isOwnerOnlyCommand() {
         return false;
     }
 

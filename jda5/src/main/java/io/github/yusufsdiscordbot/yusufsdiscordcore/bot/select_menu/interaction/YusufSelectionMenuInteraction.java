@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.interactions.components.selections.SelectOption;
 import net.dv8tion.jda.api.interactions.components.selections.SelectionMenu;
 import net.dv8tion.jda.api.interactions.components.selections.SelectionMenuInteraction;
 import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.utils.TimeUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -35,6 +36,7 @@ public class YusufSelectionMenuInteraction extends YusufComponentInteraction {
         return new YusufInteractionHook(interaction.getHook());
     }
 
+    @Override
     public YusufInteraction getYusufInteraction() {
         return getYusufInteractionHook().getInteraction();
     }

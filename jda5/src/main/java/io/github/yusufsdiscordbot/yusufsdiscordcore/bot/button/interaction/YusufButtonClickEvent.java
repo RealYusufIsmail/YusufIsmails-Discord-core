@@ -27,10 +27,13 @@ public class YusufButtonClickEvent extends YusufButtonInteraction {
         return event;
     }
 
+    @Override
     public YusufButtonInteraction getYusufButtonInteraction() {
         return new YusufButtonInteraction(event.getInteraction());
     }
 
+
+    @Override
     public YusufComponent getComponent() {
         return new YusufComponent(event.getComponent());
     }
@@ -39,6 +42,7 @@ public class YusufButtonClickEvent extends YusufButtonInteraction {
         return new YusufButton(event.getButton());
     }
 
+    @Override
     public void replyQueuedMessage(@Nonnull String message) {
         this.event.reply(message).queue();
     }
