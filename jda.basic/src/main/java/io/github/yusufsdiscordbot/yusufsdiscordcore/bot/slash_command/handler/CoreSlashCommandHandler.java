@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler;
 
+import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
@@ -41,6 +42,7 @@ import java.util.Map;
  * Commands are register by using addCommand with an example being <br>
  * addCommand(new TestCommand())
  */
+@Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, Command> commandConnector = new HashMap<>();
@@ -111,7 +113,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
-                && isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
+                || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
             onSlashCommandEvent(slashCommandEvent);
         }
     }
@@ -143,7 +145,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     private void onSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
-        Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+        var onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
         onSlashCommand.onSlashCommand(slashCommandEvent);
     }
 

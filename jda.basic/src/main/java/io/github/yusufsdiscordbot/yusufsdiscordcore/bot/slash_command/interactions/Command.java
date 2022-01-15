@@ -35,18 +35,15 @@ public abstract class Command extends ListenerAdapter {
     private final @NotNull String name;
     private final @NotNull String description;
     private final boolean isGuildOnly;
-    private final boolean isOwnerOnlyCommand;
     private final @NotNull CommandData commandData;
 
     /**
      * Were the command is registered.
      */
-    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly,
-            boolean isOwnerOnlyCommand) {
+    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly) {
         this.name = name;
         this.description = description;
         this.isGuildOnly = isGuildOnly;
-        this.isOwnerOnlyCommand = isOwnerOnlyCommand;
 
         commandData = new CommandData(name, description);
     }
@@ -54,6 +51,7 @@ public abstract class Command extends ListenerAdapter {
     /**
      * Were the command is created.
      */
+    @Override
     public abstract void onSlashCommand(SlashCommandEvent slashCommandEvent);
 
     /**
@@ -102,11 +100,20 @@ public abstract class Command extends ListenerAdapter {
     }
 
     /**
+     * Used to determine whether the command is Global(can be used on all servers) or whether it is
+     * only a Guild command(can only be used in specific servers)
+     */
+    public boolean isOwnerOnlyCommand() {
+        return false;
+    }
+
+    /**
      * Used to create buttons for the user to interact with.
      *
      * @see ButtonClickEvent
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
+    @Override
     public void onButtonClick(@NotNull ButtonClickEvent event) {}
 
     /**
@@ -115,13 +122,6 @@ public abstract class Command extends ListenerAdapter {
      * @param event The original selection menu event,
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
+    @Override
     public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
-
-    /**
-     * Used to determine whether the command is Global(can be used on all servers) or whether it is
-     * only a Guild command(can only be used in specific servers)
-     */
-    public boolean isOwnerOnlyCommand() {
-        return isOwnerOnlyCommand;
-    }
 }
