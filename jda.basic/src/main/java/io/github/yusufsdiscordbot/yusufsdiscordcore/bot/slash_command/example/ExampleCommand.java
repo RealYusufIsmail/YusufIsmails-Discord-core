@@ -22,7 +22,7 @@ class ExampleCommand extends Command {
      * Were the command is registered.
      */
     protected ExampleCommand() {
-        super("example", "This is an example", true, false);
+        super("example", "This is an example", true);
     }
 
     @Override
