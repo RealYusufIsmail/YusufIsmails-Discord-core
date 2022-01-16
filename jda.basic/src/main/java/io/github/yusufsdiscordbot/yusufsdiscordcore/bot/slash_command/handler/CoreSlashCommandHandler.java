@@ -112,41 +112,20 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent the event that triggered the slash command.
      */
     private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
-        if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
-                || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
-            onSlashCommandEvent(slashCommandEvent);
-        }
-    }
-
-    private boolean checkIfCommandNameIsNullOrRepeated(
-            @NotNull SlashCommandEvent slashCommandEvent) {
-        boolean cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
-        if (cmdName) {
-            return true;
-        }
-        logger.info("The command name is null please double check this command '{}",
-                slashCommandEvent.getCommandPath());
-        return false;
-    }
-
-    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
-            long botOwnerId) {
-        Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        if (onSlashCommand.isOwnerOnlyCommand()
-                && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
-            return true;
-        } else if (!onSlashCommand.isOwnerOnlyCommand()) {
-            return true;
+        if (this.commandConnector.containsKey(slashCommandEvent.getName())) {
+            Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+            if (onSlashCommand.isOwnerOnlyCommand()) {
+                if (slashCommandEvent.getUser().getIdLong() == botOwnerId()) {
+                    onSlashCommand.onSlashCommand(slashCommandEvent);
+                } else {
+                    logger
+                            .error("You are not the owner of the bot so you can not run this command");
+                }
+            }
+            onSlashCommand.onSlashCommand(slashCommandEvent);
         } else {
-            logger.error("You are not the owner of the bot so you can not run this command '{}'",
-                    slashCommandEvent.getCommandPath());
-            return false;
+            logger.error("The command you are trying to run does not exist");
         }
-    }
-
-    private void onSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
-        var onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        onSlashCommand.onSlashCommand(slashCommandEvent);
     }
 
     /**
