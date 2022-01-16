@@ -119,7 +119,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
                     onSlashCommand.onSlashCommand(slashCommandEvent);
                 } else {
                     logger
-                            .error("You are not the owner of the bot so you can not run this command");
+                        .error("You are not the owner of the bot so you can not run this command");
                 }
             }
             onSlashCommand.onSlashCommand(slashCommandEvent);
