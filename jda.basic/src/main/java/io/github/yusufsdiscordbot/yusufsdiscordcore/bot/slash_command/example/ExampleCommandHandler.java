@@ -38,7 +38,7 @@ public class ExampleCommandHandler extends CoreSlashCommandHandler {
     }
 
     @Override
-    protected long botOwnerId() {
+    protected Long botOwnerId() {
         return ExampleConfig.getOwnerId();
     }
 }

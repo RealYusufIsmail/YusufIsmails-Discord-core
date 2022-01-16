@@ -18,6 +18,8 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactio
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -25,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,9 +47,9 @@ import java.util.Map;
  */
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(
+            io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.CoreSlashCommandHandler.class);
     private final Map<String, Command> commandConnector = new HashMap<>();
-    protected JDA jda;
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -58,16 +61,10 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
      */
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
-        this.jda = jda;
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
     }
 
-    /**
-     *
-     * @return used to set the bot owner id.
-     */
-    protected abstract long botOwnerId();
 
     /**
      * Used to register the commands. when the developer types addCommand(new TestCommand()). The
@@ -83,7 +80,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        Global or Guild only.
      */
     private void addCommand(@NotNull Command command) {
-        jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -107,34 +103,56 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
 
     /**
-     * This method is called when the slash command is triggered.
-     *
-     * @param slashCommandEvent the event that triggered the slash command.
-     */
-    private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
-        if (this.commandConnector.containsKey(slashCommandEvent.getName())) {
-            Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-            if (onSlashCommand.isOwnerOnlyCommand()) {
-                if (slashCommandEvent.getUser().getIdLong() == botOwnerId()) {
-                    onSlashCommand.onSlashCommand(slashCommandEvent);
-                } else {
-                    logger
-                        .error("You are not the owner of the bot so you can not run this command");
-                }
-            }
-            onSlashCommand.onSlashCommand(slashCommandEvent);
-        } else {
-            logger.error("The command you are trying to run does not exist");
-        }
-    }
-
-    /**
      * Handles the slash command event.
      *
      * @param slashCommandEvent The original slash command event,
      */
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        this.runSlashCommandEvent(slashCommandEvent);
+        Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+        // check if owner is the same as the owner of the bot
+        if (onSlashCommand != null) {
+            if (onSlashCommand.isOwnerOnlyCommand()) {
+                if (slashCommandEvent.getMember().getUser().getIdLong() == botOwnerId()) {
+                    onSlashCommand.onSlashCommand(slashCommandEvent);
+                } else {
+                    logger.info(
+                            "The command is owner only and the user is not the owner of the bot.");
+                }
+            } else {
+                onSlashCommand.onSlashCommand(slashCommandEvent);
+            }
+        } else {
+            logger.info("The command '{}' is not registered.", slashCommandEvent.getName());
+        }
+    }
+
+    /**
+     * @return used to set the bot owner id.
+     */
+    protected abstract Long botOwnerId();
+
+    /**
+     * Handles the button click event.
+     *
+     * @param buttonClickEvent The original button click event,
+     */
+    @Override
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {
+        var onButtonClick = commandConnector.get(buttonClickEvent.getComponentId());
+        onButtonClick.onButtonClick(buttonClickEvent);
+    }
+
+    /**
+     * Handles the button click event.
+     *
+     * @param selectionMenuEvent The original select menu event,
+     */
+    @Override
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onSelectionMenu(@Nonnull SelectionMenuEvent selectionMenuEvent) {
+        var onSelectMenu = commandConnector.get(selectionMenuEvent.getComponentId());
+        onSelectMenu.onSelectionMenu(selectionMenuEvent);
     }
 }

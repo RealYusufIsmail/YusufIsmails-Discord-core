@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
  * Used when making a new command. Imports all the need methods into the new class.
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
-public abstract class Command extends ListenerAdapter {
+public abstract class Command {
     private final @NotNull String name;
     private final @NotNull String description;
     private final boolean isGuildOnly;
@@ -51,7 +51,6 @@ public abstract class Command extends ListenerAdapter {
     /**
      * Were the command is created.
      */
-    @Override
     public abstract void onSlashCommand(SlashCommandEvent slashCommandEvent);
 
     /**
@@ -113,7 +112,6 @@ public abstract class Command extends ListenerAdapter {
      * @see ButtonClickEvent
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
-    @Override
     public void onButtonClick(@NotNull ButtonClickEvent event) {}
 
     /**
@@ -122,6 +120,5 @@ public abstract class Command extends ListenerAdapter {
      * @param event The original selection menu event,
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
-    @Override
     public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
 }
