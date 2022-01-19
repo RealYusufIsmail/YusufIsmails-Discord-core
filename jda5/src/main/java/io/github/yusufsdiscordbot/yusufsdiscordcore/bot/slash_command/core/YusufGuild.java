@@ -2491,7 +2491,7 @@ public record YusufGuild(Guild guild) {
      *         </ul>
      */
     @NotNull
-    public Task<List<Member>> retrieveMembersByIds(@NotNull long... ids) {
+    public Task<List<Member>> retrieveMembersByIds(long... ids) {
         return this.guild.retrieveMembersByIds(ids);
     }
 
