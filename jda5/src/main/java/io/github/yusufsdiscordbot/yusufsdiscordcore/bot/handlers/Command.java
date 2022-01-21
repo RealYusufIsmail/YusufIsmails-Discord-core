@@ -35,14 +35,17 @@ public abstract class Command {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
+    private final @Nonnull CommandType commandType;
     private final @Nonnull YusufCommandData commandData;
 
     /**
      * Were the command is registered.
      */
-    protected Command(@Nonnull String name, @Nonnull String description, boolean isGuildOnly) {
+    protected Command(@Nonnull String name, @Nonnull String description,
+            @Nonnull CommandType commandType, boolean isGuildOnly) {
         this.name = name;
         this.description = description;
+        this.commandType = commandType;
         this.isGuildOnly = isGuildOnly;
 
         commandData = new YusufCommandData(name, description);
@@ -53,7 +56,7 @@ public abstract class Command {
      *
      * @return {@link YusufCommandData#getName()}
      */
-    public final @Nonnull String getName() {
+    protected final @Nonnull String getName() {
         return name;
     }
 
@@ -62,7 +65,7 @@ public abstract class Command {
      *
      * @return {@link YusufCommandData#getDescription()}
      */
-    public final @Nonnull String getDescription() {
+    protected final @Nonnull String getDescription() {
         return description;
     }
 
@@ -77,7 +80,7 @@ public abstract class Command {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public final @Nonnull YusufCommandData getYusufCommandData() {
+    protected final @Nonnull YusufCommandData getYusufCommandData() {
         return commandData;
     }
 
@@ -90,11 +93,22 @@ public abstract class Command {
     }
 
     /**
-     * Used to determine whether the command is Global(can be used on all servers) or whether it is
-     * only a Guild command(can only be used in specific servers)
+     * Used to determine what type of command it is.
+     * 
+     * @return Must be one of the following:
+     *         <ul>
+     *         <li>{@link CommandType#MODERATION}</li>
+     *         <li>{@link CommandType#FUN}</li>
+     *         <li>{@link CommandType#MUSIC}</li>
+     *         <li>{@link CommandType#UTILITY}</li>
+     *         <li>{@link CommandType#OWNER_ONLY}</li>
+     *         <li>{@link CommandType#DEVELOPER}</li>
+     *         <li>{@link CommandType#UNKNOWN}</li>
+     *         <li>{@link CommandType#EXAMPLE}</li>
+     *         </ul>
      */
-    protected boolean isOwnerOnlyCommand() {
-        return false;
+    protected CommandType getCommandType() {
+        return commandType;
     }
 
     /**

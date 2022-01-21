@@ -24,11 +24,6 @@ import java.util.Objects;
 @SuppressWarnings({"unused"})
 public record YusufInteractionHook(InteractionHook interactionHook) {
 
-    public InteractionHook getInteractionHook() {
-        return interactionHook;
-    }
-
-    @Contract(" -> new")
     public @NotNull YusufInteraction getInteraction() {
         return new YusufInteraction(interactionHook.getInteraction());
     }

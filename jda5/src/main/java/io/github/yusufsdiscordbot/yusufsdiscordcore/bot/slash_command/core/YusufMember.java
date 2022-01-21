@@ -32,6 +32,25 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Represents a Guild-specific User.
+ *
+ * <p>
+ * Contains all guild-specific information about a User. (Roles, Nickname, VoiceStatus etc.)
+ *
+ * @since 3.0
+ *
+ * @see YusufGuild#getMember(User)
+ * @see YusufGuild#getMemberCache()
+ * @see YusufGuild#getMemberById(long)
+ * @see YusufGuild#getMemberByTag(String)
+ * @see YusufGuild#getMemberByTag(String, String)
+ * @see YusufGuild#getMembersByEffectiveName(String, boolean)
+ * @see YusufGuild#getMembersByName(String, boolean)
+ * @see YusufGuild#getMembersByNickname(String, boolean)
+ * @see YusufGuild#getMembersWithRoles(Role...)
+ * @see YusufGuild#getMembers()
+ */
 @SuppressWarnings("unused")
 public record YusufMember(Member member) implements IMentionable, IPermissionHolder {
     /**
@@ -42,30 +61,6 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     @Contract(" -> new")
     public @Nonnull YusufUser getYusufUser() {
         return new YusufUser(this.member.getUser());
-    }
-
-    /**
-     * Represents a Guild-specific User.
-     *
-     * <p>
-     * Contains all guild-specific information about a User. (Roles, Nickname, VoiceStatus etc.)
-     *
-     * @since 3.0
-     *
-     * @see YusufGuild#getMember(User)
-     * @see YusufGuild#getMemberCache()
-     * @see YusufGuild#getMemberById(long)
-     * @see YusufGuild#getMemberByTag(String)
-     * @see YusufGuild#getMemberByTag(String, String)
-     * @see YusufGuild#getMembersByEffectiveName(String, boolean)
-     * @see YusufGuild#getMembersByName(String, boolean)
-     * @see YusufGuild#getMembersByNickname(String, boolean)
-     * @see YusufGuild#getMembersWithRoles(Role...)
-     * @see YusufGuild#getMembers()
-     */
-    @Nonnull
-    public Member getMember() {
-        return this.member;
     }
 
     /**
@@ -210,7 +205,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      * @see Member#canInteract(Member)
      */
     public boolean canInteract(@Nonnull YusufMember member) {
-        return this.member.canInteract(member.getMember());
+        return this.member.canInteract(member.member());
     }
 
     /**
@@ -587,7 +582,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeTimeout() {
-        return getGuild().removeTimeout(this.getMember());
+        return getGuild().removeTimeout(this.member());
     }
 
     @Nonnull

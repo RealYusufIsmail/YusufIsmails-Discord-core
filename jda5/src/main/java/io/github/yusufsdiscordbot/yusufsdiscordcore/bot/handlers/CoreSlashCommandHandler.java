@@ -102,7 +102,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-
     /**
      * Used to register the slash commands.
      * 
@@ -147,10 +146,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
             long botOwnerId) {
         Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        if (onSlashCommand.isOwnerOnlyCommand()
+        if (onSlashCommand.getCommandType() == CommandType.OWNER_ONLY
                 && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
-            return true;
-        } else if (!onSlashCommand.isOwnerOnlyCommand()) {
             return true;
         } else {
             logger.error("You are not the owner of the bot so you can not run this command '{}'",

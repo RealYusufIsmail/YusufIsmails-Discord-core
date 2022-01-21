@@ -37,9 +37,8 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
         return optionMapping.getName();
     }
 
-    // TODO: fix this issue
-    @Contract(" -> new")
-    public @NotNull YusufMember getAsMember() {
+    @NotNull
+    public YusufMember getAsMember() {
         return new YusufMember(optionMapping.getAsMember());
     }
 

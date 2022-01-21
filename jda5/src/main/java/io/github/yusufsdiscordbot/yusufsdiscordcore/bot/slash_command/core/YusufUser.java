@@ -30,14 +30,6 @@ import java.util.Set;
 public record YusufUser(User user) {
 
     /**
-     * @see User
-     */
-    public User getUser() {
-        return user;
-    }
-
-
-    /**
      * @see User#getAsTag()
      */
     public @Nonnull String getUserTag() {

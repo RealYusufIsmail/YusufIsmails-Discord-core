@@ -223,7 +223,7 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull YusufUser user) {
-        return this.guild.addMember(accessToken, user.getUser());
+        return this.guild.addMember(accessToken, user.user());
     }
 
     @CheckReturnValue
@@ -272,7 +272,7 @@ public record YusufGuild(Guild guild) {
 
     @Contract("_ -> new")
     public @Nonnull YusufMember getMember(@Nonnull YusufUser user) {
-        return new YusufMember(this.guild.getMember(user.getUser()));
+        return new YusufMember(this.guild.getMember(user.user()));
     }
 
     @Nullable
@@ -445,7 +445,7 @@ public record YusufGuild(Guild guild) {
 
     public @Nonnull AuditableRestAction<Void> changeUserNickname(@Nonnull YusufMember member,
             String nickname) {
-        return this.guild.modifyNickname(member.getMember(), nickname);
+        return this.guild.modifyNickname(member.member(), nickname);
     }
 
     // start of moderation commands
@@ -471,28 +471,28 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YusufUser user, String reason) {
-        return this.guild.unban(user.getUser()).reason(reason);
+        return this.guild.unban(user.user()).reason(reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YusufUser user) {
-        return this.guild.unban(user.getUser());
+        return this.guild.unban(user.user());
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member) {
-        return this.guild.ban(member.getMember(), 0);
+        return this.guild.ban(member.member(), 0);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member, String reason) {
-        return this.guild.ban(member.getMember(), 0, reason);
+        return this.guild.ban(member.member(), 0, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member, int days,
             String reason) {
-        return this.guild.ban(member.getMember(), days, reason);
+        return this.guild.ban(member.member(), days, reason);
     }
 
     @CheckReturnValue
@@ -663,28 +663,28 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user) {
-        return this.guild.ban(user.getUser(), 0);
+        return this.guild.ban(user.user(), 0);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user, String reason) {
-        return this.guild.ban(user.getUser(), 0, reason);
+        return this.guild.ban(user.user(), 0, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user, int days,
             String reason) {
-        return this.guild.ban(user.getUser(), days, reason);
+        return this.guild.ban(user.user(), days, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(@Nonnull YusufMember member) {
-        return this.guild.kick(member.getMember(), null);
+        return this.guild.kick(member.member(), null);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(@Nonnull YusufMember member, String reason) {
-        return this.guild.kick(member.getMember(), reason);
+        return this.guild.kick(member.member(), reason);
     }
 
     @CheckReturnValue
@@ -744,7 +744,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> mute(@Nonnull YusufMember member, Boolean mute,
             String reason) {
-        return this.guild.mute(member.getMember(), mute).reason(reason);
+        return this.guild.mute(member.member(), mute).reason(reason);
     }
 
     @CheckReturnValue
@@ -756,7 +756,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
             @Nonnull Role role) {
-        return this.guild.addRoleToMember(member.getMember(), role);
+        return this.guild.addRoleToMember(member.member(), role);
     }
 
     @CheckReturnValue
@@ -779,7 +779,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
             @Nonnull Role role) {
-        return this.guild.removeRoleFromMember(member.getMember(), role);
+        return this.guild.removeRoleFromMember(member.member(), role);
     }
 
     @CheckReturnValue
@@ -866,7 +866,7 @@ public record YusufGuild(Guild guild) {
 
     @Nonnull
     public AuditableRestAction<Void> transferOwnership(@Nonnull YusufMember newOwner) {
-        return this.guild.transferOwnership(newOwner.getMember());
+        return this.guild.transferOwnership(newOwner.member());
     }
 
 
@@ -892,21 +892,21 @@ public record YusufGuild(Guild guild) {
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, long amount,
             @Nonnull TimeUnit unit) {
-        return this.guild.timeoutFor(member.getMember(), amount, unit);
+        return this.guild.timeoutFor(member.member(), amount, unit);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
             @Nonnull Duration duration) {
-        return this.guild.timeoutFor(member.getMember(), duration);
+        return this.guild.timeoutFor(member.member(), duration);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
             @Nonnull TemporalAccessor temporal) {
-        return this.guild.timeoutUntil(member.getMember(), temporal);
+        return this.guild.timeoutUntil(member.member(), temporal);
     }
 
     @CheckReturnValue
@@ -1034,7 +1034,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public @NotNull AuditableRestAction<Void> removeTimeout(@Nonnull YusufMember member) {
-        return this.guild.removeTimeout(member.getMember());
+        return this.guild.removeTimeout(member.member());
     }
 
     public @NotNull AuditableRestAction<Void> removeTimeoutById(long userId) {
@@ -1808,49 +1808,11 @@ public record YusufGuild(Guild guild) {
         return this.guild.retrieveEmoteById(id);
     }
 
-    /**
-     * Retrieves a listed emote together with its respective creator.
-     *
-     * <p>
-     * Note that {@link ListedEmote#getUser()} is only available if the currently logged in account
-     * has {@link Permission#MANAGE_EMOTES_AND_STICKERS Permission.MANAGE_EMOTES_AND_STICKERS}.
-     *
-     * <p>
-     * Possible {@link ErrorResponse ErrorResponses} caused by the returned {@link RestAction
-     * RestAction} include the following:
-     * <ul>
-     * <li>{@link ErrorResponse#UNKNOWN_EMOJI UNKNOWN_EMOJI} <br>
-     * If the provided id does not correspond to an emote in this guild</li>
-     * </ul>
-     *
-     * @param id The emote id
-     * @return {@link RestAction RestAction} - Type: {@link ListedEmote ListedEmote}
-     * @since 3.8.0
-     */
     @NotNull
     public RestAction<ListedEmote> retrieveEmoteById(long id) {
         return this.guild.retrieveEmoteById(id);
     }
 
-    /**
-     * Retrieves a listed emote together with its respective creator.
-     *
-     * <p>
-     * Note that {@link ListedEmote#getUser()} is only available if the currently logged in account
-     * has {@link Permission#MANAGE_EMOTES_AND_STICKERS Permission.MANAGE_EMOTES_AND_STICKERS}.
-     *
-     * <p>
-     * Possible {@link ErrorResponse ErrorResponses} caused by the returned {@link RestAction
-     * RestAction} include the following:
-     * <ul>
-     * <li>{@link ErrorResponse#UNKNOWN_EMOJI UNKNOWN_EMOJI} <br>
-     * If the provided emote does not correspond to an emote in this guild anymore</li>
-     * </ul>
-     *
-     * @param emote The emote
-     * @return {@link RestAction RestAction} - Type: {@link ListedEmote ListedEmote}
-     * @since 3.8.0
-     */
     @NotNull
     public RestAction<ListedEmote> retrieveEmote(@NotNull Emote emote) {
         return this.guild.retrieveEmote(emote);
@@ -1920,6 +1882,34 @@ public record YusufGuild(Guild guild) {
     @NotNull
     public RestAction<Guild.Ban> retrieveBan(@NotNull User bannedUser) {
         return this.guild.retrieveBan(bannedUser);
+    }
+
+    /**
+     * Retrieves a {@link Guild.Ban Ban} of the provided {@link YusufUser User} <br>
+     * If you wish to ban or unban a user, use either {@link #ban(YusufUser, int) ban(User, int)} or
+     * {@link #unBan(YusufUser) unban(User)}.
+     *
+     * <p>
+     * Possible {@link ErrorResponse ErrorResponses} caused by the returned {@link RestAction
+     * RestAction} include the following:
+     * <ul>
+     * <li>{@link ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS} <br>
+     * The ban list cannot be fetched due to a permission discrepancy</li>
+     *
+     * <li>{@link ErrorResponse#UNKNOWN_BAN UNKNOWN_BAN} <br>
+     * Either the ban was removed before finishing the task or it did not exist in the first
+     * place</li>
+     * </ul>
+     *
+     * @param bannedUser the banned user
+     * @return {@link RestAction RestAction} - Type: {@link Guild.Ban Ban} <br>
+     *         An unmodifiable ban object for the user banned from this guild
+     * @throws InsufficientPermissionException If the logged in account does not have the
+     *         {@link Permission#BAN_MEMBERS} permission.
+     */
+    @NotNull
+    public RestAction<Guild.Ban> retrieveBan(@NotNull YusufUser bannedUser) {
+        return this.guild.retrieveBan(bannedUser.user());
     }
 
     @Nonnull
@@ -2131,6 +2121,7 @@ public record YusufGuild(Guild guild) {
         return this.guild.loadMembers(callback);
     }
 
+
     /**
      * Load the member for the specified user. <br>
      * If the member is already loaded it will be retrieved from {@link #getMemberById(long)} and
@@ -2164,6 +2155,11 @@ public record YusufGuild(Guild guild) {
     @NotNull
     public RestAction<Member> retrieveMember(@NotNull User user) {
         return this.guild.retrieveMember(user);
+    }
+
+    @NotNull
+    public RestAction<Member> retrieveMember(@NotNull YusufUser user) {
+        return this.guild.retrieveMember(user.user());
     }
 
     /**
@@ -2726,7 +2722,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     @Nonnull
     AuditableRestAction<Void> mute(@Nonnull YusufMember member, boolean mute) {
-        return this.guild.mute(member.getMember(), mute);
+        return this.guild.mute(member.member(), mute);
     }
 
     /**
@@ -2744,7 +2740,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     @Nonnull
     AuditableRestAction<Void> deafen(@Nonnull YusufMember member, boolean deafen) {
-        return this.guild.deafen(member.getMember(), deafen);
+        return this.guild.deafen(member.member(), deafen);
     }
 
     /**
@@ -2809,7 +2805,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public boolean isMember(@Nonnull YusufUser user) {
-        return this.guild.isMember(user.getUser());
+        return this.guild.isMember(user.user());
     }
 
     public @Nonnull ChannelAction<TextChannel> createTextChannel(@Nonnull String name) {

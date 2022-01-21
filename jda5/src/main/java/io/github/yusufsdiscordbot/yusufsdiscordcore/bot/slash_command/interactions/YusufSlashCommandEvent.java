@@ -47,10 +47,12 @@ public class YusufSlashCommandEvent extends YusufCommandInteraction {
     }
 
     @Nonnull
+    @Override
     public MessageChannel getMessageChannel() {
         return this.event.getChannel();
     }
 
+    @Override
     @Nonnull
     public String getName() {
         return this.event.getName();
@@ -60,12 +62,14 @@ public class YusufSlashCommandEvent extends YusufCommandInteraction {
         return this.event.getCommandString();
     }
 
+    @Override
     @Nullable
     public String getSubcommandName() {
         return this.event.getSubcommandName();
     }
 
     @Nullable
+    @Override
     public String getSubcommandGroup() {
         return this.event.getSubcommandGroup();
     }

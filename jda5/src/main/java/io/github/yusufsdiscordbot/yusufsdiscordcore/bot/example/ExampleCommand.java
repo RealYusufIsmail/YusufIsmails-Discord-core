@@ -14,6 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
@@ -32,7 +33,7 @@ class ExampleCommand extends Command {
      * Were the command is registered.
      */
     protected ExampleCommand() {
-        super("example", "This is an example", true);
+        super("example", "This is an example", CommandType.EXAMPLE, true);
 
         getYusufCommandData().addOptionData(
                 new OptionData(OptionType.STRING, EXAMPLE_OPTION, "This is an example option")

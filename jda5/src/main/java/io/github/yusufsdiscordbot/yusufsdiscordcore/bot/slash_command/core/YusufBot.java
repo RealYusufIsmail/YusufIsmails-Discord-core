@@ -32,10 +32,6 @@ import java.util.Set;
 @SuppressWarnings("unused")
 public record YusufBot(SelfUser user) {
 
-    public SelfUser getSelfUser() {
-        return this.user;
-    }
-
     /**
      * @return the id of the bot.
      */
