@@ -35,18 +35,18 @@ public abstract class Command {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
-    private final @Nonnull CommandType commandType;
+    private final @Nonnull CommandType[] commandType;
     private final @Nonnull YusufCommandData commandData;
 
     /**
      * Were the command is registered.
      */
-    protected Command(@Nonnull String name, @Nonnull String description,
-            @Nonnull CommandType commandType, boolean isGuildOnly) {
+    protected Command(@Nonnull String name, @Nonnull String description, boolean isGuildOnly,
+            @Nonnull CommandType... commandType) {
         this.name = name;
         this.description = description;
-        this.commandType = commandType;
         this.isGuildOnly = isGuildOnly;
+        this.commandType = commandType;
 
         commandData = new YusufCommandData(name, description);
     }
@@ -102,13 +102,16 @@ public abstract class Command {
      *         <li>{@link CommandType#MUSIC}</li>
      *         <li>{@link CommandType#UTILITY}</li>
      *         <li>{@link CommandType#OWNER_ONLY}</li>
-     *         <li>{@link CommandType#DEVELOPER}</li>
-     *         <li>{@link CommandType#UNKNOWN}</li>
+     *         <li>{@link CommandType#DEVELOPMENT}</li>
+     *         <li>{@link CommandType#INFO}</li>
+     *         <li>{@link CommandType#SETUP}</li>
+     *         <li>{@link CommandType#SUPPORT}</li>
      *         <li>{@link CommandType#EXAMPLE}</li>
+     *         <li>{@link CommandType#UNKNOWN}</li>
      *         </ul>
      */
     protected CommandType getCommandType() {
-        return commandType;
+        return commandType[0];
     }
 
     /**

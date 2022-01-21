@@ -33,7 +33,7 @@ class ExampleCommand extends Command {
      * Were the command is registered.
      */
     protected ExampleCommand() {
-        super("example", "This is an example", CommandType.EXAMPLE, true);
+        super("example", "This is an example", true, CommandType.EXAMPLE);
 
         getYusufCommandData().addOptionData(
                 new OptionData(OptionType.STRING, EXAMPLE_OPTION, "This is an example option")

@@ -1,5 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
+@SuppressWarnings("unused")
 public enum CommandType {
     /**
      * This command is a moderation command.
@@ -14,7 +15,7 @@ public enum CommandType {
      */
     UTILITY("utility"),
     /**
-     * This command is a utility command.
+     * This command is a music command.
      */
     MUSIC("music"),
     /**
@@ -22,9 +23,21 @@ public enum CommandType {
      */
     OWNER_ONLY("owner_only"),
     /**
+     * This command is used to provide info.
+     */
+    INFO("info"),
+    /**
+     * This command is used to provide support
+     */
+    SUPPORT("support"),
+    /**
+     * This command is used to set up something
+     */
+    SETUP("set_up"),
+    /**
      * This command is under development.
      */
-    DEVELOPER("developer"),
+    DEVELOPMENT("development"),
     /**
      * This command is an example command.
      */
