@@ -14,6 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
 import net.dv8tion.jda.api.interactions.commands.CommandInteraction;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 @SuppressWarnings({"unused", "java:S6206"})
@@ -111,6 +113,20 @@ public class YusufCommandInteraction extends YusufInteraction {
     }
 
     /**
+     * Finds the first option with the specified name.
+     *
+     * @param name The option name
+     *
+     * @throws IllegalArgumentException If the name is null
+     *
+     * @return The option with the provided name, or null if that option is not provided
+     */
+    @Nullable
+    public YusufOptionMapping getOption(@Nonnull String name) {
+        return new YusufOptionMapping(interaction.getOption(name));
+    }
+
+    /**
      * The options provided by the user when this command was executed. <br>
      * Each option has a name and value.
      *
@@ -119,6 +135,20 @@ public class YusufCommandInteraction extends YusufInteraction {
     @NotNull
     public List<OptionMapping> getOptions() {
         return interaction.getOptions();
+    }
+
+    /**
+     * Gets the slash command String for this slash command. <br>
+     * This is similar to the String you see when clicking the interaction name in the client.
+     *
+     * <p>
+     * Example return for an echo command: {@code /say echo phrase: Say this}
+     *
+     * @return The command String for this slash command
+     */
+    @Nonnull
+    public String getCommandString() {
+        return this.interaction.getCommandString();
     }
 
     /**

@@ -15,12 +15,9 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interacti
 
 import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
-import org.jetbrains.annotations.Contract;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +36,7 @@ public class YusufSlashCommandEvent extends YusufCommandInteraction {
     }
 
     public SlashCommandEvent getSlashCommandEvent() {
-        return this.event;
+        return event;
     }
 
     public Command getCommand() {
@@ -49,60 +46,64 @@ public class YusufSlashCommandEvent extends YusufCommandInteraction {
     @Nonnull
     @Override
     public MessageChannel getMessageChannel() {
-        return this.event.getChannel();
+        return event.getChannel();
     }
 
-    @Override
     @Nonnull
-    public String getName() {
-        return this.event.getName();
-    }
-
-    public @Nonnull String getCommandString() {
-        return this.event.getCommandString();
-    }
-
     @Override
+    public String getName() {
+        return event.getName();
+    }
+
     @Nullable
+    @Override
     public String getSubcommandName() {
-        return this.event.getSubcommandName();
+        return event.getSubcommandName();
     }
 
     @Nullable
     @Override
     public String getSubcommandGroup() {
-        return this.event.getSubcommandGroup();
+        return event.getSubcommandGroup();
     }
 
-    @Contract("_ -> new")
-    public @Nonnull YusufOptionMapping getOption(@Nonnull String option) {
-        return new YusufOptionMapping(this.event.getOption(option));
+    @Override
+    public long getCommandIdLong() {
+        return event.getCommandIdLong();
     }
 
-    public @Nonnull List<OptionMapping> getOptionByType(@Nonnull OptionType type) {
-        return this.event.getOptionsByType(type);
+    @Nonnull
+    @Override
+    public List<OptionMapping> getOptions() {
+        return event.getOptions();
+    }
+
+    @Nonnull
+    @Override
+    public String getCommandString() {
+        return event.getCommandString();
     }
 
     @Override
     public void replyQueuedMessage(@Nonnull String message) {
-        this.event.reply(message).queue();
+        event.reply(message).queue();
     }
 
     /**
      * replays as an ephemeral message.
      */
     public void replyQueuedEphemeral(@Nonnull String message) {
-        this.event.reply(message).setEphemeral(true).queue();
+        event.reply(message).setEphemeral(true).queue();
     }
 
     /**
      * replays as an embed message.
      */
     public void replyQueuedEmbed(@Nonnull MessageEmbed messageEmbed) {
-        this.event.replyEmbeds(messageEmbed).queue();
+        event.replyEmbeds(messageEmbed).queue();
     }
 
     public void replyQueuedEphemeralEmbed(@Nonnull MessageEmbed messageEmbed) {
-        this.event.replyEmbeds(messageEmbed).setEphemeral(true).queue();
+        event.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
 }

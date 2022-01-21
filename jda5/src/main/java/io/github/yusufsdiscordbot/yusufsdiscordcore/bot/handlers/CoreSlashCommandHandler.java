@@ -150,6 +150,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
                 && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
             return true;
         } else {
+            slashCommandEvent.reply("This command is only available for the bot owner")
+                .setEphemeral(true)
+                .queue();
             logger.error("You are not the owner of the bot so you can not run this command '{}'",
                     slashCommandEvent.getCommandPath());
             return false;
