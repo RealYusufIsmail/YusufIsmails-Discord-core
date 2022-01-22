@@ -17,7 +17,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
 import net.dv8tion.jda.api.interactions.commands.CommandInteraction;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -113,6 +113,16 @@ public class YusufCommandInteraction extends YusufInteraction {
     }
 
     /**
+     * The command id
+     *
+     * @return The command id
+     */
+    @NotNull
+    public String getCommandId() {
+        return interaction.getCommandId();
+    }
+
+    /**
      * Finds the first option with the specified name.
      *
      * @param name The option name
@@ -123,7 +133,7 @@ public class YusufCommandInteraction extends YusufInteraction {
      */
     @Nullable
     public YusufOptionMapping getOption(@Nonnull String name) {
-        return new YusufOptionMapping(interaction.getOption(name));
+        return null;
     }
 
     /**
@@ -132,9 +142,37 @@ public class YusufCommandInteraction extends YusufInteraction {
      *
      * @return The options passed for this command
      */
-    @NotNull
-    public List<OptionMapping> getOptions() {
-        return interaction.getOptions();
+    @Nonnull
+    public List<YusufOptionMapping> getOptions() {
+        return interaction.getOptions().stream().map(YusufOptionMapping::new).toList();
+    }
+
+    /**
+     * Gets all options for the specified name.
+     *
+     * @param name The option name
+     * @return The list of options
+     * @throws IllegalArgumentException If the provided name is null
+     * @see #getOption(String)
+     */
+    @Nonnull
+    public List<YusufOptionMapping> getOptionsByName(@NotNull String name) {
+        return this.interaction.getOptionsByName(name)
+            .stream()
+            .map(YusufOptionMapping::new)
+            .toList();
+    }
+
+    /**
+     * Gets all options for the specified type.
+     *
+     * @param type The option type
+     * @return The list of options
+     * @throws IllegalArgumentException If the provided type is null
+     */
+    @Nonnull
+    public List<YusufOptionMapping> getOptionsByType(@NotNull OptionType type) {
+        return interaction.getOptionsByType(type).stream().map(YusufOptionMapping::new).toList();
     }
 
     /**

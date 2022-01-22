@@ -15,6 +15,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interacti
 
 import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -74,8 +75,8 @@ public class YusufSlashCommandEvent extends YusufCommandInteraction {
 
     @Nonnull
     @Override
-    public List<OptionMapping> getOptions() {
-        return event.getOptions();
+    public List<YusufOptionMapping> getOptions() {
+        return event.getOptions().stream().map(YusufOptionMapping::new).toList();
     }
 
     @Nonnull
