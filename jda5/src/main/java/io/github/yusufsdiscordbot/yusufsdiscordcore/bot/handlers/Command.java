@@ -56,7 +56,7 @@ public abstract class Command {
      *
      * @return {@link YusufCommandData#getName()}
      */
-    protected final @Nonnull String getName() {
+    public final @Nonnull String getName() {
         return name;
     }
 
@@ -65,7 +65,7 @@ public abstract class Command {
      *
      * @return {@link YusufCommandData#getDescription()}
      */
-    protected final @Nonnull String getDescription() {
+    public final @Nonnull String getDescription() {
         return description;
     }
 

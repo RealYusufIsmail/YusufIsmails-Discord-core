@@ -30,9 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * For register the commands make sure to set it to awaitReady as seen here
@@ -197,5 +195,16 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     public void onSelectionMenu(@Nonnull SelectionMenuEvent selectionMenuEvent) {
         var onSelectMenu = commandConnector.get(selectionMenuEvent.getComponentId());
         onSelectMenu.onSelectionMenu(new YusufSelectionMenuEvent(onSelectMenu, selectionMenuEvent));
+    }
+
+    /**
+     * Gets the commands as a list.
+     * 
+     * @return retrieves the commands as a list.
+     */
+    public List<Command> getCommands() {
+        return commandConnector.values()
+            .stream()
+            .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
 }

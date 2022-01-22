@@ -17,6 +17,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
 import net.dv8tion.jda.api.interactions.commands.CommandInteraction;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -133,7 +134,8 @@ public class YusufCommandInteraction extends YusufInteraction {
      */
     @Nullable
     public YusufOptionMapping getOption(@Nonnull String name) {
-        return null;
+        List<YusufOptionMapping> options = getOptionsByName(name);
+        return options.isEmpty() ? null : options.get(0);
     }
 
     /**
