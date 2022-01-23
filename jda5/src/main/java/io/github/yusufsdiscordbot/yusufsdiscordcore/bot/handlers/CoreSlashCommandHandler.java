@@ -173,6 +173,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
     }
+
     /**
      * Gets the commands as a list.
      *
