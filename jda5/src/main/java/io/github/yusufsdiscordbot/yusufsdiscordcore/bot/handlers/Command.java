@@ -21,6 +21,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_op
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
 import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
@@ -30,7 +31,7 @@ import javax.annotation.Nonnull;
  * Used when making a new command. Imports all the need methods into a new class.
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
-public abstract class Command {
+public abstract class Command extends ListenerAdapter {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
@@ -126,6 +127,7 @@ public abstract class Command {
      * @param buttonClickEvent the button click event.
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
+    @Override
     public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {}
 
 
@@ -135,5 +137,6 @@ public abstract class Command {
      * @param SelectionMenuEvent The original selection menu event,
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
+    @Override
     public void onSelectionMenu(@Nonnull SelectionMenuEvent SelectionMenuEvent) {}
 }

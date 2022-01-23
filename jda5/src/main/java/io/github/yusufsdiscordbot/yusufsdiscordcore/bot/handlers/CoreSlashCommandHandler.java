@@ -54,6 +54,7 @@ import java.util.*;
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, Command> commandConnector = new HashMap<>();
+    private final JDA jda;
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -67,6 +68,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
+        this.jda = jda;
     }
 
     /**
@@ -90,6 +92,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addCommand(@NotNull Command command) {
+        jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getYusufCommandData().getCommandData());
@@ -161,16 +164,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
             .onSlashCommand(new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
     }
 
-    private void buttonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
-        var onButtonClick = this.commandConnector.get(buttonClickEvent.getComponentId());
-        onButtonClick.onButtonClick(buttonClickEvent);
-    }
-
-    private void onSelectionMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
-        var onSelectionMenu = this.commandConnector.get(selectionMenuEvent.getComponentId());
-        onSelectionMenu.onSelectionMenu(selectionMenuEvent);
-    }
-
     /**
      * Handles the slash command event.
      *
@@ -180,28 +173,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
     }
-
-
-    /**
-     * Handles the button click event.
-     *
-     * @param buttonClickEvent The original button click event,
-     */
-    @Override
-    public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {
-        buttonClickEvent(buttonClickEvent);
-    }
-
-    /**
-     * Handles the button click event.
-     *
-     * @param selectionMenuEvent The original select menu event,
-     */
-    @Override
-    public void onSelectionMenu(@Nonnull SelectionMenuEvent selectionMenuEvent) {
-        onSelectionMenuEvent(selectionMenuEvent);
-    }
-
     /**
      * Gets the commands as a list.
      *
