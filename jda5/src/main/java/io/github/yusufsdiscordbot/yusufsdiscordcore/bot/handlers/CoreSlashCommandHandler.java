@@ -14,8 +14,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
@@ -102,7 +100,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     /**
      * Used to register the slash commands.
-     * 
+     *
      * @param commands The slash commands
      */
     public void queueAndRegisterCommands(@NotNull Collection<Command> commands) {
@@ -163,6 +161,16 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
             .onSlashCommand(new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
     }
 
+    private void buttonClickEvent(@NotNull ButtonClickEvent buttonClickEvent) {
+        var onButtonClick = this.commandConnector.get(buttonClickEvent.getComponentId());
+        onButtonClick.onButtonClick(buttonClickEvent);
+    }
+
+    private void onSelectionMenuEvent(@NotNull SelectionMenuEvent selectionMenuEvent) {
+        var onSelectionMenu = this.commandConnector.get(selectionMenuEvent.getComponentId());
+        onSelectionMenu.onSelectionMenu(selectionMenuEvent);
+    }
+
     /**
      * Handles the slash command event.
      *
@@ -173,16 +181,15 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         this.runSlashCommandEvent(slashCommandEvent);
     }
 
+
     /**
      * Handles the button click event.
      *
      * @param buttonClickEvent The original button click event,
      */
     @Override
-    @SuppressWarnings("NoopMethodInAbstractClass")
     public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {
-        var onButtonClick = commandConnector.get(buttonClickEvent.getComponentId());
-        onButtonClick.onButtonClick(new YusufButtonClickEvent(onButtonClick, buttonClickEvent));
+        buttonClickEvent(buttonClickEvent);
     }
 
     /**
@@ -191,20 +198,17 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param selectionMenuEvent The original select menu event,
      */
     @Override
-    @SuppressWarnings("NoopMethodInAbstractClass")
     public void onSelectionMenu(@Nonnull SelectionMenuEvent selectionMenuEvent) {
-        var onSelectMenu = commandConnector.get(selectionMenuEvent.getComponentId());
-        onSelectMenu.onSelectionMenu(new YusufSelectionMenuEvent(onSelectMenu, selectionMenuEvent));
+        onSelectionMenuEvent(selectionMenuEvent);
     }
 
     /**
      * Gets the commands as a list.
-     * 
+     *
      * @return retrieves the commands as a list.
      */
+    @NotNull
     public List<Command> getCommands() {
-        return commandConnector.values()
-            .stream()
-            .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+        return new ArrayList<>(this.commandConnector.values());
     }
 }

@@ -13,13 +13,13 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
@@ -68,12 +68,11 @@ class ExampleCommand extends Command {
     }
 
     @Override
-    public void onButtonClick(@NotNull YusufButtonClickEvent yusufButtonClickEvent) {
-        // example
-    }
+    // example button click event
+    public void onButtonClick(@NotNull ButtonClickEvent event) {}
 
     @Override
-    public void onSelectionMenu(@NotNull YusufSelectionMenuEvent yusufSelectionMenuEvent) {
+    public void onSelectionMenu(@NotNull SelectionMenuEvent yusufSelectionMenuEvent) {
         // example
     }
 }

@@ -16,8 +16,8 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interacti
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YusufInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufBot;
+import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.commands.CommandInteraction;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -205,12 +205,7 @@ public class YusufCommandInteraction extends YusufInteraction {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return this.interaction.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return this.interaction.hashCode();
+    public Interaction getInteraction() {
+        return interaction;
     }
 }

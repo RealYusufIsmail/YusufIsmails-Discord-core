@@ -17,11 +17,10 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.button.interaction.YusufButtonClickEvent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.select_menu.interaction.YusufSelectionMenuEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
+import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
@@ -110,7 +109,7 @@ public abstract class Command {
      *         <li>{@link CommandType#UNKNOWN}</li>
      *         </ul>
      */
-    protected CommandType getCommandType() {
+    public CommandType getCommandType() {
         return commandType[0];
     }
 
@@ -123,14 +122,18 @@ public abstract class Command {
     /**
      * Used to create buttons for the user to interact with.
      *
-     * @see ButtonClickEvent
+     * @see ButtonClickEvent The original event that was used to create the button.
+     * @param buttonClickEvent the button click event.
      */
-    protected void onButtonClick(@Nonnull YusufButtonClickEvent yusufButtonClickEvent) {}
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {}
+
 
     /**
      * Used to create a selection menu for the user to interact with.
      *
-     * @param yusufSelectionMenuEvent The original selection menu event,
+     * @param SelectionMenuEvent The original selection menu event,
      */
-    protected void onSelectionMenu(@Nonnull YusufSelectionMenuEvent yusufSelectionMenuEvent) {}
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    public void onSelectionMenu(@Nonnull SelectionMenuEvent SelectionMenuEvent) {}
 }
