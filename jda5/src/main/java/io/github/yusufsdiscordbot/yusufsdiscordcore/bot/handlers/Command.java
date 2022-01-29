@@ -19,8 +19,8 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 import io.github.yusufsdiscordbot.annotations.Credits;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -123,12 +123,12 @@ public abstract class Command extends ListenerAdapter {
     /**
      * Used to create buttons for the user to interact with.
      *
-     * @see ButtonClickEvent The original event that was used to create the button.
+     * @see ButtonInteractionEvent The original event that was used to create the button.
      * @param buttonClickEvent the button click event.
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
     @Override
-    public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {}
+    public void onButtonInteraction(@Nonnull ButtonInteractionEvent buttonClickEvent) {}
 
 
     /**
@@ -138,5 +138,5 @@ public abstract class Command extends ListenerAdapter {
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
     @Override
-    public void onSelectionMenu(@Nonnull SelectionMenuEvent SelectionMenuEvent) {}
+    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent SelectionMenuEvent) {}
 }

@@ -18,16 +18,13 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHa
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -124,7 +121,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @param slashCommandEvent the event that triggered the slash command.
      */
-    private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
+    private void runSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
                 || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
             onSlashCommandEvent(slashCommandEvent);
@@ -132,7 +129,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     private boolean checkIfCommandNameIsNullOrRepeated(
-            @NotNull SlashCommandEvent slashCommandEvent) {
+            @NotNull SlashCommandInteractionEvent slashCommandEvent) {
         boolean cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
         if (cmdName) {
             return true;
@@ -142,7 +139,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         return false;
     }
 
-    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
+    private boolean isCommandOwnerOnly(@NotNull SlashCommandInteractionEvent slashCommandEvent,
             long botOwnerId) {
         Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
         if (onSlashCommand.getCommandType() == CommandType.OWNER_ONLY
@@ -158,7 +155,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    private void onSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
+    private void onSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
         onSlashCommand
             .onSlashCommand(new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
@@ -170,7 +167,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent The original slash command event,
      */
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
     }
 

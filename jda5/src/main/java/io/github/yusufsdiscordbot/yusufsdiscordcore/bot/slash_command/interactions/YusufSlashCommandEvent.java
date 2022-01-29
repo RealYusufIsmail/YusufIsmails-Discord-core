@@ -17,8 +17,7 @@ import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufOptionMapping;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,15 +27,15 @@ import java.util.List;
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public class YusufSlashCommandEvent extends YusufCommandInteraction {
     private final Command slashCommand;
-    private final SlashCommandEvent event;
+    private final SlashCommandInteractionEvent event;
 
-    public YusufSlashCommandEvent(Command slashCommand, SlashCommandEvent event) {
+    public YusufSlashCommandEvent(Command slashCommand, SlashCommandInteractionEvent event) {
         super(event);
         this.slashCommand = slashCommand;
         this.event = event;
     }
 
-    public SlashCommandEvent getSlashCommandEvent() {
+    public SlashCommandInteractionEvent getSlashCommandEvent() {
         return event;
     }
 
