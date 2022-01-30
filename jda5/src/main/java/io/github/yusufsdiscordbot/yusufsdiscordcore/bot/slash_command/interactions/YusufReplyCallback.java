@@ -400,4 +400,9 @@ public class YusufReplyCallback {
     public void replyQueuedEphemeralEmbed(@Nonnull MessageEmbed messageEmbed) {
         callback.replyEmbeds(messageEmbed).setEphemeral(true).queue();
     }
+
+    @NotNull
+    public InteractionHook getHook() {
+        return callback.getHook();
+    }
 }
