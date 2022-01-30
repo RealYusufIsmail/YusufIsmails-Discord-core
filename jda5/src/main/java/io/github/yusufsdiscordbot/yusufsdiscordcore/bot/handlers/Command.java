@@ -17,13 +17,19 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option.YusufCommandData;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.annotation.Nonnull;
 
@@ -33,10 +39,12 @@ import javax.annotation.Nonnull;
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
 public abstract class Command extends ListenerAdapter {
     private final @Nonnull String name;
-    private final @Nonnull String description;
+    private String description;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
-    private final @Nonnull YusufCommandData commandData;
+    private SlashCommandData slashCommandData;
+    private CommandData commandData;
+    private final boolean isSlashCommand;
 
     /**
      * Were the command is registered.
@@ -48,13 +56,25 @@ public abstract class Command extends ListenerAdapter {
         this.isGuildOnly = isGuildOnly;
         this.commandType = commandType;
 
-        commandData = new YusufCommandData(name, description);
+        slashCommandData = Commands.slash(name, description);
+        isSlashCommand = true;
     }
+
+    protected Command(@Nonnull String name, boolean isGuildOnly,
+            @Nonnull CommandType[] commandType) {
+        this.name = name;
+        this.isGuildOnly = isGuildOnly;
+        this.commandType = commandType;
+
+        commandData = Commands.user(name);
+        isSlashCommand = false;
+    }
+
 
     /**
      * Provides the user with name of the command
      *
-     * @return {@link YusufCommandData#getName()}
+     * @return {@link CommandDataImpl#getName()}
      */
     public final @Nonnull String getName() {
         return name;
@@ -63,7 +83,7 @@ public abstract class Command extends ListenerAdapter {
     /**
      * Provides the user information on what the command is about.
      *
-     * @return {@link YusufCommandData#getDescription()}
+     * @return {@link CommandDataImpl#getDescription()}
      */
     public final @Nonnull String getDescription() {
         return description;
@@ -73,15 +93,31 @@ public abstract class Command extends ListenerAdapter {
      * Retrieves all the command data such as the name and description of the command. Also used to
      * create options and sub commands.
      *
-     * @return {@link YusufCommandData#YusufCommandData(String, String)} and can also return
-     *         {@link YusufCommandData#addOption(OptionType, String, String)} <br >
+     * @return {@link CommandDataImpl#CommandDataImpl(String, String)} and can also return
+     *         {@link CommandDataImpl#addOption(OptionType, String, String)} <br >
      *         <br >
      *         Choices can also be used which makes it easier for the user. which returns
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    protected final @Nonnull YusufCommandData getYusufCommandData() {
+    protected final @Nonnull CommandData getCommandData() {
         return commandData;
+    }
+
+    /**
+     * Retrieves all the slash command data such as the name and description of the command. Also
+     * 
+     * @return {@link Commands#slash(String, String)} and can also return <br >
+     *         Choices can also be used which makes it easier for the user. which returns
+     *         {@link OptionData#addChoice(String, long)} <br>
+     *         <br>
+     */
+    protected final SlashCommandData getSlashCommandData() {
+        return slashCommandData;
+    }
+
+    protected final boolean getIsSlashCommand() {
+        return isSlashCommand;
     }
 
     /**
@@ -117,26 +153,54 @@ public abstract class Command extends ListenerAdapter {
     /**
      * Were the command is created.
      */
-    protected abstract void onSlashCommand(@Nonnull YusufSlashCommandEvent yusufSlashCommandEvent);
+    protected abstract void onSlashCommand(
+            @Nonnull YusufSlashCommandInteractionEvent yusufSlashCommandEvent);
 
 
     /**
      * Used to create buttons for the user to interact with.
      *
-     * @see ButtonInteractionEvent The original event that was used to create the button.
-     * @param buttonClickEvent the button click event.
+     * @param event the button click event.
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
     @Override
-    public void onButtonInteraction(@Nonnull ButtonInteractionEvent buttonClickEvent) {}
+    public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {}
 
 
     /**
      * Used to create a selection menu for the user to interact with.
      *
-     * @param SelectionMenuEvent The original selection menu event,
+     * @param event The original selection menu event,
      */
     @SuppressWarnings("NoopMethodInAbstractClass")
     @Override
-    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent SelectionMenuEvent) {}
+    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {}
+
+    /**
+     * Auto complete for the user to use.
+     * 
+     * @param event The event.
+     */
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    @Override
+    public void onCommandAutoCompleteInteraction(
+            @Nonnull CommandAutoCompleteInteractionEvent event) {}
+
+    /**
+     * Used to create a text box for the user to interact with.
+     *
+     * @param event The original text box event.
+     */
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    @Override
+    public void onMessageContextInteraction(@Nonnull MessageContextInteractionEvent event) {}
+
+    /**
+     * Indicates that a user context command was used.
+     * 
+     * @param event The event.
+     */
+    @SuppressWarnings("NoopMethodInAbstractClass")
+    @Override
+    public void onUserContextInteraction(@Nonnull UserContextInteractionEvent event) {}
 }

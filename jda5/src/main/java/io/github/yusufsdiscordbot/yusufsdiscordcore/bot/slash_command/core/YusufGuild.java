@@ -14,7 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.utility.PermissionChecker;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.templates.Template;
@@ -112,7 +112,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull CommandCreateAction upsertCommand(@Nonnull CommandData command) {
+    public @Nonnull RestAction<Command> upsertCommand(@Nonnull CommandData command) {
         return this.guild.upsertCommand(command);
     }
 
@@ -190,7 +190,7 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     public @Nonnull RestAction<Map<String, List<CommandPrivilege>>> updateCommandPrivileges(
-            @Nonnull Map<String, Collection<? extends CommandPrivilege>> privileges) {
+            @Nonnull Map<String, ? extends Collection<CommandPrivilege>> privileges) {
         return this.guild.updateCommandPrivileges(privileges);
     }
 
@@ -1886,7 +1886,7 @@ public record YusufGuild(Guild guild) {
 
     /**
      * Retrieves a {@link Guild.Ban Ban} of the provided {@link YusufUser User} <br>
-     * If you wish to ban or unban a user, use either {@link #ban(YusufUser, int) ban(User, int)} or
+     * If you wish to ban or unban a user, use either {@link #ban(User, int) or
      * {@link #unBan(YusufUser) unban(User)}.
      *
      * <p>
@@ -3117,7 +3117,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public boolean checkReasonLength(@Nonnull String reason,
-            @Nonnull YusufSlashCommandEvent event) {
+            @Nonnull YusufSlashCommandInteractionEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
             event.replyQueuedEphemeral("You have gone over the reason character limit which is "
                     + REASON_MAX_LENGTH + " .");

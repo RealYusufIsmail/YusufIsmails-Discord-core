@@ -15,7 +15,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -91,10 +91,16 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private void addCommand(@NotNull Command command) {
         jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
-        if (command.checkIfIsGuildOnly()) {
-            guildCommandsData.addCommands(command.getYusufCommandData().getCommandData());
-        } else if (!command.checkIfIsGuildOnly()) {
-            globalCommandsData.addCommands(command.getYusufCommandData().getCommandData());
+        if (command.checkIfIsGuildOnly() && command.getIsSlashCommand()) {
+            guildCommandsData.addCommands(command.getSlashCommandData());
+        } else if (!command.checkIfIsGuildOnly() && command.getIsSlashCommand()) {
+            globalCommandsData.addCommands(command.getSlashCommandData());
+        } else if (command.checkIfIsGuildOnly() && !command.getIsSlashCommand()) {
+            guildCommandsData.addCommands(command.getCommandData());
+        } else if (!command.checkIfIsGuildOnly() && !command.getIsSlashCommand()) {
+            globalCommandsData.addCommands(command.getCommandData());
+        } else {
+            logger.error("Command is not registered correctly. Please check the command class.");
         }
     }
 
@@ -157,8 +163,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     private void onSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        onSlashCommand
-            .onSlashCommand(new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
+        onSlashCommand.onSlashCommand(
+                new YusufSlashCommandInteractionEvent(onSlashCommand, slashCommandEvent));
     }
 
     /**
