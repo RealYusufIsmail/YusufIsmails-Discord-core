@@ -11,12 +11,10 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
-
-import javax.annotation.Nonnull;
 
 @SuppressWarnings({"unused", "java:S6206"})
 public abstract class YusufCommandInteraction extends YusufCommandInteractionPayload {

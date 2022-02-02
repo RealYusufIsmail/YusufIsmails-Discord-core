@@ -11,10 +11,12 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
 import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufCommandInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufSlashCommandInteraction;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;

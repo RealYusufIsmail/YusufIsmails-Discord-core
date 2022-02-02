@@ -12,6 +12,6 @@
  */
 
 /**
- * All the core classes are made here such as the core slash command event
+ * All the interaction events are found here such as the slash command event.
  */
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;

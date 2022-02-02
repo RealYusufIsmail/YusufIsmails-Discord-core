@@ -11,7 +11,7 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;

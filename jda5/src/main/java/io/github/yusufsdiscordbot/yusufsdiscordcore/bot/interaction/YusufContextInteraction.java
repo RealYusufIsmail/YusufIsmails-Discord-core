@@ -1,26 +1,23 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.user.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufCommandInteraction;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteraction;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
 import net.dv8tion.jda.api.interactions.commands.context.ContextInteraction;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class YusufContextInteraction extends YusufCommandInteraction {
-    private final ContextInteraction contextInteraction;
+public class YusufContextInteraction<T> extends YusufCommandInteraction {
+    private final ContextInteraction<T> contextInteraction;
 
     protected YusufContextInteraction(IReplyCallback callback,
             CommandInteractionPayload commandInteractionPayload,
-            ContextInteraction contextInteraction) {
+            ContextInteraction<T> contextInteraction) {
         super(callback, commandInteractionPayload);
         this.contextInteraction = contextInteraction;
     }
 
 
-    public ContextInteraction getContextInteraction() {
+    public ContextInteraction<T> getContextInteraction() {
         return contextInteraction;
     }
 

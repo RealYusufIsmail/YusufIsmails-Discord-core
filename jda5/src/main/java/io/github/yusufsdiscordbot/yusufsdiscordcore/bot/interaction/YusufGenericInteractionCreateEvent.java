@@ -1,13 +1,12 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.user.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufGuild;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufGuild;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.Event;
 import net.dv8tion.jda.api.events.interaction.GenericInteractionCreateEvent;
-import net.dv8tion.jda.api.interactions.Interaction;
 import net.dv8tion.jda.api.interactions.InteractionType;
 import net.dv8tion.jda.api.utils.TimeUtil;
 import org.jetbrains.annotations.NotNull;

@@ -15,10 +15,12 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.user.interaction.YusufUserContextInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufMessageContextInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -27,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -54,6 +57,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, SlashCommand> slashCommand = new HashMap<>();
     private final Map<String, UserCommand> userCommand = new HashMap<>();
+    private final Map<String, MessageCommand> messageCommand = new HashMap<>();
+    private static final String COMMAND_ERROR = "The command {} is not registered";
     private final JDA jda;
 
     /**
@@ -78,7 +83,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected abstract long botOwnerId();
 
     /**
-     * Used to register the commands. when the developer types addCommand(new TestCommand()). The
+     * Used to register slash commands. when the developer types slashCommand.add(new ExampleCommand());. The
      * addCommand will retrieve the commandData which includes name,description,options,sub
      * commands, etc
      *
@@ -99,20 +104,33 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getSlashCommandData());
         } else {
-            logger.error("The command {} is not registered", command.getName());
+            logger.error(COMMAND_ERROR, command.getName());
         }
     }
 
+    //TODO add java doc
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addUserCommand(@NotNull UserCommand command) {
-        jda.addEventListener(command);
         userCommand.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
         } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getCommandData());
         } else {
-            logger.error("The command {} is not registered", command.getName());
+            logger.error(COMMAND_ERROR, command.getName());
+        }
+    }
+
+    //TODO add java doc
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void addMessageCommand(@NotNull MessageCommand command) {
+        messageCommand.put(command.getName(), command);
+        if (command.checkIfIsGuildOnly()) {
+            guildCommandsData.addCommands(command.getCommandData());
+        } else if (!command.checkIfIsGuildOnly()) {
+            globalCommandsData.addCommands(command.getCommandData());
+        } else {
+            logger.error(COMMAND_ERROR, command.getName());
         }
     }
 
@@ -131,18 +149,30 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     /**
      * Used to register the user commands.
      *
-     * @param userCommands The user commands
+     * @param userCommands The user commands.
      */
     public void queueAndRegisterUserCommands(@NotNull Collection<UserCommand> userCommands) {
         userCommands.forEach(this::addUserCommand);
         onFinishedRegistration();
     }
 
+    /**
+     * Used to register the slash commands.
+     * @param slashCommands the slash commands.
+     */
     public void queueAndRegisterSlashCommands(@NotNull Collection<SlashCommand> slashCommands) {
         slashCommands.forEach(this::addSlashCommand);
         onFinishedRegistration();
     }
 
+    /**
+     * Used to register the message context commands.
+     * @param messageCommand the message context command.
+     */
+    public void queueAndRegisterMessageConextCommands(@NotNull Collection<MessageCommand> messageCommand) {
+        messageCommand.forEach(this::addMessageCommand);
+        onFinishedRegistration();
+    }
 
     /**
      * Queues the command after the command has been registered.
@@ -214,7 +244,14 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
             onUserCommand.onUserContextInteraction(
                     new YusufUserContextInteractionEvent(onUserCommand, userContextEvent));
         }
+    }
 
+    public void onMessageContextInteraction(@Nonnull MessageContextInteractionEvent event) {
+        var onMessageCommand = this.messageCommand.get(event.getName());
+        if (onMessageCommand != null) {
+            onMessageCommand.onMessageContextInteraction(
+                    new YusufMessageContextInteractionEvent(onMessageCommand, event));
+        }
     }
 
     /**

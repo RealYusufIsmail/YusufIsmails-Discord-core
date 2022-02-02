@@ -15,8 +15,8 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;

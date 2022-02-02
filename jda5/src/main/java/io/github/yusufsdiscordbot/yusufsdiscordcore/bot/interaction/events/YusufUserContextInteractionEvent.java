@@ -1,9 +1,11 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.user.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufGenericContextInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.UserCommand;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 
-public class YusufUserContextInteractionEvent extends YusufGenericContextInteractionEvent {
+public class YusufUserContextInteractionEvent extends YusufGenericContextInteractionEvent<User> {
     private final UserCommand command;
     private final UserContextInteractionEvent event;
 

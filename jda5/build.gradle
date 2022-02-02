@@ -7,7 +7,7 @@ plugins {
 }
 
 archivesBaseName = "Yusuf's Discord Core JDA 5"
-description = "An open source core dependecny for my Discord bots and for others which uses JDA %."
+description = "An open source core dependecny for my Discord bots and for others which uses JDA 5."
 version = bot_version
 
 repositories {

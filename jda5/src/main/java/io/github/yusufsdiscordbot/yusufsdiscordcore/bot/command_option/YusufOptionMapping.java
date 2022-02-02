@@ -11,18 +11,18 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.command_option;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.command_option;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufMember;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public record YusufOptionMapping(OptionMapping optionMapping) {

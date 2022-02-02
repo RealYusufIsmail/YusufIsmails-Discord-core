@@ -14,4 +14,4 @@
 /**
  * All the core classes for the core are found here such as YusufUser of YusufMember.
  */
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;

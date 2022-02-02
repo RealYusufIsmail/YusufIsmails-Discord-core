@@ -12,7 +12,6 @@
  */
 
 /**
- * This is where all the command interactions such the abstract class Command which is extended by
- * every command class.
+ * All the classes for slash command options are found here
  */
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.command_option;
