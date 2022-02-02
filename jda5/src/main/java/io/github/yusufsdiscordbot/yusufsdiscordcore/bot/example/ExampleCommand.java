@@ -15,18 +15,16 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-class ExampleCommand extends Command {
+class ExampleCommand extends SlashCommand {
     private static final String EXAMPLE_OPTION = "example_option";
 
     /**
