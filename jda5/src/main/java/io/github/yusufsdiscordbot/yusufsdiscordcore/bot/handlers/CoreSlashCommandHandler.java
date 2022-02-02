@@ -83,9 +83,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected abstract long botOwnerId();
 
     /**
-     * Used to register slash commands. when the developer types slashCommand.add(new ExampleCommand());. The
-     * addCommand will retrieve the commandData which includes name,description,options,sub
-     * commands, etc
+     * Used to register slash commands. when the developer types slashCommand.add(new
+     * ExampleCommand());. The addCommand will retrieve the commandData which includes
+     * name,description,options,sub commands, etc
      *
      * @param command <br>
      *        The Command class is an interface class which contains all the need methods for the
@@ -108,7 +108,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    //TODO add java doc
+    // TODO add java doc
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addUserCommand(@NotNull UserCommand command) {
         userCommand.put(command.getName(), command);
@@ -121,7 +121,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    //TODO add java doc
+    // TODO add java doc
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addMessageCommand(@NotNull MessageCommand command) {
         messageCommand.put(command.getName(), command);
@@ -158,6 +158,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     /**
      * Used to register the slash commands.
+     * 
      * @param slashCommands the slash commands.
      */
     public void queueAndRegisterSlashCommands(@NotNull Collection<SlashCommand> slashCommands) {
@@ -167,9 +168,11 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     /**
      * Used to register the message context commands.
+     * 
      * @param messageCommand the message context command.
      */
-    public void queueAndRegisterMessageConextCommands(@NotNull Collection<MessageCommand> messageCommand) {
+    public void queueAndRegisterMessageConextCommands(
+            @NotNull Collection<MessageCommand> messageCommand) {
         messageCommand.forEach(this::addMessageCommand);
         onFinishedRegistration();
     }

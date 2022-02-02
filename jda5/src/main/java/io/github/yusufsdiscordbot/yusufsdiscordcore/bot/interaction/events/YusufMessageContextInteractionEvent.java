@@ -5,11 +5,13 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufGeneric
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 
-public class YusufMessageContextInteractionEvent extends YusufGenericContextInteractionEvent<Message>{
+public class YusufMessageContextInteractionEvent
+        extends YusufGenericContextInteractionEvent<Message> {
     private final MessageCommand messageCommand;
     private final MessageContextInteractionEvent event;
 
-    public YusufMessageContextInteractionEvent(MessageCommand messageCommand, MessageContextInteractionEvent event) {
+    public YusufMessageContextInteractionEvent(MessageCommand messageCommand,
+            MessageContextInteractionEvent event) {
         super(event, event, event, event);
         this.messageCommand = messageCommand;
         this.event = event;

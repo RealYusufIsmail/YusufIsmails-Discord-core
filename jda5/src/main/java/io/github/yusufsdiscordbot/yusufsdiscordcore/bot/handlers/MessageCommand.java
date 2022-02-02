@@ -16,7 +16,7 @@ public abstract class MessageCommand {
     private final CommandData commandData;
 
     public MessageCommand(@Nonnull String name, boolean isGuildOnly,
-                       @Nonnull CommandType... commandType) {
+            @Nonnull CommandType... commandType) {
         this.name = name;
         this.isGuildOnly = isGuildOnly;
         this.commandType = commandType;
