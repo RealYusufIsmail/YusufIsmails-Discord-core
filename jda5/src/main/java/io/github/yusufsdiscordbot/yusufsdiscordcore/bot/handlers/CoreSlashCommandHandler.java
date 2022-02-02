@@ -15,16 +15,18 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -50,7 +52,8 @@ import java.util.*;
         namesOfTheAuthorsGithub = {"RealYusufIsmail", "nDZIB"})
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
-    private final Map<String, Command> commandConnector = new HashMap<>();
+    private final Map<String, SlashCommand> slashCommand = new HashMap<>();
+    private final Map<String, UserCommand> userCommand = new HashMap<>();
     private final JDA jda;
 
     /**
@@ -83,24 +86,33 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The boolean {@link Command#checkIfIsGuildOnly()} ()} is used to determine whether the
+     *        The boolean {@link SlashCommand#checkIfIsGuildOnly()} ()} is used to determine whether the
      *        command should be global or guild only. determines whether the command should be
      *        Global or Guild only.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void addCommand(@NotNull Command command) {
+    private void addSlashCommand(@NotNull SlashCommand command) {
         jda.addEventListener(command);
-        commandConnector.put(command.getName(), command);
-        if (command.checkIfIsGuildOnly() && command.getIsSlashCommand()) {
+        slashCommand.put(command.getName(), command);
+        if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getSlashCommandData());
-        } else if (!command.checkIfIsGuildOnly() && command.getIsSlashCommand()) {
+        } else if(!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getSlashCommandData());
-        } else if (command.checkIfIsGuildOnly() && !command.getIsSlashCommand()) {
+        } else {
+            logger.error("The command {} is not registered", command.getName());
+        }
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void addUserCommand(@NotNull UserCommand command) {
+        jda.addEventListener(command);
+        userCommand.put(command.getName(), command);
+        if(command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
-        } else if (!command.checkIfIsGuildOnly() && !command.getIsSlashCommand()) {
+        } else if(!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getCommandData());
         } else {
-            logger.error("Command is not registered correctly. Please check the command class.");
+            logger.error("The command {} is not registered", command.getName());
         }
     }
 
@@ -109,8 +121,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @param commands The slash commands
      */
-    public void queueAndRegisterCommands(@NotNull Collection<Command> commands) {
-        commands.forEach(this::addCommand);
+    public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands, @NotNull Collection<UserCommand> userCommands) {
+        commands.forEach(this::addSlashCommand);
+        userCommands.forEach(this::addUserCommand);
         onFinishedRegistration();
     }
 
@@ -127,7 +140,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @param slashCommandEvent the event that triggered the slash command.
      */
-    private void runSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
+    private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
                 || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
             onSlashCommandEvent(slashCommandEvent);
@@ -136,7 +149,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     private boolean checkIfCommandNameIsNullOrRepeated(
             @NotNull SlashCommandInteractionEvent slashCommandEvent) {
-        boolean cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
+        boolean cmdName = this.slashCommand.containsKey(slashCommandEvent.getName());
         if (cmdName) {
             return true;
         }
@@ -145,9 +158,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         return false;
     }
 
-    private boolean isCommandOwnerOnly(@NotNull SlashCommandInteractionEvent slashCommandEvent,
+    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
             long botOwnerId) {
-        Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+        SlashCommand onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
         if (onSlashCommand.getCommandType() == CommandType.OWNER_ONLY
                 && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
             return true;
@@ -162,7 +175,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     private void onSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
-        var onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+        var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
         onSlashCommand.onSlashCommand(
                 new YusufSlashCommandInteractionEvent(onSlashCommand, slashCommandEvent));
     }
@@ -173,8 +186,18 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent The original slash command event,
      */
     @Override
-    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
+    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
+    }
+
+    @Override
+    public void onUserContextInteraction(@NotNull UserContextInteractionEvent userContextEvent) {
+        var onUserCommand = this.userCommand.get(userContextEvent.getName());
+        if (onUserCommand != null) {
+            onUserCommand.onUserContextInteraction(new YusufUserCommandInteractionEvent(onUserCommand,
+                    userContextEvent));
+        }
+
     }
 
     /**
@@ -183,7 +206,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @return retrieves the commands as a list.
      */
     @NotNull
-    public List<Command> getCommands() {
-        return new ArrayList<>(this.commandConnector.values());
+    public List<SlashCommand> getCommands() {
+        return new ArrayList<>(this.slashCommand.values());
     }
 }
