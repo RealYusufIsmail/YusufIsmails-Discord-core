@@ -1,6 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
-import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.user.interaction.YusufUserContextInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -9,13 +9,14 @@ import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.annotation.Nonnull;
 
-public abstract class UserCommand  {
+public abstract class UserCommand {
     private final @Nonnull String name;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
     private final CommandData commandData;
 
-    public UserCommand(@Nonnull String name, boolean isGuildOnly, @Nonnull CommandType[] commandType) {
+    public UserCommand(@Nonnull String name, boolean isGuildOnly,
+            @Nonnull CommandType[] commandType) {
         this.name = name;
         this.isGuildOnly = isGuildOnly;
         this.commandType = commandType;
@@ -73,11 +74,15 @@ public abstract class UserCommand  {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    protected final @Nonnull
-    CommandData getCommandData() {
+    protected final @Nonnull CommandData getCommandData() {
         return commandData;
     }
 
-
-    protected abstract void onUserContextInteraction(@Nonnull UserContextInteractionEvent event);
+    /**
+     * Used to create a user context interaction event.
+     * 
+     * @param event The event that is being used to create the user context interaction event.
+     */
+    protected abstract void onUserContextInteraction(
+            @Nonnull YusufUserContextInteractionEvent event);
 }

@@ -19,6 +19,10 @@ public class YusufSlashCommandInteraction extends YusufCommandInteraction {
         this.slashCommandInteraction = slashCommandInteraction;
     }
 
+    public SlashCommandInteraction getSlashCommandInteraction() {
+        return slashCommandInteraction;
+    }
+
     @Nonnull
     @Override
     public MessageChannel getChannel() {
@@ -32,7 +36,6 @@ public class YusufSlashCommandInteraction extends YusufCommandInteraction {
     }
 
     @NotNull
-    @Override
     public YusufSlashCommandInteraction getInteraction() {
         return this;
     }

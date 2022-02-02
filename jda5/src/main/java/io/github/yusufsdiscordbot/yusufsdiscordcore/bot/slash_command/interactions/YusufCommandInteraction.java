@@ -24,7 +24,4 @@ public abstract class YusufCommandInteraction extends YusufCommandInteractionPay
             CommandInteractionPayload commandInteractionPayload) {
         super(callback, commandInteractionPayload);
     }
-
-    @Nonnull
-    public abstract YusufSlashCommandInteraction getInteraction();
 }

@@ -14,8 +14,8 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 
-class ExampleCommand extends Command {
+class ExampleCommand extends SlashCommand {
     private static final String EXAMPLE_OPTION = "example_option";
 
     /**

@@ -18,7 +18,10 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactio
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +39,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      * Were the command is registered.
      */
     protected SlashCommand(@Nonnull String name, @Nonnull String description, boolean isGuildOnly,
-                           @Nonnull CommandType... commandType) {
+            @Nonnull CommandType... commandType) {
         this.name = name;
         this.description = description;
         this.isGuildOnly = isGuildOnly;
@@ -48,7 +51,7 @@ public abstract class SlashCommand extends ListenerAdapter {
     /**
      * Provides the user with name of the command
      *
-     * @return {@link YusufCommandData#getName()}
+     * @return {@link CommandDataImpl#getName()}
      */
     public final @Nonnull String getName() {
         return name;
@@ -57,27 +60,11 @@ public abstract class SlashCommand extends ListenerAdapter {
     /**
      * Provides the user information on what the command is about.
      *
-     * @return {@link YusufCommandData#getDescription()}
+     * @return {@link CommandDataImpl#getDescription()}
      */
     public final @Nonnull String getDescription() {
         return description;
     }
-
-    /**
-     * Retrieves all the command data such as the name and description of the command. Also used to
-     * create options and sub commands.
-     *
-     * @return {@link YusufCommandData#YusufCommandData(String, String)} and can also return
-     *         {@link YusufCommandData#addOption(OptionType, String, String)} <br >
-     *         <br >
-     *         Choices can also be used which makes it easier for the user. which returns
-     *         {@link OptionData#addChoice(String, long)} <br>
-     *         <br>
-     */
-    protected final @Nonnull YusufCommandData getYusufCommandData() {
-        return commandData;
-    }
-
 
     /**
      * Retrieves all the slash command data such as the name and description of the command. Also
@@ -123,6 +110,7 @@ public abstract class SlashCommand extends ListenerAdapter {
 
     /**
      * Used when creating a new slash command.
+     * 
      * @param yusufSlashCommandEvent the event that is being used to create the command.
      */
     protected abstract void onSlashCommand(

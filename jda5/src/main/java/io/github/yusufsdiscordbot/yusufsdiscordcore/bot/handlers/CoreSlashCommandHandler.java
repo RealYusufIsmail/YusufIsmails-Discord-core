@@ -15,7 +15,8 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.user.interaction.YusufUserContextInteractionEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -26,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -86,8 +86,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The boolean {@link SlashCommand#checkIfIsGuildOnly()} ()} is used to determine whether the
-     *        command should be global or guild only. determines whether the command should be
+     *        The boolean {@link SlashCommand#checkIfIsGuildOnly()} ()} is used to determine whether
+     *        the command should be global or guild only. determines whether the command should be
      *        Global or Guild only.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -96,7 +96,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         slashCommand.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getSlashCommandData());
-        } else if(!command.checkIfIsGuildOnly()) {
+        } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getSlashCommandData());
         } else {
             logger.error("The command {} is not registered", command.getName());
@@ -107,9 +107,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private void addUserCommand(@NotNull UserCommand command) {
         jda.addEventListener(command);
         userCommand.put(command.getName(), command);
-        if(command.checkIfIsGuildOnly()) {
+        if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
-        } else if(!command.checkIfIsGuildOnly()) {
+        } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getCommandData());
         } else {
             logger.error("The command {} is not registered", command.getName());
@@ -121,11 +121,28 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @param commands The slash commands
      */
-    public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands, @NotNull Collection<UserCommand> userCommands) {
+    public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands,
+            @NotNull Collection<UserCommand> userCommands) {
         commands.forEach(this::addSlashCommand);
         userCommands.forEach(this::addUserCommand);
         onFinishedRegistration();
     }
+
+    /**
+     * Used to register the user commands.
+     *
+     * @param userCommands The user commands
+     */
+    public void queueAndRegisterUserCommands(@NotNull Collection<UserCommand> userCommands) {
+        userCommands.forEach(this::addUserCommand);
+        onFinishedRegistration();
+    }
+
+    public void queueAndRegisterSlashCommands(@NotNull Collection<SlashCommand> slashCommands) {
+        slashCommands.forEach(this::addSlashCommand);
+        onFinishedRegistration();
+    }
+
 
     /**
      * Queues the command after the command has been registered.
@@ -140,7 +157,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @param slashCommandEvent the event that triggered the slash command.
      */
-    private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
+    private void runSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
                 || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
             onSlashCommandEvent(slashCommandEvent);
@@ -158,7 +175,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         return false;
     }
 
-    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
+    private boolean isCommandOwnerOnly(@NotNull SlashCommandInteractionEvent slashCommandEvent,
             long botOwnerId) {
         SlashCommand onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
         if (onSlashCommand.getCommandType() == CommandType.OWNER_ONLY
@@ -186,7 +203,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent The original slash command event,
      */
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         this.runSlashCommandEvent(slashCommandEvent);
     }
 
@@ -194,8 +211,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     public void onUserContextInteraction(@NotNull UserContextInteractionEvent userContextEvent) {
         var onUserCommand = this.userCommand.get(userContextEvent.getName());
         if (onUserCommand != null) {
-            onUserCommand.onUserContextInteraction(new YusufUserCommandInteractionEvent(onUserCommand,
-                    userContextEvent));
+            onUserCommand.onUserContextInteraction(
+                    new YusufUserContextInteractionEvent(onUserCommand, userContextEvent));
         }
 
     }

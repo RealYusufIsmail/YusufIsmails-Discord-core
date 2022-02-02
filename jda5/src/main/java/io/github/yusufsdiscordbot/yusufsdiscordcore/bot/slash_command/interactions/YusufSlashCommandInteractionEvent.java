@@ -14,7 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
 
 import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
@@ -24,10 +24,11 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("unused")
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public class YusufSlashCommandInteractionEvent extends YusufCommandInteraction {
-    private final Command command;
+    private final SlashCommand command;
     private final SlashCommandInteractionEvent event;
 
-    public YusufSlashCommandInteractionEvent(Command command, SlashCommandInteractionEvent event) {
+    public YusufSlashCommandInteractionEvent(SlashCommand command,
+            SlashCommandInteractionEvent event) {
         super(event, event);
         this.command = command;
         this.event = event;
@@ -38,11 +39,10 @@ public class YusufSlashCommandInteractionEvent extends YusufCommandInteraction {
         return event;
     }
 
-    public Command getCommand() {
+    public SlashCommand getCommand() {
         return command;
     }
 
-    @Override
     @Nonnull
     public YusufSlashCommandInteraction getInteraction() {
         IReplyCallback callback = getCallback();
