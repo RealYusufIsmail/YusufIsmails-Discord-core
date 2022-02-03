@@ -22,4 +22,8 @@ public abstract class YusufCommandInteraction extends YusufCommandInteractionPay
             CommandInteractionPayload commandInteractionPayload) {
         super(callback, commandInteractionPayload);
     }
+
+    protected YusufCommandInteraction(IReplyCallback callback) {
+        super(callback, null);
+    }
 }

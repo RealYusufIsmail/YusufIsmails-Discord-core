@@ -140,9 +140,10 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param commands The slash commands
      */
     public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands,
-            @NotNull Collection<UserCommand> userCommands) {
+            @NotNull Collection<UserCommand> userCommands, @NotNull Collection<MessageCommand> messageCommands) {
         commands.forEach(this::addSlashCommand);
         userCommands.forEach(this::addUserCommand);
+        messageCommands.forEach(this::addMessageCommand);
         onFinishedRegistration();
     }
 
@@ -171,7 +172,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * 
      * @param messageCommand the message context command.
      */
-    public void queueAndRegisterMessageConextCommands(
+    public void queueAndRegisterMessageContextCommands(
             @NotNull Collection<MessageCommand> messageCommand) {
         messageCommand.forEach(this::addMessageCommand);
         onFinishedRegistration();
@@ -199,18 +200,18 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     private boolean checkIfCommandNameIsNullOrRepeated(
             @NotNull SlashCommandInteractionEvent slashCommandEvent) {
-        boolean cmdName = this.slashCommand.containsKey(slashCommandEvent.getName());
+        var cmdName = this.slashCommand.containsKey(slashCommandEvent.getName());
         if (cmdName) {
             return true;
         }
-        logger.info("The command name is null please double check this command '{}",
+        logger.info(COMMAND_ERROR,
                 slashCommandEvent.getCommandPath());
         return false;
     }
 
     private boolean isCommandOwnerOnly(@NotNull SlashCommandInteractionEvent slashCommandEvent,
             long botOwnerId) {
-        SlashCommand onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
+        var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
         if (onSlashCommand.getCommandType() == CommandType.OWNER_ONLY
                 && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
             return true;
@@ -246,14 +247,21 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         if (onUserCommand != null) {
             onUserCommand.onUserContextInteraction(
                     new YusufUserContextInteractionEvent(onUserCommand, userContextEvent));
+        } else {
+            logger.info("The command name is null please double check this command '{}",
+                    userContextEvent.getCommandPath());
         }
     }
 
+    @Override
     public void onMessageContextInteraction(@Nonnull MessageContextInteractionEvent event) {
         var onMessageCommand = this.messageCommand.get(event.getName());
         if (onMessageCommand != null) {
             onMessageCommand.onMessageContextInteraction(
                     new YusufMessageContextInteractionEvent(onMessageCommand, event));
+        } else {
+            logger.info("The command name is null please double check this command '{}",
+                    event.getCommandPath());
         }
     }
 
