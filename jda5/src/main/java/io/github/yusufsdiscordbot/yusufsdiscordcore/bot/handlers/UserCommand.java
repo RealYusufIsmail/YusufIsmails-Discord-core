@@ -1,6 +1,8 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button.YusufButtonInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.select_menu.YusufSelectMenuInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -9,7 +11,7 @@ import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.annotation.Nonnull;
 
-public abstract class UserCommand {
+public abstract class UserCommand extends ExtensionCommand {
     private final @Nonnull String name;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
@@ -85,4 +87,12 @@ public abstract class UserCommand {
      */
     protected abstract void onUserContextInteraction(
             @Nonnull YusufUserContextInteractionEvent event);
+
+    @SuppressWarnings("unused")
+    @Override
+    protected void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event) {}
+
+    @SuppressWarnings("unused")
+    @Override
+    protected void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event) {}
 }

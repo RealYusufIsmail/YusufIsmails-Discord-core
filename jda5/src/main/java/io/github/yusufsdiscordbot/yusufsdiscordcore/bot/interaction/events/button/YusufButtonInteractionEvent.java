@@ -1,6 +1,7 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufCommandInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufGenericComponentInteractionCreateEvent;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -13,7 +14,7 @@ import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class YusufButtonInteractionEvent extends YusufCommandInteraction {
+public class YusufButtonInteractionEvent extends YusufGenericComponentInteractionCreateEvent {
     private final ButtonInteractionEvent event;
 
     public YusufButtonInteractionEvent(ButtonInteractionEvent event) {
@@ -26,14 +27,12 @@ public class YusufButtonInteractionEvent extends YusufCommandInteraction {
     }
 
     @Nonnull
-    public Button getComponent()
-    {
+    public Button getComponent() {
         return getButton();
     }
 
     @Nonnull
-    public Button getButton()
-    {
+    public Button getButton() {
         return event.getButton();
     }
 
@@ -44,14 +43,15 @@ public class YusufButtonInteractionEvent extends YusufCommandInteraction {
     }
 
     /**
-     * The custom component ID provided to the component when it was originally created.
-     * <br>This value should be used to determine what action to take in regard to this interaction.
+     * The custom component ID provided to the component when it was originally created. <br>
+     * This value should be used to determine what action to take in regard to this interaction.
      *
-     * <br>This id does not have to be numerical.
+     * <br>
+     * This id does not have to be numerical.
      *
      * @return The component ID
      *
-     * @see    ActionComponent#getId()
+     * @see ActionComponent#getId()
      */
     @Nonnull
     public String getComponentId() {
@@ -84,8 +84,7 @@ public class YusufButtonInteractionEvent extends YusufCommandInteraction {
      * @return The message id
      */
     @Nonnull
-    public String getMessageId()
-    {
+    public String getMessageId() {
         return event.getMessageId();
     }
 

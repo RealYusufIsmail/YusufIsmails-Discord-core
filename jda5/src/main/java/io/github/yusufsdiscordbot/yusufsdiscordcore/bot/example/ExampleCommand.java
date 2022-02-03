@@ -17,6 +17,8 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button.YusufButtonInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.select_menu.YusufSelectMenuInteractionEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
@@ -70,8 +72,8 @@ class ExampleCommand extends SlashCommand {
 
     @Override
     // example button click event
-    public void onButtonInteraction(@Nonnull ButtonInteractionEvent buttonClickEvent) {}
+    public void onButtonInteraction(@Nonnull YusufButtonInteractionEvent buttonClickEvent) {}
 
     @Override
-    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent SelectionMenuEvent) {}
+    public void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event) {}
 }

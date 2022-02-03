@@ -18,12 +18,17 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHa
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufMessageContextInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button.YusufButtonInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.select_menu.YusufSelectMenuInteractionEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.components.selections.SelectMenuInteraction;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -58,8 +63,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, SlashCommand> slashCommand = new HashMap<>();
     private final Map<String, UserCommand> userCommand = new HashMap<>();
     private final Map<String, MessageCommand> messageCommand = new HashMap<>();
+    private final Map<String, ExtensionCommand> extensionCommand = new HashMap<>();
     private static final String COMMAND_ERROR = "The command {} is not registered";
-    private final JDA jda;
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -73,7 +78,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
-        this.jda = jda;
     }
 
     /**
@@ -97,7 +101,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addSlashCommand(@NotNull SlashCommand command) {
-        jda.addEventListener(command);
         slashCommand.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getSlashCommandData());
@@ -140,7 +143,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param commands The slash commands
      */
     public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands,
-            @NotNull Collection<UserCommand> userCommands, @NotNull Collection<MessageCommand> messageCommands) {
+            @NotNull Collection<UserCommand> userCommands,
+            @NotNull Collection<MessageCommand> messageCommands) {
         commands.forEach(this::addSlashCommand);
         userCommands.forEach(this::addUserCommand);
         messageCommands.forEach(this::addMessageCommand);
@@ -204,8 +208,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         if (cmdName) {
             return true;
         }
-        logger.info(COMMAND_ERROR,
-                slashCommandEvent.getCommandPath());
+        logger.info(COMMAND_ERROR, slashCommandEvent.getCommandPath());
         return false;
     }
 
@@ -248,8 +251,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
             onUserCommand.onUserContextInteraction(
                     new YusufUserContextInteractionEvent(onUserCommand, userContextEvent));
         } else {
-            logger.info("The command name is null please double check this command '{}",
-                    userContextEvent.getCommandPath());
+            logger.info(COMMAND_ERROR, userContextEvent.getCommandPath());
         }
     }
 
@@ -260,8 +262,30 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
             onMessageCommand.onMessageContextInteraction(
                     new YusufMessageContextInteractionEvent(onMessageCommand, event));
         } else {
-            logger.info("The command name is null please double check this command '{}",
-                    event.getCommandPath());
+            logger.info(COMMAND_ERROR, event.getCommandPath());
+        }
+    }
+
+    @Override
+    public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {
+        var onButtonCommand = this.extensionCommand.get(event.getComponentId());
+        if (onButtonCommand != null) {
+            onButtonCommand.onButtonInteraction(new YusufButtonInteractionEvent(event));
+        } else {
+            logger.info("The command id is null please double check this command '{}",
+                    event.getComponentId());
+        }
+    }
+
+    @Override
+    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {
+        var onSelectionMenuCommand = this.extensionCommand.get(event.getComponentId());
+        if (onSelectionMenuCommand != null) {
+            onSelectionMenuCommand
+                .onSelectMenuInteraction(new YusufSelectMenuInteractionEvent(event));
+        } else {
+            logger.info("The command id is null please double check this command '{}",
+                    event.getComponentId());
         }
     }
 

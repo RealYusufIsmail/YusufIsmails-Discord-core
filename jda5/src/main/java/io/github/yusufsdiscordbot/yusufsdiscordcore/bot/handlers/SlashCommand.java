@@ -13,8 +13,9 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button.YusufButtonInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.select_menu.YusufSelectMenuInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -25,7 +26,7 @@ import javax.annotation.Nonnull;
 /**
  * Used when making a new command. Imports all the need methods into a new class.
  */
-public abstract class SlashCommand extends ListenerAdapter {
+public abstract class SlashCommand extends ExtensionCommand {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
@@ -112,4 +113,12 @@ public abstract class SlashCommand extends ListenerAdapter {
      */
     protected abstract void onSlashCommand(
             @Nonnull YusufSlashCommandInteractionEvent yusufSlashCommandEvent);
+
+    @SuppressWarnings("unused")
+    @Override
+    protected void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event) {}
+
+    @SuppressWarnings("unused")
+    @Override
+    protected void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event) {}
 }
