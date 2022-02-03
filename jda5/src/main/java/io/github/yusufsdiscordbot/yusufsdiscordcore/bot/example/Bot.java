@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YDC;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
