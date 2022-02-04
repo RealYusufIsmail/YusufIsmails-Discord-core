@@ -11,13 +11,13 @@ import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.annotation.Nonnull;
 
-public abstract class UserCommand extends ExtensionCommand {
+public abstract class UserCommand implements ExtensionCommand {
     private final @Nonnull String name;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
     private final CommandData commandData;
 
-    public UserCommand(@Nonnull String name, boolean isGuildOnly,
+    protected UserCommand(@Nonnull String name, boolean isGuildOnly,
             @Nonnull CommandType... commandType) {
         this.name = name;
         this.isGuildOnly = isGuildOnly;
@@ -90,9 +90,9 @@ public abstract class UserCommand extends ExtensionCommand {
 
     @SuppressWarnings("unused")
     @Override
-    protected void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event) {}
+    public void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event) {}
 
     @SuppressWarnings("unused")
     @Override
-    protected void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event) {}
+    public void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event) {}
 }

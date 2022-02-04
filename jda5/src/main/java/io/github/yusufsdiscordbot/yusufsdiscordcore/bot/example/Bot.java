@@ -15,7 +15,6 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.YDC;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
@@ -23,7 +22,7 @@ import javax.security.auth.login.LoginException;
 
 public class Bot {
     public static void main(String[] args) throws InterruptedException, LoginException {
-        JDA jda = JDABuilder.createDefault(ExampleConfig.getBotId())
+        JDA jda = YDC.setUp(ExampleConfig.getBotId())
             .setActivity(Activity.watching("/example"))
             .setStatus(OnlineStatus.ONLINE)
             .build();

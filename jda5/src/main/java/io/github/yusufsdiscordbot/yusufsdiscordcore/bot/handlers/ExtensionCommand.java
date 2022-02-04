@@ -5,9 +5,9 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.selec
 
 import javax.annotation.Nonnull;
 
-abstract class ExtensionCommand {
-    protected abstract void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event);
+interface ExtensionCommand  {
+    void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event);
 
-    protected abstract void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event);
+    void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event);
 }
 // End of file ExtensionCommand.java

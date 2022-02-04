@@ -26,12 +26,12 @@ import javax.annotation.Nonnull;
 /**
  * Used when making a new command. Imports all the need methods into a new class.
  */
-public abstract class SlashCommand extends ExtensionCommand {
+public abstract class SlashCommand implements ExtensionCommand {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
-    private SlashCommandData slashCommandData;
+    private final SlashCommandData slashCommandData;
 
     /**
      * Were the command is registered.
@@ -116,9 +116,9 @@ public abstract class SlashCommand extends ExtensionCommand {
 
     @SuppressWarnings("unused")
     @Override
-    protected void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event) {}
+    public void onButtonInteraction(@Nonnull YusufButtonInteractionEvent event) {}
 
     @SuppressWarnings("unused")
     @Override
-    protected void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event) {}
+    public void onSelectMenuInteraction(@Nonnull YusufSelectMenuInteractionEvent event) {}
 }
