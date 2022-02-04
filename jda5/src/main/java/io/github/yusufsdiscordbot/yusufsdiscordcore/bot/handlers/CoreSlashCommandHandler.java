@@ -15,6 +15,10 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.ExtensionCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.MessageCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.UserCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufMessageContextInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
@@ -28,7 +32,6 @@ import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEven
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.components.selections.SelectMenuInteraction;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

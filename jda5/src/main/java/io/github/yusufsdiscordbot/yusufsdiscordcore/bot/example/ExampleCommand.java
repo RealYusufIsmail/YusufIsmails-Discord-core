@@ -14,7 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button.YusufButtonInteractionEvent;

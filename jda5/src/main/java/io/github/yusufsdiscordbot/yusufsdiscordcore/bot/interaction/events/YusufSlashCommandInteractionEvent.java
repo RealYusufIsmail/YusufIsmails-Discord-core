@@ -14,7 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
 import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufSlashCommandInteraction;
 import net.dv8tion.jda.api.entities.MessageChannel;

@@ -11,8 +11,9 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button.YusufButtonInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.select_menu.YusufSelectMenuInteractionEvent;

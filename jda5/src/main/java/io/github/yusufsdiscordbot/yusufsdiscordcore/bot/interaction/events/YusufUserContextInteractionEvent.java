@@ -1,7 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufGenericContextInteractionEvent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.UserCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.UserCommand;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 

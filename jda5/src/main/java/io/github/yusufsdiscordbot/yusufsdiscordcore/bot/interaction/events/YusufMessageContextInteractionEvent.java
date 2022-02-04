@@ -1,6 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.MessageCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.MessageCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufGenericContextInteractionEvent;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;

@@ -1,6 +1,7 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufMessageContextInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.button.YusufButtonInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.select_menu.YusufSelectMenuInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -11,19 +12,19 @@ import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.annotation.Nonnull;
 
-public abstract class MessageCommand implements ExtensionCommand {
+public abstract class UserCommand implements ExtensionCommand {
     private final @Nonnull String name;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
     private final CommandData commandData;
 
-    protected MessageCommand(@Nonnull String name, boolean isGuildOnly,
+    protected UserCommand(@Nonnull String name, boolean isGuildOnly,
             @Nonnull CommandType... commandType) {
         this.name = name;
         this.isGuildOnly = isGuildOnly;
         this.commandType = commandType;
 
-        commandData = Commands.message(name);
+        commandData = Commands.user(name);
     }
 
     /**
@@ -80,7 +81,13 @@ public abstract class MessageCommand implements ExtensionCommand {
         return commandData;
     }
 
-    protected abstract void onMessageContextInteraction(YusufMessageContextInteractionEvent event);
+    /**
+     * Used to create a user context interaction event.
+     * 
+     * @param event The event that is being used to create the user context interaction event.
+     */
+    protected abstract void onUserContextInteraction(
+            @Nonnull YusufUserContextInteractionEvent event);
 
     @SuppressWarnings("unused")
     @Override
