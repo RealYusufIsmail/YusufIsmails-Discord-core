@@ -7,7 +7,7 @@ plugins {
 }
 
 archivesBaseName = "Yusuf's Discord Core JDA 5"
-description = "An open source core dependecny for my Discord bots and for others which uses JDA %."
+description = "An open source core dependecny for my Discord bots and for others which uses JDA 5."
 version = bot_version
 
 repositories {
@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.4'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.5'
     //config
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 

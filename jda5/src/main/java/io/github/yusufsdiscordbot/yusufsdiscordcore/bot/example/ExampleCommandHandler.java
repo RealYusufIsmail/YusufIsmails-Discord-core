@@ -13,9 +13,8 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CoreSlashCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.UserCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import org.jetbrains.annotations.NotNull;
@@ -33,12 +32,10 @@ public class ExampleCommandHandler extends CoreSlashCommandHandler {
     public ExampleCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         super(jda, guild);
 
-        List<SlashCommand> slashCommand = new ArrayList<>();
-        List<UserCommand> userCommand = new ArrayList<>();
+        List<SlashCommand> handler = new ArrayList<>();
 
-
-        slashCommand.add(new ExampleCommand());
-        queueAndRegisterCommands(slashCommand, userCommand);
+        handler.add(new ExampleCommand());
+        queueAndRegisterSlashCommands(handler);
     }
 
     @Override

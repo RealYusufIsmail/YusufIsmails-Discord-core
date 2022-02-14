@@ -18,9 +18,6 @@ dependencies {
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.3'
 
     //common dependencies
-    implementation("org.apache.logging.log4j:log4j-api")
-    implementation("org.apache.logging.log4j:log4j-core")
-    implementation("org.apache.logging.log4j:log4j-slf4j18-impl")
     implementation("io.github.yusufsdiscordbot:annotations")
     implementation("org.jetbrains:annotations")
     implementation("org.apache.commons:commons-collections4")

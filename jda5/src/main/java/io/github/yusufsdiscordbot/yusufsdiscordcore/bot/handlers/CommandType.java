@@ -43,7 +43,7 @@ public enum CommandType {
      */
     EXAMPLE("example"),
     /**
-     * This command is a command that is not yet implemented.
+     * No yet determined.
      */
     UNKNOWN("unknown");
 

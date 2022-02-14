@@ -15,17 +15,18 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
 import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.exception.DuplicateNameException;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.MessageCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.UserCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufMessageContextInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-<<<<<<< Updated upstream
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-=======
+import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
->>>>>>> Stashed changes
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
@@ -45,12 +46,26 @@ import java.util.*;
  * <p>
  * The is class which process the registration of the commands. <br>
  * <br>
- * Commands are register by using a List with an example being
+ * Commands are register by using a List with an example for registering slash commands being
  * 
  * <pre>
- * List<Command> handler = new ArrayList<>(); <br>
+ * List<SlashCommand> handler = new ArrayList<>(); <br>
  * handler.add(new ExampleCommand()); <br>
- * queueAndRegisterCommands(handler);
+ * queueAndRegisterSlashCommands(handler);
+ * </pre>
+ *
+ * In oder to do other you can do on of the following:
+ * 
+ * <pre>
+ *     //slash command
+ *     List<SlashCommand> slashCommand = new ArrayList<>(); <br>
+ *     //User Command
+ *     List<UserCommand> userCommand = new ArrayList<>(); <br>
+ *     //Message Command
+ *     List<MessageCommand> messageCommand =  new ArrayList<>(); <br>
+ *     slashCommand.add(new ExampleCommand());
+ *     <br>
+ *     queueAndRegisterCommands(slashCommand, userCommand, messageCommand);
  * </pre>
  */
 @SuppressWarnings("unused")
@@ -60,13 +75,15 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, SlashCommand> slashCommand = new HashMap<>();
     private final Map<String, UserCommand> userCommand = new HashMap<>();
-    private final JDA jda;
+    private final Map<String, MessageCommand> messageCommand = new HashMap<>();
+    private static final String COMMAND_ERROR = "The command {} is not registered";
 
     /**
      * Used to determine whether the commands should be global or guild only.
      */
     private final @NotNull CommandListUpdateAction globalCommandsData;
     private final @NotNull CommandListUpdateAction guildCommandsData;
+    private final @NotNull JDA jda;
 
     /**
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
@@ -84,49 +101,56 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected abstract long botOwnerId();
 
     /**
-     * Used to register the commands. when the developer types addCommand(new TestCommand()). The
-     * addCommand will retrieve the commandData which includes name,description,options,sub
-     * commands, etc
+     * Used to register slash commands. when the developer types slashCommand.add(new
+     * ExampleCommand());. The addCommand will retrieve the commandData which includes
+     * name,description,options,sub commands, etc
      *
      * @param command <br>
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The boolean {@link SlashCommand#checkIfIsGuildOnly()} ()} is used to determine whether the
-     *        command should be global or guild only. determines whether the command should be
+     *        The boolean {@link SlashCommand#checkIfIsGuildOnly()} ()} is used to determine whether
+     *        the command should be global or guild only. determines whether the command should be
      *        Global or Guild only.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addSlashCommand(@NotNull SlashCommand command) {
         jda.addEventListener(command);
-<<<<<<< Updated upstream
-        commandConnector.put(command.getName(), command);
-        if (command.checkIfIsGuildOnly()) {
-            guildCommandsData.addCommands(command.getYusufCommandData().getCommandData());
-        } else if (!command.checkIfIsGuildOnly()) {
-            globalCommandsData.addCommands(command.getYusufCommandData().getCommandData());
-=======
         slashCommand.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getSlashCommandData());
-        } else if(!command.checkIfIsGuildOnly()) {
+        } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getSlashCommandData());
         } else {
-            logger.error("The command {} is not registered", command.getName());
+            logger.error(COMMAND_ERROR, command.getName());
         }
     }
 
+    // TODO add java doc
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addUserCommand(@NotNull UserCommand command) {
         jda.addEventListener(command);
         userCommand.put(command.getName(), command);
-        if(command.checkIfIsGuildOnly()) {
+        if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
-        } else if(!command.checkIfIsGuildOnly()) {
+        } else if (!command.checkIfIsGuildOnly()) {
             globalCommandsData.addCommands(command.getCommandData());
         } else {
-            logger.error("The command {} is not registered", command.getName());
->>>>>>> Stashed changes
+            logger.error(COMMAND_ERROR, command.getName());
+        }
+    }
+
+    // TODO add java doc
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void addMessageCommand(@NotNull MessageCommand command) {
+        jda.addEventListener(command);
+        messageCommand.put(command.getName(), command);
+        if (command.checkIfIsGuildOnly()) {
+            guildCommandsData.addCommands(command.getCommandData());
+        } else if (!command.checkIfIsGuildOnly()) {
+            globalCommandsData.addCommands(command.getCommandData());
+        } else {
+            logger.error(COMMAND_ERROR, command.getName());
         }
     }
 
@@ -135,9 +159,43 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @param commands The slash commands
      */
-    public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands, @NotNull Collection<UserCommand> userCommands) {
+    public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands,
+            @NotNull Collection<UserCommand> userCommands,
+            @NotNull Collection<MessageCommand> messageCommands) {
         commands.forEach(this::addSlashCommand);
         userCommands.forEach(this::addUserCommand);
+        messageCommands.forEach(this::addMessageCommand);
+        onFinishedRegistration();
+    }
+
+    /**
+     * Used to register the user commands.
+     *
+     * @param userCommands The user commands.
+     */
+    public void queueAndRegisterUserCommands(@NotNull Collection<UserCommand> userCommands) {
+        userCommands.forEach(this::addUserCommand);
+        onFinishedRegistration();
+    }
+
+    /**
+     * Used to register the slash commands.
+     * 
+     * @param slashCommands the slash commands.
+     */
+    public void queueAndRegisterSlashCommands(@NotNull Collection<SlashCommand> slashCommands) {
+        slashCommands.forEach(this::addSlashCommand);
+        onFinishedRegistration();
+    }
+
+    /**
+     * Used to register the message context commands.
+     * 
+     * @param messageCommand the message context command.
+     */
+    public void queueAndRegisterMessageContextCommands(
+            @NotNull Collection<MessageCommand> messageCommand) {
+        messageCommand.forEach(this::addMessageCommand);
         onFinishedRegistration();
     }
 
@@ -154,7 +212,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *
      * @param slashCommandEvent the event that triggered the slash command.
      */
-    private void runSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
+    private void runSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent)
+            throws DuplicateNameException {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
                 || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
             onSlashCommandEvent(slashCommandEvent);
@@ -162,24 +221,18 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     }
 
     private boolean checkIfCommandNameIsNullOrRepeated(
-<<<<<<< Updated upstream
-            @NotNull SlashCommandEvent slashCommandEvent) {
-        boolean cmdName = this.commandConnector.containsKey(slashCommandEvent.getName());
-=======
-            @NotNull SlashCommandInteractionEvent slashCommandEvent) {
-        boolean cmdName = this.slashCommand.containsKey(slashCommandEvent.getName());
->>>>>>> Stashed changes
+            @NotNull SlashCommandInteractionEvent slashCommandEvent) throws DuplicateNameException {
+        var cmdName = this.slashCommand.containsKey(slashCommandEvent.getName());
         if (cmdName) {
             return true;
+        } else {
+            throw new DuplicateNameException(slashCommandEvent);
         }
-        logger.info("The command name is null please double check this command '{}",
-                slashCommandEvent.getCommandPath());
-        return false;
     }
 
-    private boolean isCommandOwnerOnly(@NotNull SlashCommandEvent slashCommandEvent,
+    private boolean isCommandOwnerOnly(@NotNull SlashCommandInteractionEvent slashCommandEvent,
             long botOwnerId) {
-        SlashCommand onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
+        var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
         if (onSlashCommand.getCommandType() == CommandType.OWNER_ONLY
                 && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
             return true;
@@ -193,17 +246,10 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-<<<<<<< Updated upstream
-    private void onSlashCommandEvent(@NotNull SlashCommandEvent slashCommandEvent) {
-        var onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
-        onSlashCommand
-            .onSlashCommand(new YusufSlashCommandEvent(onSlashCommand, slashCommandEvent));
-=======
     private void onSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
         onSlashCommand.onSlashCommand(
                 new YusufSlashCommandInteractionEvent(onSlashCommand, slashCommandEvent));
->>>>>>> Stashed changes
     }
 
     /**
@@ -212,27 +258,73 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      * @param slashCommandEvent The original slash command event,
      */
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        this.runSlashCommandEvent(slashCommandEvent);
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
+        try {
+            this.runSlashCommandEvent(slashCommandEvent);
+        } catch (DuplicateNameException e) {
+            logger.error("'{}'", e.getMessage());
+        }
     }
 
     @Override
-    public void onUserContextInteraction(@NotNull UserContextInteractionEvent userContextEvent) {
-        var onUserCommand = this.userCommand.get(userContextEvent.getName());
+    public void onUserContextInteraction(@NotNull UserContextInteractionEvent event) {
+        var onUserCommand = this.userCommand.get(event.getName());
         if (onUserCommand != null) {
-            onUserCommand.onUserContextInteraction(new YusufUserCommandInteractionEvent(onUserCommand,
-                    userContextEvent));
+            onUserCommand.onUserContextInteraction(
+                    new YusufUserContextInteractionEvent(onUserCommand, event));
+        } else {
+            try {
+                throw new DuplicateNameException.UserContextInteractionDuplicateNameException(
+                        event);
+            } catch (DuplicateNameException.UserContextInteractionDuplicateNameException e) {
+                e.printStackTrace();
+            }
         }
+    }
 
+    @Override
+    public void onMessageContextInteraction(@Nonnull MessageContextInteractionEvent event) {
+        var onMessageCommand = this.messageCommand.get(event.getName());
+        if (onMessageCommand != null) {
+            onMessageCommand.onMessageContextInteraction(
+                    new YusufMessageContextInteractionEvent(onMessageCommand, event));
+        } else {
+            try {
+                throw new DuplicateNameException.MessageContextInteractionDuplicateNameException(
+                        event);
+            } catch (DuplicateNameException.MessageContextInteractionDuplicateNameException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
-     * Gets the commands as a list.
+     * Gets slash commands as a list.
      *
      * @return retrieves the commands as a list.
      */
     @NotNull
-    public List<SlashCommand> getCommands() {
+    public List<SlashCommand> getSlashCommands() {
         return new ArrayList<>(this.slashCommand.values());
+    }
+
+    /**
+     * Gets user commands as a list.
+     *
+     * @return retrieves the commands as a list.
+     */
+    @NotNull
+    public List<UserCommand> getUserCommands() {
+        return new ArrayList<>(this.userCommand.values());
+    }
+
+    /**
+     * Gets message commands as a list.
+     *
+     * @return retrieves the commands as a list.
+     */
+    @NotNull
+    public List<MessageCommand> getMessageCommands() {
+        return new ArrayList<>(this.messageCommand.values());
     }
 }

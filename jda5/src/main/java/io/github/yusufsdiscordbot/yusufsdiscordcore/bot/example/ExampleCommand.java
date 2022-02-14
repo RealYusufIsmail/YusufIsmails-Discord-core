@@ -13,15 +13,18 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.core.YusufUser;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.SlashCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 class ExampleCommand extends SlashCommand {
@@ -33,13 +36,13 @@ class ExampleCommand extends SlashCommand {
     protected ExampleCommand() {
         super("example", "This is an example", true, CommandType.EXAMPLE);
 
-        getYusufCommandData().addOptionData(
+        getSlashCommandData().addOptions(
                 new OptionData(OptionType.STRING, EXAMPLE_OPTION, "This is an example option")
                     .addChoice("Test", "Works"));
     }
 
     @Override
-    public void onSlashCommand(@NotNull YusufSlashCommandEvent yusufSlashCommandEvent) {
+    public void onSlashCommand(@NotNull YusufSlashCommandInteractionEvent yusufSlashCommandEvent) {
         YusufUser sender = yusufSlashCommandEvent.getUser();
         EmbedBuilder builder = new EmbedBuilder();
 
@@ -65,12 +68,11 @@ class ExampleCommand extends SlashCommand {
         yusufSlashCommandEvent.replyQueuedEmbed(builder.build());
     }
 
+    @SuppressWarnings("unused")
     @Override
-    // example button click event
-    public void onButtonClick(@NotNull ButtonClickEvent event) {}
+    public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {}
 
+    @SuppressWarnings("unused")
     @Override
-    public void onSelectionMenu(@NotNull SelectionMenuEvent yusufSelectionMenuEvent) {
-        // example
-    }
+    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {}
 }
