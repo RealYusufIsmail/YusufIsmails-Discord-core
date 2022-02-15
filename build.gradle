@@ -46,7 +46,7 @@ allprojects {
         dependencies {
             constraints {
                 implementation 'org.jetbrains:annotations:23.0.0'
-                implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.8'
+                implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
                 //org apache commons-collections
                 implementation 'org.apache.commons:commons-collections4:4.4'
                 //loggers
