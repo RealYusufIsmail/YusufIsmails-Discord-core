@@ -1,7 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -87,7 +87,9 @@ public abstract class UserCommand extends ListenerAdapter {
      * 
      * @param event The event that is being used to create the user context interaction event.
      */
-    public abstract void onUserContextInteraction(@Nonnull YusufUserContextInteractionEvent event);
+    @Override
+    @SuppressWarnings("unused")
+    public abstract void onUserContextInteraction(@Nonnull UserContextInteractionEvent event);
 
     @SuppressWarnings("unused")
     @Override

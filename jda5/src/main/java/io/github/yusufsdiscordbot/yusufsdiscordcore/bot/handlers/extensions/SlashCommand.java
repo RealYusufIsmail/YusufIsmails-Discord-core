@@ -113,6 +113,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      * 
      * @param yusufSlashCommandEvent the event that is being used to create the command.
      */
+    @SuppressWarnings("unused")
     public abstract void onSlashCommand(
             @Nonnull YusufSlashCommandInteractionEvent yusufSlashCommandEvent);
 

@@ -1,7 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufMessageContextInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -82,7 +82,9 @@ public abstract class MessageCommand extends ListenerAdapter {
         return commandData;
     }
 
-    public abstract void onMessageContextInteraction(YusufMessageContextInteractionEvent event);
+    @Override
+    @SuppressWarnings("unused")
+    public abstract void onMessageContextInteraction(MessageContextInteractionEvent event);
 
     @SuppressWarnings("unused")
     @Override

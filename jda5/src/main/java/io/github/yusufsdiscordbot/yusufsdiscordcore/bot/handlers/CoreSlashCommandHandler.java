@@ -19,21 +19,16 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.exception.DuplicateNameE
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.MessageCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.UserCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufMessageContextInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufUserContextInteractionEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -130,7 +125,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addUserCommand(@NotNull UserCommand command) {
         jda.addEventListener(command);
-        userCommand.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
         } else if (!command.checkIfIsGuildOnly()) {
@@ -144,7 +138,6 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private void addMessageCommand(@NotNull MessageCommand command) {
         jda.addEventListener(command);
-        messageCommand.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
         } else if (!command.checkIfIsGuildOnly()) {
@@ -266,37 +259,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    @Override
-    public void onUserContextInteraction(@NotNull UserContextInteractionEvent event) {
-        var onUserCommand = this.userCommand.get(event.getName());
-        if (onUserCommand != null) {
-            onUserCommand.onUserContextInteraction(
-                    new YusufUserContextInteractionEvent(onUserCommand, event));
-        } else {
-            try {
-                throw new DuplicateNameException.UserContextInteractionDuplicateNameException(
-                        event);
-            } catch (DuplicateNameException.UserContextInteractionDuplicateNameException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
-    @Override
-    public void onMessageContextInteraction(@Nonnull MessageContextInteractionEvent event) {
-        var onMessageCommand = this.messageCommand.get(event.getName());
-        if (onMessageCommand != null) {
-            onMessageCommand.onMessageContextInteraction(
-                    new YusufMessageContextInteractionEvent(onMessageCommand, event));
-        } else {
-            try {
-                throw new DuplicateNameException.MessageContextInteractionDuplicateNameException(
-                        event);
-            } catch (DuplicateNameException.MessageContextInteractionDuplicateNameException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * Gets slash commands as a list.
