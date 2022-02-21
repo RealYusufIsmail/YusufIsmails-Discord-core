@@ -14,7 +14,7 @@
 // Originally from
 // https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
 // then modified by Yusuf
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension;
 
 import io.github.yusufsdiscordbot.annotations.Credits;
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
  * Used when making a new command. Imports all the need methods into the new class.
  */
 @Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
-public abstract class Command {
+public abstract class SlashCommand extends ListenerAdapter {
     private final @NotNull String name;
     private final @NotNull String description;
     private final boolean isGuildOnly;
@@ -40,7 +40,7 @@ public abstract class Command {
     /**
      * Were the command is registered.
      */
-    protected Command(@NotNull String name, @NotNull String description, boolean isGuildOnly) {
+    protected SlashCommand(@NotNull String name, @NotNull String description, boolean isGuildOnly) {
         this.name = name;
         this.description = description;
         this.isGuildOnly = isGuildOnly;
@@ -51,7 +51,8 @@ public abstract class Command {
     /**
      * Were the command is created.
      */
-    public abstract void onSlashCommand(SlashCommandEvent slashCommandEvent);
+    @Override
+    public abstract void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent);
 
     /**
      * Provides the user with name of the command

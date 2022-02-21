@@ -14,12 +14,10 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler;
 
 import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example.ExampleCommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -27,10 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * For register the commands make sure to set it to awaitReady as seen here
@@ -49,13 +44,14 @@ import java.util.Map;
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(
             io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.CoreSlashCommandHandler.class);
-    private final Map<String, Command> commandConnector = new HashMap<>();
+    private final Map<String, SlashCommand> commandConnector = new HashMap<>();
 
     /**
      * Used to determine whether the commands should be global or guild only.
      */
     private final @NotNull CommandListUpdateAction globalCommandsData;
     private final @NotNull CommandListUpdateAction guildCommandsData;
+    private final JDA jda;
 
     /**
      * For an example please see {@link ExampleCommandHandler#ExampleCommandHandler(JDA, Guild)}
@@ -63,6 +59,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected CoreSlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
+        this.jda = jda;
     }
 
 
@@ -75,11 +72,12 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The boolean {@link Command#checkIfIsGuildOnly()} ()} is used to determine whether the
-     *        command should be global or guild only. determines whether the command should be
+     *        The boolean {@link SlashCommand#checkIfIsGuildOnly()} ()} is used to determine whether
+     *        the command should be global or guild only. determines whether the command should be
      *        Global or Guild only.
      */
-    private void addCommand(@NotNull Command command) {
+    private void addCommand(@NotNull SlashCommand command) {
+        jda.addEventListener(command);
         commandConnector.put(command.getName(), command);
         if (command.checkIfIsGuildOnly()) {
             guildCommandsData.addCommands(command.getCommandData());
@@ -88,7 +86,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    public void queueAndRegisterCommands(@NotNull Collection<Command> commands) {
+    public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands) {
         commands.forEach(this::addCommand);
         onFinishedRegistration();
     }
@@ -109,7 +107,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     @Override
     public void onSlashCommand(@NotNull SlashCommandEvent slashCommandEvent) {
-        Command onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
+        SlashCommand onSlashCommand = this.commandConnector.get(slashCommandEvent.getName());
         // check if owner is the same as the owner of the bot
         if (onSlashCommand != null) {
             if (onSlashCommand.isOwnerOnlyCommand()) {
@@ -133,26 +131,12 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     protected abstract Long botOwnerId();
 
     /**
-     * Handles the button click event.
+     * Gets slash commands as a list.
      *
-     * @param buttonClickEvent The original button click event,
+     * @return retrieves the commands as a list.
      */
-    @Override
-    @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onButtonClick(@Nonnull ButtonClickEvent buttonClickEvent) {
-        var onButtonClick = commandConnector.get(buttonClickEvent.getComponentId());
-        onButtonClick.onButtonClick(buttonClickEvent);
-    }
-
-    /**
-     * Handles the button click event.
-     *
-     * @param selectionMenuEvent The original select menu event,
-     */
-    @Override
-    @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onSelectionMenu(@Nonnull SelectionMenuEvent selectionMenuEvent) {
-        var onSelectMenu = commandConnector.get(selectionMenuEvent.getComponentId());
-        onSelectMenu.onSelectionMenu(selectionMenuEvent);
+    @NotNull
+    public List<SlashCommand> getSlashCommands() {
+        return new ArrayList<>(this.commandConnector.values());
     }
 }

@@ -13,11 +13,11 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.example;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.interactions.Command;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension.SlashCommand;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.jetbrains.annotations.NotNull;
 
-class ExampleCommand extends Command {
+class ExampleCommand extends SlashCommand {
     /**
      * Were the command is registered.
      */
