@@ -8,10 +8,9 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.InteractionType;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
-import net.dv8tion.jda.api.interactions.commands.Command;
-import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
-import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.*;
 import net.dv8tion.jda.api.utils.TimeUtil;
+import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,6 +18,8 @@ import javax.annotation.Nonnull;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @SuppressWarnings({"unused", "java:S6206"})
 public class YusufCommandInteractionPayload extends YusufReplyCallback {
@@ -132,6 +133,55 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
         return options.isEmpty() ? null : options.get(0);
     }
 
+
+    /**
+     * Finds the first option with the specified name. <br>
+     * A resolver is used to get the value if the option is provided. If no option is provided for
+     * the given name, this will simply return null instead. You can use
+     * {@link #getOption(String, Object, Function)} to provide a fallback for missing options.
+     *
+     * <p>
+     * For {@link CommandAutoCompleteInteraction}, this might be incomplete and unvalidated.
+     * Auto-complete interactions happen on incomplete command inputs and are not validated.
+     *
+     * <p>
+     * <b>Example</b> <br>
+     * You can understand this as a shortcut for these lines of code:
+     * 
+     * <pre>
+     * {
+     *     &#64;code
+     *     OptionMapping opt = event.getOption("reason");
+     *     String reason = opt == null ? null : opt.getAsString();
+     * }
+     * </pre>
+     * 
+     * Which can be written with this resolver as:
+     * 
+     * <pre>
+     * {@code
+     * String reason = event.getOption("reason", OptionMapping::getAsString);
+     * }
+     * </pre>
+     *
+     * @param name The option name
+     * @param resolver The mapping resolver function to use if there is a mapping available, the
+     *        provided mapping will never be null!
+     * @param <T> The type of the resolved option value
+     *
+     * @throws IllegalArgumentException If the name or resolver is null
+     *
+     * @return The resolved option with the provided name, or null if that option is not provided
+     *
+     * @see #getOption(String, Object, Function)
+     * @see #getOption(String, Supplier, Function)
+     */
+    @Nullable
+    public <T> T getOption(@Nonnull String name,
+            @Nonnull Function<? super YusufOptionMapping, ? extends T> resolver) {
+        return getOption(name, null, resolver);
+    }
+
     /**
      * The options provided by the user when this command was executed. <br>
      * Each option has a name and value.
@@ -212,6 +262,117 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
     public String getCommandString() {
         return commandInteractionPayload.getCommandString();
     }
+
+
+    /**
+     * Finds the first option with the specified name. <br>
+     * A resolver is used to get the value if the option is provided. If no option is provided for
+     * the given name, this will simply return your provided fallback instead. You can use
+     * {@link #getOption(String, Function)} to fall back to {@code null}.
+     *
+     * <p>
+     * For {@link CommandAutoCompleteInteraction}, this might be incomplete and unvalidated.
+     * Auto-complete interactions happen on incomplete command inputs and are not validated.
+     *
+     * <p>
+     * <b>Example</b> <br>
+     * You can understand this as a shortcut for these lines of code:
+     * 
+     * <pre>
+     * {
+     *     &#64;code
+     *     OptionMapping opt = event.getOption("reason");
+     *     String reason = opt == null ? "ban by mod" : opt.getAsString();
+     * }
+     * </pre>
+     * 
+     * Which can be written with this resolver as:
+     * 
+     * <pre>
+     * {@code
+     * String reason = event.getOption("reason", "ban by mod", OptionMapping::getAsString);
+     * }
+     * </pre>
+     *
+     * @param name The option name
+     * @param fallback The fallback to use if the option is not provided, meaning
+     *        {@link #getOption(String)} returns null
+     * @param resolver The mapping resolver function to use if there is a mapping available, the
+     *        provided mapping will never be null!
+     * @param <T> The type of the resolved option value
+     *
+     * @throws IllegalArgumentException If the name or resolver is null
+     *
+     * @return The resolved option with the provided name, or {@code fallback} if that option is not
+     *         provided
+     *
+     * @see #getOption(String, Function)
+     * @see #getOption(String, Supplier, Function)
+     */
+    public <T> T getOption(@Nonnull String name, @javax.annotation.Nullable T fallback,
+            @Nonnull Function<? super YusufOptionMapping, ? extends T> resolver) {
+        Checks.notNull(resolver, "Resolver");
+        YusufOptionMapping mapping = getOption(name);
+        if (mapping != null)
+            return resolver.apply(mapping);
+        return fallback;
+    }
+
+    /**
+     * Finds the first option with the specified name. <br>
+     * A resolver is used to get the value if the option is provided. If no option is provided for
+     * the given name, this will simply return your provided fallback instead. You can use
+     * {@link #getOption(String, Function)} to fall back to {@code null}.
+     *
+     * <p>
+     * For {@link CommandAutoCompleteInteraction}, this might be incomplete and unvalidated.
+     * Auto-complete interactions happen on incomplete command inputs and are not validated.
+     *
+     * <p>
+     * <b>Example</b> <br>
+     * You can understand this as a shortcut for these lines of code:
+     * 
+     * <pre>
+     * {
+     *     &#64;code
+     *     OptionMapping opt = event.getOption("reason");
+     *     String reason = opt == null ? context.getFallbackReason() : opt.getAsString();
+     * }
+     * </pre>
+     * 
+     * Which can be written with this resolver as:
+     * 
+     * <pre>
+     * {@code
+     * String reason = event.getOption("reason", context::getFallbackReason , OptionMapping::getAsString);
+     * }
+     * </pre>
+     *
+     * @param name The option name
+     * @param fallback The fallback supplier to use if the option is not provided, meaning
+     *        {@link #getOption(String)} returns null
+     * @param resolver The mapping resolver function to use if there is a mapping available, the
+     *        provided mapping will never be null!
+     * @param <T> The type of the resolved option value
+     *
+     * @throws IllegalArgumentException If the name or resolver is null
+     *
+     * @return The resolved option with the provided name, or {@code fallback} if that option is not
+     *         provided
+     *
+     * @see #getOption(String, Function)
+     * @see #getOption(String, Object, Function)
+     */
+    public <T> T getOption(@Nonnull String name,
+            @javax.annotation.Nullable Supplier<? extends T> fallback,
+            @Nonnull Function<? super YusufOptionMapping, ? extends T> resolver) {
+        Checks.notNull(resolver, "Resolver");
+        YusufOptionMapping mapping = getOption(name);
+        if (mapping != null)
+            return resolver.apply(mapping);
+        return fallback == null ? null : fallback.get();
+    }
+
 
     /**
      * The command id <br>

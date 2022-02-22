@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.5'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.7'
     //config
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 

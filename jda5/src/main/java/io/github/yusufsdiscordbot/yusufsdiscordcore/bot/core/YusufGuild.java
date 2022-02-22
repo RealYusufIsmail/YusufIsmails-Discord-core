@@ -67,24 +67,24 @@ public record YusufGuild(Guild guild) {
      * @see Guild
      */
     public Guild getGuild() {
-        return this.guild;
+        return guild;
     }
 
     @Contract(value = " -> new", pure = true)
     public @Nonnull PermissionChecker getPermissionChecker() {
-        return new PermissionChecker(this.guild);
+        return new PermissionChecker(guild);
     }
 
     public @Nonnull String getGuildId() {
-        return this.guild.getId();
+        return guild.getId();
     }
 
     public @Nonnull Long getGuildIdLong() {
-        return this.guild.getIdLong();
+        return guild.getIdLong();
     }
 
     public @Nonnull String getGuildName() {
-        return this.guild.getName();
+        return guild.getName();
     }
 
     /**
@@ -92,7 +92,7 @@ public record YusufGuild(Guild guild) {
      */
     @CheckReturnValue
     public @Nonnull RestAction<List<Command>> retrieveCommands() {
-        return this.guild.retrieveCommands();
+        return guild.retrieveCommands();
     }
 
     /**
@@ -100,7 +100,7 @@ public record YusufGuild(Guild guild) {
      */
     @CheckReturnValue
     public @Nonnull RestAction<Command> retrieveCommandById(@Nonnull String commandId) {
-        return this.guild.retrieveCommandById(commandId);
+        return guild.retrieveCommandById(commandId);
     }
 
     /**
@@ -108,90 +108,90 @@ public record YusufGuild(Guild guild) {
      */
     @CheckReturnValue
     public @Nonnull RestAction<Command> retrieveCommandById(long commandId) {
-        return this.guild.retrieveCommandById(commandId);
+        return guild.retrieveCommandById(commandId);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<Command> upsertCommand(@Nonnull CommandData command) {
-        return this.guild.upsertCommand(command);
+        return guild.upsertCommand(command);
     }
 
     @CheckReturnValue
     public @Nonnull CommandCreateAction upsertCommand(@Nonnull String name,
             @Nonnull String description) {
-        return this.guild.upsertCommand(name, description);
+        return guild.upsertCommand(name, description);
     }
 
     @CheckReturnValue
     public @Nonnull CommandListUpdateAction updateCommands() {
-        return this.guild.updateCommands();
+        return guild.updateCommands();
     }
 
     @CheckReturnValue
     public @Nonnull CommandEditAction editCommandById(@Nonnull String commandId) {
-        return this.guild.editCommandById(commandId);
+        return guild.editCommandById(commandId);
     }
 
     @CheckReturnValue
     public @Nonnull CommandEditAction editCommandById(long commandId) {
-        return this.guild.editCommandById(commandId);
+        return guild.editCommandById(commandId);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<Void> deleteCommandById(@Nonnull String commandId) {
-        return this.guild.deleteCommandById(commandId);
+        return guild.deleteCommandById(commandId);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<Void> deleteCommandById(long commandId) {
-        return this.guild.deleteCommandById(commandId);
+        return guild.deleteCommandById(commandId);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(
             @Nonnull String commandId) {
-        return this.guild.retrieveCommandPrivilegesById(commandId);
+        return guild.retrieveCommandPrivilegesById(commandId);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(
             long commandId) {
-        return this.guild.retrieveCommandPrivilegesById(commandId);
+        return guild.retrieveCommandPrivilegesById(commandId);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<Map<String, List<CommandPrivilege>>> retrieveCommandPrivileges() {
-        return this.guild.retrieveCommandPrivileges();
+        return guild.retrieveCommandPrivileges();
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(
             @Nonnull String id, @Nonnull Collection<? extends CommandPrivilege> privileges) {
-        return this.guild.updateCommandPrivilegesById(id, privileges);
+        return guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
             @Nonnull Collection<? extends CommandPrivilege> privileges) {
-        return this.guild.updateCommandPrivilegesById(id, privileges);
+        return guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(
             @Nonnull String id, @Nonnull CommandPrivilege... privileges) {
-        return this.guild.updateCommandPrivilegesById(id, privileges);
+        return guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
             @Nonnull CommandPrivilege... privileges) {
-        return this.guild.updateCommandPrivilegesById(id, privileges);
+        return guild.updateCommandPrivilegesById(id, privileges);
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<Map<String, List<CommandPrivilege>>> updateCommandPrivileges(
             @Nonnull Map<String, ? extends Collection<CommandPrivilege>> privileges) {
-        return this.guild.updateCommandPrivileges(privileges);
+        return guild.updateCommandPrivileges(privileges);
     }
 
     /**
@@ -203,32 +203,32 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<EnumSet<Region>> retrieveRegions() {
-        return this.guild.retrieveRegions();
+        return guild.retrieveRegions();
     }
 
     @Nonnull
     public RestAction<EnumSet<Region>> retrieveRegions(boolean includeDeprecated) {
-        return this.guild.retrieveRegions(includeDeprecated);
+        return guild.retrieveRegions(includeDeprecated);
     }
 
     @CheckReturnValue
     public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull String userId) {
-        return this.guild.addMember(accessToken, userId);
+        return guild.addMember(accessToken, userId);
     }
 
     @CheckReturnValue
     public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull User user) {
-        return this.guild.addMember(accessToken, user);
+        return guild.addMember(accessToken, user);
     }
 
     @CheckReturnValue
     public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull YusufUser user) {
-        return this.guild.addMember(accessToken, user.user());
+        return guild.addMember(accessToken, user.user());
     }
 
     @CheckReturnValue
     public @Nonnull MemberAction addMember(@Nonnull String accessToken, long userId) {
-        return this.guild.addMember(accessToken, userId);
+        return guild.addMember(accessToken, userId);
     }
 
     public boolean isLoaded() {
@@ -236,132 +236,129 @@ public record YusufGuild(Guild guild) {
     }
 
     public void pruneMemberCache() {
-        this.guild.pruneMemberCache();
+        guild.pruneMemberCache();
     }
 
     public boolean unloadMember(long userId) {
-        return this.guild.unloadMember(userId);
+        return guild.unloadMember(userId);
     }
 
     public int getMemberCount() {
-        return this.guild.getMemberCount();
+        return guild.getMemberCount();
     }
 
     public @Nonnull String getName() {
-        return this.guild.getName();
+        return guild.getName();
     }
 
     @Nullable
     public String getIconId() {
-        return this.guild.getIconId();
+        return guild.getIconId();
     }
 
     @Nullable
     public String getIconUrl() {
-        return this.guild.getIconUrl();
+        return guild.getIconUrl();
     }
 
     public @Nonnull Set<String> getFeatures() {
-        return this.guild.getFeatures();
+        return guild.getFeatures();
     }
 
     @Contract(" -> new")
     public @Nonnull YusufMember getBot() {
-        return new YusufMember(this.guild.getSelfMember());
+        return new YusufMember(guild.getSelfMember());
     }
 
     @Contract("_ -> new")
     public @Nonnull YusufMember getMember(@Nonnull YusufUser user) {
-        return new YusufMember(this.guild.getMember(user.user()));
+        return new YusufMember(guild.getMember(user.user()));
     }
 
     @Nullable
     String getSplashId() {
-        return this.guild.getSplashId();
+        return guild.getSplashId();
     }
 
     @Nullable
     public String getSplashUrl() {
-        return this.guild.getSplashUrl();
+        return guild.getSplashUrl();
     }
 
     @Nullable
     public String getVanityCode() {
-        return this.guild.getVanityCode();
+        return guild.getVanityCode();
     }
 
     @Nonnull
     public Guild.Timeout getAfkTimeout() {
-        return this.guild.getAfkTimeout();
+        return guild.getAfkTimeout();
     }
 
     public boolean isMember(@Nonnull User user) {
-        return this.guild.isMember(user);
+        return guild.isMember(user);
     }
 
     @Nonnull
     public Member getSelfMember() {
-        return this.guild.getSelfMember();
+        return guild.getSelfMember();
     }
 
     @Nonnull
     public Guild.NSFWLevel getNSFWLevel() {
-        return this.guild.getNSFWLevel();
+        return guild.getNSFWLevel();
     }
 
     @Nonnull
     public YusufMember getMember(@Nonnull User user) {
-        return new YusufMember(this.guild.getMember(user));
+        return new YusufMember(guild.getMember(user));
     }
 
     @Nonnull
     public MemberCacheView getMemberCache() {
-        return this.guild.getMemberCache();
+        return guild.getMemberCache();
     }
 
     @Contract("_ -> new")
     public @NotNull YusufMember getMemberById(long id) {
-        return new YusufMember(this.guild.getMemberById(id));
+        return new YusufMember(guild.getMemberById(id));
     }
 
     @Contract("_ -> new")
     public @NotNull YusufMember getMemberById(String id) {
-        return new YusufMember(this.guild.getMemberById(id));
+        return new YusufMember(guild.getMemberById(id));
     }
 
     @Contract("_ -> new")
     public @NotNull YusufMember getMemberByTag(String tag) {
-        return new YusufMember(this.guild.getMemberByTag(tag));
+        return new YusufMember(guild.getMemberByTag(tag));
     }
 
     @Contract("_, _ -> new")
     public @NotNull YusufMember getMemberByTag(String tag, String discriminator) {
-        return new YusufMember(this.guild.getMemberByTag(tag, discriminator));
+        return new YusufMember(guild.getMemberByTag(tag, discriminator));
     }
 
     public List<YusufMember> getMembersByEffectiveName(String name, boolean ignoreCase) {
-        return this.guild.getMembersByEffectiveName(name, ignoreCase)
+        return guild.getMembersByEffectiveName(name, ignoreCase)
             .stream()
             .map(YusufMember::new)
             .toList();
     }
 
     public List<YusufMember> getMembersByName(String name, boolean ignoreCase) {
-        return this.guild.getMembersByName(name, ignoreCase)
-            .stream()
-            .map(YusufMember::new)
-            .toList();
+        return guild.getMembersByName(name, ignoreCase).stream().map(YusufMember::new).toList();
     }
 
     public List<YusufMember> getMembersByNickname(String nickname, boolean ignoreCase) {
-        return this.guild.getMembersByNickname(nickname, ignoreCase)
+        return guild.getMembersByNickname(nickname, ignoreCase)
             .stream()
             .map(YusufMember::new)
             .toList();
     }
 
     public List<YusufMember> getMembersWithRoles(Role... roles) {
-        return this.guild.getMembersWithRoles(roles).stream().map(YusufMember::new).toList();
+        return guild.getMembersWithRoles(roles).stream().map(YusufMember::new).toList();
     }
 
     /**
@@ -382,36 +379,36 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<Member> getMembersWithRoles(@NotNull Collection<Role> roles) {
-        return this.guild.getMembersWithRoles(roles);
+        return guild.getMembersWithRoles(roles);
     }
 
     public List<YusufMember> getMembers() {
-        return this.guild.getMembers().stream().map(YusufMember::new).toList();
+        return guild.getMembers().stream().map(YusufMember::new).toList();
     }
 
     @Nullable
     public String getVanityUrl() {
-        return this.guild.getVanityUrl();
+        return guild.getVanityUrl();
     }
 
     @CheckReturnValue
     public @Nonnull RestAction<VanityInvite> retrieveVanityInvite() {
-        return this.guild.retrieveVanityInvite();
+        return guild.retrieveVanityInvite();
     }
 
     @Nullable
     public String getDescription() {
-        return this.guild.getDescription();
+        return guild.getDescription();
     }
 
     @Nonnull
     public Locale getLocale() {
-        return this.guild.getLocale();
+        return guild.getLocale();
     }
 
     @Nullable
     public String getBannerId() {
-        return this.guild.getBannerId();
+        return guild.getBannerId();
     }
 
     /**
@@ -426,88 +423,88 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public String getBannerUrl() {
-        return this.guild.getBannerUrl();
+        return guild.getBannerUrl();
     }
 
     @Nonnull
     public Guild.BoostTier getBoostTier() {
-        return this.guild.getBoostTier();
+        return guild.getBoostTier();
     }
 
     public int getBoostCount() {
-        return this.guild.getBoostCount();
+        return guild.getBoostCount();
     }
 
     public @Nonnull AuditableRestAction<Void> changeUserNickname(@Nonnull Member member,
             String nickname) {
-        return this.guild.modifyNickname(member, nickname);
+        return guild.modifyNickname(member, nickname);
     }
 
     public @Nonnull AuditableRestAction<Void> changeUserNickname(@Nonnull YusufMember member,
             String nickname) {
-        return this.guild.modifyNickname(member.member(), nickname);
+        return guild.modifyNickname(member.member(), nickname);
     }
 
     // start of moderation commands
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull User user, String reason) {
-        return this.guild.unban(user).reason(reason);
+        return guild.unban(user).reason(reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull User user) {
-        return this.guild.unban(user);
+        return guild.unban(user);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull String userId) {
-        return this.guild.unban(userId);
+        return guild.unban(userId);
     }
 
     @Nonnull
     public AuditableRestAction<Void> unBan(@Nonnull Long userId) {
-        return this.guild.unban(User.fromId(userId));
+        return guild.unban(User.fromId(userId));
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YusufUser user, String reason) {
-        return this.guild.unban(user.user()).reason(reason);
+        return guild.unban(user.user()).reason(reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YusufUser user) {
-        return this.guild.unban(user.user());
+        return guild.unban(user.user());
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member) {
-        return this.guild.ban(member.member(), 0);
+        return guild.ban(member.member(), 0);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member, String reason) {
-        return this.guild.ban(member.member(), 0, reason);
+        return guild.ban(member.member(), 0, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member, int days,
             String reason) {
-        return this.guild.ban(member.member(), days, reason);
+        return guild.ban(member.member(), days, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull Member member) {
-        return this.guild.ban(member, 0);
+        return guild.ban(member, 0);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull Member member, String reason) {
-        return this.guild.ban(member, 0, reason);
+        return guild.ban(member, 0, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull Member member, int days, String reason) {
-        return this.guild.ban(member, days, reason);
+        return guild.ban(member, days, reason);
     }
 
     /**
@@ -550,7 +547,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public AuditableRestAction<Void> ban(@NotNull Member member, int delDays) {
-        return this.guild.ban(member, delDays);
+        return guild.ban(member, delDays);
     }
 
     /**
@@ -593,7 +590,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public AuditableRestAction<Void> ban(@NotNull User user, int delDays) {
-        return this.guild.ban(user, delDays);
+        return guild.ban(user, delDays);
     }
 
     /**
@@ -637,59 +634,59 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public AuditableRestAction<Void> ban(@NotNull String userId, int delDays) {
-        return this.guild.ban(userId, delDays);
+        return guild.ban(userId, delDays);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull User user) {
-        return this.guild.ban(user, 0);
+        return guild.ban(user, 0);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull User user, String reason) {
-        return this.guild.ban(user, 0, reason);
+        return guild.ban(user, 0, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull User user, int days, String reason) {
-        return this.guild.ban(user, days, reason);
+        return guild.ban(user, days, reason);
     }
 
     @Nonnull
     public AuditableRestAction<Void> ban(@Nonnull String userId, int delDays,
             @Nullable String reason) {
-        return this.guild.ban(userId, delDays, reason);
+        return guild.ban(userId, delDays, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user) {
-        return this.guild.ban(user.user(), 0);
+        return guild.ban(user.user(), 0);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user, String reason) {
-        return this.guild.ban(user.user(), 0, reason);
+        return guild.ban(user.user(), 0, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user, int days,
             String reason) {
-        return this.guild.ban(user.user(), days, reason);
+        return guild.ban(user.user(), days, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(@Nonnull YusufMember member) {
-        return this.guild.kick(member.member(), null);
+        return guild.kick(member.member(), null);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(@Nonnull YusufMember member, String reason) {
-        return this.guild.kick(member.member(), reason);
+        return guild.kick(member.member(), reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(@Nonnull Member user) {
-        return this.guild.kick(user, null);
+        return guild.kick(user, null);
     }
 
     /**
@@ -722,76 +719,76 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public AuditableRestAction<Void> kick(@NotNull String userId) {
-        return this.guild.kick(userId);
+        return guild.kick(userId);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(@Nonnull Member member, String reason) {
-        return this.guild.kick(member, reason);
+        return guild.kick(member, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(@Nonnull String userId, String reason) {
-        return this.guild.kick(userId, reason);
+        return guild.kick(userId, reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> mute(@Nonnull Member member, Boolean mute,
             String reason) {
-        return this.guild.mute(member, mute).reason(reason);
+        return guild.mute(member, mute).reason(reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> mute(@Nonnull YusufMember member, Boolean mute,
             String reason) {
-        return this.guild.mute(member.member(), mute).reason(reason);
+        return guild.mute(member.member(), mute).reason(reason);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> addRoleToMember(@Nonnull Member member,
             @Nonnull Role role) {
-        return this.guild.addRoleToMember(member, role);
+        return guild.addRoleToMember(member, role);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
             @Nonnull Role role) {
-        return this.guild.addRoleToMember(member.member(), role);
+        return guild.addRoleToMember(member.member(), role);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> addRoleToMember(long userId, @Nonnull Role role) {
-        return this.guild.addRoleToMember(userId, role);
+        return guild.addRoleToMember(userId, role);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> addRoleToMember(@Nonnull String userId,
             @Nonnull Role role) {
-        return this.guild.addRoleToMember(userId, role);
+        return guild.addRoleToMember(userId, role);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull Member member,
             @Nonnull Role role) {
-        return this.guild.removeRoleFromMember(member, role);
+        return guild.removeRoleFromMember(member, role);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
             @Nonnull Role role) {
-        return this.guild.removeRoleFromMember(member.member(), role);
+        return guild.removeRoleFromMember(member.member(), role);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull String userId,
             @Nonnull Role role) {
-        return this.guild.removeRoleFromMember(userId, role);
+        return guild.removeRoleFromMember(userId, role);
     }
 
     @Nonnull
     public AuditableRestAction<Void> modifyMemberRoles(@Nonnull Member member,
             @Nullable Collection<Role> rolesToAdd, @Nullable Collection<Role> rolesToRemove) {
-        return this.guild.modifyMemberRoles(member, rolesToAdd, rolesToRemove);
+        return guild.modifyMemberRoles(member, rolesToAdd, rolesToRemove);
     }
 
     /**
@@ -850,77 +847,77 @@ public record YusufGuild(Guild guild) {
     @NotNull
     public AuditableRestAction<Void> modifyMemberRoles(@NotNull Member member,
             @NotNull Role... roles) {
-        return this.guild.modifyMemberRoles(member, roles);
+        return guild.modifyMemberRoles(member, roles);
     }
 
     @Nonnull
     public AuditableRestAction<Void> modifyMemberRoles(@Nonnull Member member,
             @Nonnull Collection<Role> roles) {
-        return this.guild.modifyMemberRoles(member, roles);
+        return guild.modifyMemberRoles(member, roles);
     }
 
     @Nonnull
     public AuditableRestAction<Void> transferOwnership(@Nonnull Member newOwner) {
-        return this.guild.transferOwnership(newOwner);
+        return guild.transferOwnership(newOwner);
     }
 
     @Nonnull
     public AuditableRestAction<Void> transferOwnership(@Nonnull YusufMember newOwner) {
-        return this.guild.transferOwnership(newOwner.member());
+        return guild.transferOwnership(newOwner.member());
     }
 
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> removeRoleFromMember(long userId,
             @Nonnull Role role) {
-        return this.guild.removeRoleFromMember(userId, role);
+        return guild.removeRoleFromMember(userId, role);
     }
 
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Integer> prune(@Nonnull Integer days,
             @Nonnull Role... roles) {
-        return this.guild.prune(days, roles);
+        return guild.prune(days, roles);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Integer> prune(int days, boolean wait, @Nonnull Role... roles) {
-        return this.guild.prune(days, wait, roles);
+        return guild.prune(days, wait, roles);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, long amount,
             @Nonnull TimeUnit unit) {
-        return this.guild.timeoutFor(member.member(), amount, unit);
+        return guild.timeoutFor(member.member(), amount, unit);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
             @Nonnull Duration duration) {
-        return this.guild.timeoutFor(member.member(), duration);
+        return guild.timeoutFor(member.member(), duration);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
             @Nonnull TemporalAccessor temporal) {
-        return this.guild.timeoutUntil(member.member(), temporal);
+        return guild.timeoutUntil(member.member(), temporal);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull Member member, long amount,
             @Nonnull TimeUnit unit) {
-        return this.guild.timeoutFor(member, amount, unit);
+        return guild.timeoutFor(member, amount, unit);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull Member member,
             @Nonnull Duration duration) {
-        return this.guild.timeoutFor(member, duration);
+        return guild.timeoutFor(member, duration);
     }
 
     /**
@@ -960,50 +957,50 @@ public record YusufGuild(Guild guild) {
     @NotNull
     public AuditableRestAction<Void> timeoutUntil(@NotNull Member member,
             @NotNull TemporalAccessor temporal) {
-        return this.guild.timeoutUntil(member, temporal);
+        return guild.timeoutUntil(member, temporal);
     }
 
     @CheckReturnValue
     @Nonnull
     public AuditableRestAction<Void> timeoutFor(@Nonnull Member member,
             @Nonnull TemporalAccessor temporal) {
-        return this.guild.timeoutUntil(member, temporal);
+        return guild.timeoutUntil(member, temporal);
     }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> timeoutForById(long userId, long amount,
             @Nonnull TimeUnit unit) {
-        return this.guild.timeoutForById(userId, amount, unit);
+        return guild.timeoutForById(userId, amount, unit);
     }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId, long amount,
             @Nonnull TimeUnit unit) {
-        return this.guild.timeoutForById(userId, amount, unit);
+        return guild.timeoutForById(userId, amount, unit);
     }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> timeoutForById(long userId,
             @Nonnull Duration duration) {
-        return this.guild.timeoutForById(userId, duration);
+        return guild.timeoutForById(userId, duration);
     }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId,
             @Nonnull Duration duration) {
-        return this.guild.timeoutForById(userId, duration);
+        return guild.timeoutForById(userId, duration);
     }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> timeoutUntilById(long userId,
             @Nonnull TemporalAccessor temporal) {
-        return this.guild.timeoutUntilById(userId, temporal);
+        return guild.timeoutUntilById(userId, temporal);
     }
 
     @CheckReturnValue
     public @NotNull AuditableRestAction<Void> timeoutUntilById(@Nonnull String userId,
             @Nonnull TemporalAccessor temporal) {
-        return this.guild.timeoutUntilById(userId, temporal);
+        return guild.timeoutUntilById(userId, temporal);
     }
 
     /**
@@ -1030,31 +1027,67 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public AuditableRestAction<Void> removeTimeout(@NotNull Member member) {
-        return this.guild.removeTimeout(member);
+        return guild.removeTimeout(member);
     }
 
     public @NotNull AuditableRestAction<Void> removeTimeout(@Nonnull YusufMember member) {
-        return this.guild.removeTimeout(member.member());
+        return guild.removeTimeout(member.member());
     }
 
     public @NotNull AuditableRestAction<Void> removeTimeoutById(long userId) {
-        return this.guild.removeTimeoutById(userId);
+        return guild.removeTimeoutById(userId);
     }
 
     public @NotNull AuditableRestAction<Void> removeTimeoutById(@Nonnull String userId) {
-        return this.guild.removeTimeoutById(userId);
+        return guild.removeTimeoutById(userId);
     }
 
     // end of moderation commands
 
+    /**
+     * Get a channel of the specified type by id.
+     *
+     * <p>
+     * This will automatically check for all channel types and cast to the specified class. If a
+     * channel with the specified id does not exist, or exists but is not an instance of the
+     * provided class, this returns null.
+     *
+     * @param type {@link Class} of a channel type
+     * @param id The snowflake id of the channel
+     * @return The casted channel, if it exists and is assignable to the provided class, or null
+     * @throws IllegalArgumentException If null is provided, or the id is not a valid snowflake
+     */
+    @org.jetbrains.annotations.Nullable
+    public <T extends Channel> T getChannelById(@NotNull Class<T> type, @NotNull String id) {
+        return guild.getChannelById(type, id);
+    }
+
+    /**
+     * Get a channel of the specified type by id.
+     *
+     * <p>
+     * This will automatically check for all channel types and cast to the specified class. If a
+     * channel with the specified id does not exist, or exists but is not an instance of the
+     * provided class, this returns null.
+     *
+     * @param type {@link Class} of a channel type
+     * @param id The snowflake id of the channel
+     * @return The casted channel, if it exists and is assignable to the provided class, or null
+     * @throws IllegalArgumentException If null is provided
+     */
+    @org.jetbrains.annotations.Nullable
+    public <T extends Channel> T getChannelById(@NotNull Class<T> type, long id) {
+        return guild.getChannelById(type, id);
+    }
+
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull String id) {
-        return this.guild.getGuildChannelById(id);
+        return guild.getGuildChannelById(id);
     }
 
     @Nullable
     public GuildChannel getGuildChannelById(long id) {
-        return this.guild.getGuildChannelById(id);
+        return guild.getGuildChannelById(id);
     }
 
     /**
@@ -1079,17 +1112,17 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public GuildChannel getGuildChannelById(@NotNull ChannelType type, @NotNull String id) {
-        return this.guild.getGuildChannelById(type, id);
+        return guild.getGuildChannelById(type, id);
     }
 
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull ChannelType type, long id) {
-        return this.guild.getGuildChannelById(type, id);
+        return guild.getGuildChannelById(type, id);
     }
 
     @Nonnull
     public SortedSnowflakeCacheView<StageChannel> getStageChannelCache() {
-        return this.guild.getStageChannelCache();
+        return guild.getStageChannelCache();
     }
 
     /**
@@ -1105,7 +1138,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<StageChannel> getStageChannelsByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getStageChannelsByName(name, ignoreCase);
+        return guild.getStageChannelsByName(name, ignoreCase);
     }
 
     /**
@@ -1122,7 +1155,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public StageChannel getStageChannelById(@NotNull String id) {
-        return this.guild.getStageChannelById(id);
+        return guild.getStageChannelById(id);
     }
 
     /**
@@ -1137,7 +1170,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public StageChannel getStageChannelById(long id) {
-        return this.guild.getStageChannelById(id);
+        return guild.getStageChannelById(id);
     }
 
     /**
@@ -1153,12 +1186,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<StageChannel> getStageChannels() {
-        return this.guild.getStageChannels();
+        return guild.getStageChannels();
     }
 
     @Nonnull
     public SortedSnowflakeCacheView<ThreadChannel> getThreadChannelCache() {
-        return this.guild.getThreadChannelCache();
+        return guild.getThreadChannelCache();
     }
 
     /**
@@ -1175,7 +1208,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<ThreadChannel> getThreadChannelsByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getThreadChannelsByName(name, ignoreCase);
+        return guild.getThreadChannelsByName(name, ignoreCase);
     }
 
     /**
@@ -1192,7 +1225,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public ThreadChannel getThreadChannelById(@NotNull String id) {
-        return this.guild.getThreadChannelById(id);
+        return guild.getThreadChannelById(id);
     }
 
     /**
@@ -1207,7 +1240,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public ThreadChannel getThreadChannelById(long id) {
-        return this.guild.getThreadChannelById(id);
+        return guild.getThreadChannelById(id);
     }
 
     /**
@@ -1223,7 +1256,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<ThreadChannel> getThreadChannels() {
-        return this.guild.getThreadChannels();
+        return guild.getThreadChannels();
     }
 
     /**
@@ -1238,7 +1271,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Category getCategoryById(@NotNull String id) {
-        return this.guild.getCategoryById(id);
+        return guild.getCategoryById(id);
     }
 
     /**
@@ -1252,7 +1285,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Category getCategoryById(long id) {
-        return this.guild.getCategoryById(id);
+        return guild.getCategoryById(id);
     }
 
     /**
@@ -1268,7 +1301,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<Category> getCategories() {
-        return this.guild.getCategories();
+        return guild.getCategories();
     }
 
     /**
@@ -1283,91 +1316,18 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<Category> getCategoriesByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getCategoriesByName(name, ignoreCase);
+        return guild.getCategoriesByName(name, ignoreCase);
     }
 
     @Nonnull
     public SortedSnowflakeCacheView<Category> getCategoryCache() {
-        return this.guild.getCategoryCache();
+        return guild.getCategoryCache();
     }
 
-    /**
-     * Gets a {@link StoreChannel StoreChannel} from this guild that has the same id as the one
-     * provided. This method is similar to {@link JDA#getStoreChannelById(String)}, but it only
-     * checks this specific Guild for a StoreChannel. <br>
-     * If there is no {@link StoreChannel StoreChannel} with an id that matches the provided one,
-     * then this returns {@code null}.
-     *
-     * @param id The id of the {@link StoreChannel StoreChannel}.
-     * @return Possibly-null {@link StoreChannel StoreChannel} with matching id.
-     * @throws NumberFormatException If the provided {@code id} cannot be parsed by
-     *         {@link Long#parseLong(String)}
-     * @since 4.0.0
-     */
-    @org.jetbrains.annotations.Nullable
-    public StoreChannel getStoreChannelById(@NotNull String id) {
-        return this.guild.getStoreChannelById(id);
-    }
-
-    /**
-     * Gets a {@link StoreChannel StoreChannel} from this guild that has the same id as the one
-     * provided. This method is similar to {@link JDA#getStoreChannelById(long)}, but it only checks
-     * this specific Guild for a StoreChannel. <br>
-     * If there is no {@link StoreChannel StoreChannel} with an id that matches the provided one,
-     * then this returns {@code null}.
-     *
-     * @param id The id of the {@link StoreChannel StoreChannel}.
-     * @return Possibly-null {@link StoreChannel StoreChannel} with matching id.
-     * @since 4.0.0
-     */
-    @org.jetbrains.annotations.Nullable
-    public StoreChannel getStoreChannelById(long id) {
-        return this.guild.getStoreChannelById(id);
-    }
-
-    /**
-     * Gets all {@link StoreChannel StoreChannels} in this {@link Guild Guild}. <br>
-     * The channels returned will be sorted according to their position.
-     *
-     * <p>
-     * This copies the backing store into a list. This means every call creates a new list with O(n)
-     * complexity. It is recommended to store this into a local variable or use
-     * {@link #getStoreChannelCache()} and use its more efficient versions of handling these values.
-     *
-     * @return An immutable List of all {@link StoreChannel StoreChannel} in this Guild.
-     * @since 4.0.0
-     */
-    @NotNull
-    public List<StoreChannel> getStoreChannels() {
-        return this.guild.getStoreChannels();
-    }
-
-    /**
-     * Gets a list of all {@link StoreChannel StoreChannels} in this Guild that have the same name
-     * as the one provided. <br>
-     * If there are no {@link StoreChannel StoreChannels} with the provided name, then this returns
-     * an empty list.
-     *
-     * @param name The name used to filter the returned {@link StoreChannel StoreChannels}.
-     * @param ignoreCase Determines if the comparison ignores case when comparing. True -
-     *        case-insensitive.
-     * @return Possibly-empty immutable list of all StoreChannels with names that match the provided
-     *         name.
-     * @since 4.0.0
-     */
-    @NotNull
-    public List<StoreChannel> getStoreChannelsByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getStoreChannelsByName(name, ignoreCase);
-    }
-
-    @Nonnull
-    public SortedSnowflakeCacheView<StoreChannel> getStoreChannelCache() {
-        return this.guild.getStoreChannelCache();
-    }
 
     @Nonnull
     public SortedSnowflakeCacheView<TextChannel> getTextChannelCache() {
-        return this.guild.getTextChannelCache();
+        return guild.getTextChannelCache();
     }
 
     /**
@@ -1384,7 +1344,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public NewsChannel getNewsChannelById(@NotNull String id) {
-        return this.guild.getNewsChannelById(id);
+        return guild.getNewsChannelById(id);
     }
 
     /**
@@ -1399,7 +1359,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public NewsChannel getNewsChannelById(long id) {
-        return this.guild.getNewsChannelById(id);
+        return guild.getNewsChannelById(id);
     }
 
     /**
@@ -1415,7 +1375,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<NewsChannel> getNewsChannels() {
-        return this.guild.getNewsChannels();
+        return guild.getNewsChannels();
     }
 
     /**
@@ -1431,12 +1391,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<NewsChannel> getNewsChannelsByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getNewsChannelsByName(name, ignoreCase);
+        return guild.getNewsChannelsByName(name, ignoreCase);
     }
 
     @Nonnull
     public SortedSnowflakeCacheView<NewsChannel> getNewsChannelCache() {
-        return this.guild.getNewsChannelCache();
+        return guild.getNewsChannelCache();
     }
 
     /**
@@ -1453,7 +1413,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public VoiceChannel getVoiceChannelById(@NotNull String id) {
-        return this.guild.getVoiceChannelById(id);
+        return guild.getVoiceChannelById(id);
     }
 
     /**
@@ -1468,7 +1428,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public VoiceChannel getVoiceChannelById(long id) {
-        return this.guild.getVoiceChannelById(id);
+        return guild.getVoiceChannelById(id);
     }
 
     /**
@@ -1484,7 +1444,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<VoiceChannel> getVoiceChannels() {
-        return this.guild.getVoiceChannels();
+        return guild.getVoiceChannels();
     }
 
     /**
@@ -1500,12 +1460,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<VoiceChannel> getVoiceChannelsByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getVoiceChannelsByName(name, ignoreCase);
+        return guild.getVoiceChannelsByName(name, ignoreCase);
     }
 
     @Nonnull
     public SortedSnowflakeCacheView<VoiceChannel> getVoiceChannelCache() {
-        return this.guild.getVoiceChannelCache();
+        return guild.getVoiceChannelCache();
     }
 
     /**
@@ -1534,12 +1494,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<GuildChannel> getChannels() {
-        return this.guild.getChannels();
+        return guild.getChannels();
     }
 
     @Nonnull
     public List<GuildChannel> getChannels(boolean includeHidden) {
-        return this.guild.getChannels(includeHidden);
+        return guild.getChannels(includeHidden);
     }
 
     /**
@@ -1554,7 +1514,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Role getRoleById(@NotNull String id) {
-        return this.guild.getRoleById(id);
+        return guild.getRoleById(id);
     }
 
     /**
@@ -1567,7 +1527,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Role getRoleById(long id) {
-        return this.guild.getRoleById(id);
+        return guild.getRoleById(id);
     }
 
     /**
@@ -1584,7 +1544,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<Role> getRoles() {
-        return this.guild.getRoles();
+        return guild.getRoles();
     }
 
     /**
@@ -1599,7 +1559,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<Role> getRolesByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getRolesByName(name, ignoreCase);
+        return guild.getRolesByName(name, ignoreCase);
     }
 
     /**
@@ -1619,7 +1579,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Role getRoleByBot(long userId) {
-        return this.guild.getRoleByBot(userId);
+        return guild.getRoleByBot(userId);
     }
 
     /**
@@ -1640,7 +1600,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Role getRoleByBot(@NotNull String userId) {
-        return this.guild.getRoleByBot(userId);
+        return guild.getRoleByBot(userId);
     }
 
     /**
@@ -1661,7 +1621,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Role getRoleByBot(@NotNull User user) {
-        return this.guild.getRoleByBot(user);
+        return guild.getRoleByBot(user);
     }
 
     /**
@@ -1681,7 +1641,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Role getBotRole() {
-        return this.guild.getBotRole();
+        return guild.getBotRole();
     }
 
     /**
@@ -1699,12 +1659,12 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Role getBoostRole() {
-        return this.guild.getBoostRole();
+        return guild.getBoostRole();
     }
 
     @Nonnull
     public SortedSnowflakeCacheView<Role> getRoleCache() {
-        return this.guild.getRoleCache();
+        return guild.getRoleCache();
     }
 
     /**
@@ -1726,7 +1686,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Emote getEmoteById(@NotNull String id) {
-        return this.guild.getEmoteById(id);
+        return guild.getEmoteById(id);
     }
 
     /**
@@ -1746,7 +1706,7 @@ public record YusufGuild(Guild guild) {
      */
     @org.jetbrains.annotations.Nullable
     public Emote getEmoteById(long id) {
-        return this.guild.getEmoteById(id);
+        return guild.getEmoteById(id);
     }
 
     /**
@@ -1769,7 +1729,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<Emote> getEmotes() {
-        return this.guild.getEmotes();
+        return guild.getEmotes();
     }
 
     /**
@@ -1790,37 +1750,37 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<Emote> getEmotesByName(@NotNull String name, boolean ignoreCase) {
-        return this.guild.getEmotesByName(name, ignoreCase);
+        return guild.getEmotesByName(name, ignoreCase);
     }
 
     @Nonnull
     public SnowflakeCacheView<Emote> getEmoteCache() {
-        return this.guild.getEmoteCache();
+        return guild.getEmoteCache();
     }
 
     @Nonnull
     public RestAction<List<ListedEmote>> retrieveEmotes() {
-        return this.guild.retrieveEmotes();
+        return guild.retrieveEmotes();
     }
 
     @Nonnull
     public RestAction<ListedEmote> retrieveEmoteById(@Nonnull String id) {
-        return this.guild.retrieveEmoteById(id);
+        return guild.retrieveEmoteById(id);
     }
 
     @NotNull
     public RestAction<ListedEmote> retrieveEmoteById(long id) {
-        return this.guild.retrieveEmoteById(id);
+        return guild.retrieveEmoteById(id);
     }
 
     @NotNull
     public RestAction<ListedEmote> retrieveEmote(@NotNull Emote emote) {
-        return this.guild.retrieveEmote(emote);
+        return guild.retrieveEmote(emote);
     }
 
     @Nonnull
     public RestAction<List<Guild.Ban>> retrieveBanList() {
-        return this.guild.retrieveBanList();
+        return guild.retrieveBanList();
     }
 
     /**
@@ -1848,12 +1808,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Guild.Ban> retrieveBanById(long userId) {
-        return this.guild.retrieveBanById(userId);
+        return guild.retrieveBanById(userId);
     }
 
     @Nonnull
     public RestAction<Guild.Ban> retrieveBanById(@Nonnull String userId) {
-        return this.guild.retrieveBanById(userId);
+        return guild.retrieveBanById(userId);
     }
 
     /**
@@ -1881,7 +1841,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Guild.Ban> retrieveBan(@NotNull User bannedUser) {
-        return this.guild.retrieveBan(bannedUser);
+        return guild.retrieveBan(bannedUser);
     }
 
     /**
@@ -1909,116 +1869,116 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Guild.Ban> retrieveBan(@NotNull YusufUser bannedUser) {
-        return this.guild.retrieveBan(bannedUser.user());
+        return guild.retrieveBan(bannedUser.user());
     }
 
     @Nonnull
     public RestAction<Integer> retrievePrunableMemberCount(int days) {
-        return this.guild.retrievePrunableMemberCount(days);
+        return guild.retrievePrunableMemberCount(days);
     }
 
     @Nonnull
     public Role getPublicRole() {
-        return this.guild.getPublicRole();
+        return guild.getPublicRole();
     }
 
     @Nullable
-    public TextChannel getDefaultChannel() {
-        return this.guild.getDefaultChannel();
+    public BaseGuildMessageChannel getDefaultChannel() {
+        return guild.getDefaultChannel();
     }
 
     @Nonnull
     public GuildManager getManager() {
-        return this.guild.getManager();
+        return guild.getManager();
     }
 
     public boolean isBoostProgressBarEnabled() {
-        return this.guild.isBoostProgressBarEnabled();
+        return guild.isBoostProgressBarEnabled();
     }
 
     @Nonnull
     public AuditLogPaginationAction retrieveAuditLogs() {
-        return this.guild.retrieveAuditLogs();
+        return guild.retrieveAuditLogs();
     }
 
     @Nonnull
     public RestAction<Void> leave() {
-        return this.guild.leave();
+        return guild.leave();
     }
 
     @Nonnull
     public RestAction<Void> delete() {
-        return this.guild.delete();
+        return guild.delete();
     }
 
     @Nonnull
     public RestAction<Void> delete(@Nullable String mfaCode) {
-        return this.guild.delete(mfaCode);
+        return guild.delete(mfaCode);
     }
 
     @Nonnull
     public AudioManager getAudioManager() {
-        return this.guild.getAudioManager();
+        return guild.getAudioManager();
     }
 
     @Nonnull
     public Task<Void> requestToSpeak() {
-        return this.guild.requestToSpeak();
+        return guild.requestToSpeak();
     }
 
     @Nonnull
     public Task<Void> cancelRequestToSpeak() {
-        return this.guild.cancelRequestToSpeak();
+        return guild.cancelRequestToSpeak();
     }
 
     @Nonnull
     public JDA getJDA() {
-        return this.guild.getJDA();
+        return guild.getJDA();
     }
 
     @Nonnull
     public RestAction<List<Invite>> retrieveInvites() {
-        return this.guild.retrieveInvites();
+        return guild.retrieveInvites();
     }
 
     @Nonnull
     public RestAction<List<Template>> retrieveTemplates() {
-        return this.guild.retrieveTemplates();
+        return guild.retrieveTemplates();
     }
 
     @Nonnull
     public RestAction<Template> createTemplate(@Nonnull String name, @Nullable String description) {
-        return this.guild.createTemplate(name, description);
+        return guild.createTemplate(name, description);
     }
 
     @Nonnull
     public RestAction<List<Webhook>> retrieveWebhooks() {
-        return this.guild.retrieveWebhooks();
+        return guild.retrieveWebhooks();
     }
 
     @Nonnull
     public List<GuildVoiceState> getVoiceStates() {
-        return this.guild.getVoiceStates();
+        return guild.getVoiceStates();
     }
 
     @Nonnull
     public Guild.VerificationLevel getVerificationLevel() {
-        return this.guild.getVerificationLevel();
+        return guild.getVerificationLevel();
     }
 
     @Nonnull
     public Guild.NotificationLevel getDefaultNotificationLevel() {
-        return this.guild.getDefaultNotificationLevel();
+        return guild.getDefaultNotificationLevel();
     }
 
     @Nonnull
     public Guild.MFALevel getRequiredMFALevel() {
-        return this.guild.getRequiredMFALevel();
+        return guild.getRequiredMFALevel();
     }
 
     @Nonnull
     public Guild.ExplicitContentLevel getExplicitContentLevel() {
-        return this.guild.getExplicitContentLevel();
+        return guild.getExplicitContentLevel();
     }
 
     /**
@@ -2042,7 +2002,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> loadMembers() {
-        return this.guild.loadMembers();
+        return guild.loadMembers();
     }
 
     /**
@@ -2065,7 +2025,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> findMembers(@NotNull Predicate<? super Member> filter) {
-        return this.guild.findMembers(filter);
+        return guild.findMembers(filter);
     }
 
     /**
@@ -2089,7 +2049,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> findMembersWithRoles(@NotNull Collection<Role> roles) {
-        return this.guild.findMembersWithRoles(roles);
+        return guild.findMembersWithRoles(roles);
     }
 
     /**
@@ -2113,12 +2073,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> findMembersWithRoles(@NotNull Role... roles) {
-        return this.guild.findMembersWithRoles(roles);
+        return guild.findMembersWithRoles(roles);
     }
 
     @Nonnull
     public Task<Void> loadMembers(@Nonnull Consumer<Member> callback) {
-        return this.guild.loadMembers(callback);
+        return guild.loadMembers(callback);
     }
 
 
@@ -2154,12 +2114,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Member> retrieveMember(@NotNull User user) {
-        return this.guild.retrieveMember(user);
+        return guild.retrieveMember(user);
     }
 
     @NotNull
     public RestAction<Member> retrieveMember(@NotNull YusufUser user) {
-        return this.guild.retrieveMember(user.user());
+        return guild.retrieveMember(user.user());
     }
 
     /**
@@ -2195,7 +2155,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Member> retrieveMemberById(@NotNull String id) {
-        return this.guild.retrieveMemberById(id);
+        return guild.retrieveMemberById(id);
     }
 
     /**
@@ -2229,7 +2189,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Member> retrieveMemberById(long id) {
-        return this.guild.retrieveMemberById(id);
+        return guild.retrieveMemberById(id);
     }
 
     /**
@@ -2261,7 +2221,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Member> retrieveOwner() {
-        return this.guild.retrieveOwner();
+        return guild.retrieveOwner();
     }
 
     /**
@@ -2293,7 +2253,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Member> retrieveMember(@NotNull User user, boolean update) {
-        return this.guild.retrieveMember(user, update);
+        return guild.retrieveMember(user, update);
     }
 
     /**
@@ -2326,12 +2286,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Member> retrieveMemberById(@NotNull String id, boolean update) {
-        return this.guild.retrieveMemberById(id, update);
+        return guild.retrieveMemberById(id, update);
     }
 
     @Nonnull
     public RestAction<Member> retrieveMemberById(long id, boolean update) {
-        return this.guild.retrieveMemberById(id, update);
+        return guild.retrieveMemberById(id, update);
     }
 
     /**
@@ -2360,7 +2320,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Member> retrieveOwner(boolean update) {
-        return this.guild.retrieveOwner(update);
+        return guild.retrieveOwner(update);
     }
 
     /**
@@ -2392,7 +2352,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> retrieveMembers(@NotNull Collection<User> users) {
-        return this.guild.retrieveMembers(users);
+        return guild.retrieveMembers(users);
     }
 
     /**
@@ -2424,7 +2384,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> retrieveMembersByIds(@NotNull Collection<Long> ids) {
-        return this.guild.retrieveMembersByIds(ids);
+        return guild.retrieveMembersByIds(ids);
     }
 
     /**
@@ -2456,7 +2416,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> retrieveMembersByIds(@NotNull String... ids) {
-        return this.guild.retrieveMembersByIds(ids);
+        return guild.retrieveMembersByIds(ids);
     }
 
     /**
@@ -2488,7 +2448,7 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public Task<List<Member>> retrieveMembersByIds(long... ids) {
-        return this.guild.retrieveMembersByIds(ids);
+        return guild.retrieveMembersByIds(ids);
     }
 
     /**
@@ -2523,7 +2483,7 @@ public record YusufGuild(Guild guild) {
     @NotNull
     public Task<List<Member>> retrieveMembers(boolean includePresence,
             @NotNull Collection<User> users) {
-        return this.guild.retrieveMembers(includePresence, users);
+        return guild.retrieveMembers(includePresence, users);
     }
 
     /**
@@ -2558,7 +2518,7 @@ public record YusufGuild(Guild guild) {
     @NotNull
     public Task<List<Member>> retrieveMembersByIds(boolean includePresence,
             @NotNull Collection<Long> ids) {
-        return this.guild.retrieveMembersByIds(includePresence, ids);
+        return guild.retrieveMembersByIds(includePresence, ids);
     }
 
     /**
@@ -2593,28 +2553,28 @@ public record YusufGuild(Guild guild) {
     @NotNull
     public Task<List<Member>> retrieveMembersByIds(boolean includePresence,
             @NotNull String... ids) {
-        return this.guild.retrieveMembersByIds(includePresence, ids);
+        return guild.retrieveMembersByIds(includePresence, ids);
     }
 
     @Nonnull
     public Task<List<Member>> retrieveMembersByIds(boolean includePresence, long... ids) {
-        return this.guild.retrieveMembersByIds(includePresence, ids);
+        return guild.retrieveMembersByIds(includePresence, ids);
     }
 
     @Nonnull
     public Task<List<Member>> retrieveMembersByPrefix(@Nonnull String prefix, int limit) {
-        return this.guild.retrieveMembersByPrefix(prefix, limit);
+        return guild.retrieveMembersByPrefix(prefix, limit);
     }
 
     @Nonnull
     public RestAction<List<ThreadChannel>> retrieveActiveThreads() {
-        return this.guild.retrieveActiveThreads();
+        return guild.retrieveActiveThreads();
     }
 
     @Nonnull
     public RestAction<Void> moveVoiceMember(@Nonnull Member member,
             @Nullable AudioChannel audioChannel) {
-        return this.guild.moveVoiceMember(member, audioChannel);
+        return guild.moveVoiceMember(member, audioChannel);
     }
 
     /**
@@ -2655,13 +2615,13 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RestAction<Void> kickVoiceMember(@NotNull Member member) {
-        return this.guild.kickVoiceMember(member);
+        return guild.kickVoiceMember(member);
     }
 
     @Nonnull
     public AuditableRestAction<Void> modifyNickname(@Nonnull Member member,
             @Nullable String nickname) {
-        return this.guild.modifyNickname(member, nickname);
+        return guild.modifyNickname(member, nickname);
     }
 
     /**
@@ -2699,12 +2659,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public AuditableRestAction<Integer> prune(int days, @NotNull Role... roles) {
-        return this.guild.prune(days, roles);
+        return guild.prune(days, roles);
     }
 
     @CheckReturnValue
     public @Nonnull RoleOrderAction modifyRolePositions(boolean useAscendingOrder) {
-        return this.guild.modifyRolePositions(useAscendingOrder);
+        return guild.modifyRolePositions(useAscendingOrder);
     }
 
     /**
@@ -2713,7 +2673,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     @Nonnull
     AuditableRestAction<Void> mute(@Nonnull Member member, boolean mute) {
-        return this.guild.mute(member, mute);
+        return guild.mute(member, mute);
     }
 
     /**
@@ -2722,7 +2682,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     @Nonnull
     AuditableRestAction<Void> mute(@Nonnull YusufMember member, boolean mute) {
-        return this.guild.mute(member.member(), mute);
+        return guild.mute(member.member(), mute);
     }
 
     /**
@@ -2731,7 +2691,7 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     @Nonnull
     AuditableRestAction<Void> deafen(@Nonnull Member member, boolean deafen) {
-        return this.guild.deafen(member, deafen);
+        return guild.deafen(member, deafen);
     }
 
     /**
@@ -2740,81 +2700,81 @@ public record YusufGuild(Guild guild) {
     @CheckReturnValue
     @Nonnull
     AuditableRestAction<Void> deafen(@Nonnull YusufMember member, boolean deafen) {
-        return this.guild.deafen(member.member(), deafen);
+        return guild.deafen(member.member(), deafen);
     }
 
     /**
      * @see Guild#getBoosters()
      */
     public @Nonnull List<Member> getBoosters() {
-        return this.guild.getBoosters();
+        return guild.getBoosters();
     }
 
     /**
      * @see Guild#getMaxBitrate()
      */
     public int getMaxBitrate() {
-        return this.guild.getMaxBitrate();
+        return guild.getMaxBitrate();
     }
 
     /**
      * @see Guild#getMaxFileSize()
      */
     public long getMaxFileSize() {
-        return this.guild.getMaxFileSize();
+        return guild.getMaxFileSize();
     }
 
     /**
      * @see Guild#getMaxEmotes()
      */
     public int getMaxEmotes() {
-        return this.guild.getMaxEmotes();
+        return guild.getMaxEmotes();
     }
 
     public int getMaxMembers() {
-        return this.guild.getMaxMembers();
+        return guild.getMaxMembers();
     }
 
     public int getMaxPresences() {
-        return this.guild.getMaxPresences();
+        return guild.getMaxPresences();
     }
 
     @Nonnull
     public RestAction<Guild.MetaData> retrieveMetaData() {
-        return this.guild.retrieveMetaData();
+        return guild.retrieveMetaData();
     }
 
     @Nullable
     public VoiceChannel getAfkChannel() {
-        return this.guild.getAfkChannel();
+        return guild.getAfkChannel();
     }
 
     @Nullable
     public TextChannel getSystemChannel() {
-        return this.guild.getSystemChannel();
+        return guild.getSystemChannel();
     }
 
     @Nullable
     public TextChannel getRulesChannel() {
-        return this.guild.getRulesChannel();
+        return guild.getRulesChannel();
     }
 
     @Nullable
     public TextChannel getCommunityUpdatesChannel() {
-        return this.guild.getCommunityUpdatesChannel();
+        return guild.getCommunityUpdatesChannel();
     }
 
     public boolean isMember(@Nonnull YusufUser user) {
-        return this.guild.isMember(user.user());
+        return guild.isMember(user.user());
     }
 
     public @Nonnull ChannelAction<TextChannel> createTextChannel(@Nonnull String name) {
-        return this.guild.createTextChannel(name);
+        return guild.createTextChannel(name);
     }
 
     public @Nonnull ChannelAction<TextChannel> createTextChannel(@Nonnull String name,
             @Nonnull Category parent) {
-        return this.guild.createTextChannel(name, parent);
+        return guild.createTextChannel(name, parent);
     }
 
     /**
@@ -2842,13 +2802,13 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public ChannelAction<NewsChannel> createNewsChannel(@NotNull String name) {
-        return this.guild.createNewsChannel(name);
+        return guild.createNewsChannel(name);
     }
 
     @Nonnull
     public ChannelAction<NewsChannel> createNewsChannel(@Nonnull String name,
             @Nullable Category parent) {
-        return this.guild.createNewsChannel(name, parent);
+        return guild.createNewsChannel(name, parent);
     }
 
     /**
@@ -2877,13 +2837,13 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public ChannelAction<VoiceChannel> createVoiceChannel(@NotNull String name) {
-        return this.guild.createVoiceChannel(name);
+        return guild.createVoiceChannel(name);
     }
 
     @Nonnull
     public ChannelAction<VoiceChannel> createVoiceChannel(@Nonnull String name,
             @Nullable Category parent) {
-        return this.guild.createVoiceChannel(name, parent);
+        return guild.createVoiceChannel(name, parent);
     }
 
     /**
@@ -2912,18 +2872,18 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public ChannelAction<StageChannel> createStageChannel(@NotNull String name) {
-        return this.guild.createStageChannel(name);
+        return guild.createStageChannel(name);
     }
 
     @Nonnull
     public ChannelAction<StageChannel> createStageChannel(@Nonnull String name,
             @Nullable Category parent) {
-        return this.guild.createStageChannel(name, parent);
+        return guild.createStageChannel(name, parent);
     }
 
     @Nonnull
     public ChannelAction<Category> createCategory(@Nonnull String name) {
-        return this.guild.createCategory(name);
+        return guild.createCategory(name);
     }
 
     /**
@@ -2965,11 +2925,11 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public <T extends ICopyableChannel> ChannelAction<T> createCopyOfChannel(@NotNull T channel) {
-        return this.guild.createCopyOfChannel(channel);
+        return guild.createCopyOfChannel(channel);
     }
 
     public @Nonnull RoleAction createRole() {
-        return this.guild.createRole();
+        return guild.createRole();
     }
 
     /**
@@ -3004,36 +2964,36 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RoleAction createCopyOfRole(@NotNull Role role) {
-        return this.guild.createCopyOfRole(role);
+        return guild.createCopyOfRole(role);
     }
 
     @Nonnull
     public AuditableRestAction<Emote> createEmote(@Nonnull String name, @Nonnull Icon icon,
             @Nonnull Role... roles) {
-        return this.guild.createEmote(name, icon, roles);
+        return guild.createEmote(name, icon, roles);
     }
 
     @Nonnull
     public ChannelOrderAction modifyCategoryPositions() {
-        return this.guild.modifyCategoryPositions();
+        return guild.modifyCategoryPositions();
     }
 
     public @Nonnull ChannelOrderAction modifyTextChannelPositions() {
-        return this.guild.modifyTextChannelPositions();
+        return guild.modifyTextChannelPositions();
     }
 
     @Nonnull
     public ChannelOrderAction modifyVoiceChannelPositions() {
-        return this.guild.modifyVoiceChannelPositions();
+        return guild.modifyVoiceChannelPositions();
     }
 
     public @Nonnull CategoryOrderAction modifyTextChannelPositions(@Nonnull Category category) {
-        return this.guild.modifyTextChannelPositions(category);
+        return guild.modifyTextChannelPositions(category);
     }
 
     @Nonnull
     public CategoryOrderAction modifyVoiceChannelPositions(@Nonnull Category category) {
-        return this.guild.modifyVoiceChannelPositions(category);
+        return guild.modifyVoiceChannelPositions(category);
     }
 
     /**
@@ -3066,17 +3026,17 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public RoleOrderAction modifyRolePositions() {
-        return this.guild.modifyRolePositions();
+        return guild.modifyRolePositions();
     }
 
     @Nullable
     public TextChannel getTextChannelById(String id) {
-        return this.guild.getTextChannelById(id);
+        return guild.getTextChannelById(id);
     }
 
     @Nullable
     public TextChannel getTextChannelById(long id) {
-        return this.guild.getTextChannelById(id);
+        return guild.getTextChannelById(id);
     }
 
     /**
@@ -3092,12 +3052,12 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public List<TextChannel> getTextChannels() {
-        return this.guild.getTextChannels();
+        return guild.getTextChannels();
     }
 
     @Nonnull
     public List<TextChannel> getTextChannelsByName(@Nonnull String name, boolean ignoreCase) {
-        return this.guild.getTextChannelsByName(name, ignoreCase);
+        return guild.getTextChannelsByName(name, ignoreCase);
     }
 
     /**
@@ -3105,15 +3065,15 @@ public record YusufGuild(Guild guild) {
      */
     @Contract(" -> new")
     public @Nonnull YusufMember getOwner() {
-        return new YusufMember(this.guild.getOwner());
+        return new YusufMember(guild.getOwner());
     }
 
     public @Nonnull String getOwnerId() {
-        return this.guild.getOwnerId();
+        return guild.getOwnerId();
     }
 
     public long getOwnerIdLong() {
-        return this.guild.getOwnerIdLong();
+        return guild.getOwnerIdLong();
     }
 
     public boolean checkReasonLength(@Nonnull String reason,
@@ -3165,7 +3125,7 @@ public record YusufGuild(Guild guild) {
      * @see Objects#equals(Object, Object)
      */
     public boolean equals(Object obj) {
-        return this.guild.equals(obj);
+        return guild.equals(obj);
     }
 
     /**
@@ -3186,11 +3146,11 @@ public record YusufGuild(Guild guild) {
      * @see Object#hashCode()
      */
     public int hashCode() {
-        return this.guild.hashCode();
+        return guild.hashCode();
     }
 
     public String toString() {
-        return this.guild.toString();
+        return guild.toString();
     }
 
     /**
@@ -3202,6 +3162,6 @@ public record YusufGuild(Guild guild) {
      */
     @NotNull
     public OffsetDateTime getTimeCreated() {
-        return this.guild.getTimeCreated();
+        return guild.getTimeCreated();
     }
 }

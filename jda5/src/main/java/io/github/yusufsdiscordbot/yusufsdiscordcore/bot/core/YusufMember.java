@@ -14,6 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
 import net.dv8tion.jda.annotations.Incubating;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
@@ -59,43 +60,53 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     private static final int MAX_TIME_OUT_LENGTH = 28;
 
     @Contract(" -> new")
-    public @Nonnull YusufUser getYusufUser() {
-        return new YusufUser(this.member.getUser());
+    public @Nonnull YusufUser getUser() {
+        return new YusufUser(member.getUser());
     }
 
     /**
      * @see Member#canInteract(Role)
      */
     public boolean canInteract(@Nonnull Role role) {
-        return this.member.canInteract(role);
+        return member.canInteract(role);
     }
 
     /**
      * @see Member#getGuild()
      */
     public @Nonnull YusufGuild getYusufGuild() {
-        return new YusufGuild(this.member.getGuild());
+        return new YusufGuild(member.getGuild());
     }
 
     /**
      * @see Member#getGuild()
      */
     public @Nonnull Guild getGuild() {
-        return this.member.getGuild();
+        return member.getGuild();
+    }
+
+    /**
+     * The JDA instance.
+     *
+     * @return The current JDA instance.
+     */
+    @NotNull
+    public JDA getJDA() {
+        return member.getJDA();
     }
 
     /**
      * @see Member#getTimeJoined()
      */
     public @Nonnull OffsetDateTime getTimeJoined() {
-        return this.member.getTimeJoined();
+        return member.getTimeJoined();
     }
 
     /**
      * @see Member#hasTimeJoined
      */
     public boolean hasTimeJoined() {
-        return this.member.hasTimeJoined();
+        return member.hasTimeJoined();
     }
 
     /**
@@ -103,7 +114,17 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Nullable
     public OffsetDateTime getTimeBoosted() {
-        return this.member.getTimeBoosted();
+        return member.getTimeBoosted();
+    }
+
+    /**
+     * Returns whether a member is boosting the guild or not.
+     *
+     * @return True, if it is boosting
+     */
+
+    public boolean isBoosting() {
+        return false;
     }
 
     /**
@@ -111,35 +132,35 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Nullable
     public GuildVoiceState getVoiceState() {
-        return this.member.getVoiceState();
+        return member.getVoiceState();
     }
 
     /**
      * @see Member#getActivities()
      */
     public @Nonnull List<Activity> getActivities() {
-        return this.member.getActivities();
+        return member.getActivities();
     }
 
     /**
      * @see Member#getOnlineStatus()
      */
     public @Nonnull OnlineStatus getOnlineStatus() {
-        return this.member.getOnlineStatus();
+        return member.getOnlineStatus();
     }
 
     /**
      * @see Member#getOnlineStatus(ClientType)
      */
     public @Nonnull OnlineStatus getOnlineStatus(@Nonnull ClientType type) {
-        return this.member.getOnlineStatus(type);
+        return member.getOnlineStatus(type);
     }
 
     /**
      * @see Member#getActiveClients()
      */
     public @Nonnull Set<ClientType> getActiveClients() {
-        return this.member.getActiveClients();
+        return member.getActiveClients();
     }
 
     /**
@@ -147,14 +168,14 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Nullable
     public String getNickname() {
-        return this.member.getNickname();
+        return member.getNickname();
     }
 
     /**
      * @see Member#getAvatarId()
      */
     public @org.jetbrains.annotations.Nullable String getAvatarId() {
-        return this.member.getAvatarId();
+        return member.getAvatarId();
     }
 
     /**
@@ -162,21 +183,21 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Nullable
     public String getAvatarUrl() {
-        return this.member.getAvatarUrl();
+        return member.getAvatarUrl();
     }
 
     /**
      * @see Member#getEffectiveAvatarUrl()
      */
     public @Nonnull String getEffectiveAvatarUrl() {
-        return this.member.getEffectiveAvatarUrl();
+        return member.getEffectiveAvatarUrl();
     }
 
     /**
      * @see Member#getRoles()
      */
     public @Nonnull List<Role> getRoles() {
-        return this.member.getRoles();
+        return member.getRoles();
     }
 
     /**
@@ -184,42 +205,42 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Nullable
     public Color getColor() {
-        return this.member.getColor();
+        return member.getColor();
     }
 
     /**
      * @see Member#getColorRaw()
      */
     public int getColorRaw() {
-        return this.member.getColorRaw();
+        return member.getColorRaw();
     }
 
     /**
      * @see Member#canInteract(Member)
      */
     public boolean canInteract(@Nonnull Member member) {
-        return this.member.canInteract(member);
+        return member.canInteract(member);
     }
 
     /**
      * @see Member#canInteract(Member)
      */
     public boolean canInteract(@Nonnull YusufMember member) {
-        return this.member.canInteract(member.member());
+        return member.canInteract(member.member());
     }
 
     /**
      * @see Member#canInteract(Emote)
      */
     public boolean canInteract(@Nonnull Emote emote) {
-        return this.member.canInteract(emote);
+        return member.canInteract(emote);
     }
 
     /**
      * @see Member#isOwner()
      */
     public boolean isOwner() {
-        return this.member.isOwner();
+        return member.isOwner();
     }
 
     /**
@@ -227,15 +248,15 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Incubating
     public boolean isPending() {
-        return this.member.isPending();
+        return member.isPending();
     }
 
     /**
      * @see Member#getDefaultChannel()
      */
     @Nullable
-    public TextChannel getDefaultChannel() {
-        return this.member.getDefaultChannel();
+    public BaseGuildMessageChannel getDefaultChannel() {
+        return member.getDefaultChannel();
     }
 
     /**
@@ -243,7 +264,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(int delDays) {
-        return this.member.ban(delDays);
+        return member.ban(delDays);
     }
 
     /**
@@ -251,7 +272,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> ban(int delDays, @Nullable String reason) {
-        return this.member.ban(delDays, reason);
+        return member.ban(delDays, reason);
     }
 
     /**
@@ -259,7 +280,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick() {
-        return this.member.kick();
+        return member.kick();
     }
 
     /**
@@ -267,7 +288,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> kick(String reason) {
-        return this.member.kick(reason);
+        return member.kick(reason);
     }
 
     /**
@@ -275,7 +296,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> mute(boolean mute) {
-        return this.member.mute(mute);
+        return member.mute(mute);
     }
 
     /**
@@ -283,7 +304,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> deafen(boolean deafen) {
-        return this.member.deafen(deafen);
+        return member.deafen(deafen);
     }
 
     /**
@@ -291,86 +312,86 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @CheckReturnValue
     public @Nonnull AuditableRestAction<Void> modifyNickname(@Nullable String nickname) {
-        return this.member.modifyNickname(nickname);
+        return member.modifyNickname(nickname);
     }
 
     /**
      * @see Member#getEffectiveName() ()
      */
     public @Nonnull String getName() {
-        return this.member.getEffectiveName();
+        return member.getEffectiveName();
     }
 
     /**
      * @see Member
      */
     public Member getAuthor() {
-        return this.member;
+        return member;
     }
 
     /**
      * @see Member#getId()
      */
     public @Nonnull String getMemberId() {
-        return this.member.getId();
+        return member.getId();
     }
 
     /**
      * @see Member#getIdLong()
      */
     public @Nonnull Long getMemberIdLong() {
-        return this.member.getIdLong();
+        return member.getIdLong();
     }
 
     /**
      * @see Member#getPermissions()
      */
     public @Nonnull EnumSet<Permission> getPermissions() {
-        return this.member.getPermissions();
+        return member.getPermissions();
     }
 
     /**
      * @see Member#getPermissions(GuildChannel)
      */
     public @Nonnull EnumSet<Permission> getPermissions(@Nonnull GuildChannel channel) {
-        return this.member.getPermissions(channel);
+        return member.getPermissions(channel);
     }
 
 
     public @Nonnull Set<Permission> getPermissions(@Nonnull IPermissionContainer channel) {
-        return this.member.getPermissions(channel);
+        return member.getPermissions(channel);
     }
 
     /**
      * @see Member#getPermissionsExplicit()
      */
     public @Nonnull EnumSet<Permission> getPermissionsExplicit() {
-        return this.member.getPermissionsExplicit();
+        return member.getPermissionsExplicit();
     }
 
     /**
      * @see Member#getPermissionsExplicit(GuildChannel)
      */
     public @Nonnull EnumSet<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel) {
-        return this.member.getPermissionsExplicit(channel);
+        return member.getPermissionsExplicit(channel);
     }
 
     public @Nonnull Set<Permission> getPermissionsExplicit(@Nonnull IPermissionContainer channel) {
-        return this.member.getPermissionsExplicit(channel);
+        return member.getPermissionsExplicit(channel);
     }
 
     /**
      * @see Member#hasPermission(Permission...)
      */
     public boolean hasPermission(@Nonnull Permission... permissions) {
-        return this.member.hasPermission(permissions);
+        return member.hasPermission(permissions);
     }
 
     /**
      * @see Member#hasPermission(Collection)
      */
     public boolean hasPermission(@Nonnull Collection<Permission> permissions) {
-        return this.member.hasPermission(permissions);
+        return member.hasPermission(permissions);
     }
 
     /**
@@ -378,7 +399,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     public boolean hasPermission(@Nonnull GuildChannel channel,
             @Nonnull Permission... permissions) {
-        return this.member.hasPermission(channel, permissions);
+        return member.hasPermission(channel, permissions);
     }
 
     /**
@@ -386,17 +407,17 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     public boolean hasPermission(@Nonnull GuildChannel channel,
             @Nonnull Collection<Permission> permissions) {
-        return this.member.hasPermission(channel, permissions);
+        return member.hasPermission(channel, permissions);
     }
 
     public boolean hasPermission(@Nonnull IPermissionContainer channel,
             @Nonnull Permission... permissions) {
-        return this.member.hasPermission(channel, permissions);
+        return member.hasPermission(channel, permissions);
     }
 
     public boolean hasPermission(@Nonnull IPermissionContainer channel,
             @Nonnull Collection<Permission> permissions) {
-        return this.member.hasPermission(channel, permissions);
+        return member.hasPermission(channel, permissions);
     }
 
     /**
@@ -404,7 +425,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Override
     public boolean hasAccess(@Nonnull GuildChannel channel) {
-        return this.member.hasAccess(channel);
+        return member.hasAccess(channel);
     }
 
     @Override
@@ -419,14 +440,14 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     }
 
     public boolean hasAccess(@Nonnull IPermissionContainer channel) {
-        return this.member.hasAccess(channel);
+        return member.hasAccess(channel);
     }
 
     /**
      * @see Member#hasPermission(Permission...)
      */
     public boolean hasPermission(@Nonnull Permission permission) {
-        return this.member.hasPermission(permission);
+        return member.hasPermission(permission);
     }
 
     /**
@@ -439,7 +460,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      */
     @Nullable
     public OffsetDateTime getTimeOutEnd() {
-        return this.member.getTimeOutEnd();
+        return member.getTimeOutEnd();
     }
 
     /**
@@ -450,7 +471,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
      * @return True, if this Member is in time out
      */
     public boolean isTimedOut() {
-        return this.member.isTimedOut();
+        return member.isTimedOut();
     }
 
     /**
@@ -487,7 +508,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> timeoutFor(long amount, @Nonnull TimeUnit unit) {
-        return this.member.timeoutFor(amount, unit);
+        return member.timeoutFor(amount, unit);
     }
 
     /**
@@ -522,7 +543,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> timeoutFor(@Nonnull Duration duration) {
-        return this.member.timeoutFor(duration);
+        return member.timeoutFor(duration);
     }
 
     /**
@@ -557,7 +578,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> timeoutUntil(@Nullable TemporalAccessor temporal) {
-        return this.member.timeoutUntil(temporal);
+        return member.timeoutUntil(temporal);
     }
 
     /**
@@ -582,32 +603,32 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     @Nonnull
     @CheckReturnValue
     public AuditableRestAction<Void> removeTimeout() {
-        return getGuild().removeTimeout(this.member());
+        return getGuild().removeTimeout(member());
     }
 
     @Nonnull
     @Override
     public String getAsMention() {
-        return this.member.getAsMention();
+        return member.getAsMention();
     }
 
 
     @Override
     public long getIdLong() {
-        return this.member.getIdLong();
+        return member.getIdLong();
     }
 
     public boolean isDeafened() {
-        return Objects.requireNonNull(this.member.getVoiceState()).isDeafened();
+        return Objects.requireNonNull(member.getVoiceState()).isDeafened();
     }
 
     @NotNull
     @Override
     public OffsetDateTime getTimeCreated() {
-        return this.member.getTimeCreated();
+        return member.getTimeCreated();
     }
 
     public String toString() {
-        return this.member.toString();
+        return member.toString();
     }
 }

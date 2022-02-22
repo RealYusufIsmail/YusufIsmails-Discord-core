@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.command_option.YusufOptionMapping;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
@@ -46,7 +47,8 @@ class ExampleCommand extends SlashCommand {
         YusufUser sender = yusufSlashCommandEvent.getUser();
         EmbedBuilder builder = new EmbedBuilder();
 
-        final String example = yusufSlashCommandEvent.getOption(EXAMPLE_OPTION).getAsString();
+        final String example =
+                yusufSlashCommandEvent.getOption(EXAMPLE_OPTION, YusufOptionMapping::getAsString);
 
         HashMap<String, String> test = new HashMap<>();
 
