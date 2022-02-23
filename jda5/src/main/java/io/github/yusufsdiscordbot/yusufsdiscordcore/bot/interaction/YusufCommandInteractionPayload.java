@@ -10,7 +10,6 @@ import net.dv8tion.jda.api.interactions.InteractionType;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.commands.*;
 import net.dv8tion.jda.api.utils.TimeUtil;
-import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -135,54 +134,6 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
 
 
     /**
-     * Finds the first option with the specified name. <br>
-     * A resolver is used to get the value if the option is provided. If no option is provided for
-     * the given name, this will simply return null instead. You can use
-     * {@link #getOption(String, Object, Function)} to provide a fallback for missing options.
-     *
-     * <p>
-     * For {@link CommandAutoCompleteInteraction}, this might be incomplete and unvalidated.
-     * Auto-complete interactions happen on incomplete command inputs and are not validated.
-     *
-     * <p>
-     * <b>Example</b> <br>
-     * You can understand this as a shortcut for these lines of code:
-     * 
-     * <pre>
-     * {
-     *     &#64;code
-     *     OptionMapping opt = event.getOption("reason");
-     *     String reason = opt == null ? null : opt.getAsString();
-     * }
-     * </pre>
-     * 
-     * Which can be written with this resolver as:
-     * 
-     * <pre>
-     * {@code
-     * String reason = event.getOption("reason", OptionMapping::getAsString);
-     * }
-     * </pre>
-     *
-     * @param name The option name
-     * @param resolver The mapping resolver function to use if there is a mapping available, the
-     *        provided mapping will never be null!
-     * @param <T> The type of the resolved option value
-     *
-     * @throws IllegalArgumentException If the name or resolver is null
-     *
-     * @return The resolved option with the provided name, or null if that option is not provided
-     *
-     * @see #getOption(String, Object, Function)
-     * @see #getOption(String, Supplier, Function)
-     */
-    @Nullable
-    public <T> T getOption(@Nonnull String name,
-            @Nonnull Function<? super YusufOptionMapping, ? extends T> resolver) {
-        return getOption(name, null, resolver);
-    }
-
-    /**
      * The options provided by the user when this command was executed. <br>
      * Each option has a name and value.
      *
@@ -267,6 +218,56 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
     /**
      * Finds the first option with the specified name. <br>
      * A resolver is used to get the value if the option is provided. If no option is provided for
+     * the given name, this will simply return null instead. You can use
+     * {@link #getOption(String, Object, Function)} to provide a fallback for missing options.
+     *
+     * <p>
+     * For {@link CommandAutoCompleteInteraction}, this might be incomplete and unvalidated.
+     * Auto-complete interactions happen on incomplete command inputs and are not validated.
+     *
+     * <p>
+     * <b>Example</b> <br>
+     * You can understand this as a shortcut for these lines of code:
+     * 
+     * <pre>
+     * {
+     *     &#64;code
+     *     OptionMapping opt = event.getOption("reason");
+     *     String reason = opt == null ? null : opt.getAsString();
+     * }
+     * </pre>
+     * 
+     * Which can be written with this resolver as:
+     * 
+     * <pre>
+     * {@code
+     * String reason = event.getOption("reason", OptionMapping::getAsString);
+     * }
+     * </pre>
+     *
+     * @param name The option name
+     * @param resolver The mapping resolver function to use if there is a mapping available, the
+     *        provided mapping will never be null!
+     * @param <T> The type of the resolved option value
+     *
+     * @throws IllegalArgumentException If the name or resolver is null
+     *
+     * @return The resolved option with the provided name, or null if that option is not provided
+     *
+     * @see #getOption(String, Object, Function)
+     * @see #getOption(String, Supplier, Function)
+     */
+    @javax.annotation.Nullable
+    public <T> T getOption(@Nonnull String name,
+            @Nonnull Function<? super YusufOptionMapping, ? extends T> resolver) {
+        return commandInteractionPayload.getOption(name,
+                mapping -> resolver.apply(new YusufOptionMapping(mapping)));
+    }
+
+
+    /**
+     * Finds the first option with the specified name. <br>
+     * A resolver is used to get the value if the option is provided. If no option is provided for
      * the given name, this will simply return your provided fallback instead. You can use
      * {@link #getOption(String, Function)} to fall back to {@code null}.
      *
@@ -311,11 +312,8 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
      */
     public <T> T getOption(@Nonnull String name, @javax.annotation.Nullable T fallback,
             @Nonnull Function<? super YusufOptionMapping, ? extends T> resolver) {
-        Checks.notNull(resolver, "Resolver");
-        YusufOptionMapping mapping = getOption(name);
-        if (mapping != null)
-            return resolver.apply(mapping);
-        return fallback;
+        return commandInteractionPayload.getOption(name, fallback,
+                mapping -> resolver.apply(new YusufOptionMapping(mapping)));
     }
 
     /**
@@ -366,11 +364,8 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
     public <T> T getOption(@Nonnull String name,
             @javax.annotation.Nullable Supplier<? extends T> fallback,
             @Nonnull Function<? super YusufOptionMapping, ? extends T> resolver) {
-        Checks.notNull(resolver, "Resolver");
-        YusufOptionMapping mapping = getOption(name);
-        if (mapping != null)
-            return resolver.apply(mapping);
-        return fallback == null ? null : fallback.get();
+        return commandInteractionPayload.getOption(name, fallback,
+                mapping -> resolver.apply(new YusufOptionMapping(mapping)));
     }
 
 
@@ -397,7 +392,7 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
      * @return The raw interaction type
      */
     public int getTypeRaw() {
-        return 0;
+        return commandInteractionPayload.getTypeRaw();
     }
 
     /**
@@ -538,7 +533,7 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
      * {@link IllegalStateException}!
      *
      * @return The {@link NewsChannel}
-     * @throws IllegalStateException If {@link #getChannel()} is not a news channel
+     * @throws IllegalStateException If {@link #getChannel()} is not news channel
      */
     @NotNull
     public NewsChannel getNewsChannel() {
