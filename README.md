@@ -46,8 +46,8 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //JDA 5
     //In alpha stage
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.5'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.29'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.33'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 }
@@ -67,8 +67,8 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //Basic version
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.5'
-     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.15'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 }
 ```
