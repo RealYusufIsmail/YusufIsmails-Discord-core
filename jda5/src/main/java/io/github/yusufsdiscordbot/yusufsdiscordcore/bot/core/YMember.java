@@ -13,6 +13,8 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
+import lombok.Getter;
+import lombok.ToString;
 import net.dv8tion.jda.annotations.Incubating;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -41,27 +43,28 @@ import java.util.concurrent.TimeUnit;
  *
  * @since 3.0
  *
- * @see YusufGuild#getMember(User)
- * @see YusufGuild#getMemberCache()
- * @see YusufGuild#getMemberById(long)
- * @see YusufGuild#getMemberByTag(String)
- * @see YusufGuild#getMemberByTag(String, String)
- * @see YusufGuild#getMembersByEffectiveName(String, boolean)
- * @see YusufGuild#getMembersByName(String, boolean)
- * @see YusufGuild#getMembersByNickname(String, boolean)
- * @see YusufGuild#getMembersWithRoles(Role...)
- * @see YusufGuild#getMembers()
+ * @see YGuild#getMember(User)
+ * @see YGuild#getMemberCache()
+ * @see YGuild#getMemberById(long)
+ * @see YGuild#getMemberByTag(String)
+ * @see YGuild#getMemberByTag(String, String)
+ * @see YGuild#getMembersByEffectiveName(String, boolean)
+ * @see YGuild#getMembersByName(String, boolean)
+ * @see YGuild#getMembersByNickname(String, boolean)
+ * @see YGuild#getMembersWithRoles(Role...)
+ * @see YGuild#getMembers()
  */
 @SuppressWarnings("unused")
-public record YusufMember(Member member) implements IMentionable, IPermissionHolder {
+@ToString
+public record YMember(@Getter Member member) implements IMentionable, IPermissionHolder {
     /**
      * Maximum number of days a Member can be timed out for
      */
     private static final int MAX_TIME_OUT_LENGTH = 28;
 
     @Contract(" -> new")
-    public @Nonnull YusufUser getUser() {
-        return new YusufUser(member.getUser());
+    public @Nonnull YUser getUser() {
+        return new YUser(member.getUser());
     }
 
     /**
@@ -74,8 +77,8 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     /**
      * @see Member#getGuild()
      */
-    public @Nonnull YusufGuild getYusufGuild() {
-        return new YusufGuild(member.getGuild());
+    public @Nonnull YGuild getYusufGuild() {
+        return new YGuild(member.getGuild());
     }
 
     /**
@@ -225,7 +228,7 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     /**
      * @see Member#canInteract(Member)
      */
-    public boolean canInteract(@Nonnull YusufMember member) {
+    public boolean canInteract(@Nonnull YMember member) {
         return member.canInteract(member.member());
     }
 
@@ -626,9 +629,5 @@ public record YusufMember(Member member) implements IMentionable, IPermissionHol
     @Override
     public OffsetDateTime getTimeCreated() {
         return member.getTimeCreated();
-    }
-
-    public String toString() {
-        return member.toString();
     }
 }

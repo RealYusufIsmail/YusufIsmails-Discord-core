@@ -15,10 +15,10 @@ import java.io.InputStream;
 import java.util.Collection;
 
 @SuppressWarnings({"unused", "java:S6206"})
-public class YusufReplyCallback {
+public class YReplyCallback {
     private final IReplyCallback callback;
 
-    public YusufReplyCallback(IReplyCallback callback) {
+    public YReplyCallback(IReplyCallback callback) {
         this.callback = callback;
     }
 

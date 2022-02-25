@@ -15,8 +15,10 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
 import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufCommandInteraction;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YusufSlashCommandInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YCommandInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YSlashCommandInteraction;
+import lombok.Getter;
+import lombok.ToString;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
@@ -24,31 +26,23 @@ import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
+@ToString
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
-public class YusufSlashCommandInteractionEvent extends YusufCommandInteraction {
+public class YSlashCommandInteractionEvent extends YCommandInteraction {
+    @Getter
     private final SlashCommand command;
+    @Getter
     private final SlashCommandInteractionEvent event;
 
-    public YusufSlashCommandInteractionEvent(SlashCommand command,
-            SlashCommandInteractionEvent event) {
+    public YSlashCommandInteractionEvent(SlashCommand command, SlashCommandInteractionEvent event) {
         super(event, event);
         this.command = command;
         this.event = event;
     }
 
-
-    public SlashCommandInteractionEvent getSlashCommandEvent() {
-        return event;
-    }
-
-    public SlashCommand getCommand() {
-        return command;
-    }
-
     @Nonnull
-    public YusufSlashCommandInteraction getInteraction() {
-        IReplyCallback callback = getCallback();
-        return new YusufSlashCommandInteraction(callback, getCommandInteractionPayload(),
+    public YSlashCommandInteraction getInteraction() {
+        return new YSlashCommandInteraction(getCallback(), getCommandInteractionPayload(),
                 event.getInteraction());
     }
 

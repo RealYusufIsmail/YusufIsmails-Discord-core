@@ -14,7 +14,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.utility.PermissionChecker;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
+import lombok.Getter;
+import lombok.ToString;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.templates.Template;
@@ -60,15 +62,9 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
-public record YusufGuild(Guild guild) {
+@ToString
+public record YGuild(@Getter Guild guild) {
     private static final Integer REASON_MAX_LENGTH = 512;
-
-    /**
-     * @see Guild
-     */
-    public Guild getGuild() {
-        return guild;
-    }
 
     @Contract(value = " -> new", pure = true)
     public @Nonnull PermissionChecker getPermissionChecker() {
@@ -222,7 +218,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull YusufUser user) {
+    public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull YUser user) {
         return guild.addMember(accessToken, user.user());
     }
 
@@ -266,13 +262,13 @@ public record YusufGuild(Guild guild) {
     }
 
     @Contract(" -> new")
-    public @Nonnull YusufMember getBot() {
-        return new YusufMember(guild.getSelfMember());
+    public @Nonnull YMember getBot() {
+        return new YMember(guild.getSelfMember());
     }
 
     @Contract("_ -> new")
-    public @Nonnull YusufMember getMember(@Nonnull YusufUser user) {
-        return new YusufMember(guild.getMember(user.user()));
+    public @Nonnull YMember getMember(@Nonnull YUser user) {
+        return new YMember(guild.getMember(user.user()));
     }
 
     @Nullable
@@ -310,8 +306,8 @@ public record YusufGuild(Guild guild) {
     }
 
     @Nonnull
-    public YusufMember getMember(@Nonnull User user) {
-        return new YusufMember(guild.getMember(user));
+    public YMember getMember(@Nonnull User user) {
+        return new YMember(guild.getMember(user));
     }
 
     @Nonnull
@@ -320,45 +316,42 @@ public record YusufGuild(Guild guild) {
     }
 
     @Contract("_ -> new")
-    public @NotNull YusufMember getMemberById(long id) {
-        return new YusufMember(guild.getMemberById(id));
+    public @NotNull YMember getMemberById(long id) {
+        return new YMember(guild.getMemberById(id));
     }
 
     @Contract("_ -> new")
-    public @NotNull YusufMember getMemberById(String id) {
-        return new YusufMember(guild.getMemberById(id));
+    public @NotNull YMember getMemberById(String id) {
+        return new YMember(guild.getMemberById(id));
     }
 
     @Contract("_ -> new")
-    public @NotNull YusufMember getMemberByTag(String tag) {
-        return new YusufMember(guild.getMemberByTag(tag));
+    public @NotNull YMember getMemberByTag(String tag) {
+        return new YMember(guild.getMemberByTag(tag));
     }
 
     @Contract("_, _ -> new")
-    public @NotNull YusufMember getMemberByTag(String tag, String discriminator) {
-        return new YusufMember(guild.getMemberByTag(tag, discriminator));
+    public @NotNull YMember getMemberByTag(String tag, String discriminator) {
+        return new YMember(guild.getMemberByTag(tag, discriminator));
     }
 
-    public List<YusufMember> getMembersByEffectiveName(String name, boolean ignoreCase) {
+    public List<YMember> getMembersByEffectiveName(String name, boolean ignoreCase) {
         return guild.getMembersByEffectiveName(name, ignoreCase)
             .stream()
-            .map(YusufMember::new)
+            .map(YMember::new)
             .toList();
     }
 
-    public List<YusufMember> getMembersByName(String name, boolean ignoreCase) {
-        return guild.getMembersByName(name, ignoreCase).stream().map(YusufMember::new).toList();
+    public List<YMember> getMembersByName(String name, boolean ignoreCase) {
+        return guild.getMembersByName(name, ignoreCase).stream().map(YMember::new).toList();
     }
 
-    public List<YusufMember> getMembersByNickname(String nickname, boolean ignoreCase) {
-        return guild.getMembersByNickname(nickname, ignoreCase)
-            .stream()
-            .map(YusufMember::new)
-            .toList();
+    public List<YMember> getMembersByNickname(String nickname, boolean ignoreCase) {
+        return guild.getMembersByNickname(nickname, ignoreCase).stream().map(YMember::new).toList();
     }
 
-    public List<YusufMember> getMembersWithRoles(Role... roles) {
-        return guild.getMembersWithRoles(roles).stream().map(YusufMember::new).toList();
+    public List<YMember> getMembersWithRoles(Role... roles) {
+        return guild.getMembersWithRoles(roles).stream().map(YMember::new).toList();
     }
 
     /**
@@ -382,8 +375,8 @@ public record YusufGuild(Guild guild) {
         return guild.getMembersWithRoles(roles);
     }
 
-    public List<YusufMember> getMembers() {
-        return guild.getMembers().stream().map(YusufMember::new).toList();
+    public List<YMember> getMembers() {
+        return guild.getMembers().stream().map(YMember::new).toList();
     }
 
     @Nullable
@@ -440,7 +433,7 @@ public record YusufGuild(Guild guild) {
         return guild.modifyNickname(member, nickname);
     }
 
-    public @Nonnull AuditableRestAction<Void> changeUserNickname(@Nonnull YusufMember member,
+    public @Nonnull AuditableRestAction<Void> changeUserNickname(@Nonnull YMember member,
             String nickname) {
         return guild.modifyNickname(member.member(), nickname);
     }
@@ -467,27 +460,27 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YusufUser user, String reason) {
+    public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YUser user, String reason) {
         return guild.unban(user.user()).reason(reason);
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YusufUser user) {
+    public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YUser user) {
         return guild.unban(user.user());
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member) {
+    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YMember member) {
         return guild.ban(member.member(), 0);
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member, String reason) {
+    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YMember member, String reason) {
         return guild.ban(member.member(), 0, reason);
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufMember member, int days,
+    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YMember member, int days,
             String reason) {
         return guild.ban(member.member(), days, reason);
     }
@@ -659,28 +652,27 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user) {
+    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YUser user) {
         return guild.ban(user.user(), 0);
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user, String reason) {
+    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YUser user, String reason) {
         return guild.ban(user.user(), 0, reason);
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YusufUser user, int days,
-            String reason) {
+    public @Nonnull AuditableRestAction<Void> ban(@Nonnull YUser user, int days, String reason) {
         return guild.ban(user.user(), days, reason);
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> kick(@Nonnull YusufMember member) {
+    public @Nonnull AuditableRestAction<Void> kick(@Nonnull YMember member) {
         return guild.kick(member.member(), null);
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> kick(@Nonnull YusufMember member, String reason) {
+    public @Nonnull AuditableRestAction<Void> kick(@Nonnull YMember member, String reason) {
         return guild.kick(member.member(), reason);
     }
 
@@ -739,7 +731,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> mute(@Nonnull YusufMember member, Boolean mute,
+    public @Nonnull AuditableRestAction<Void> mute(@Nonnull YMember member, Boolean mute,
             String reason) {
         return guild.mute(member.member(), mute).reason(reason);
     }
@@ -751,7 +743,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> addRoleToMember(@Nonnull YusufMember member,
+    public @Nonnull AuditableRestAction<Void> addRoleToMember(@Nonnull YMember member,
             @Nonnull Role role) {
         return guild.addRoleToMember(member.member(), role);
     }
@@ -774,7 +766,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull YusufMember member,
+    public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull YMember member,
             @Nonnull Role role) {
         return guild.removeRoleFromMember(member.member(), role);
     }
@@ -862,7 +854,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @Nonnull
-    public AuditableRestAction<Void> transferOwnership(@Nonnull YusufMember newOwner) {
+    public AuditableRestAction<Void> transferOwnership(@Nonnull YMember newOwner) {
         return guild.transferOwnership(newOwner.member());
     }
 
@@ -887,21 +879,21 @@ public record YusufGuild(Guild guild) {
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member, long amount,
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YMember member, long amount,
             @Nonnull TimeUnit unit) {
         return guild.timeoutFor(member.member(), amount, unit);
     }
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YMember member,
             @Nonnull Duration duration) {
         return guild.timeoutFor(member.member(), duration);
     }
 
     @CheckReturnValue
     @Nonnull
-    public AuditableRestAction<Void> timeoutFor(@Nonnull YusufMember member,
+    public AuditableRestAction<Void> timeoutFor(@Nonnull YMember member,
             @Nonnull TemporalAccessor temporal) {
         return guild.timeoutUntil(member.member(), temporal);
     }
@@ -1030,7 +1022,7 @@ public record YusufGuild(Guild guild) {
         return guild.removeTimeout(member);
     }
 
-    public @NotNull AuditableRestAction<Void> removeTimeout(@Nonnull YusufMember member) {
+    public @NotNull AuditableRestAction<Void> removeTimeout(@Nonnull YMember member) {
         return guild.removeTimeout(member.member());
     }
 
@@ -1845,9 +1837,9 @@ public record YusufGuild(Guild guild) {
     }
 
     /**
-     * Retrieves a {@link Guild.Ban Ban} of the provided {@link YusufUser User} <br>
-     * If you wish to ban or unban a user, use either {@link #ban(User, int) or
-     * {@link #unBan(YusufUser) unban(User)}.
+     * Retrieves a {@link Guild.Ban Ban} of the provided {@link YUser User} <br>
+     * If you wish to ban or unban a user, use either {@link #ban(User, int) or {@link #unBan(YUser)
+     * unban(User)}.
      *
      * <p>
      * Possible {@link ErrorResponse ErrorResponses} caused by the returned {@link RestAction
@@ -1868,7 +1860,7 @@ public record YusufGuild(Guild guild) {
      *         {@link Permission#BAN_MEMBERS} permission.
      */
     @NotNull
-    public RestAction<Guild.Ban> retrieveBan(@NotNull YusufUser bannedUser) {
+    public RestAction<Guild.Ban> retrieveBan(@NotNull YUser bannedUser) {
         return guild.retrieveBan(bannedUser.user());
     }
 
@@ -2118,7 +2110,7 @@ public record YusufGuild(Guild guild) {
     }
 
     @NotNull
-    public RestAction<Member> retrieveMember(@NotNull YusufUser user) {
+    public RestAction<Member> retrieveMember(@NotNull YUser user) {
         return guild.retrieveMember(user.user());
     }
 
@@ -2681,7 +2673,7 @@ public record YusufGuild(Guild guild) {
      */
     @CheckReturnValue
     @Nonnull
-    AuditableRestAction<Void> mute(@Nonnull YusufMember member, boolean mute) {
+    AuditableRestAction<Void> mute(@Nonnull YMember member, boolean mute) {
         return guild.mute(member.member(), mute);
     }
 
@@ -2699,7 +2691,7 @@ public record YusufGuild(Guild guild) {
      */
     @CheckReturnValue
     @Nonnull
-    AuditableRestAction<Void> deafen(@Nonnull YusufMember member, boolean deafen) {
+    AuditableRestAction<Void> deafen(@Nonnull YMember member, boolean deafen) {
         return guild.deafen(member.member(), deafen);
     }
 
@@ -2764,7 +2756,7 @@ public record YusufGuild(Guild guild) {
         return guild.getCommunityUpdatesChannel();
     }
 
-    public boolean isMember(@Nonnull YusufUser user) {
+    public boolean isMember(@Nonnull YUser user) {
         return guild.isMember(user.user());
     }
 
@@ -3064,8 +3056,8 @@ public record YusufGuild(Guild guild) {
      * @see Guild#getOwner()
      */
     @Contract(" -> new")
-    public @Nonnull YusufMember getOwner() {
-        return new YusufMember(guild.getOwner());
+    public @Nonnull YMember getOwner() {
+        return new YMember(guild.getOwner());
     }
 
     public @Nonnull String getOwnerId() {
@@ -3077,7 +3069,7 @@ public record YusufGuild(Guild guild) {
     }
 
     public boolean checkReasonLength(@Nonnull String reason,
-            @Nonnull YusufSlashCommandInteractionEvent event) {
+            @Nonnull YSlashCommandInteractionEvent event) {
         if (reason.length() > REASON_MAX_LENGTH) {
             event.replyQueuedEphemeral("You have gone over the reason character limit which is "
                     + REASON_MAX_LENGTH + " .");
@@ -3147,10 +3139,6 @@ public record YusufGuild(Guild guild) {
      */
     public int hashCode() {
         return guild.hashCode();
-    }
-
-    public String toString() {
-        return guild.toString();
     }
 
     /**

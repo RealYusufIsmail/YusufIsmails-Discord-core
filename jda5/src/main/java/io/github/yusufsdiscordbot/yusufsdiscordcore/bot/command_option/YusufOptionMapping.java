@@ -13,8 +13,9 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.command_option;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufMember;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YUser;
+import lombok.Getter;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -25,16 +26,16 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public record YusufOptionMapping(OptionMapping optionMapping) {
+public record YusufOptionMapping(@Getter OptionMapping optionMapping) {
 
     @Nonnull
-    public List<YusufMember> getMentionedMembers() {
-        return optionMapping.getMentionedMembers().stream().map(YusufMember::new).toList();
+    public List<YMember> getMentionedMembers() {
+        return optionMapping.getMentionedMembers().stream().map(YMember::new).toList();
     }
 
     @Nonnull
-    public List<YusufUser> getMentionedUsers() {
-        return optionMapping.getMentionedUsers().stream().map(YusufUser::new).toList();
+    public List<YUser> getMentionedUsers() {
+        return optionMapping.getMentionedUsers().stream().map(YUser::new).toList();
     }
 
     @Nonnull
@@ -63,13 +64,13 @@ public record YusufOptionMapping(OptionMapping optionMapping) {
     }
 
     @NotNull
-    public YusufMember getAsMember() {
-        return new YusufMember(optionMapping.getAsMember());
+    public YMember getAsMember() {
+        return new YMember(optionMapping.getAsMember());
     }
 
     @Nonnull
-    public YusufUser getAsUser() {
-        return new YusufUser(optionMapping.getAsUser());
+    public YUser getAsUser() {
+        return new YUser(optionMapping.getAsUser());
     }
 
     public boolean getAsBoolean() {

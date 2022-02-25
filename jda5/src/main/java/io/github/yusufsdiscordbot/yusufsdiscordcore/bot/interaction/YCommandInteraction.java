@@ -17,13 +17,13 @@ import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
 
 @SuppressWarnings({"unused", "java:S6206"})
-public abstract class YusufCommandInteraction extends YusufCommandInteractionPayload {
-    protected YusufCommandInteraction(IReplyCallback callback,
+public abstract class YCommandInteraction extends YCommandInteractionPayload {
+    protected YCommandInteraction(IReplyCallback callback,
             CommandInteractionPayload commandInteractionPayload) {
         super(callback, commandInteractionPayload);
     }
 
-    protected YusufCommandInteraction(IReplyCallback callback) {
+    protected YCommandInteraction(IReplyCallback callback) {
         super(callback, null);
     }
 }

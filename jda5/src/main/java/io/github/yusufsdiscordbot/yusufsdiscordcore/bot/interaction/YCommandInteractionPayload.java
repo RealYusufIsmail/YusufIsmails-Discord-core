@@ -1,9 +1,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.command_option.YusufOptionMapping;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufGuild;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufMember;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YGuild;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YUser;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.InteractionType;
@@ -21,11 +21,11 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"unused", "java:S6206"})
-public class YusufCommandInteractionPayload extends YusufReplyCallback {
+public class YCommandInteractionPayload extends YReplyCallback {
     private final CommandInteractionPayload commandInteractionPayload;
 
 
-    public YusufCommandInteractionPayload(IReplyCallback callback,
+    public YCommandInteractionPayload(IReplyCallback callback,
             CommandInteractionPayload commandInteractionPayload) {
         super(callback);
         this.commandInteractionPayload = commandInteractionPayload;
@@ -416,18 +416,18 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
     }
 
     /**
-     * The {@link YusufGuild} this interaction happened in. <br>
+     * The {@link YGuild} this interaction happened in. <br>
      * This is null in direct messages.
      *
-     * @return The {@link YusufGuild} or null
+     * @return The {@link YGuild} or null
      */
     @Nullable
-    public YusufGuild getGuild() {
-        return new YusufGuild(commandInteractionPayload.getGuild());
+    public YGuild getGuild() {
+        return new YGuild(commandInteractionPayload.getGuild());
     }
 
     /**
-     * Whether this interaction came from a {@link YusufGuild}. <br>
+     * Whether this interaction came from a {@link YGuild}. <br>
      * This is identical to {@code getGuild() != null}
      *
      * @return True, if this interaction happened in a guild
@@ -448,24 +448,24 @@ public class YusufCommandInteractionPayload extends YusufReplyCallback {
     }
 
     /**
-     * The {@link YusufUser} who caused this interaction.
+     * The {@link YUser} who caused this interaction.
      *
-     * @return The {@link YusufUser}
+     * @return The {@link YUser}
      */
     @NotNull
-    public YusufUser getUser() {
-        return new YusufUser(commandInteractionPayload.getUser());
+    public YUser getUser() {
+        return new YUser(commandInteractionPayload.getUser());
     }
 
     /**
-     * The {@link YusufMember} who caused this interaction. <br>
+     * The {@link YMember} who caused this interaction. <br>
      * This is null if the interaction is not from a guild.
      *
-     * @return The {@link YusufMember}
+     * @return The {@link YMember}
      */
     @Nullable
-    public YusufMember getMember() {
-        return new YusufMember(commandInteractionPayload.getMember());
+    public YMember getMember() {
+        return new YMember(commandInteractionPayload.getMember());
     }
 
     /**

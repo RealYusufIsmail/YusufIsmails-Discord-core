@@ -1,5 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
+import lombok.Getter;
 import net.dv8tion.jda.api.entities.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
@@ -9,18 +10,15 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class YusufSlashCommandInteraction extends YusufCommandInteraction {
+public class YSlashCommandInteraction extends YCommandInteraction {
+    @Getter
     private final SlashCommandInteraction slashCommandInteraction;
 
-    public YusufSlashCommandInteraction(IReplyCallback callback,
+    public YSlashCommandInteraction(IReplyCallback callback,
             CommandInteractionPayload commandInteractionPayload,
             SlashCommandInteraction slashCommandInteraction) {
         super(callback, commandInteractionPayload);
         this.slashCommandInteraction = slashCommandInteraction;
-    }
-
-    public SlashCommandInteraction getSlashCommandInteraction() {
-        return slashCommandInteraction;
     }
 
     @Nonnull
@@ -36,7 +34,7 @@ public class YusufSlashCommandInteraction extends YusufCommandInteraction {
     }
 
     @NotNull
-    public YusufSlashCommandInteraction getInteraction() {
+    public YSlashCommandInteraction getInteraction() {
         return this;
     }
 }

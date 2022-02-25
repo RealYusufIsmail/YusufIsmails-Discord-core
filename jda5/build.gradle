@@ -16,9 +16,11 @@ repositories {
 
 dependencies {
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.8'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
     //config
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+    //gives the ability to use val
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
     //common dependencies
     implementation("org.apache.logging.log4j:log4j-api")

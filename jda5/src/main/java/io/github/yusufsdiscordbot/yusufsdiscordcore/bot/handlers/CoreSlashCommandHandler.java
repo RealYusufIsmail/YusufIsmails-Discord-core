@@ -19,7 +19,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.exception.DuplicateNameE
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.MessageCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.UserCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -241,8 +241,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     private void onSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
-        onSlashCommand.onSlashCommand(
-                new YusufSlashCommandInteractionEvent(onSlashCommand, slashCommandEvent));
+        onSlashCommand
+            .onSlashCommand(new YSlashCommandInteractionEvent(onSlashCommand, slashCommandEvent));
     }
 
     /**

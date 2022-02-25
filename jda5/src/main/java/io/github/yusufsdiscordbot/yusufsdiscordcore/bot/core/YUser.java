@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.PrivateChannel;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public record YusufUser(User user) {
+public record YUser(@Getter User user) {
 
     /**
      * @see User#getAsTag()
@@ -194,10 +195,10 @@ public record YusufUser(User user) {
     }
 
     /**
-     * @see YusufBot
+     * @see YBot
      */
-    public @Nonnull YusufBot getBot() {
-        return new YusufBot(this.user.getJDA().getSelfUser());
+    public @Nonnull YBot getBot() {
+        return new YBot(this.user.getJDA().getSelfUser());
     }
 
     public String toString() {

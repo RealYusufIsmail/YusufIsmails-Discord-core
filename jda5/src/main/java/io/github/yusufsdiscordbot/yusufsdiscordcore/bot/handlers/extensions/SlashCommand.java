@@ -14,7 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -115,7 +115,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      */
     @SuppressWarnings("unused")
     public abstract void onSlashCommand(
-            @Nonnull YusufSlashCommandInteractionEvent yusufSlashCommandEvent);
+            @Nonnull YSlashCommandInteractionEvent yusufSlashCommandEvent);
 
     @SuppressWarnings("unused")
     @Override

@@ -14,10 +14,10 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.command_option.YusufOptionMapping;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YusufUser;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YUser;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YusufSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
@@ -43,8 +43,8 @@ class ExampleCommand extends SlashCommand {
     }
 
     @Override
-    public void onSlashCommand(@NotNull YusufSlashCommandInteractionEvent yusufSlashCommandEvent) {
-        YusufUser sender = yusufSlashCommandEvent.getUser();
+    public void onSlashCommand(@NotNull YSlashCommandInteractionEvent yusufSlashCommandEvent) {
+        YUser sender = yusufSlashCommandEvent.getUser();
         EmbedBuilder builder = new EmbedBuilder();
 
         final String example =

@@ -13,6 +13,8 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
+import lombok.Getter;
+import lombok.ToString;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.requests.RestAction;
@@ -30,7 +32,8 @@ import java.util.Set;
  * @author Yusuf Arfan Ismail
  */
 @SuppressWarnings("unused")
-public record YusufBot(SelfUser user) {
+@ToString
+public record YBot(@Getter SelfUser user) {
 
     /**
      * @return the id of the bot.
@@ -189,9 +192,5 @@ public record YusufBot(SelfUser user) {
     @NotNull
     public OffsetDateTime getTimeCreated() {
         return this.user.getTimeCreated();
-    }
-
-    public String toString() {
-        return this.user.toString();
     }
 }
