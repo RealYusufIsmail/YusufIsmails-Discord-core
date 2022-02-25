@@ -4,6 +4,7 @@ on: [pull_request]
 
 env:
   JAVA_VERSION: 17
+  DISTRIBUTION: adopt
 
 jobs:
   spotless:
@@ -11,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
+          distribution: ${{ env.DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
       - uses: actions/checkout@v2
       - name: Check
@@ -23,8 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
+          distribution: ${{ env.DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
       - uses: actions/checkout@v2
       - name: Check
@@ -35,8 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
+          distribution: ${{ env.DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
       - uses: actions/checkout@v2
         with:
