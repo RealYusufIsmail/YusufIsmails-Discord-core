@@ -1,5 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import net.dv8tion.jda.api.entities.GuildMessageChannel;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+@EqualsAndHashCode(callSuper = false)
 public class YSlashCommandInteraction extends YCommandInteraction {
     @Getter
     private final SlashCommandInteraction slashCommandInteraction;

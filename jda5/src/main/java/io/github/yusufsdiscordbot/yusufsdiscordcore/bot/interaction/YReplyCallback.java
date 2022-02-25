@@ -1,5 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.InteractionHook;
@@ -15,6 +17,7 @@ import java.io.InputStream;
 import java.util.Collection;
 
 @SuppressWarnings({"unused", "java:S6206"})
+@EqualsAndHashCode(callSuper = false)
 public class YReplyCallback {
     private final IReplyCallback callback;
 

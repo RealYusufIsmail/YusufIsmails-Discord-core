@@ -15,6 +15,8 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -28,6 +30,8 @@ import javax.annotation.Nonnull;
 /**
  * Used when making a new command. Imports all the need methods into a new class.
  */
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public abstract class SlashCommand extends ListenerAdapter {
     private final @Nonnull String name;
     private final @Nonnull String description;

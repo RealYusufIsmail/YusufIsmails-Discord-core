@@ -47,6 +47,7 @@ class ExampleCommand extends SlashCommand {
         YUser sender = yusufSlashCommandEvent.getUser();
         EmbedBuilder builder = new EmbedBuilder();
 
+
         final String example =
                 yusufSlashCommandEvent.getOption(EXAMPLE_OPTION, YusufOptionMapping::getAsString);
 

@@ -20,6 +20,8 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.Mess
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.UserCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -64,6 +66,8 @@ import java.util.*;
  * </pre>
  */
 @SuppressWarnings("unused")
+@ToString
+@EqualsAndHashCode(callSuper = false)
 @Authors(namesOfTheAuthors = {"Yusuf Arfan Ismail", "Serkwi Bruno Ndzi"},
         namesOfTheAuthorsGithub = {"RealYusufIsmail", "nDZIB"})
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {

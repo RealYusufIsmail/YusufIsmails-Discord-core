@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.api.JDA;
@@ -33,7 +34,9 @@ import java.util.Set;
  */
 @SuppressWarnings("unused")
 @ToString
-public record YBot(@Getter SelfUser user) {
+@Getter
+@EqualsAndHashCode(callSuper = false)
+public record YBot(SelfUser user) {
 
     /**
      * @return the id of the bot.

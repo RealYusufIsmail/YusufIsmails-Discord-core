@@ -15,6 +15,8 @@ package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.utility;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -22,7 +24,9 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings({"unused", "java:S6206"})
 @ToString
+@EqualsAndHashCode(callSuper = false)
 public class PermissionChecker {
+    @Getter
     private final Guild guild;
 
     public PermissionChecker(Guild guild) {

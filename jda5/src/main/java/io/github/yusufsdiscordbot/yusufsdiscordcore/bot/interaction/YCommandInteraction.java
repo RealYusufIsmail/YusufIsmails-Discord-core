@@ -13,10 +13,15 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
 
 @SuppressWarnings({"unused", "java:S6206"})
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public abstract class YCommandInteraction extends YCommandInteractionPayload {
     protected YCommandInteraction(IReplyCallback callback,
             CommandInteractionPayload commandInteractionPayload) {

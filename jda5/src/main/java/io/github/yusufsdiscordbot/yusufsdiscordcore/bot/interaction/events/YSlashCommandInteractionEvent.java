@@ -17,6 +17,7 @@ import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YSlashCommandInteraction;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -27,6 +28,7 @@ import javax.annotation.Nonnull;
 
 @SuppressWarnings("unused")
 @ToString
+@EqualsAndHashCode(callSuper = false)
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public class YSlashCommandInteractionEvent extends YCommandInteraction {
     @Getter

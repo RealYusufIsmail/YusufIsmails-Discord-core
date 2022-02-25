@@ -4,6 +4,8 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.command_option.YusufOpti
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YUser;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.InteractionType;
@@ -21,6 +23,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"unused", "java:S6206"})
+@EqualsAndHashCode(callSuper = false)
 public class YCommandInteractionPayload extends YReplyCallback {
     private final CommandInteractionPayload commandInteractionPayload;
 

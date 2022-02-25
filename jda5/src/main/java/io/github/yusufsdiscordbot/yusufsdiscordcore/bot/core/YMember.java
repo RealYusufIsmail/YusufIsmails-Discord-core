@@ -13,6 +13,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.annotations.Incubating;
@@ -56,7 +57,9 @@ import java.util.concurrent.TimeUnit;
  */
 @SuppressWarnings("unused")
 @ToString
-public record YMember(@Getter Member member) implements IMentionable, IPermissionHolder {
+@Getter
+@EqualsAndHashCode(callSuper = false)
+public record YMember(Member member) implements IMentionable, IPermissionHolder {
     /**
      * Maximum number of days a Member can be timed out for
      */

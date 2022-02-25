@@ -13,7 +13,9 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.PrivateChannel;
@@ -28,7 +30,10 @@ import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
-public record YUser(@Getter User user) {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+public record YUser(User user) {
 
     /**
      * @see User#getAsTag()
@@ -199,10 +204,6 @@ public record YUser(@Getter User user) {
      */
     public @Nonnull YBot getBot() {
         return new YBot(this.user.getJDA().getSelfUser());
-    }
-
-    public String toString() {
-        return this.user.toString();
     }
 
     @NotNull

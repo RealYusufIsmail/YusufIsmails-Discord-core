@@ -1,6 +1,10 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 @SuppressWarnings("unused")
+@ToString
 public enum CommandType {
     /**
      * This command is a moderation command.

@@ -1,6 +1,8 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
@@ -13,6 +15,8 @@ import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 
 import javax.annotation.Nonnull;
 
+@ToString
+@EqualsAndHashCode(callSuper = false)
 public abstract class MessageCommand extends ListenerAdapter {
     private final @Nonnull String name;
     private final boolean isGuildOnly;
