@@ -11,6 +11,10 @@
  * programs, too.
  */
 
+// Originally from
+// https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommandAdapter.java,
+// then modified by Yusuf
+
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
