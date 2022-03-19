@@ -36,8 +36,10 @@ import java.awt.*;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.time.temporal.TemporalAccessor;
+import java.util.Collection;
 import java.util.List;
-import java.util.*;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -633,86 +635,86 @@ public record YMember(Member member) {
         return Objects.requireNonNull(member.getVoiceState()).inAudioChannel();
     }
 
-    public void joinVc(YReplyCallback callback) {
+    public void joinVc(@NotNull YReplyCallback callback) {
         Verify.isInVc(this, callback);
         getAudioManager()
             .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
     }
 
-    public void leaveVc(YReplyCallback callback) {
+    public void leaveVc(@NotNull YReplyCallback callback) {
         Verify.isInVc(this, callback);
         getAudioManager().closeAudioConnection();
     }
 
-    public void joinVc(IReplyCallback callback) {
+    public void joinVc(@NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager()
             .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
     }
 
-    public void leaveVc(IReplyCallback callback) {
+    public void leaveVc(@NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().closeAudioConnection();
     }
 
-    public void joinVc(YMember member, YReplyCallback callback) {
+    public void joinVc(@NotNull YMember member, @NotNull YReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager()
             .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
     }
 
-    public void leaveVc(YMember member, YReplyCallback callback) {
+    public void leaveVc(@NotNull YMember member, @NotNull YReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().closeAudioConnection();
     }
 
-    public void joinVc(Member member, IReplyCallback callback) {
+    public void joinVc(@NotNull Member member, @NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager()
             .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
     }
 
-    public void leaveVc(Member member, IReplyCallback callback) {
+    public void leaveVc(@NotNull Member member, @NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().closeAudioConnection();
     }
 
-    public void deafen(YReplyCallback callback) {
+    public void deafen(@NotNull YReplyCallback callback) {
         Verify.isInVc(this, callback);
         getAudioManager().setSelfDeafened(true);
     }
 
-    public void deafen(IReplyCallback callback) {
+    public void deafen(@NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().setSelfDeafened(true);
     }
 
-    public void deafen(YMember member, YReplyCallback callback) {
+    public void deafen(@NotNull YMember member, @NotNull YReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().setSelfDeafened(true);
     }
 
-    public void deafen(Member member, IReplyCallback callback) {
+    public void deafen(@NotNull Member member, @NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().setSelfDeafened(true);
     }
 
-    public void mute(YReplyCallback callback) {
+    public void mute(@NotNull YReplyCallback callback) {
         Verify.isInVc(this, callback);
         getAudioManager().setSelfMuted(true);
     }
 
-    public void mute(IReplyCallback callback) {
+    public void mute(@NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().setSelfMuted(true);
     }
 
-    public void mute(YMember member, YReplyCallback callback) {
+    public void mute(@NotNull YMember member, @NotNull YReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().setSelfMuted(true);
     }
 
-    public void mute(Member member, IReplyCallback callback) {
+    public void mute(@NotNull Member member, @NotNull IReplyCallback callback) {
         Verify.isInVc(member, callback);
         getAudioManager().setSelfMuted(true);
     }

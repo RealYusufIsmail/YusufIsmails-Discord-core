@@ -10,37 +10,37 @@ public class Verify {
     private Verify() {}
 
 
-    public static void isInVc(@NotNull YMember member, YReplyCallback callback) {
+    public static void isInVc(@NotNull YMember member, @NotNull YReplyCallback callback) {
         if (!member.getVoiceState().inAudioChannel()) {
             callback.replyQueuedEphemeral("You are not in a voice channel!");
         }
     }
 
-    public static void isInVc(@NotNull Member member, YReplyCallback callback) {
+    public static void isInVc(@NotNull Member member, @NotNull YReplyCallback callback) {
         if (!member.getVoiceState().inAudioChannel()) {
             callback.replyQueuedEphemeral("You are not in a voice channel!");
         }
     }
 
-    public static void isInVc(@NotNull Member member, IReplyCallback callback) {
+    public static void isInVc(@NotNull Member member, @NotNull IReplyCallback callback) {
         if (!member.getVoiceState().inAudioChannel()) {
             callback.reply("You are not in a voice channel!").setEphemeral(true).queue();
         }
     }
 
-    public static void isNotInVc(@NotNull YMember member, YReplyCallback callback) {
+    public static void isNotInVc(@NotNull YMember member, @NotNull YReplyCallback callback) {
         if (member.getVoiceState().inAudioChannel()) {
             callback.replyQueuedEphemeral("You are in a voice channel!");
         }
     }
 
-    public static void isNotInVc(@NotNull Member member, YReplyCallback callback) {
+    public static void isNotInVc(@NotNull Member member, @NotNull YReplyCallback callback) {
         if (member.getVoiceState().inAudioChannel()) {
             callback.replyQueuedEphemeral("You are in a voice channel!");
         }
     }
 
-    public static void isNotInVc(@NotNull Member member, IReplyCallback callback) {
+    public static void isNotInVc(@NotNull Member member, @NotNull IReplyCallback callback) {
         if (member.getVoiceState().inAudioChannel()) {
             callback.reply("You are in a voice channel!").setEphemeral(true).queue();
         }

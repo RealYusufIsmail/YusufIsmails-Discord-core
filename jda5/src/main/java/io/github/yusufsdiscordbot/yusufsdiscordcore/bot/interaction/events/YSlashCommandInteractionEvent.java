@@ -14,7 +14,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
 import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YSlashCommandInteraction;
@@ -26,8 +25,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -40,6 +39,7 @@ public class YSlashCommandInteractionEvent extends YCommandInteraction {
     private final SlashCommand command;
     @Getter
     private final SlashCommandInteractionEvent event;
+    private static final String GUILD = "guild";
 
     public YSlashCommandInteractionEvent(SlashCommand command, SlashCommandInteractionEvent event) {
         super(event, event);
@@ -60,26 +60,31 @@ public class YSlashCommandInteractionEvent extends YCommandInteraction {
     }
 
     @Nonnull
-    public @NotNull Player getPlayer(@NotNull YGuild guild) {
-        return PlayerHandler.getInstance().getMusicManager(guild).getPlayer();
+    public @NotNull Player getPlayer() {
+        Checks.notNull(getGuild(), GUILD);
+        return PlayerHandler.getInstance().getMusicManager(this.getGuild()).getPlayer();
     }
 
     @Nonnull
-    public @NotNull TrackScheduler getScheduler(@NotNull YGuild guild) {
-        return PlayerHandler.getInstance().getMusicManager(guild).getScheduler();
+    public @NotNull TrackScheduler getScheduler() {
+        Checks.notNull(getGuild(), GUILD);
+        return PlayerHandler.getInstance().getMusicManager(this.getGuild()).getScheduler();
     }
 
     @Nonnull
-    public @NotNull AudioPlayerSendHandler getSchedulerHandler(@NotNull YGuild guild) {
-        return PlayerHandler.getInstance().getMusicManager(guild).getSendHandler();
+    public @NotNull AudioPlayerSendHandler getSchedulerHandler() {
+        Checks.notNull(getGuild(), GUILD);
+        return PlayerHandler.getInstance().getMusicManager(this.getGuild()).getSendHandler();
     }
 
-    public void playUrl(TextChannel channel, @NotNull String urlOrName) {
-        PlayerHandler.getInstance().loadAndPlay(channel, urlOrName);
+    public void playUrl(@NotNull String urlOrName) {
+        Checks.notNull(getTextChannel(), "Text Channel");
+        PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), urlOrName);
     }
 
-    public void playName(TextChannel channel, @NotNull String urlOrName) {
-        PlayerHandler.getInstance().loadAndPlay(channel, "ytsearch:" + urlOrName);
+    public void playName(@NotNull String urlOrName) {
+        Checks.notNull(getTextChannel(), "Text Channel");
+        PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), "ytsearch:" + urlOrName);
     }
 }
 

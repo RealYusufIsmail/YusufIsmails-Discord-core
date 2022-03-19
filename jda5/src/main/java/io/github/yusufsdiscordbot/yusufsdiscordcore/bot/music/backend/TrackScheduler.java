@@ -15,7 +15,7 @@ public class TrackScheduler extends AudioEventAdapter {
     private final @NotNull BlockingQueue<AudioTrack> blockingQueue;
 
 
-    private final boolean loop = false;
+    private static final boolean LOOP = false;
 
     /**
      * @param player The audio player this scheduler uses
@@ -55,11 +55,11 @@ public class TrackScheduler extends AudioEventAdapter {
     }
 
     @Override
-    public void onTrackEnd(AudioPlayer player, AudioTrack track,
+    public void onTrackEnd(@NotNull AudioPlayer player, @NotNull AudioTrack track,
             @NotNull AudioTrackEndReason endReason) {
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
         if (endReason.mayStartNext) {
-            if (loop) {
+            if (LOOP) {
                 player.startTrack(track.makeClone(), false);
                 return;
             }
@@ -71,7 +71,7 @@ public class TrackScheduler extends AudioEventAdapter {
         return player;
     }
 
-    public BlockingQueue<AudioTrack> getBlockingQueue() {
+    public @NotNull BlockingQueue<AudioTrack> getBlockingQueue() {
         return blockingQueue;
     }
 
@@ -82,6 +82,14 @@ public class TrackScheduler extends AudioEventAdapter {
      * @return True if the loop was set, false if the loop was already set.
      */
     public boolean setLoop(boolean setLoop) {
-        return loop == setLoop;
+        return LOOP == setLoop;
+    }
+
+    public boolean getLoop() {
+        return LOOP;
+    }
+
+    public boolean isEmpty() {
+        return blockingQueue.isEmpty();
     }
 }
