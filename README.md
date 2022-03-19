@@ -41,6 +41,9 @@ dependencies {
 ```gradle
 repositories {
     mavenCentral()
+    maven {
+        url 'https://m2.dv8tion.net/releases'
+    }
 }
 dependencies {
     //Yusuf Ismail's Discord Core
@@ -50,6 +53,8 @@ dependencies {
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.40'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+    //lava player
+    implementation group: 'com.github.walkyst', name: 'lavaplayer-fork', version: '1.3.97'
 }
 ```
 
