@@ -324,28 +324,28 @@ public record YGuild(Guild guild) {
     }
 
     @Contract("_ -> new")
-    public @NotNull YMember getMemberById(String id) {
+    public @NotNull YMember getMemberById(@NotNull String id) {
         return new YMember(guild.getMemberById(id));
     }
 
     @Contract("_ -> new")
-    public @NotNull YMember getMemberByTag(String tag) {
+    public @NotNull YMember getMemberByTag(@NotNull String tag) {
         return new YMember(guild.getMemberByTag(tag));
     }
 
     @Contract("_, _ -> new")
-    public @NotNull YMember getMemberByTag(String tag, String discriminator) {
+    public @NotNull YMember getMemberByTag(@NotNull String tag, @NotNull String discriminator) {
         return new YMember(guild.getMemberByTag(tag, discriminator));
     }
 
-    public List<YMember> getMembersByEffectiveName(String name, boolean ignoreCase) {
+    public List<YMember> getMembersByEffectiveName(@NotNull String name, boolean ignoreCase) {
         return guild.getMembersByEffectiveName(name, ignoreCase)
             .stream()
             .map(YMember::new)
             .toList();
     }
 
-    public List<YMember> getMembersByName(String name, boolean ignoreCase) {
+    public List<YMember> getMembersByName(@NotNull String name, boolean ignoreCase) {
         return guild.getMembersByName(name, ignoreCase).stream().map(YMember::new).toList();
     }
 
@@ -3025,7 +3025,7 @@ public record YGuild(Guild guild) {
     }
 
     @Nullable
-    public TextChannel getTextChannelById(String id) {
+    public TextChannel getTextChannelById(@NotNull String id) {
         return guild.getTextChannelById(id);
     }
 

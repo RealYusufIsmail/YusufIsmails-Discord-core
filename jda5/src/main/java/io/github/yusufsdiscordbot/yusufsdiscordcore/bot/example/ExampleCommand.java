@@ -69,6 +69,7 @@ class ExampleCommand extends SlashCommand {
         }
 
         yusufSlashCommandEvent.replyQueuedEmbed(builder.build());
+
     }
 
     @SuppressWarnings("unused")

@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -24,7 +25,7 @@ public abstract class UserCommand extends ListenerAdapter {
     private final @Nonnull String name;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
-    private final CommandData commandData;
+    private final @NotNull CommandData commandData;
 
     protected UserCommand(@Nonnull String name, boolean isGuildOnly,
             @Nonnull CommandType... commandType) {

@@ -24,7 +24,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 @Deprecated(since = "1.0.40", forRemoval = true)
 public class TrackScheduler extends AudioEventAdapter {
-    public static final boolean REPEATING = false;
     public final AudioPlayer player;
     public final @NotNull BlockingQueue<AudioTrack> blockingQueue;
 
@@ -33,24 +32,37 @@ public class TrackScheduler extends AudioEventAdapter {
         this.blockingQueue = new LinkedBlockingQueue<>();
     }
 
-    public void queue(@NotNull AudioTrack track) {
-        if (!this.player.startTrack(track, true)) {
-            this.blockingQueue.offer(track);
+
+    /**
+     * Add the next track to queue or play right away if nothing is in the queue.
+     *
+     * @param track The track to play or add to queue.
+     */
+    public void queue(AudioTrack track) {
+        // Calling startTrack with the noInterrupt set to true will start the track only if nothing is currently playing. If
+        // something is playing, it returns false and does nothing. In that case the player was already playing so this
+        // track goes to the queue instead.
+        if (!player.startTrack(track, true)) {
+            blockingQueue.offer(track);
+        } else {
+            // The player was able to play the track, so we remove it from the queue.
+            blockingQueue.remove(track);
         }
     }
 
+    /**
+     * Start the next track, stopping the current one if it is playing.
+     */
     public void nextTrack() {
-        this.player.startTrack(this.blockingQueue.poll(), false);
+        // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
+        // giving null to startTrack, which is a valid argument and will simply stop the player.
+        player.startTrack(blockingQueue.poll(), false);
     }
 
     @Override
-    public void onTrackEnd(AudioPlayer player, @NotNull AudioTrack track,
-            @NotNull AudioTrackEndReason endReason) {
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, @NotNull AudioTrackEndReason endReason) {
+        // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
         if (endReason.mayStartNext) {
-            if (REPEATING) {
-                this.player.startTrack(track.makeClone(), false);
-                return;
-            }
             nextTrack();
         }
     }

@@ -1,7 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.interactions.InteractionHook;
@@ -377,7 +376,7 @@ public class YReplyCallback {
      *         {@code empty}.
      */
     @NotNull
-    public ReplyCallbackAction replyFile(@NotNull byte[] data, @NotNull String name,
+    public ReplyCallbackAction replyFile(@NotNull byte @NotNull [] data, @NotNull String name,
             @NotNull AttachmentOption... options) {
         return callback.replyFile(data, name, options);
     }

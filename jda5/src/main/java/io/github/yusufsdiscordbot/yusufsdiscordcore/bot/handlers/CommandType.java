@@ -1,7 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers;
 
-import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
 @ToString
@@ -72,7 +72,7 @@ public enum CommandType {
      * @param name the Name of the command type
      * @return the CommandType of the given name in lowercase.
      */
-    public static CommandType getCommandType(String name) {
+    public static @NotNull CommandType getCommandType(String name) {
         for (CommandType type : CommandType.values()) {
             if (type.getName().equalsIgnoreCase(name)) {
                 return type;

@@ -28,6 +28,7 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -41,7 +42,7 @@ public abstract class SlashCommand extends ListenerAdapter {
     private final @Nonnull String description;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
-    private final SlashCommandData slashCommandData;
+    private final @NotNull SlashCommandData slashCommandData;
 
     /**
      * Were the command is registered.
@@ -82,7 +83,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public final SlashCommandData getSlashCommandData() {
+    public final @NotNull SlashCommandData getSlashCommandData() {
         return slashCommandData;
     }
 
