@@ -50,7 +50,7 @@ allprojects {
                 //org apache commons-collections
                 implementation 'org.apache.commons:commons-collections4:4.4'
                 //loggers
-                implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+                implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.2'
                 implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
                 implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j18-impl', version: '2.17.1'
             }
