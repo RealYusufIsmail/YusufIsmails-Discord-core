@@ -18,12 +18,15 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YGuild;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YSlashCommandInteraction;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.backend.MusicManager;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.PlayerHandler;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.backend.AudioPlayerSendHandler;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.backend.Player;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.backend.TrackScheduler;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,8 +60,26 @@ public class YSlashCommandInteractionEvent extends YCommandInteraction {
     }
 
     @Nonnull
-    public MusicManager getMusicManager(@NotNull YGuild guild) {
-        return PlayerHandler.getInstance().getMusicManager(guild);
+    public @NotNull Player getPlayer(@NotNull YGuild guild) {
+        return PlayerHandler.getInstance().getMusicManager(guild).getPlayer();
+    }
+
+    @Nonnull
+    public @NotNull TrackScheduler getScheduler(@NotNull YGuild guild) {
+        return PlayerHandler.getInstance().getMusicManager(guild).getScheduler();
+    }
+
+    @Nonnull
+    public @NotNull AudioPlayerSendHandler getSchedulerHandler(@NotNull YGuild guild) {
+        return PlayerHandler.getInstance().getMusicManager(guild).getSendHandler();
+    }
+
+    public void playUrl(TextChannel channel, @NotNull String urlOrName) {
+        PlayerHandler.getInstance().loadAndPlay(channel, urlOrName);
+    }
+
+    public void playName(TextChannel channel, @NotNull String urlOrName) {
+        PlayerHandler.getInstance().loadAndPlay(channel, "ytsearch:" + urlOrName);
     }
 }
 

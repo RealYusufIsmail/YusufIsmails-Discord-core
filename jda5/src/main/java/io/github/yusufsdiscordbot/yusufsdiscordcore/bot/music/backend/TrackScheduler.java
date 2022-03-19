@@ -11,8 +11,15 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class TrackScheduler extends AudioEventAdapter {
     private final Player player;
-    public final @NotNull BlockingQueue<AudioTrack> blockingQueue;
 
+    private final @NotNull BlockingQueue<AudioTrack> blockingQueue;
+
+
+    private final boolean loop = false;
+
+    /**
+     * @param player The audio player this scheduler uses
+     */
     public TrackScheduler(Player player) {
         this.player = player;
         this.blockingQueue = new LinkedBlockingQueue<>();
@@ -52,7 +59,29 @@ public class TrackScheduler extends AudioEventAdapter {
             @NotNull AudioTrackEndReason endReason) {
         // Only start the next track if the end reason is suitable for it (FINISHED or LOAD_FAILED)
         if (endReason.mayStartNext) {
+            if (loop) {
+                player.startTrack(track.makeClone(), false);
+                return;
+            }
             nextTrack();
         }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public BlockingQueue<AudioTrack> getBlockingQueue() {
+        return blockingQueue;
+    }
+
+    /**
+     * Used to loop the current track.
+     * 
+     * @param setLoop True to loop, false to not loop.
+     * @return True if the loop was set, false if the loop was already set.
+     */
+    public boolean setLoop(boolean setLoop) {
+        return loop == setLoop;
     }
 }

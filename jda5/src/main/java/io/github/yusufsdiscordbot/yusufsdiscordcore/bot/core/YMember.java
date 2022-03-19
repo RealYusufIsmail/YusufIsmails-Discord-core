@@ -24,6 +24,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
+import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -624,29 +625,95 @@ public record YMember(Member member) {
         return member.getTimeCreated();
     }
 
+    public @NotNull AudioManager getAudioManager() {
+        return member.getGuild().getAudioManager();
+    }
+
     public boolean isInVc() {
         return Objects.requireNonNull(member.getVoiceState()).inAudioChannel();
     }
 
     public void joinVc(YReplyCallback callback) {
         Verify.isInVc(this, callback);
-        getGuild().getAudioManager()
+        getAudioManager()
             .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
     }
 
     public void leaveVc(YReplyCallback callback) {
         Verify.isInVc(this, callback);
-        getGuild().getAudioManager().closeAudioConnection();
+        getAudioManager().closeAudioConnection();
     }
 
     public void joinVc(IReplyCallback callback) {
         Verify.isInVc(member, callback);
-        getGuild().getAudioManager()
+        getAudioManager()
             .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
     }
 
     public void leaveVc(IReplyCallback callback) {
         Verify.isInVc(member, callback);
-        getGuild().getAudioManager().closeAudioConnection();
+        getAudioManager().closeAudioConnection();
+    }
+
+    public void joinVc(YMember member, YReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager()
+            .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
+    }
+
+    public void leaveVc(YMember member, YReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().closeAudioConnection();
+    }
+
+    public void joinVc(Member member, IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager()
+            .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
+    }
+
+    public void leaveVc(Member member, IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().closeAudioConnection();
+    }
+
+    public void deafen(YReplyCallback callback) {
+        Verify.isInVc(this, callback);
+        getAudioManager().setSelfDeafened(true);
+    }
+
+    public void deafen(IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().setSelfDeafened(true);
+    }
+
+    public void deafen(YMember member, YReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().setSelfDeafened(true);
+    }
+
+    public void deafen(Member member, IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().setSelfDeafened(true);
+    }
+
+    public void mute(YReplyCallback callback) {
+        Verify.isInVc(this, callback);
+        getAudioManager().setSelfMuted(true);
+    }
+
+    public void mute(IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().setSelfMuted(true);
+    }
+
+    public void mute(YMember member, YReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().setSelfMuted(true);
+    }
+
+    public void mute(Member member, IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getAudioManager().setSelfMuted(true);
     }
 }
