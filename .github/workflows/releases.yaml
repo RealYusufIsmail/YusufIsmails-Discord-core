@@ -30,4 +30,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
-          files: 'build/libs/Yusufs-Discord-core-JDA-5-2.0.0-alpha.40-all.jar'
+          files: build/libs/Yusufs-Discord-core-all.jar
