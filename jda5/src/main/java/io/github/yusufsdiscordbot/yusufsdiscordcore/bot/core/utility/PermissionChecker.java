@@ -25,16 +25,8 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings({"unused", "java:S6206"})
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public class PermissionChecker {
-    @Getter
-    private final Guild guild;
-
-    public PermissionChecker(Guild guild) {
-        this.guild = guild;
-    }
-
+public record PermissionChecker(@Getter Guild guild) {
     // can you perms
-
     public @NotNull Boolean canYouUnBanUser(@NotNull YMember member,
             @NotNull YSlashCommandInteractionEvent event) {
         if (!member.hasPermission(Permission.BAN_MEMBERS)) {
@@ -184,7 +176,6 @@ public class PermissionChecker {
         }
         return true;
     }
-
 
 
     public @NotNull Boolean canBotDeleteMessages(@NotNull YSlashCommandInteractionEvent event) {

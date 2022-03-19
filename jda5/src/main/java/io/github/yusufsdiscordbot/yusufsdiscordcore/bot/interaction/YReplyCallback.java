@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import net.dv8tion.jda.api.utils.AttachmentOption;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.InputStream;
@@ -51,6 +52,7 @@ public class YReplyCallback {
      * @return {@link ReplyCallbackAction}
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction deferReply() {
         return callback.deferReply();
     }
@@ -91,6 +93,7 @@ public class YReplyCallback {
      * @return {@link ReplyCallbackAction}
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction deferReply(boolean ephemeral) {
         return callback.deferReply(ephemeral);
     }
@@ -114,6 +117,7 @@ public class YReplyCallback {
      * @throws IllegalArgumentException If null is provided
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction reply(@NotNull Message message) {
         return callback.reply(message);
     }
@@ -138,6 +142,7 @@ public class YReplyCallback {
      *         {@link Message#MAX_CONTENT_LENGTH}
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction reply(@NotNull String content) {
         return callback.reply(content);
     }
@@ -161,6 +166,7 @@ public class YReplyCallback {
      * @throws IllegalArgumentException If null is provided
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction replyEmbeds(@NotNull Collection<? extends MessageEmbed> embeds) {
         return callback.replyEmbeds(embeds);
     }
@@ -185,6 +191,7 @@ public class YReplyCallback {
      * @throws IllegalArgumentException If null is provided
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction replyEmbeds(@NotNull MessageEmbed embed,
             @NotNull MessageEmbed... embeds) {
         return callback.replyEmbeds(embed, embeds);
@@ -211,6 +218,7 @@ public class YReplyCallback {
      *         longer than {@link Message#MAX_CONTENT_LENGTH}
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction replyFormat(@NotNull String format, @NotNull Object... args) {
         return callback.replyFormat(format, args);
     }
@@ -247,6 +255,7 @@ public class YReplyCallback {
      *         {@code empty}.
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction replyFile(@NotNull InputStream data, @NotNull String name,
             @NotNull AttachmentOption... options) {
         return callback.replyFile(data, name, options);
@@ -288,6 +297,7 @@ public class YReplyCallback {
      * @throws IllegalArgumentException If the provided file is {@code null}.
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction replyFile(@NotNull File file, @NotNull AttachmentOption... options) {
         return callback.replyFile(file, options);
     }
@@ -339,6 +349,7 @@ public class YReplyCallback {
      *         {@code empty}.
      */
     @NotNull
+    @CheckReturnValue
     public ReplyCallbackAction replyFile(@NotNull File file, @NotNull String name,
             @NotNull AttachmentOption... options) {
         return callback.replyFile(file, name, options);
@@ -376,7 +387,8 @@ public class YReplyCallback {
      *         {@code empty}.
      */
     @NotNull
-    public ReplyCallbackAction replyFile(@NotNull byte @NotNull [] data, @NotNull String name,
+    @CheckReturnValue
+    public ReplyCallbackAction replyFile(byte @NotNull [] data, @NotNull String name,
             @NotNull AttachmentOption... options) {
         return callback.replyFile(data, name, options);
     }

@@ -47,7 +47,7 @@ dependencies {
     //JDA 5
     //In alpha stage
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.33'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.40'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 }

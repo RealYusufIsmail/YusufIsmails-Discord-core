@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.IGuildChannelContainer;
 import net.dv8tion.jda.api.entities.templates.Template;
 import net.dv8tion.jda.api.events.guild.member.GenericGuildMemberEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
@@ -40,7 +41,9 @@ import net.dv8tion.jda.api.requests.restaction.order.ChannelOrderAction;
 import net.dv8tion.jda.api.requests.restaction.order.OrderAction;
 import net.dv8tion.jda.api.requests.restaction.order.RoleOrderAction;
 import net.dv8tion.jda.api.requests.restaction.pagination.AuditLogPaginationAction;
+import net.dv8tion.jda.api.sharding.ShardManager;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.dv8tion.jda.api.utils.MiscUtil;
 import net.dv8tion.jda.api.utils.TimeUtil;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import net.dv8tion.jda.api.utils.cache.MemberCacheView;
@@ -1088,32 +1091,45 @@ public record YGuild(Guild guild) {
     /**
      * Get {@link GuildChannel GuildChannel} for the provided ID.
      *
+     * <p>
+     * This getter exists on any instance of {@link IGuildChannelContainer} and only checks the
+     * caches with the relevant scoping. For {@link Guild}, {@link JDA}, or {@link ShardManager},
+     * this returns the relevant channel with respect to the cache within each of those objects. For
+     * a guild, this would mean it only returns channels within the same guild. <br>
+     * If this is called on {@link JDA} or {@link ShardManager}, this may return null immediately
+     * after building, because the cache isn't initialized yet. To make sure the cache is
+     * initialized after building your {@link JDA} instance, you can use {@link JDA#awaitReady()}.
+     *
      * <br>
-     * This is meant for systems that use a dynamic {@link ChannelType} and can profit from a simple
-     * function to get the channel instance. To get more specific channel types you can use one of
-     * the following:
+     * This is meant for systems that use a dynamic {@link net.dv8tion.jda.api.entities.ChannelType}
+     * and can profit from a simple function to get the channel instance.
+     *
+     * <p>
+     * To get more specific channel types you can use one of the following:
      * <ul>
-     * <li>{@link #getTextChannelById(String)}</li>
-     * <li>{@link #getVoiceChannelById(String)}</li>
-     * <li>{@link #getStoreChannelById(String)}</li>
-     * <li>{@link #getCategoryById(String)}</li>
+     * <li>{@link #getChannelById(Class, long)}</li>
+     * <li>{@link #getTextChannelById(long)}</li>
+     * <li>{@link #getNewsChannelById(long)}</li>
+     * <li>{@link #getStageChannelById(long)}</li>
+     * <li>{@link #getVoiceChannelById(long)}</li>
+     * <li>{@link #getCategoryById(long)}</li>
      * </ul>
      *
-     * @param type The {@link ChannelType}
+     * @param type The {@link net.dv8tion.jda.api.entities.ChannelType}
      * @param id The ID of the channel
+     *
      * @return The GuildChannel or null
-     * @throws IllegalArgumentException If the provided ID is null
-     * @throws NumberFormatException If the provided ID is not a snowflake
      */
-    @org.jetbrains.annotations.Nullable
-    public GuildChannel getGuildChannelById(@NotNull ChannelType type, @NotNull String id) {
-        return guild.getGuildChannelById(type, id);
+    @Nullable
+    public GuildChannel getGuildChannelById(@Nonnull ChannelType type, @Nonnull String id) {
+        return getGuildChannelById(type, MiscUtil.parseSnowflake(id));
     }
 
     @Nullable
     public GuildChannel getGuildChannelById(@Nonnull ChannelType type, long id) {
         return guild.getGuildChannelById(type, id);
     }
+
 
     @Nonnull
     public SortedSnowflakeCacheView<StageChannel> getStageChannelCache() {
@@ -2574,7 +2590,7 @@ public record YGuild(Guild guild) {
 
     /**
      * Used to kick a {@link Member Member} from a {@link AudioChannel AudioChannel}. <br>
-     * As a note, you cannot kick a Member that isn't already in a AudioChannel. Also they must be
+     * As a note, you cannot kick a Member that isn't already in a AudioChannel. Also, they must be
      * in a AudioChannel in the same Guild.
      *
      * <p>
@@ -2628,7 +2644,7 @@ public record YGuild(Guild guild) {
      * would be pruned if you were to call this method.
      *
      * <p>
-     * This might timeout when pruning many members. You can use {@code prune(days, false)} to
+     * This might time out when pruning many members. You can use {@code prune(days, false)} to
      * ignore the prune count and avoid a timeout.
      *
      * <p>
@@ -2789,7 +2805,7 @@ public record YGuild(Guild guild) {
      *
      * @param name The name of the NewsChannel to create
      * @return A specific {@link ChannelAction ChannelAction} <br>
-     *         This action allows to set fields for the new NewsChannel before creating it
+     *         This action allows setting fields for the new NewsChannel before creating it
      * @throws InsufficientPermissionException If the logged in account does not have the
      *         {@link Permission#MANAGE_CHANNEL} permission
      * @throws IllegalArgumentException If the provided name is {@code null} or empty or greater
@@ -2824,7 +2840,7 @@ public record YGuild(Guild guild) {
      *
      * @param name The name of the VoiceChannel to create
      * @return A specific {@link ChannelAction ChannelAction} <br>
-     *         This action allows to set fields for the new VoiceChannel before creating it
+     *         This action allows setting fields for the new VoiceChannel before creating it
      * @throws InsufficientPermissionException If the logged in account does not have the
      *         {@link Permission#MANAGE_CHANNEL} permission
      * @throws IllegalArgumentException If the provided name is {@code null} or empty or greater
@@ -2859,7 +2875,7 @@ public record YGuild(Guild guild) {
      *
      * @param name The name of the StageChannel to create
      * @return A specific {@link ChannelAction ChannelAction} <br>
-     *         This action allows to set fields for the new StageChannel before creating it
+     *         This action allows setting fields for the new StageChannel before creating it
      * @throws InsufficientPermissionException If the logged in account does not have the
      *         {@link Permission#MANAGE_CHANNEL} permission
      * @throws IllegalArgumentException If the provided name is {@code null} or empty or greater

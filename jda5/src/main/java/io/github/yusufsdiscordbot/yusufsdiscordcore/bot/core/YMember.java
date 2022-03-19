@@ -13,6 +13,8 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.util.Verify;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YReplyCallback;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -21,6 +23,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -59,7 +62,7 @@ import java.util.concurrent.TimeUnit;
 @ToString
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public record YMember(Member member) implements IMentionable, IPermissionHolder {
+public record YMember(Member member) {
     /**
      * Maximum number of days a Member can be timed out for
      */
@@ -80,15 +83,8 @@ public record YMember(Member member) implements IMentionable, IPermissionHolder 
     /**
      * @see Member#getGuild()
      */
-    public @Nonnull YGuild getYusufGuild() {
+    public @Nonnull YGuild getGuild() {
         return new YGuild(member.getGuild());
-    }
-
-    /**
-     * @see Member#getGuild()
-     */
-    public @Nonnull Guild getGuild() {
-        return member.getGuild();
     }
 
     /**
@@ -352,14 +348,14 @@ public record YMember(Member member) implements IMentionable, IPermissionHolder 
     /**
      * @see Member#getPermissions()
      */
-    public @Nonnull EnumSet<Permission> getPermissions() {
+    public @Nonnull Set<Permission> getPermissions() {
         return member.getPermissions();
     }
 
     /**
      * @see Member#getPermissions(GuildChannel)
      */
-    public @Nonnull EnumSet<Permission> getPermissions(@Nonnull GuildChannel channel) {
+    public @Nonnull Set<Permission> getPermissions(@Nonnull GuildChannel channel) {
         return member.getPermissions(channel);
     }
 
@@ -371,14 +367,14 @@ public record YMember(Member member) implements IMentionable, IPermissionHolder 
     /**
      * @see Member#getPermissionsExplicit()
      */
-    public @Nonnull EnumSet<Permission> getPermissionsExplicit() {
+    public @Nonnull Set<Permission> getPermissionsExplicit() {
         return member.getPermissionsExplicit();
     }
 
     /**
      * @see Member#getPermissionsExplicit(GuildChannel)
      */
-    public @Nonnull EnumSet<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel) {
+    public @Nonnull Set<Permission> getPermissionsExplicit(@Nonnull GuildChannel channel) {
         return member.getPermissionsExplicit(channel);
     }
 
@@ -429,20 +425,17 @@ public record YMember(Member member) implements IMentionable, IPermissionHolder 
     /**
      * @see Member#hasAccess(GuildChannel)
      */
-    @Override
     public boolean hasAccess(@Nonnull GuildChannel channel) {
         return member.hasAccess(channel);
     }
 
-    @Override
     public boolean canSync(@Nonnull IPermissionContainer targetChannel,
             @Nonnull IPermissionContainer syncSource) {
-        return false;
+        return member.canSync(targetChannel, syncSource);
     }
 
-    @Override
     public boolean canSync(@Nonnull IPermissionContainer channel) {
-        return false;
+        return member.canSync(channel);
     }
 
     public boolean hasAccess(@Nonnull IPermissionContainer channel) {
@@ -613,13 +606,11 @@ public record YMember(Member member) implements IMentionable, IPermissionHolder 
     }
 
     @Nonnull
-    @Override
     public String getAsMention() {
         return member.getAsMention();
     }
 
 
-    @Override
     public long getIdLong() {
         return member.getIdLong();
     }
@@ -629,8 +620,33 @@ public record YMember(Member member) implements IMentionable, IPermissionHolder 
     }
 
     @NotNull
-    @Override
     public OffsetDateTime getTimeCreated() {
         return member.getTimeCreated();
+    }
+
+    public boolean isInVc() {
+        return Objects.requireNonNull(member.getVoiceState()).inAudioChannel();
+    }
+
+    public void joinVc(YReplyCallback callback) {
+        Verify.isInVc(this, callback);
+        getGuild().getAudioManager()
+            .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
+    }
+
+    public void leaveVc(YReplyCallback callback) {
+        Verify.isInVc(this, callback);
+        getGuild().getAudioManager().closeAudioConnection();
+    }
+
+    public void joinVc(IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getGuild().getAudioManager()
+            .openAudioConnection(Objects.requireNonNull(this.getVoiceState()).getChannel());
+    }
+
+    public void leaveVc(IReplyCallback callback) {
+        Verify.isInVc(member, callback);
+        getGuild().getAudioManager().closeAudioConnection();
     }
 }

@@ -99,7 +99,7 @@ public record YUser(User user) {
     }
 
     /**
-     * The URL for the for the user's default avatar image.
+     * The URL for the user's default avatar image.
      *
      * @return Never-null String containing the {@link User User} default avatar url.
      * @throws UnsupportedOperationException If this User was created with from id

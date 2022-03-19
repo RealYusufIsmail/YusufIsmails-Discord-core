@@ -113,4 +113,8 @@ public enum Volume {
     public int getVolume() {
         return volume;
     }
+
+    public Volume setVolume(int volume) {
+        return Volume.values()[volume];
+    }
 }
