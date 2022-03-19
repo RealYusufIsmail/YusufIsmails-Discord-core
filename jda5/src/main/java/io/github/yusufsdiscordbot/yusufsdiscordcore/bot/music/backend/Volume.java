@@ -1,5 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.backend;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum Volume {
     // goes from 0 to 100
     ZERO_PERCENT(0),
@@ -114,7 +116,12 @@ public enum Volume {
         return volume;
     }
 
-    public Volume setVolume(int volume) {
-        return Volume.values()[volume];
+    public static @NotNull Volume setVolume(int volume) {
+        for (Volume v : values()) {
+            if (v.getVolume() == volume) {
+                return v;
+            }
+        }
+        return FIFTY_PERCENT;
     }
 }
