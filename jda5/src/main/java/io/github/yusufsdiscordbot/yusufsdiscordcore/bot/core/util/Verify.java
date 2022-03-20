@@ -45,4 +45,20 @@ public class Verify {
             callback.reply("You are in a voice channel!").setEphemeral(true).queue();
         }
     }
+
+    public static boolean isInVc(@NotNull YMember member) {
+        return member.getVoiceState().inAudioChannel();
+    }
+
+    public static boolean isInVc(@NotNull Member member) {
+        return member.getVoiceState().inAudioChannel();
+    }
+
+    public static boolean isNotInVc(@NotNull YMember member) {
+        return !isInVc(member);
+    }
+
+    public static boolean isNotInVc(@NotNull Member member) {
+        return !isInVc(member);
+    }
 }

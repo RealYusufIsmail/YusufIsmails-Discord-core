@@ -14,6 +14,8 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
 import io.github.yusufsdiscordbot.annotations.Author;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.util.Verify;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YSlashCommandInteraction;
@@ -77,14 +79,16 @@ public class YSlashCommandInteractionEvent extends YCommandInteraction {
         return PlayerHandler.getInstance().getMusicManager(this.getGuild()).getSendHandler();
     }
 
-    public void playUrl(@NotNull String urlOrName) {
+    public void playUrl(YMember member, @NotNull String url) {
+        Verify.isInVc(member, this);
         Checks.notNull(getTextChannel(), "Text Channel");
-        PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), urlOrName);
+        PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), url);
     }
 
-    public void playName(@NotNull String urlOrName) {
+    public void playName(YMember member, @NotNull String name) {
+        Verify.isInVc(member, this);
         Checks.notNull(getTextChannel(), "Text Channel");
-        PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), "ytsearch:" + urlOrName);
+        PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), "ytsearch:" + name);
     }
 }
 
