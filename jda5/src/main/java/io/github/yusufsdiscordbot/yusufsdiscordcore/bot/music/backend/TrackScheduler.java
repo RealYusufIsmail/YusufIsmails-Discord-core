@@ -92,4 +92,12 @@ public class TrackScheduler extends AudioEventAdapter {
     public boolean isEmpty() {
         return blockingQueue.isEmpty();
     }
+
+    public void setAuthor(String author) {
+        player.setAuthor(author);
+    }
+
+    public void setMp3Number(int mp3Number) {
+        player.setMp3Number(mp3Number);
+    }
 }

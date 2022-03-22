@@ -168,4 +168,13 @@ public record Player(AudioPlayer player) {
             throws TimeoutException, InterruptedException {
         return player.provide(targetFrame, timeout, unit);
     }
+
+    public void setAuthor(String author) {
+        getPlayingTrack().setUserData(author);
+    }
+
+
+    public void setMp3Number(int mp3Number) {
+        getPlayingTrack().setUserData(mp3Number);
+    }
 }

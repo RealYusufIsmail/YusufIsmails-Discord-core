@@ -81,6 +81,8 @@ public class Mp3Handler {
 
                 for (final AudioTrack track : tracks) {
                     musicManager.getScheduler().queue(track);
+                    musicManager.getScheduler().setAuthor(author);
+                    musicManager.getScheduler().setMp3Number(mp3Number);
                 }
             }
 
