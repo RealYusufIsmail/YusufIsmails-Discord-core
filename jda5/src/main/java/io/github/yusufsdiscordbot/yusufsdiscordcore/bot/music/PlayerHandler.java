@@ -56,7 +56,7 @@ public class PlayerHandler {
                 new AudioLoadResultHandler() {
                     @Override
                     public void trackLoaded(@NotNull AudioTrack track) {
-                        musicManager.scheduler.queue(track);
+                        musicManager.getScheduler().queue(track);
 
                         channel.sendMessage("Adding to queue: `")
                             .append(track.getInfo().title)
@@ -78,7 +78,7 @@ public class PlayerHandler {
                             .queue();
 
                         for (final AudioTrack track : tracks) {
-                            musicManager.scheduler.queue(track);
+                            musicManager.getScheduler().queue(track);
                         }
                     }
 

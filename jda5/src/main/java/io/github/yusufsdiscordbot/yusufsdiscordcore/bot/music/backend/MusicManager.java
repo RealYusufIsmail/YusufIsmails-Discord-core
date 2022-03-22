@@ -17,7 +17,7 @@ public class MusicManager {
     /**
      * Retrieve the track scheduler.
      */
-    public final @NotNull TrackScheduler scheduler;
+    private final @NotNull TrackScheduler scheduler;
 
     public MusicManager(@NotNull PlayerManager manager) {
         this.player = manager.createPlayer();

@@ -19,6 +19,7 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.util.Verify;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YSlashCommandInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.Mp3Handler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.PlayerHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.backend.AudioPlayerSendHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.backend.Player;
@@ -89,6 +90,12 @@ public class YSlashCommandInteractionEvent extends YCommandInteraction {
         Verify.isInVc(member, this);
         Checks.notNull(getTextChannel(), "Text Channel");
         PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), "ytsearch:" + name);
+    }
+
+    public void playMp3Url(YMember member, @NotNull String url, int mp3Number, String author) {
+        Verify.isInVc(member, this);
+        Checks.notNull(getTextChannel(), "Text Channel");
+        Mp3Handler.getInstance().loadAndPlay(this.getTextChannel(), url, mp3Number, author);
     }
 }
 
