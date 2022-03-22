@@ -80,19 +80,20 @@ public class YSlashCommandInteractionEvent extends YCommandInteraction {
         return PlayerHandler.getInstance().getMusicManager(this.getGuild()).getSendHandler();
     }
 
-    public void playUrl(YMember member, @NotNull String url) {
+    public void playUrl(@NotNull YMember member, @NotNull String url) {
         Verify.isInVc(member, this);
         Checks.notNull(getTextChannel(), "Text Channel");
         PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), url);
     }
 
-    public void playName(YMember member, @NotNull String name) {
+    public void playName(@NotNull YMember member, @NotNull String name) {
         Verify.isInVc(member, this);
         Checks.notNull(getTextChannel(), "Text Channel");
         PlayerHandler.getInstance().loadAndPlay(this.getTextChannel(), "ytsearch:" + name);
     }
 
-    public void playMp3Url(YMember member, @NotNull String url, int mp3Number, String author) {
+    public void playMp3Url(@NotNull YMember member, @NotNull String url, int mp3Number,
+            @NotNull String author) {
         Verify.isInVc(member, this);
         Checks.notNull(getTextChannel(), "Text Channel");
         Mp3Handler.getInstance().loadAndPlay(this.getTextChannel(), url, mp3Number, author);

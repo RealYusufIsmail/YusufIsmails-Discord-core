@@ -61,7 +61,7 @@ public record Player(AudioPlayer player) {
     }
 
     public void setFrameBufferDuration(Integer duration) {
-
+        player.setFrameBufferDuration(duration);
     }
 
     /**

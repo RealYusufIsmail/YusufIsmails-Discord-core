@@ -50,7 +50,7 @@ public class Mp3Handler {
     }
 
     public void loadAndPlay(@NotNull TextChannel channel, String mp3Url, int mp3Number,
-            String author) {
+            @NotNull String author) {
         final MusicManager musicManager = this.getMusicManager(new YGuild(channel.getGuild()));
 
         this.audioPlayerManager.loadItemOrdered(musicManager, mp3Url, new AudioLoadResultHandler() {
