@@ -50,6 +50,7 @@ import net.dv8tion.jda.api.utils.cache.MemberCacheView;
 import net.dv8tion.jda.api.utils.cache.SnowflakeCacheView;
 import net.dv8tion.jda.api.utils.cache.SortedSnowflakeCacheView;
 import net.dv8tion.jda.api.utils.concurrent.Task;
+import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,6 +72,11 @@ import java.util.function.Predicate;
 @EqualsAndHashCode(callSuper = false)
 public record YGuild(Guild guild) {
     private static final Integer REASON_MAX_LENGTH = 512;
+
+    public static @NotNull YGuild from(Guild guild) {
+        Checks.notNull(guild, "guild");
+        return new YGuild(guild);
+    }
 
     @Contract(value = " -> new", pure = true)
     public @Nonnull PermissionChecker getPermissionChecker() {

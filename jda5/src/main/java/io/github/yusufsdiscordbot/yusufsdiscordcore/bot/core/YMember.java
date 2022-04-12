@@ -26,6 +26,7 @@ import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
+import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -70,6 +71,11 @@ public record YMember(Member member) {
      * Maximum number of days a Member can be timed out for
      */
     private static final int MAX_TIME_OUT_LENGTH = 28;
+
+    public static @NotNull YMember from(Member member) {
+        Checks.notNull(member, "Member");
+        return new YMember(member);
+    }
 
     @Contract(" -> new")
     public @Nonnull YUser getUser() {
