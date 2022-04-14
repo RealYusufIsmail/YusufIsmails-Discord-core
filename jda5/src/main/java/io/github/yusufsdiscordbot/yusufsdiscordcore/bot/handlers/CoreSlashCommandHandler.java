@@ -17,13 +17,17 @@ import io.github.yusufsdiscordbot.annotations.Authors;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.example.ExampleCommandHandler;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.exception.DuplicateNameException;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.MessageCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.ModelCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.UserCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YModalInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YModalInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -75,6 +79,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private final Map<String, SlashCommand> slashCommand = new HashMap<>();
     private final Map<String, UserCommand> userCommand = new HashMap<>();
     private final Map<String, MessageCommand> messageCommand = new HashMap<>();
+
+    private final Map<String, ModelCommand> modelCommand = new HashMap<>();
     private static final String COMMAND_ERROR = "The command {} is not registered";
 
     /**
@@ -151,6 +157,17 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
+    private void addModelCommand(@NotNull ModelCommand command) {
+        jda.addEventListener(command);
+        if (command.checkIfIsGuildOnly()) {
+            guildCommandsData.addCommands(command.getSlashCommandData());
+        } else if (!command.checkIfIsGuildOnly()) {
+            globalCommandsData.addCommands(command.getSlashCommandData());
+        } else {
+            logger.error(COMMAND_ERROR, command.getName());
+        }
+    }
+
     /**
      * Used to register the slash commands.
      *
@@ -158,7 +175,8 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     public void queueAndRegisterCommands(@NotNull Collection<SlashCommand> commands,
             @NotNull Collection<UserCommand> userCommands,
-            @NotNull Collection<MessageCommand> messageCommands) {
+            @NotNull Collection<MessageCommand> messageCommands,
+            @NotNull Collection<ModelCommand> modelCommands) {
         commands.forEach(this::addSlashCommand);
         userCommands.forEach(this::addUserCommand);
         messageCommands.forEach(this::addMessageCommand);
@@ -182,6 +200,16 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
      */
     public void queueAndRegisterSlashCommands(@NotNull Collection<SlashCommand> slashCommands) {
         slashCommands.forEach(this::addSlashCommand);
+        onFinishedRegistration();
+    }
+
+    /**
+     * Used to register the model commands.
+     *
+     * @param modelCommands the model commands.
+     */
+    public void queueAndRegisterModelCommands(@NotNull Collection<ModelCommand> modelCommands) {
+        modelCommands.forEach(this::addModelCommand);
         onFinishedRegistration();
     }
 
@@ -213,9 +241,10 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
             throws DuplicateNameException {
         if (checkIfCommandNameIsNullOrRepeated(slashCommandEvent)
                 || isCommandOwnerOnly(slashCommandEvent, botOwnerId())) {
-            onSlashCommandEvent(slashCommandEvent);
+            onSlashCommandInteractionEvent(slashCommandEvent);
         }
     }
+
 
     private boolean checkIfCommandNameIsNullOrRepeated(
             @NotNull SlashCommandInteractionEvent slashCommandEvent) throws DuplicateNameException {
@@ -243,10 +272,27 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-    private void onSlashCommandEvent(@NotNull SlashCommandInteractionEvent slashCommandEvent) {
+    private void onSlashCommandInteractionEvent(
+            @NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
         onSlashCommand
             .onSlashCommand(new YSlashCommandInteractionEvent(onSlashCommand, slashCommandEvent));
+    }
+
+    /**
+     * This method is called when the model command is triggered.
+     *
+     * @param modelCommandEvent the event that triggered the model command.
+     */
+    private void runModalEvent(@NotNull ModalInteractionEvent modelCommandEvent) {
+        onModalInteractionEvent(modelCommandEvent);
+    }
+
+    private void onModalInteractionEvent(@NotNull ModalInteractionEvent modelCommandEvent) {
+        var onModalInteractionEvent = this.modelCommand.get(modelCommandEvent.getModalId());
+        onModalInteractionEvent
+            .onModelCommand(new YModalInteractionEvent(modelCommandEvent, onModalInteractionEvent,
+                    new YModalInteraction(modelCommandEvent, modelCommandEvent.getInteraction())));
     }
 
     /**
@@ -263,7 +309,15 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
         }
     }
 
-
+    /**
+     * Handles the modal interaction event.
+     *
+     * @param modelCommandEvent The original modal interaction event,
+     */
+    @Override
+    public void onModalInteraction(@NotNull ModalInteractionEvent modelCommandEvent) {
+        this.runModalEvent(modelCommandEvent);
+    }
 
     /**
      * Gets slash commands as a list.
