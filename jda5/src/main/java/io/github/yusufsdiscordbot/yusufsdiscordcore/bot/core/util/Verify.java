@@ -1,7 +1,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.util;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YMember;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YReplyCallback;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.callback.YReplyCallback;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import org.jetbrains.annotations.NotNull;

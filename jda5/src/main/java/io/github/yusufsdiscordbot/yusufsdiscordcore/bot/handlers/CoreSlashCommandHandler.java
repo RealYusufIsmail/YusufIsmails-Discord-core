@@ -290,9 +290,9 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
 
     private void onModalInteractionEvent(@NotNull ModalInteractionEvent modelCommandEvent) {
         var onModalInteractionEvent = this.modelCommand.get(modelCommandEvent.getModalId());
-        onModalInteractionEvent
-            .onModelCommand(new YModalInteractionEvent(modelCommandEvent, onModalInteractionEvent,
-                    new YModalInteraction(modelCommandEvent, modelCommandEvent.getInteraction())));
+        onModalInteractionEvent.onModelCommand(new YModalInteractionEvent(modelCommandEvent,
+                onModalInteractionEvent, new YModalInteraction(modelCommandEvent,
+                        modelCommandEvent.getInteraction(), modelCommandEvent)));
     }
 
     /**

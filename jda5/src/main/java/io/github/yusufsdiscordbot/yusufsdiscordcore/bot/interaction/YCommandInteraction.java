@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.interactions.commands.CommandInteractionPayload;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public abstract class YCommandInteraction extends YCommandInteractionPayload {
+
     protected YCommandInteraction(IReplyCallback callback,
             CommandInteractionPayload commandInteractionPayload) {
         super(callback, commandInteractionPayload);

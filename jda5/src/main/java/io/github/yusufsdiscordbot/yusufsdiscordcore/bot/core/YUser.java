@@ -22,7 +22,6 @@ import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.internal.utils.Checks;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +43,7 @@ public record YUser(User user) {
         return this.user.getAsTag();
     }
 
-    public static @NotNull YUser fromId(String id) {
+    public static @NotNull YUser fromId(@NotNull String id) {
         return new YUser(User.fromId(id));
     }
 

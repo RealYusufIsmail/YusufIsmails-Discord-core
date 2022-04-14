@@ -1,4 +1,4 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.callback;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;

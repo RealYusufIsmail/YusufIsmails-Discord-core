@@ -1,4 +1,4 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.callback;
 
 import lombok.EqualsAndHashCode;
 import net.dv8tion.jda.api.entities.Message;

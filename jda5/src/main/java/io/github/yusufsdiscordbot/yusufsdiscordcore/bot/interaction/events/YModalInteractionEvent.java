@@ -20,7 +20,7 @@ public class YModalInteractionEvent extends YModalInteraction {
 
     public YModalInteractionEvent(ModalInteractionEvent event, ModelCommand modelCommand,
             YModalInteraction interaction) {
-        super(event, event);
+        super(event, event, event);
         this.event = event;
         this.modelCommand = modelCommand;
         this.interaction = interaction;

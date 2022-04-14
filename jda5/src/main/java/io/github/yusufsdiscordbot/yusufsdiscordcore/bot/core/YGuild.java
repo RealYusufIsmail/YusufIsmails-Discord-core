@@ -347,22 +347,23 @@ public record YGuild(Guild guild) {
         return new YMember(guild.getMemberByTag(tag, discriminator));
     }
 
-    public List<YMember> getMembersByEffectiveName(@NotNull String name, boolean ignoreCase) {
+    public @NotNull List<YMember> getMembersByEffectiveName(@NotNull String name,
+            boolean ignoreCase) {
         return guild.getMembersByEffectiveName(name, ignoreCase)
             .stream()
             .map(YMember::new)
             .toList();
     }
 
-    public List<YMember> getMembersByName(@NotNull String name, boolean ignoreCase) {
+    public @NotNull List<YMember> getMembersByName(@NotNull String name, boolean ignoreCase) {
         return guild.getMembersByName(name, ignoreCase).stream().map(YMember::new).toList();
     }
 
-    public List<YMember> getMembersByNickname(String nickname, boolean ignoreCase) {
+    public @NotNull List<YMember> getMembersByNickname(String nickname, boolean ignoreCase) {
         return guild.getMembersByNickname(nickname, ignoreCase).stream().map(YMember::new).toList();
     }
 
-    public List<YMember> getMembersWithRoles(Role... roles) {
+    public @NotNull List<YMember> getMembersWithRoles(Role... roles) {
         return guild.getMembersWithRoles(roles).stream().map(YMember::new).toList();
     }
 
@@ -387,7 +388,7 @@ public record YGuild(Guild guild) {
         return guild.getMembersWithRoles(roles);
     }
 
-    public List<YMember> getMembers() {
+    public @NotNull List<YMember> getMembers() {
         return guild.getMembers().stream().map(YMember::new).toList();
     }
 

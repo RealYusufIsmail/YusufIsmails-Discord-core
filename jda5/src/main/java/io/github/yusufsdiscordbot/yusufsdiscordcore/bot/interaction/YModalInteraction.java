@@ -1,6 +1,8 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.callback.YMessageEditCallback;
 import net.dv8tion.jda.api.interactions.ModalInteraction;
+import net.dv8tion.jda.api.interactions.callbacks.IMessageEditCallback;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.interactions.modals.ModalMapping;
 import org.jetbrains.annotations.NotNull;
@@ -11,8 +13,9 @@ import java.util.List;
 public class YModalInteraction extends YMessageEditCallback {
     private final ModalInteraction event;
 
-    public YModalInteraction(IReplyCallback callback, ModalInteraction event) {
-        super(callback, event);
+    public YModalInteraction(IReplyCallback callback, ModalInteraction event,
+            IMessageEditCallback callback1) {
+        super(callback, callback1);
         this.event = event;
     }
 

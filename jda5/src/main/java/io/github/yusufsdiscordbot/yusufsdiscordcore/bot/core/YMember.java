@@ -14,7 +14,7 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.util.Verify;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YReplyCallback;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.callback.YReplyCallback;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;

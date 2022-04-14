@@ -32,14 +32,14 @@ public class Mp3Handler {
         YAudioSourceManagers.registerLocalSource(this.audioPlayerManager);
     }
 
-    public static Mp3Handler getInstance() {
+    public static @NotNull Mp3Handler getInstance() {
         if (instance == null) {
             instance = new Mp3Handler();
         }
         return instance;
     }
 
-    public MusicManager getMusicManager(@NotNull YGuild guild) {
+    public @NotNull MusicManager getMusicManager(@NotNull YGuild guild) {
         return this.musicManagers.computeIfAbsent(guild.getGuildIdLong(), guildId -> {
             final MusicManager guildMusicManager = new MusicManager(this.audioPlayerManager);
 
