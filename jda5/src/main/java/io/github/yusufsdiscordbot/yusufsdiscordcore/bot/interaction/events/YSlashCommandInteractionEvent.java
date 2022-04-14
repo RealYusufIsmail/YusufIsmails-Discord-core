@@ -29,9 +29,14 @@ import lombok.Getter;
 import lombok.ToString;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.callbacks.IDeferrableCallback;
+import net.dv8tion.jda.api.interactions.components.Modal;
+import net.dv8tion.jda.api.requests.ErrorResponse;
+import net.dv8tion.jda.api.requests.restaction.interactions.ModalCallbackAction;
 import net.dv8tion.jda.internal.utils.Checks;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 
 @ToString
@@ -97,6 +102,55 @@ public class YSlashCommandInteractionEvent extends YCommandInteraction {
         Verify.isInVc(member, this);
         Checks.notNull(getTextChannel(), "Text Channel");
         Mp3Handler.getInstance().loadAndPlay(this.getTextChannel(), url, mp3Number, author);
+    }
+
+    /**
+     * Acknowledgement of this interaction with a {@link Modal Modal}.
+     *
+     * <p>
+     * This will open a popup on the target user's Discord client.
+     *
+     * <p>
+     * Interactions can only be acknowledged once.
+     *
+     * <p>
+     * <b>You only have 3 seconds to acknowledge an interaction!</b> <br>
+     * When the acknowledgement is sent after the interaction expired, you will receive
+     * {@link ErrorResponse#UNKNOWN_INTERACTION ErrorResponse.UNKNOWN_INTERACTION}.
+     *
+     * @param modal The Modal to send
+     * @return ModalCallbackAction
+     * @throws IllegalArgumentException If the provided modal is null
+     */
+    @NotNull
+    @CheckReturnValue
+    public ModalCallbackAction replyModal(@NotNull Modal modal) {
+        return getInteraction().replyModal(modal);
+    }
+
+    /**
+     * Acknowledgement of this interaction with a {@link Modal Modal}.
+     *
+     * <p>
+     * This will open a popup on the target user's Discord client.
+     *
+     * <p>
+     * Interactions can only be acknowledged once.
+     *
+     * <p>
+     * <b>You only have 3 seconds to acknowledge an interaction!</b> <br>
+     * When the acknowledgement is sent after the interaction expired, you will receive
+     * {@link ErrorResponse#UNKNOWN_INTERACTION ErrorResponse.UNKNOWN_INTERACTION}.
+     *
+     * @param modal The Modal to send
+     * @throws IllegalArgumentException If the provided modal is null
+     */
+    public void replyQueuedModal(@NotNull Modal modal) {
+        getInteraction().replyModal(modal).queue();
+    }
+
+    public IDeferrableCallback getDeferrableCallback() {
+        return this.getInteraction().getDeferrableCallback();
     }
 }
 
