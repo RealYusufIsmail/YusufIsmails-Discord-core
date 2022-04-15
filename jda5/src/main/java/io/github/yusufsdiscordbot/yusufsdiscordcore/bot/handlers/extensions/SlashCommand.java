@@ -83,7 +83,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public final @NotNull SlashCommandData getSlashCommandData() {
+    public @NotNull SlashCommandData getSlashCommandData() {
         return slashCommandData;
     }
 
@@ -125,12 +125,4 @@ public abstract class SlashCommand extends ListenerAdapter {
     @SuppressWarnings("unused")
     public abstract void onSlashCommand(
             @Nonnull YSlashCommandInteractionEvent yusufSlashCommandEvent);
-
-    @SuppressWarnings("unused")
-    @Override
-    public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {}
-
-    @SuppressWarnings("unused")
-    @Override
-    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {}
 }

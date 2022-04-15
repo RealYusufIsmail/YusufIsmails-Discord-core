@@ -7,8 +7,6 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -91,14 +89,5 @@ public abstract class MessageCommand extends ListenerAdapter {
     }
 
     @Override
-    @SuppressWarnings("unused")
     public abstract void onMessageContextInteraction(MessageContextInteractionEvent event);
-
-    @SuppressWarnings("unused")
-    @Override
-    public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {}
-
-    @SuppressWarnings("unused")
-    @Override
-    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {}
 }

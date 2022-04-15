@@ -30,6 +30,8 @@ public abstract class ModelCommand extends SlashCommand {
     private final @Nonnull String description;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
+
+
     private final @NotNull SlashCommandData slashCommandData;
 
 
@@ -52,8 +54,16 @@ public abstract class ModelCommand extends SlashCommand {
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      */
+    @Override
     public boolean checkIfIsGuildOnly() {
         return isGuildOnly;
+    }
+
+
+    @NotNull
+    @Override
+    public SlashCommandData getSlashCommandData() {
+        return slashCommandData;
     }
 
     /**
@@ -74,6 +84,7 @@ public abstract class ModelCommand extends SlashCommand {
      *         <li>{@link CommandType#UNKNOWN}</li>
      *         </ul>
      */
+    @Override
     public CommandType getCommandType() {
         return commandType[0];
     }
@@ -83,7 +94,6 @@ public abstract class ModelCommand extends SlashCommand {
      *
      * @param yusufSlashCommandEvent the event that is being used to create the command.
      */
-    @SuppressWarnings("unused")
     public abstract void onSlashCommand(
             @Nonnull YSlashCommandInteractionEvent yusufSlashCommandEvent);
 
@@ -92,7 +102,6 @@ public abstract class ModelCommand extends SlashCommand {
      * 
      * @param modelCommandInteractionEvent the event that is being used to create the model.
      */
-    @SuppressWarnings("unused")
     public abstract void onModelCommand(
             @Nonnull YModalInteractionEvent modelCommandInteractionEvent);
 }

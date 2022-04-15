@@ -96,14 +96,5 @@ public abstract class UserCommand extends ListenerAdapter {
      * @param event The event that is being used to create the user context interaction event.
      */
     @Override
-    @SuppressWarnings("unused")
     public abstract void onUserContextInteraction(@Nonnull UserContextInteractionEvent event);
-
-    @SuppressWarnings("unused")
-    @Override
-    public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {}
-
-    @SuppressWarnings("unused")
-    @Override
-    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {}
 }
