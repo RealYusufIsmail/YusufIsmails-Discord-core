@@ -275,8 +275,11 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private void onSlashCommandInteractionEvent(
             @NotNull SlashCommandInteractionEvent slashCommandEvent) {
         var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
+        var onModelSlashCommand = this.modelCommand.get(slashCommandEvent.getName());
         onSlashCommand
             .onSlashCommand(new YSlashCommandInteractionEvent(onSlashCommand, slashCommandEvent));
+        onModelSlashCommand.onSlashCommand(
+                new YSlashCommandInteractionEvent(onModelSlashCommand, slashCommandEvent));
     }
 
     /**
