@@ -1,0 +1,58 @@
+plugins {
+    id'java'
+    id'com.github.johnrengelman.shadow'
+    id 'maven-publish'
+    id 'signing'
+    id 'java-library'
+}
+
+archivesBaseName = "Yusuf's Discord Core JDA 5 basic"
+description = "A core discord bot library for my youtube toturial which uses JDA 5"
+version = bot_version
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+dependencies {
+    implementation project(':config')
+
+    //JDA
+    //implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
+    //TODO: once models are introduced remove this dependency
+    implementation 'com.github.xirado:JDA:11e0b83'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
+    //gives the ability to use val
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+
+    //common dependencies
+    implementation("org.apache.logging.log4j:log4j-api")
+    implementation("org.apache.logging.log4j:log4j-core")
+    implementation("org.apache.logging.log4j:log4j-slf4j18-impl")
+    implementation("io.github.yusufsdiscordbot:annotations")
+    implementation("org.jetbrains:annotations")
+    implementation("org.apache.commons:commons-collections4")
+}
+jar {
+    manifest(({
+        attributes('Implementation-Title': project.description,
+                'Implementation-Version': project.version
+        )
+    } as Closure<?>))
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                pom {
+                    name = project.archivesBaseName
+                    description = project.description
+                }
+            }
+        }
+    }
+}
+compileJava.options.encoding = 'UTF-8'
