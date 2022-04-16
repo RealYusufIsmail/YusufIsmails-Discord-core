@@ -1,5 +1,6 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda4/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda4)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda5/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda5)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda5.basic/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda5.basic)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda.basic/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jda.basic)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/javacord.basic/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/javacord.basic)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations)
@@ -15,7 +16,8 @@ There is 4 versions of my core:
 1. [Core which uses JDA 4](#jda-4)
 2. [Core which uses JDA 5](#jda-5)
 3. [Basic core which uses JDA 4](#basic-core-which-uses-jda-4)
-4. [Basic core which uses JavaCord](#basic-core-which-uses-javacord)
+4. [Basic core which uses JDA 5](#basic-core-which-uses-jda-5)
+5. [Basic core which uses JavaCord](#basic-core-which-uses-javacord)
 
 ## JDA 4
 
@@ -50,7 +52,7 @@ dependencies {
     //JDA 5
     //In alpha stage
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.51'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.52'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
     //lava player
@@ -73,6 +75,29 @@ dependencies {
     //Basic version
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.16'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+}
+```
+
+## Basic core which uses JDA 5
+
+```gradle
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+dependencies {
+    //Yusuf Ismail's Discord Core
+    //Basic version
+    //implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
+    //TODO: once models are introduced remove this dependency
+    implementation 'com.github.xirado:JDA:11e0b83'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5.basic', version: '1.0.0'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 }
