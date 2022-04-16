@@ -17,6 +17,7 @@
 
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.data.YSlashCommandData;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
 import lombok.EqualsAndHashCode;
@@ -37,12 +38,12 @@ import javax.annotation.Nonnull;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public abstract class SlashCommand extends ListenerAdapter {
+public abstract class SlashCommand extends BaseCommand {
     private final @Nonnull String name;
     private final @Nonnull String description;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
-    private final @NotNull SlashCommandData slashCommandData;
+    private final @NotNull YSlashCommandData slashCommandData;
 
     /**
      * Were the command is registered.
@@ -54,7 +55,7 @@ public abstract class SlashCommand extends ListenerAdapter {
         this.isGuildOnly = isGuildOnly;
         this.commandType = commandType;
 
-        slashCommandData = Commands.slash(name, description);
+        slashCommandData = new YSlashCommandData(Commands.slash(name, description));
     }
 
     /**
@@ -62,7 +63,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      *
      * @return {@link CommandDataImpl#getName()}
      */
-    public final @Nonnull String getName() {
+    public @Nonnull String getName() {
         return name;
     }
 
@@ -71,7 +72,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      *
      * @return {@link CommandDataImpl#getDescription()}
      */
-    public final @Nonnull String getDescription() {
+    public @Nonnull String getDescription() {
         return description;
     }
 
@@ -83,7 +84,7 @@ public abstract class SlashCommand extends ListenerAdapter {
      *         {@link OptionData#addChoice(String, long)} <br>
      *         <br>
      */
-    public @NotNull SlashCommandData getSlashCommandData() {
+    public @NotNull YSlashCommandData getSlashCommandData() {
         return slashCommandData;
     }
 

@@ -3,6 +3,7 @@
 // then modified by Yusuf
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.data.YCommandData;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,11 +22,11 @@ import javax.annotation.Nonnull;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public abstract class UserCommand extends ListenerAdapter {
+public abstract class UserCommand extends BaseCommand {
     private final @Nonnull String name;
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
-    private final @NotNull CommandData commandData;
+    private final @NotNull YCommandData commandData;
 
     protected UserCommand(@Nonnull String name, boolean isGuildOnly,
             @Nonnull CommandType... commandType) {
@@ -33,7 +34,7 @@ public abstract class UserCommand extends ListenerAdapter {
         this.isGuildOnly = isGuildOnly;
         this.commandType = commandType;
 
-        commandData = Commands.user(name);
+        commandData = new YCommandData(Commands.user(name));
     }
 
     /**

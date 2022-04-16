@@ -259,7 +259,7 @@ public abstract class CoreSlashCommandHandler extends ListenerAdapter {
     private boolean isCommandOwnerOnly(@NotNull SlashCommandInteractionEvent slashCommandEvent,
             long botOwnerId) {
         var onSlashCommand = this.slashCommand.get(slashCommandEvent.getName());
-        if (onSlashCommand.getCommandType() == CommandType.OWNER_ONLY
+        if (onSlashCommand.getSlashCommandData().getOwnerOnly()
                 && slashCommandEvent.getMember().getIdLong() == botOwnerId) {
             return true;
         } else {

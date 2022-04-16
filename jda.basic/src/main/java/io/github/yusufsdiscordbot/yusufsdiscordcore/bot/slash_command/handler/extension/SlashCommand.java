@@ -16,22 +16,15 @@
 // then modified by Yusuf
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.slash_command.handler.extension;
 
-import io.github.yusufsdiscordbot.annotations.Credits;
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent;
-import net.dv8tion.jda.api.events.interaction.SelectionMenuEvent;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
-
 /**
  * Used when making a new command. Imports all the need methods into the new class.
  */
-@Credits(source = "Thank you to Zabuzard for giving me inspiration for this class")
-public abstract class SlashCommand extends ListenerAdapter {
+public abstract class SlashCommand extends BaseCommand {
     private final @NotNull String name;
     private final @NotNull String description;
     private final boolean isGuildOnly;
@@ -81,11 +74,6 @@ public abstract class SlashCommand extends ListenerAdapter {
      *         <br >
      *         Choices can also be used which makes it easier for the user. which returns
      *         {@link net.dv8tion.jda.api.interactions.commands.build.OptionData#addChoice(String, int)}
-     *         <br>
-     *         <br>
-     *         Original from <a href=
-     *         "https://github.com/Together-Java/TJ-Bot/blob/95d7f323a998b15abfa2c0723c30636d2f00c4cf/application/src/main/java/org/togetherjava/tjbot/commands/SlashCommand.java#L91">here</a>
-     *         and modified by Yusuf
      */
     public final @NotNull CommandData getCommandData() {
         return commandData;
@@ -106,20 +94,4 @@ public abstract class SlashCommand extends ListenerAdapter {
     public boolean isOwnerOnlyCommand() {
         return false;
     }
-
-    /**
-     * Used to create buttons for the user to interact with.
-     *
-     * @see ButtonClickEvent
-     */
-    @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onButtonClick(@NotNull ButtonClickEvent event) {}
-
-    /**
-     * Used to create a selection menu for the user to interact with.
-     *
-     * @param event The original selection menu event,
-     */
-    @SuppressWarnings("NoopMethodInAbstractClass")
-    public void onSelectionMenu(@Nonnull SelectionMenuEvent event) {}
 }

@@ -16,11 +16,14 @@
 // then modified by Yusuf
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.data.YSlashCommandData;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.CommandType;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YModalInteractionEvent;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events.YSlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -31,8 +34,7 @@ public abstract class ModelCommand extends SlashCommand {
     private final boolean isGuildOnly;
     private final @Nonnull CommandType[] commandType;
 
-
-    private final @NotNull SlashCommandData slashCommandData;
+    private final @NotNull YSlashCommandData slashCommandData;
 
 
     /**
@@ -46,24 +48,49 @@ public abstract class ModelCommand extends SlashCommand {
         this.isGuildOnly = isGuildOnly;
         this.commandType = commandType;
 
-        slashCommandData = Commands.slash(name, description);
+        slashCommandData = new YSlashCommandData(Commands.slash(name, description));
     }
 
+
+    /**
+     * Provides the user with name of the command
+     *
+     * @return {@link CommandDataImpl#getName()}
+     */
+    @Override
+    public final @Nonnull String getName() {
+        return name;
+    }
+
+    /**
+     * Provides the user information on what the command is about.
+     *
+     * @return {@link CommandDataImpl#getDescription()}
+     */
+    @Override
+    public final @Nonnull String getDescription() {
+        return description;
+    }
+
+    /**
+     * Retrieves all the slash command data such as the name and description of the command. Also
+     *
+     * @return {@link Commands#slash(String, String)} and can also return <br >
+     *         Choices can also be used which makes it easier for the user. which returns
+     *         {@link OptionData#addChoice(String, long)} <br>
+     *         <br>
+     */
+    @Override
+    public @NotNull YSlashCommandData getSlashCommandData() {
+        return slashCommandData;
+    }
 
     /**
      * Used to determine whether the command is Global(can be used on all servers) or whether it is
      * only a Guild command(can only be used in specific servers)
      */
-    @Override
     public boolean checkIfIsGuildOnly() {
         return isGuildOnly;
-    }
-
-
-    @NotNull
-    @Override
-    public SlashCommandData getSlashCommandData() {
-        return slashCommandData;
     }
 
     /**
