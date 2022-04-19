@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 public record YUserSnowflake(UserSnowflake user) implements UserSnowflake {
     /**
-     * Retrieve a Mention for this Entity.
-     * For the public {@link Role Role} (@everyone), this will return the literal string {@code "@everyone"}.
+     * Retrieve a Mention for this Entity. For the public {@link Role Role} (@everyone), this will
+     * return the literal string {@code "@everyone"}.
      *
      * @return A resolvable mention.
      */

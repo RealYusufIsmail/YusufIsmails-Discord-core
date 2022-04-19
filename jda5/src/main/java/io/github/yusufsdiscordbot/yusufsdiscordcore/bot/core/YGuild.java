@@ -220,7 +220,8 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull YUserSnowflake user) {
+    public @Nonnull MemberAction addMember(@Nonnull String accessToken,
+            @Nonnull YUserSnowflake user) {
         return guild.addMember(accessToken, user);
     }
 
@@ -757,7 +758,8 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> addRoleToMember(YUserSnowflake userId, @Nonnull Role role) {
+    public @Nonnull AuditableRestAction<Void> addRoleToMember(YUserSnowflake userId,
+            @Nonnull Role role) {
         return guild.addRoleToMember(userId, role);
     }
 
@@ -2629,7 +2631,7 @@ public record YGuild(Guild guild) {
     AuditableRestAction<Void> deafen(@Nonnull YUserSnowflake user, boolean deafen) {
         return guild.deafen(user, deafen);
     }
-    
+
     /**
      * @see Guild#getBoosters()
      */

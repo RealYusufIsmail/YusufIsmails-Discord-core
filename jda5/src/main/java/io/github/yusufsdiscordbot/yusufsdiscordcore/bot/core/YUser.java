@@ -43,12 +43,12 @@ public record YUser(User user) {
         return this.user.getAsTag();
     }
 
-    public static @NotNull YUser fromId(@NotNull String id) {
-        return new YUser(User.fromId(id));
+    public static @NotNull YUserSnowflake fromId(@NotNull String id) {
+        return new YUserSnowflake(User.fromId(id));
     }
 
-    public static @NotNull YUser fromId(long id) {
-        return new YUser(User.fromId(id));
+    public static @NotNull YUserSnowflake fromId(long id) {
+        return new YUserSnowflake(User.fromId(id));
     }
 
     public static @NotNull YUser from(User user) {

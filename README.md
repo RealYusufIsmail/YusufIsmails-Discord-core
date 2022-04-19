@@ -51,9 +51,10 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //JDA 5
     //In alpha stage
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.52'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.10'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.53'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
     //lava player
     implementation group: 'com.github.walkyst', name: 'lavaplayer-fork', version: '1.3.97'
