@@ -220,8 +220,8 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull String userId) {
-        return guild.addMember(accessToken, userId);
+    public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull YUserSnowflake user) {
+        return guild.addMember(accessToken, user);
     }
 
     @CheckReturnValue
@@ -232,11 +232,6 @@ public record YGuild(Guild guild) {
     @CheckReturnValue
     public @Nonnull MemberAction addMember(@Nonnull String accessToken, @Nonnull YUser user) {
         return guild.addMember(accessToken, user.user());
-    }
-
-    @CheckReturnValue
-    public @Nonnull MemberAction addMember(@Nonnull String accessToken, long userId) {
-        return guild.addMember(accessToken, userId);
     }
 
     public boolean isLoaded() {
@@ -463,7 +458,7 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> unBan(@Nonnull String userId) {
+    public @Nonnull AuditableRestAction<Void> unBan(@Nonnull YUserSnowflake userId) {
         return guild.unban(userId);
     }
 
@@ -519,7 +514,7 @@ public record YGuild(Guild guild) {
      * If you wish to ban a member without deleting any messages, provide delDays with a value of 0.
      *
      * <p>
-     * You can unban a user with {@link Guild#unban(User) Guild.unban(User)}.
+     * You can unban a user with .
      *
      * <p>
      * <b>Note:</b> {@link Guild#getMembers()} will still contain the {@link Member Member} until
@@ -562,7 +557,7 @@ public record YGuild(Guild guild) {
      * If you wish to ban a member without deleting any messages, provide delDays with a value of 0.
      *
      * <p>
-     * You can unban a user with {@link Guild#unban(User) Guild.unban(User)}.
+     * You can unban a user with {@link Guild#unban(UserSnowflake) Guild.unban(User)}.
      *
      * <p>
      * <b>Note:</b> {@link Guild#getMembers()} will still contain the {@link Member Member} until
@@ -605,7 +600,7 @@ public record YGuild(Guild guild) {
      * If you wish to ban a user without deleting any messages, provide delDays with a value of 0.
      *
      * <p>
-     * You can unban a user with {@link Guild#unban(User) Guild.unban(User)}.
+     * You can unban a user with {@link Guild#unban(UserSnowflake) Guild.unban(User)}.
      *
      * <p>
      * <b>Note:</b> {@link Guild#getMembers()} will still contain the {@link User User's}
@@ -639,7 +634,7 @@ public record YGuild(Guild guild) {
      *         </ul>
      */
     @NotNull
-    public AuditableRestAction<Void> ban(@NotNull String userId, int delDays) {
+    public AuditableRestAction<Void> ban(@NotNull YUserSnowflake userId, int delDays) {
         return guild.ban(userId, delDays);
     }
 
@@ -659,7 +654,7 @@ public record YGuild(Guild guild) {
     }
 
     @Nonnull
-    public AuditableRestAction<Void> ban(@Nonnull String userId, int delDays,
+    public AuditableRestAction<Void> ban(@Nonnull YUserSnowflake userId, int delDays,
             @Nullable String reason) {
         return guild.ban(userId, delDays, reason);
     }
@@ -723,7 +718,7 @@ public record YGuild(Guild guild) {
      *         this Guild or the provided {@code userId} is blank/null.
      */
     @NotNull
-    public AuditableRestAction<Void> kick(@NotNull String userId) {
+    public AuditableRestAction<Void> kick(@NotNull YUserSnowflake userId) {
         return guild.kick(userId);
     }
 
@@ -733,7 +728,7 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> kick(@Nonnull String userId, String reason) {
+    public @Nonnull AuditableRestAction<Void> kick(@Nonnull YUserSnowflake userId, String reason) {
         return guild.kick(userId, reason);
     }
 
@@ -762,13 +757,7 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> addRoleToMember(long userId, @Nonnull Role role) {
-        return guild.addRoleToMember(userId, role);
-    }
-
-    @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> addRoleToMember(@Nonnull String userId,
-            @Nonnull Role role) {
+    public @Nonnull AuditableRestAction<Void> addRoleToMember(YUserSnowflake userId, @Nonnull Role role) {
         return guild.addRoleToMember(userId, role);
     }
 
@@ -785,7 +774,7 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull String userId,
+    public @Nonnull AuditableRestAction<Void> removeRoleFromMember(@Nonnull YUserSnowflake userId,
             @Nonnull Role role) {
         return guild.removeRoleFromMember(userId, role);
     }
@@ -869,13 +858,6 @@ public record YGuild(Guild guild) {
     @Nonnull
     public AuditableRestAction<Void> transferOwnership(@Nonnull YMember newOwner) {
         return guild.transferOwnership(newOwner.member());
-    }
-
-
-    @CheckReturnValue
-    public @Nonnull AuditableRestAction<Void> removeRoleFromMember(long userId,
-            @Nonnull Role role) {
-        return guild.removeRoleFromMember(userId, role);
     }
 
     @CheckReturnValue
@@ -973,39 +955,21 @@ public record YGuild(Guild guild) {
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(long userId, long amount,
+    public @NotNull AuditableRestAction<Void> timeoutForById(YUserSnowflake userId, long amount,
             @Nonnull TimeUnit unit) {
-        return guild.timeoutForById(userId, amount, unit);
+        return guild.timeoutFor(userId, amount, unit);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId, long amount,
-            @Nonnull TimeUnit unit) {
-        return guild.timeoutForById(userId, amount, unit);
-    }
-
-    @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(long userId,
+    public @NotNull AuditableRestAction<Void> timeoutForById(YUserSnowflake userId,
             @Nonnull Duration duration) {
-        return guild.timeoutForById(userId, duration);
+        return guild.timeoutFor(userId, duration);
     }
 
     @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutForById(@Nonnull String userId,
-            @Nonnull Duration duration) {
-        return guild.timeoutForById(userId, duration);
-    }
-
-    @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutUntilById(long userId,
+    public @NotNull AuditableRestAction<Void> timeoutUntilById(YUserSnowflake userId,
             @Nonnull TemporalAccessor temporal) {
-        return guild.timeoutUntilById(userId, temporal);
-    }
-
-    @CheckReturnValue
-    public @NotNull AuditableRestAction<Void> timeoutUntilById(@Nonnull String userId,
-            @Nonnull TemporalAccessor temporal) {
-        return guild.timeoutUntilById(userId, temporal);
+        return guild.timeoutUntil(userId, temporal);
     }
 
     /**
@@ -1039,12 +1003,8 @@ public record YGuild(Guild guild) {
         return guild.removeTimeout(member.member());
     }
 
-    public @NotNull AuditableRestAction<Void> removeTimeoutById(long userId) {
-        return guild.removeTimeoutById(userId);
-    }
-
-    public @NotNull AuditableRestAction<Void> removeTimeoutById(@Nonnull String userId) {
-        return guild.removeTimeoutById(userId);
+    public @NotNull AuditableRestAction<Void> removeTimeoutById(YUserSnowflake userId) {
+        return guild.removeTimeout(userId);
     }
 
     // end of moderation commands
@@ -1799,39 +1759,6 @@ public record YGuild(Guild guild) {
     @Nonnull
     public RestAction<List<Guild.Ban>> retrieveBanList() {
         return guild.retrieveBanList();
-    }
-
-    /**
-     * Retrieves a {@link Guild.Ban Ban} of the provided ID <br>
-     * If you wish to ban or unban a user, use either {@link #ban(String, int) ban(id, int)} or
-     * {@link #unBan(String) unban(id)}.
-     *
-     * <p>
-     * Possible {@link ErrorResponse ErrorResponses} caused by the returned {@link RestAction
-     * RestAction} include the following:
-     * <ul>
-     * <li>{@link ErrorResponse#MISSING_PERMISSIONS MISSING_PERMISSIONS} <br>
-     * The ban list cannot be fetched due to a permission discrepancy</li>
-     *
-     * <li>{@link ErrorResponse#UNKNOWN_BAN UNKNOWN_BAN} <br>
-     * Either the ban was removed before finishing the task or it did not exist in the first
-     * place</li>
-     * </ul>
-     *
-     * @param userId the id of the banned user
-     * @return {@link RestAction RestAction} - Type: {@link Guild.Ban Ban} <br>
-     *         An unmodifiable ban object for the user banned from this guild
-     * @throws InsufficientPermissionException If the logged in account does not have the
-     *         {@link Permission#BAN_MEMBERS} permission.
-     */
-    @NotNull
-    public RestAction<Guild.Ban> retrieveBanById(long userId) {
-        return guild.retrieveBanById(userId);
-    }
-
-    @Nonnull
-    public RestAction<Guild.Ban> retrieveBanById(@Nonnull String userId) {
-        return guild.retrieveBanById(userId);
     }
 
     /**
@@ -2686,41 +2613,23 @@ public record YGuild(Guild guild) {
     }
 
     /**
-     * @see Guild#mute(Member, boolean)
+     * @see Guild#mute(UserSnowflake, boolean)
      */
     @CheckReturnValue
     @Nonnull
-    AuditableRestAction<Void> mute(@Nonnull Member member, boolean mute) {
-        return guild.mute(member, mute);
+    AuditableRestAction<Void> mute(@Nonnull YUserSnowflake user, boolean mute) {
+        return guild.mute(user, mute);
     }
 
     /**
-     * @see Guild#mute(Member, boolean)
+     * @see Guild#deafen(UserSnowflake, boolean)
      */
     @CheckReturnValue
     @Nonnull
-    AuditableRestAction<Void> mute(@Nonnull YMember member, boolean mute) {
-        return guild.mute(member.member(), mute);
+    AuditableRestAction<Void> deafen(@Nonnull YUserSnowflake user, boolean deafen) {
+        return guild.deafen(user, deafen);
     }
-
-    /**
-     * @see Guild#deafen(Member, boolean)
-     */
-    @CheckReturnValue
-    @Nonnull
-    AuditableRestAction<Void> deafen(@Nonnull Member member, boolean deafen) {
-        return guild.deafen(member, deafen);
-    }
-
-    /**
-     * @see Guild#deafen(Member, boolean)
-     */
-    @CheckReturnValue
-    @Nonnull
-    AuditableRestAction<Void> deafen(@Nonnull YMember member, boolean deafen) {
-        return guild.deafen(member.member(), deafen);
-    }
-
+    
     /**
      * @see Guild#getBoosters()
      */

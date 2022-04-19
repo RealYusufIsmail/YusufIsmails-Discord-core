@@ -22,7 +22,7 @@ dependencies {
     //JDA
     //implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
     //TODO: once models are introduced remove this dependency
-    implementation 'com.github.xirado:JDA:11e0b83'
+    implementation 'com.github.xirado:JDA:7e0ffc5'
     //config
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
     //gives the ability to use val
