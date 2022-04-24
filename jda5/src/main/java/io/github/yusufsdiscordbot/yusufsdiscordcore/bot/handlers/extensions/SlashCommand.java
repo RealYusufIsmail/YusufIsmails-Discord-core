@@ -63,6 +63,7 @@ public abstract class SlashCommand extends BaseCommand {
      *
      * @return {@link CommandDataImpl#getName()}
      */
+    @Override
     public @Nonnull String getName() {
         return name;
     }
