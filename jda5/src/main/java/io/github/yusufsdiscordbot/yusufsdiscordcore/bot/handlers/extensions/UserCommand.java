@@ -42,6 +42,7 @@ public abstract class UserCommand extends BaseCommand {
      *
      * @return {@link CommandDataImpl#getName()}
      */
+    @Override
     public final @Nonnull String getName() {
         return name;
     }

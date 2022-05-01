@@ -40,7 +40,8 @@ public abstract class MessageCommand extends BaseCommand {
      *
      * @return {@link CommandDataImpl#getName()}
      */
-    public final @Nonnull String getName() {
+    @Override
+    public @Nonnull String getName() {
         return name;
     }
 
