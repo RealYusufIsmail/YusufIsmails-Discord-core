@@ -21,7 +21,7 @@ plugins {
 ext {
     dev_id = 'yusuf'
     dev_name = 'Yusuf Ismail'
-    dev_email = 'ysufgamer222@gmail.com'
+    dev_email = 'yusufgamer222@gmail.com'
     dev_organization = 'Yusufs Discord bot'
     dev_organizationUrl = 'https://github.com/YusufsDiscordbot'
 
