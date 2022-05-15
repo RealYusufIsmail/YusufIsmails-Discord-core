@@ -28,7 +28,7 @@ dependencies {
     implementation 'com.github.xirado:JDA:11e0b83'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     //gives the ability to use val
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 
     //common dependencies
     implementation("org.apache.logging.log4j:log4j-api")
