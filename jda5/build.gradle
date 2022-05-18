@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.11'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12'
     //config
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
     //gives the ability to use val
