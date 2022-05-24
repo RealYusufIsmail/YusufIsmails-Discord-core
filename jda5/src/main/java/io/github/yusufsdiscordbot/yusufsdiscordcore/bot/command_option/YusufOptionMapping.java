@@ -32,30 +32,9 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 public record YusufOptionMapping(OptionMapping optionMapping) {
-
     @Nonnull
-    public List<YMember> getMentionedMembers() {
-        return optionMapping.getMentionedMembers().stream().map(YMember::new).toList();
-    }
-
-    @Nonnull
-    public List<YUser> getMentionedUsers() {
-        return optionMapping.getMentionedUsers().stream().map(YUser::new).toList();
-    }
-
-    @Nonnull
-    public List<Role> getMentionedRoles() {
-        return optionMapping.getMentionedRoles().stream().toList();
-    }
-
-    @Nonnull
-    public List<GuildChannel> getMentionedChannels() {
-        return optionMapping.getMentionedChannels().stream().toList();
-    }
-
-    @Nonnull
-    public List<IMentionable> getMentions() {
-        return optionMapping.getMentions().stream().toList();
+    public Mentions getMentions() {
+        return optionMapping.getMentions();
     }
 
     @Nonnull
