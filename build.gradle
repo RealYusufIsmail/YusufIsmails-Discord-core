@@ -67,6 +67,7 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
+    apply plugin: "jacoco"
 
 
     // All subprojects inherit root project group and version, to avoid duplication.
@@ -88,6 +89,13 @@ subprojects {
         // Nails the Java-Version of every Subproject
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled true
+            html.enabled false
+        }
     }
 
     spotless {
