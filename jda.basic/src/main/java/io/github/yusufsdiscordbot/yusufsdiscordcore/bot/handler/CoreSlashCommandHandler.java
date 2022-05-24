@@ -42,8 +42,7 @@ import java.util.*;
  */
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public abstract class CoreSlashCommandHandler extends ListenerAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(
-            CoreSlashCommandHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CoreSlashCommandHandler.class);
     private final Map<String, SlashCommand> commandConnector = new HashMap<>();
 
     /**
