@@ -23,3 +23,9 @@ eclipse
 run
 .DS_Store
 .env
+
+//codecov
+*.gcno
+*.gcda
+*.gcov
+test
