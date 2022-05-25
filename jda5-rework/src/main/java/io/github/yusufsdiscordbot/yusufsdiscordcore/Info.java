@@ -1,4 +1,4 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot;
+package io.github.yusufsdiscordbot.yusufsdiscordcore;
 
 import net.dv8tion.jda.api.JDAInfo;
 
