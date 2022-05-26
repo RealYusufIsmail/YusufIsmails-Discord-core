@@ -1,7 +1,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder;
 
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.*;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandGroupData;
 import net.dv8tion.jda.internal.interactions.CommandDataImpl;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,17 +11,16 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 
-public class SlashCommandBuilder  {
+public class SlashCommandBuilder {
     private final String name;
     private final String description;
     private OptionData[] options = null;
     private SubcommandData[] subcommands = null;
     private SubcommandGroupData[] subcommandGroups = null;
-    private boolean isGuildOnly = false;
-    private boolean isOwnerOnly = false;
 
     /**
      * Creates a new SlashCommandBuilder
+     * 
      * @param name The name of the command
      * @param description The description of the command
      */
@@ -61,19 +62,21 @@ public class SlashCommandBuilder  {
         return this;
     }
 
-    public SlashCommandBuilder addOption(@Nonnull OptionType type, @Nonnull String name, @Nonnull String description, boolean required, boolean autoComplete) {
-        return addOptions(new OptionData(type, name, description)
-                .setRequired(required)
-                .setAutoComplete(autoComplete));
+    public SlashCommandBuilder addOption(@Nonnull OptionType type, @Nonnull String name,
+            @Nonnull String description, boolean required, boolean autoComplete) {
+        return addOptions(new OptionData(type, name, description).setRequired(required)
+            .setAutoComplete(autoComplete));
     }
 
     @NotNull
-    public SlashCommandBuilder addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description, boolean required) {
+    public SlashCommandBuilder addOption(@NotNull OptionType type, @NotNull String name,
+            @NotNull String description, boolean required) {
         return addOption(type, name, description, required);
     }
 
     @NotNull
-    public SlashCommandBuilder addOption(@NotNull OptionType type, @NotNull String name, @NotNull String description) {
+    public SlashCommandBuilder addOption(@NotNull OptionType type, @NotNull String name,
+            @NotNull String description) {
         return addOption(type, name, description);
     }
 
@@ -84,7 +87,8 @@ public class SlashCommandBuilder  {
     }
 
     @NotNull
-    public SlashCommandBuilder addSubcommands(@NotNull Collection<? extends SubcommandData> subcommands) {
+    public SlashCommandBuilder addSubcommands(
+            @NotNull Collection<? extends SubcommandData> subcommands) {
         this.subcommands = subcommands.toArray(new SubcommandData[0]);
         return this;
     }
@@ -96,47 +100,37 @@ public class SlashCommandBuilder  {
     }
 
     @NotNull
-    public SlashCommandBuilder addSubcommandGroups(@NotNull Collection<? extends SubcommandGroupData> groups) {
+    public SlashCommandBuilder addSubcommandGroups(
+            @NotNull Collection<? extends SubcommandGroupData> groups) {
         this.subcommandGroups = groups.toArray(new SubcommandGroupData[0]);
         return this;
     }
 
-    public SlashCommandBuilder setToOwnerOnly() {
-        this.isOwnerOnly = true;
-        return this;
-    }
-
-    public SlashCommandBuilder setToGuildOnly() {
-        this.isGuildOnly = true;
-        return this;
-    }
-
-    public SlashCommandFinalizer build() {
-        if(name == null || name.isEmpty()) {
+    public SlashCommand build() {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
 
-        if(description == null || description.isEmpty()) {
+        if (description == null || description.isEmpty()) {
             throw new IllegalArgumentException("Description cannot be null or empty");
         }
 
-        if(options == null) {
+        if (options == null) {
             options = new OptionData[0];
         }
 
-        if(subcommands == null) {
+        if (subcommands == null) {
             subcommands = new SubcommandData[0];
         }
 
-        if(subcommandGroups == null) {
+        if (subcommandGroups == null) {
             subcommandGroups = new SubcommandGroupData[0];
         }
 
-       var cm = new CommandDataImpl(name, description)
-                .addOptions(options)
-                .addSubcommands(subcommands)
-                .addSubcommandGroups(subcommandGroups);
+        var cm = new CommandDataImpl(name, description).addOptions(options)
+            .addSubcommands(subcommands)
+            .addSubcommandGroups(subcommandGroups);
 
-        return new SlashCommandFinalizer(cm);
+        return new SlashCommand(cm);
     }
 }

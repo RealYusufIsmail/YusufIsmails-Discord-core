@@ -11,10 +11,11 @@
  * programs, too.
  */
 
-package io.github.yusufsdiscordbot.yusufsdiscordcorereg.interaction.events;
+package io.github.yusufsdiscordbot.yusufsdiscordcorereg.interaction.event;
 
 import io.github.yusufsdiscordbot.annotations.Author;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.interaction.event.YSlashCommandInteraction;
+import io.github.yusufsdiscordbot.yusufsdiscordcorereg.interaction.events.YGenericCommandInteractionEvent;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import net.dv8tion.jda.api.JDA;

@@ -1,21 +1,19 @@
 package example;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.extension.SlashCommandExtender;
+import io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder.SlashCommandBuilder;
-import io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder.SlashCommandFinalizer;
-import io.github.yusufsdiscordbot.yusufsdiscordcorereg.extension.SlashCommandExtender;
-import io.github.yusufsdiscordbot.yusufsdiscordcorereg.interaction.events.YSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcorereg.interaction.event.YSlashCommandInteractionEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class ExampleCommand implements SlashCommandExtender {
     @Override
-    public void onSlashCommand(YSlashCommandInteractionEvent slash) {
-
+    public void onSlashCommand(@NotNull YSlashCommandInteractionEvent slash) {
+        slash.replyQueuedMessage("Hello, " + slash.getUser().getAsMention() + "!");
     }
 
     @Override
-    public SlashCommandFinalizer build() {
-        return new SlashCommandBuilder("", "")
-                .build();
+    public SlashCommand build() {
+        return new SlashCommandBuilder("Example", "An example command").build();
     }
-
-
 }

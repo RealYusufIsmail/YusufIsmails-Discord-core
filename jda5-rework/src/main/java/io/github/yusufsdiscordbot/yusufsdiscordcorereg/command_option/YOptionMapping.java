@@ -15,6 +15,7 @@ package io.github.yusufsdiscordbot.yusufsdiscordcorereg.command_option;
 
 import gnu.trove.map.TLongObjectMap;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.event.YMember;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.event.YMentions;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.event.YUser;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,5 +44,10 @@ public class YOptionMapping extends OptionMapping {
     @Override
     public YMember getAsMember() {
         return (YMember) super.getAsMember();
+    }
+
+    @Override
+    public @NotNull YMentions getMentions() {
+        return (YMentions) super.getMentions();
     }
 }
