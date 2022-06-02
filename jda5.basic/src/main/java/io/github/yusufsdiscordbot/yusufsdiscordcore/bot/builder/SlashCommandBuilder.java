@@ -1,5 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.type.CommandType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
@@ -17,6 +18,7 @@ public class SlashCommandBuilder {
     private OptionData[] options = null;
     private SubcommandData[] subcommands = null;
     private SubcommandGroupData[] subcommandGroups = null;
+    private CommandType commandType;
 
     /**
      * Creates a new SlashCommandBuilder
@@ -106,6 +108,11 @@ public class SlashCommandBuilder {
         return this;
     }
 
+    public SlashCommandBuilder setCommandType(CommandType commandType) {
+        this.commandType = commandType;
+        return this;
+    }
+
     public SlashCommand build() {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
@@ -131,6 +138,6 @@ public class SlashCommandBuilder {
             .addSubcommands(subcommands)
             .addSubcommandGroups(subcommandGroups);
 
-        return new SlashCommand(cm);
+        return new SlashCommand(cm, commandType);
     }
 }
