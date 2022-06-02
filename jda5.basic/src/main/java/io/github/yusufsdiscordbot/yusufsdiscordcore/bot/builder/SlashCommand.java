@@ -15,7 +15,7 @@ public class SlashCommand {
 
     SlashCommand(final SlashCommandData commandData, CommandType commandType) {
         this.commandData = commandData;
-        //if null then it is a normal command
+        // if null then it is a normal command
         this.commandType = commandType == null ? CommandType.NORMAL : commandType;
     }
 
@@ -58,6 +58,7 @@ public class SlashCommand {
     public boolean isOwnerOnly() {
         return isOwnerOnly;
     }
+
     public CommandType getCommandType() {
         return commandType;
     }

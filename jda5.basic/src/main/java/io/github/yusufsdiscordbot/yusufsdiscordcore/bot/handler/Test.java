@@ -8,6 +8,6 @@ import org.jetbrains.annotations.NotNull;
 public class Test {
 
     public static void main(String[] args) {
-       SlashCommandHandler.addSlashCommand();
+        SlashCommandHandler.addSlashCommand();
     }
 }

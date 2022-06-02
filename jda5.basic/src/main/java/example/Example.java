@@ -13,7 +13,6 @@ public class Example implements SlashCommandExtender {
 
     @Override
     public SlashCommand build() {
-        return new SlashCommandBuilder("example", "example")
-                .build();
+        return new SlashCommandBuilder("example", "example").build();
     }
 }
