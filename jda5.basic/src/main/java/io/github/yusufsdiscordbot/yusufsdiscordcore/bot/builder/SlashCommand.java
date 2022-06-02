@@ -1,22 +1,20 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.type.CommandType;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 
-public class SlashCommand {
+public class SlashCommand extends ListenerAdapter {
     private final SlashCommandData commandData;
     private Permission[] userPerms = null;
     private Permission[] botPerms = null;
     private boolean isGuildOnly = false;
     private boolean isOwnerOnly = false;
-    private CommandType commandType;
 
-    SlashCommand(final SlashCommandData commandData, CommandType commandType) {
+    protected SlashCommand(final SlashCommandData commandData) {
         this.commandData = commandData;
         // if null then it is a normal command
-        this.commandType = commandType == null ? CommandType.NORMAL : commandType;
     }
 
     public SlashCommandData getSlashCommandData() {
@@ -57,13 +55,5 @@ public class SlashCommand {
 
     public boolean isOwnerOnly() {
         return isOwnerOnly;
-    }
-
-    public CommandType getCommandType() {
-        return commandType;
-    }
-
-    public void setCommandType(CommandType commandType) {
-        this.commandType = commandType;
     }
 }

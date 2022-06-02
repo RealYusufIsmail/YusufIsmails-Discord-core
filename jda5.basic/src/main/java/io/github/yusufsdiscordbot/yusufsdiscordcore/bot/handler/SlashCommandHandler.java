@@ -1,23 +1,12 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handler;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.JsonNodeCreator;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.annotations.Credits;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.SlashCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.SlashCommandBuilder;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.extension.SlashCommandExtender;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.json.Json;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.type.CommandType;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
-import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.internal.utils.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
@@ -25,30 +14,55 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
-@Credits(
-        source = "https://github.com/Black0nion/BlackOnion-Bot/blob/597d67fbf389a172c05a1bf431e3ab5848e52402/src/main/java/com/github/black0nion/blackonionbot/bot/SlashCommandBase.java",
-        reason = "I have been allowed to use this code by the owner.")
+/**
+ * For register the commands make sure to set it to awaitReady as seen here
+ * <p>
+ * The is class which process the registration of the commands. <br>
+ * <br>
+ * This handler only needs to be registered once and this makes sure all the commands are
+ * registered.
+ *
+ * To do this you need to add the following to your Main class: <br>
+ * <br>
+ * 
+ * <pre>
+ *     {@code
+ *     public static void main(String[] args) {
+ *     //The JDA builder. this is just a demo.
+ *     JDA builder = JDABuilder.createDefault("").build();
+ *          //The handler.
+ *          //You can add your own guild id.
+ *          SlashCommandHandler handler = new SlashCommandHandler(builder, builder.getGuildById(""));
+ *          builder.addEventListener(handler);
+ *          handler.addSlashCommand();
+ *          handler.queueSlashCommand();
+ *      }
+ *      }
+ * </pre>
+ */
 public class SlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(SlashCommandHandler.class);
-    private static final Map<CommandType, List<SlashCommand>> commandTypes =
-            new EnumMap<>(Category.class);
 
-    private static final Map<String, Pair<Long, SlashCommand>> commands = new HashMap<>();
+    private static final Map<String, Pair<Long, SlashCommandExtender>> commands = new HashMap<>();
+
+    // private final Map<String, SlashCommandExtender> slashCommand = new HashMap<>();
 
 
-    private static final Map<Class<? extends SlashCommand>, SlashCommand> commandInstances =
+    private static final Map<Class<? extends SlashCommandExtender>, SlashCommand> commandInstances =
             new HashMap<>();
 
-    private static JsonNode commandsJson;
 
     private static int numberOfCommands = 0;
 
+    private CommandListUpdateAction commandListUpdateAction;
 
-    private static final ExecutorService commandPool = Executors.newCachedThreadPool();
+    private long ownerId;
+
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -59,59 +73,70 @@ public class SlashCommandHandler extends ListenerAdapter {
 
     /**
      * Creates a new SlashCommandHandler
-     * 
+     *
      * @param jda The JDA instance. Also used to register global commands.
      * @param guild The guild instance. Also used to register guild commands.
      */
-    protected SlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+    public SlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
         this.jda = jda;
     }
 
-    public static void addSlashCommand() {
+    public void addSlashCommand() {
         numberOfCommands = 0;
         commands.clear();
-        commandTypes.clear();
         commandInstances.clear();
-        commandsJson = JsonNodeFactory.instance.objectNode();
-        final ArrayNode commandsArray = JsonNodeFactory.instance.arrayNode();
-        final Reflections reflections = new Reflections(SlashCommand.class.getPackage().getName());
-        final Set<Class<? extends SlashCommand>> annotated =
-                reflections.getSubTypesOf(SlashCommand.class);
-
+        final Reflections reflections =
+                new Reflections(SlashCommandExtender.class.getPackage().getName());
+        final Set<Class<? extends SlashCommandExtender>> annotated =
+                reflections.getSubTypesOf(SlashCommandExtender.class);
         for (final Class<?> command : annotated) {
             try {
-                final SlashCommand newSlashCommand =
-                        (SlashCommand) command.getConstructor().newInstance();
-                final String[] packageName = command.getPackage().getName().split("\\.");
-                final CommandType commandType =
-                        CommandType.getCommandType(packageName[packageName.length - 1]);
-                newSlashCommand.setCommandType(commandType != CommandType.UNKNOWN ? commandType
-                        : newSlashCommand.getCommandType());
+                final SlashCommandExtender newSlashCommand =
+                        (SlashCommandExtender) command.getConstructor().newInstance();
+
                 SlashCommandData data = newSlashCommand.getSlashCommandData();
+                jda.addEventListener(newSlashCommand);
 
-                final ObjectNode commandJson = JsonNodeFactory.instance.objectNode()
-                    .put("name", data.getName())
-                    .put("description", data.getDescription())
-                    .put("permissions", Json.userPermsToJson(newSlashCommand.getUserPerms()))
-                    .set("options", Json.slashCommandOptionsToJson(data.getOptions()));
-
-                final ArrayNode subcommandJson = JsonNodeFactory.instance.arrayNode();
-                for (SubcommandData subcommandData : data.getSubcommands()) {
-                    final ObjectNode subcommandDataJson = JsonNodeFactory.instance.objectNode()
-                        .put("name", subcommandData.getName())
-                        .put("description", subcommandData.getDescription());
-                    subcommandDataJson.set("options",
-                            Json.slashCommandOptionsToJson(subcommandData.getOptions()));
-                    subcommandJson.add(subcommandDataJson);
-                }
-                commandJson.set("subcommands", subcommandJson);
-                commandsArray.add(commandJson);
+                commandListUpdateAction =
+                        newSlashCommand.isGuildOnly() ? guildCommandsData.addCommands(data)
+                                : globalCommandsData.addCommands(data);
             } catch (Exception e) {
                 logger.error("Failed to add command {}", command.getName(), e);
             }
         }
+    }
+
+    @Override
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+        final SlashCommandExtender cmd = commands.get(event.getName()).getRight();
+
+        if (cmd.isOwnerOnly() && event.getUser().getIdLong() != ownerId) {
+            event.getChannel()
+                .sendMessage("You do not have permission to use this command.")
+                .queue();
+            return;
+        }
+
+        if (Objects.requireNonNull(event.getMember()).hasPermission(cmd.getUserPerms())
+                || Objects.requireNonNull(event.getGuild())
+                    .getSelfMember()
+                    .hasPermission(cmd.getBotPerms())) {
+            cmd.onSlashCommandInteraction(event);
+        } else {
+            event.getChannel()
+                .sendMessage("You do not have permission to use this command.")
+                .queue();
+        }
+    }
+
+    public void queueSlashCommand() {
+        commandListUpdateAction.queue();
+    }
+
+    public void setOwnerId(long ownerId) {
+        this.ownerId = ownerId;
     }
 }
 

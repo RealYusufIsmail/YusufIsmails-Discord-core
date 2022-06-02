@@ -1,20 +1,19 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.extension;
 
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.SlashCommand;
-import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import org.jetbrains.annotations.NotNull;
 
-public interface SlashCommandExtender {
-    void onSlashCommand(SlashCommandInteractionEvent slash);
+public abstract class SlashCommandExtender extends SlashCommand {
 
-    default void onButtonClick(ButtonInteractionEvent button) {
-
+    protected SlashCommandExtender(SlashCommandData commandData) {
+        super(commandData);
     }
 
-    default void onModalInteraction(ModalInteractionEvent modal) {
+    // This method is called when the command is executed.
+    @Override
+    public abstract void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event);
 
-    }
-
-    SlashCommand build();
+    protected abstract SlashCommand build();
 }
