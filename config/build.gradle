@@ -21,6 +21,7 @@ dependencies {
     implementation("io.github.yusufsdiscordbot:annotations")
     implementation("org.jetbrains:annotations")
     implementation("org.apache.commons:commons-collections4")
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
 }
 
 jar {
