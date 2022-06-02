@@ -1,5 +1,6 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handler;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.SlashCommandBuilder;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.extension.SlashCommandExtender;
@@ -7,12 +8,15 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
+import net.dv8tion.jda.internal.utils.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SlashCommandHandler extends ListenerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(SlashCommandHandler.class);
@@ -30,9 +34,9 @@ public class SlashCommandHandler extends ListenerAdapter {
 
     private static final Map<Class<? extends SlashCommand>, SlashCommand> commandInstances = new HashMap<>();
 
-    private static JSONObject commandsJson;
+    private static JsonNode commandsJson;
 
-    public static JSONObject getCommandsJson() {
+    public static JsonNode getCommandsJson() {
         return commandsJson;
     }
 

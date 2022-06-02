@@ -8,8 +8,6 @@ import org.jetbrains.annotations.NotNull;
 public class Test {
 
     public static void main(String[] args) {
-        JDABuilder jda = JDABuilder.createDefault("")
-                .addEventListeners(new SlashCommandHandler());
        SlashCommandHandler.addSlashCommand();
     }
 }
