@@ -30,4 +30,4 @@ run
 *.gcov
 test
 gradle.properties
-secret-keys.gpg
+*.gpg
