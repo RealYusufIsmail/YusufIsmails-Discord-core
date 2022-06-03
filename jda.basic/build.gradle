@@ -1,6 +1,6 @@
 plugins {
-    id'java'
-    id'com.github.johnrengelman.shadow'
+    id 'java'
+    id 'com.github.johnrengelman.shadow'
     id 'maven-publish'
     id 'signing'
     id 'java-library'
@@ -25,14 +25,12 @@ dependencies {
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
 
-    //common dependencies
-    implementation("org.apache.logging.log4j:log4j-api")
-    implementation("org.apache.logging.log4j:log4j-core")
-    implementation("org.apache.logging.log4j:log4j-slf4j18-impl")
+    //Logger
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.11'
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.11'
     implementation("io.github.yusufsdiscordbot:annotations")
     implementation("org.jetbrains:annotations")
-    implementation("org.apache.commons:commons-collections4")
-    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
+    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
 }
 jar {
     manifest(({
