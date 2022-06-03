@@ -58,9 +58,6 @@ allprojects {
     }
 }
 sourceCompatibility = JavaVersion.VERSION_16
-dependencies {
-    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
-}
 
 subprojects {
     //some parts of this gradle copy tj's bot. 
