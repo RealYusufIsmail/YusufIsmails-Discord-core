@@ -26,7 +26,7 @@ dependencies {
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12'
     //annotations
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
-    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
+    implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
     //gives the ability to use val
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     //Logger
