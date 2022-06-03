@@ -73,8 +73,8 @@ public class SlashCommandHandler extends ListenerAdapter {
     /**
      * Creates a new SlashCommandHandler
      *
-     * @param jda     The JDA instance. Also used to register global commands.
-     * @param guild   The guild instance. Also used to register guild commands.
+     * @param jda The JDA instance. Also used to register global commands.
+     * @param guild The guild instance. Also used to register guild commands.
      * @param ownerId
      */
     public SlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild, long ownerId) {
