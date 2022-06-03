@@ -24,7 +24,7 @@ run
 .DS_Store
 .env
 
-//codecov
+# codecov
 *.gcno
 *.gcda
 *.gcov
