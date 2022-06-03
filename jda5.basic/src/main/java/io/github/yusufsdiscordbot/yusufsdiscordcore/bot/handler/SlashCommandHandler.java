@@ -4,7 +4,11 @@ import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.extension.SlashCommandExtender;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -14,6 +18,7 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -75,7 +80,7 @@ public class SlashCommandHandler extends ListenerAdapter {
      *
      * @param jda The JDA instance. Also used to register global commands.
      * @param guild The guild instance. Also used to register guild commands.
-     * @param ownerId
+     * @param ownerId The owner id.
      */
     public SlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild, long ownerId) {
         globalCommandsData = jda.updateCommands();
@@ -131,6 +136,32 @@ public class SlashCommandHandler extends ListenerAdapter {
                 .queue();
         }
     }
+
+    @Override
+    public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {
+        final SlashCommandExtender cmd = commands.get(event.getComponentId()).getRight();
+        cmd.onButtonClick(event);
+    }
+
+    @Override
+    public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {
+        final SlashCommandExtender cmd = commands.get(event.getComponentId()).getRight();
+        cmd.onSelectMenu(event);
+    }
+
+    @Override
+    public void onCommandAutoCompleteInteraction(
+            @Nonnull CommandAutoCompleteInteractionEvent event) {
+        final SlashCommandExtender cmd = commands.get(event.getName()).getRight();
+        cmd.onCommandAutoComplete(event);
+    }
+
+    @Override
+    public void onModalInteraction(@Nonnull ModalInteractionEvent event) {
+        final SlashCommandExtender cmd = commands.get(event.getModalId()).getRight();
+        cmd.onModalInteraction(event);
+    }
+
 
     public void queueSlashCommand() {
         commandListUpdateAction.queue();

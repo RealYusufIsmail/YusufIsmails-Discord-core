@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 
 
-public class SlashCommand extends ListenerAdapter {
+public class SlashCommand {
     private final SlashCommandData commandData;
     private Permission[] userPerms = null;
     private Permission[] botPerms = null;
