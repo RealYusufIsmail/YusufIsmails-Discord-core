@@ -37,7 +37,7 @@ import java.util.Set;
  *     JDA builder = JDABuilder.createDefault("").build();
  *          //The handler.
  *          //You can add your own guild id.
- *          SlashCommandHandler handler = new SlashCommandHandler(builder, builder.getGuildById(""));
+ *          SlashCommandHandler handler = new SlashCommandHandler(builder, builder.getGuildById(""), TheOwnerIdAsLong);
  *          builder.addEventListener(handler);
  *          handler.addSlashCommand();
  *          handler.queueSlashCommand();
@@ -61,8 +61,6 @@ public class SlashCommandHandler extends ListenerAdapter {
 
     private CommandListUpdateAction commandListUpdateAction;
 
-    private long ownerId;
-
 
     /**
      * Used to determine whether the commands should be global or guild only.
@@ -70,17 +68,20 @@ public class SlashCommandHandler extends ListenerAdapter {
     private final @NotNull CommandListUpdateAction globalCommandsData;
     private final @NotNull CommandListUpdateAction guildCommandsData;
     private final @NotNull JDA jda;
+    private final long ownerId;
 
     /**
      * Creates a new SlashCommandHandler
      *
-     * @param jda The JDA instance. Also used to register global commands.
-     * @param guild The guild instance. Also used to register guild commands.
+     * @param jda     The JDA instance. Also used to register global commands.
+     * @param guild   The guild instance. Also used to register guild commands.
+     * @param ownerId
      */
-    public SlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+    public SlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild, long ownerId) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
         this.jda = jda;
+        this.ownerId = ownerId;
     }
 
     public void addSlashCommand() {
@@ -133,10 +134,6 @@ public class SlashCommandHandler extends ListenerAdapter {
 
     public void queueSlashCommand() {
         commandListUpdateAction.queue();
-    }
-
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
     }
 }
 

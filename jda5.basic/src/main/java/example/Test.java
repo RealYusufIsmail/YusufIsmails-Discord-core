@@ -10,7 +10,7 @@ public class Test {
     public static void main(String[] args) throws LoginException {
         JDA builder = JDABuilder.createDefault("").build();
 
-        SlashCommandHandler handler = new SlashCommandHandler(builder, builder.getGuildById(""));
+        SlashCommandHandler handler = new SlashCommandHandler(builder, builder.getGuildById(""), 0L);
         builder.addEventListener(handler);
         handler.addSlashCommand();
         handler.queueSlashCommand();
