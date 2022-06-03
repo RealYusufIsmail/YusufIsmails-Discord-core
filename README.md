@@ -95,10 +95,8 @@ repositories {
 dependencies {
     //Yusuf Ismail's Discord Core
     //Basic version
-    //implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
-    //TODO: once models are introduced remove this dependency
-    implementation 'com.github.xirado:JDA:11e0b83'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5.basic', version: '1.0.0'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5.basic', version: '1.0.1'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
 }
