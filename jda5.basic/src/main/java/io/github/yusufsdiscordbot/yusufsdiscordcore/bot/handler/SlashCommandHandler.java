@@ -163,8 +163,14 @@ public class SlashCommandHandler extends ListenerAdapter {
     }
 
 
-    public void queueSlashCommand() {
-        commandListUpdateAction.queue();
+    public void queueSlashCommand() throws InterruptedException {
+        // if it is null then try again
+        if (commandListUpdateAction != null) {
+            commandListUpdateAction.queue();
+        } else {
+            wait(1000);
+            queueSlashCommand();
+        }
     }
 }
 

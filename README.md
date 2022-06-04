@@ -96,7 +96,7 @@ dependencies {
     //Yusuf Ismail's Discord Core
     //Basic version
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5.basic', version: '1.0.2'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jda5.basic', version: '1.0.3'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
 }
