@@ -23,9 +23,7 @@ dependencies {
     implementation project(':config')
 
     //JDA
-    //implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.9'
-    //TODO: once models are introduced remove this dependency
-    implementation 'com.github.xirado:JDA:11e0b83'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.11'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     //gives the ability to use val
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
