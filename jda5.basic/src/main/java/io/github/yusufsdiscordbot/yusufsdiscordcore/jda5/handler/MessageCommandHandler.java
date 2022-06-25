@@ -1,11 +1,11 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handler;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.handler;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.extension.SlashCommandExtender;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension.MessageCommandExtender;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.MessageContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
@@ -16,29 +16,9 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-/**
- * For register the commands make sure to set it to awaitReady as seen here
- *
- * <pre>
- * jda.awaitReady()
- *     .addEventListener(new CommandHandler(jda, jda.getGuildById(872494635757473932L)));
- * </pre>
- * <p>
- * The is class which process the registration of the commands. <br>
- * <br>
- * Commands are register by using a List with an example for registering slash commands being
- *
- * <pre>
- *     <code>
- *       List<SlashCommand> handler = new ArrayList<>(); <br>
- *        handler.add(new ExampleCommand()); <br>
- *        queueAndRegisterSlashCommands(handler);
- *        </code>
- * </pre>
- */
-public abstract class SlashCommandHandler extends BaseHandler {
-    private static final Logger logger = LoggerFactory.getLogger(SlashCommandHandler.class);
-    private final Map<String, SlashCommandExtender> slashCommand = new HashMap<>();
+public abstract class MessageCommandHandler extends BaseHandler {
+    private static final Logger logger = LoggerFactory.getLogger(MessageCommandHandler.class);
+    private final Map<String, MessageCommandExtender> messageCommand = new HashMap<>();
 
     private static final String COMMAND_ERROR = "The command {} is not registered";
 
@@ -49,16 +29,14 @@ public abstract class SlashCommandHandler extends BaseHandler {
     private final @NotNull CommandListUpdateAction guildCommandsData;
     private final JDA jda;
 
-
-    protected SlashCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
+    protected MessageCommandHandler(@NotNull JDA jda, @NotNull Guild guild) {
         globalCommandsData = jda.updateCommands();
         guildCommandsData = guild.updateCommands();
         this.jda = jda;
     }
 
-
     /**
-     * Used to register slash commands. when the developer types slashCommand.add(new
+     * Used to register slash commands. when the developer types messageCommand.add(new
      * ExampleCommand());. The addCommand will retrieve the commandData which includes
      * name,description,options,sub commands, etc
      *
@@ -66,31 +44,31 @@ public abstract class SlashCommandHandler extends BaseHandler {
      *        The Command class is an interface class which contains all the need methods for the
      *        making of the command. <br>
      *        <br>
-     *        The boolean {@link SlashCommandExtender#build()#isGuildOnly()} is used to determine
+     *        The boolean {@link MessageCommandExtender#build#isGuildOnly()} is used to determine
      *        whether the command should be global or guild only. determines whether the command
      *        should be Global or Guild only.
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    private void addSlashCommand(@NotNull SlashCommandExtender command) {
+    private void addMessageCommand(@NotNull MessageCommandExtender command) {
 
         BaseHandler.checkIfBuildIsNull(command.build());
 
-        slashCommand.put(command.build().getSlashCommandData().getName(), command);
+        messageCommand.put(command.build().getCommandData().getName(), command);
         if (command.build().isGuildOnly()) {
-            guildCommandsData.addCommands(command.build().getSlashCommandData());
+            guildCommandsData.addCommands(command.build().getCommandData());
         } else {
-            globalCommandsData.addCommands(command.build().getSlashCommandData());
+            globalCommandsData.addCommands(command.build().getCommandData());
         }
     }
 
     /**
      * Used to register the slash commands.
      *
-     * @param slashCommands the slash commands.
+     * @param messageCommands the slash commands.
      */
-    public void queueAndRegisterSlashCommands(
-            @NotNull Collection<SlashCommandExtender> slashCommands) {
-        slashCommands.forEach(this::addSlashCommand);
+    public void queueAndRegisterMessageCommands(
+            @NotNull Collection<MessageCommandExtender> messageCommands) {
+        messageCommands.forEach(this::addMessageCommand);
         onFinishedRegistration();
     }
 
@@ -109,8 +87,8 @@ public abstract class SlashCommandHandler extends BaseHandler {
      * @param event The original slash command event,
      */
     @Override
-    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        final SlashCommandExtender cmd = slashCommand.get(event.getName());
+    public void onMessageContextInteraction(@Nonnull MessageContextInteractionEvent event) {
+        final MessageCommandExtender cmd = messageCommand.get(event.getName());
 
         if (cmd.build().isOwnerOnly() && event.getUser().getIdLong() != botOwnerId()) {
             event.reply("You do not have permission to use this command.")
@@ -125,39 +103,39 @@ public abstract class SlashCommandHandler extends BaseHandler {
                 .setEphemeral(true)
                 .queue();
         } else {
-            cmd.onSlashCommandInteraction(event);
+            cmd.onMessageContextInteraction(event);
         }
 
         if (cmd.build().getBotPerms() != null
                 && event.getGuild().getSelfMember().hasPermission(cmd.build().getBotPerms())) {
             event.reply("I do not have permission to use this command.").setEphemeral(true).queue();
         } else {
-            cmd.onSlashCommandInteraction(event);
+            cmd.onMessageContextInteraction(event);
         }
     }
 
     @Override
     public void onButtonInteraction(@Nonnull ButtonInteractionEvent event) {
-        final SlashCommandExtender cmd = slashCommand.get(event.getComponentId());
+        final MessageCommandExtender cmd = messageCommand.get(event.getComponentId());
         cmd.onButtonClick(event);
     }
 
     @Override
     public void onSelectMenuInteraction(@Nonnull SelectMenuInteractionEvent event) {
-        final SlashCommandExtender cmd = slashCommand.get(event.getComponentId());
+        final MessageCommandExtender cmd = messageCommand.get(event.getComponentId());
         cmd.onSelectMenu(event);
     }
 
     @Override
     public void onCommandAutoCompleteInteraction(
             @Nonnull CommandAutoCompleteInteractionEvent event) {
-        final SlashCommandExtender cmd = slashCommand.get(event.getName());
+        final MessageCommandExtender cmd = messageCommand.get(event.getName());
         cmd.onCommandAutoComplete(event);
     }
 
     @Override
     public void onModalInteraction(@Nonnull ModalInteractionEvent event) {
-        final SlashCommandExtender cmd = slashCommand.get(event.getModalId());
+        final MessageCommandExtender cmd = messageCommand.get(event.getModalId());
         cmd.onModalInteraction(event);
     }
 
@@ -167,8 +145,8 @@ public abstract class SlashCommandHandler extends BaseHandler {
      * @return retrieves the commands as a list.
      */
     @NotNull
-    public List<SlashCommandExtender> getSlashCommands() {
-        return new ArrayList<>(this.slashCommand.values());
+    public List<MessageCommandExtender> getMessageCommands() {
+        return new ArrayList<>(this.messageCommand.values());
     }
 
 }

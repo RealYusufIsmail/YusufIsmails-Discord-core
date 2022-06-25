@@ -1,6 +1,6 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.user;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.user;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.type.CommandType;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.type.CommandType;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 

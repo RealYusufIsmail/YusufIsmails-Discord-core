@@ -1,6 +1,6 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.extension;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.slash.SlashCommand;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash.SlashCommand;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

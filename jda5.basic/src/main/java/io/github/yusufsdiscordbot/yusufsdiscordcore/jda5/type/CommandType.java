@@ -1,4 +1,4 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.type;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.type;
 
 import org.jetbrains.annotations.Nullable;
 

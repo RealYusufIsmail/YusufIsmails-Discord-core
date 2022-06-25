@@ -12,18 +12,13 @@ version = bot_version
 
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
-    maven {
-        name 'm2-dv8tion'
-        url 'https://m2.dv8tion.net/releases'
-    }
 }
 
 dependencies {
     implementation project(':config')
 
     //JDA
-    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.11'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.12'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
     //gives the ability to use val
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'

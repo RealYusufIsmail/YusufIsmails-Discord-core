@@ -1,4 +1,4 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.slash;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.slash;
 
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;

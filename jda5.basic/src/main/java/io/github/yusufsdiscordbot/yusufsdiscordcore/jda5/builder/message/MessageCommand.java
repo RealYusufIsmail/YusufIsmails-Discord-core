@@ -1,47 +1,46 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.slash;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.message;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.type.CommandType;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.type.CommandType;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
-
-public class SlashCommand {
-    private final SlashCommandData commandData;
+public class MessageCommand {
+    private final CommandData commandData;
     private Permission[] userPerms = null;
     private Permission[] botPerms = null;
     private boolean isGuildOnly = false;
     private boolean isOwnerOnly = false;
     private CommandType commandType;
 
-    protected SlashCommand(final SlashCommandData commandData) {
+    public MessageCommand(CommandData commandData) {
         this.commandData = commandData;
     }
 
-    public SlashCommandData getSlashCommandData() {
+    public CommandData getCommandData() {
         return commandData;
     }
 
-    public SlashCommand setBotPerms(final Permission... perms) {
+    public MessageCommand setBotPerms(final Permission... perms) {
         this.botPerms = perms;
         return this;
     }
 
-    public SlashCommand setUserPerms(final Permission... perms) {
+    public MessageCommand setUserPerms(final Permission... perms) {
         this.userPerms = perms;
         return this;
     }
 
-    public SlashCommand setToOwnerOnly() {
+    public MessageCommand setToOwnerOnly() {
         this.isOwnerOnly = true;
         return this;
     }
 
-    public SlashCommand setToGuildOnly() {
+    public MessageCommand setToGuildOnly() {
         this.isGuildOnly = true;
         return this;
     }
 
-    public SlashCommand setCommandType(final CommandType commandType) {
+    public MessageCommand setCommandType(final CommandType commandType) {
         this.commandType = commandType;
         return this;
     }

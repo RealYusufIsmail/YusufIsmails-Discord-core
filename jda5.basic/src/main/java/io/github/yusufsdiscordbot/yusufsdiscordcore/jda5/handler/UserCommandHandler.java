@@ -1,6 +1,6 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handler;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.handler;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.extension.UserCommandExtender;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.extension.UserCommandExtender;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;

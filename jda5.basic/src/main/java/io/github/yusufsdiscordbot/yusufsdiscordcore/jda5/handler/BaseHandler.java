@@ -1,4 +1,4 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handler;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.handler;
 
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 

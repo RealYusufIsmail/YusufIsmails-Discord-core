@@ -1,17 +1,17 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.builder.user;
+package io.github.yusufsdiscordbot.yusufsdiscordcore.jda5.builder.message;
 
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.jetbrains.annotations.NotNull;
 
-public class UserCommandBuilder {
+public class MessageCommandBuilder {
     private final String name;
 
     /**
-     * Creates a new UserCommandBuilder
+     * Creates a new MessageCommandBuilder
      * 
-     * @param name The name of the user command
+     * @param name The name of the message command
      */
-    public UserCommandBuilder(String name) {
+    public MessageCommandBuilder(String name) {
         this.name = name;
     }
 
@@ -19,14 +19,13 @@ public class UserCommandBuilder {
         return name;
     }
 
-
-    public UserCommand build() {
+    public MessageCommand build() {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
 
-        var cd = Commands.user(name);
+        var cd = Commands.message(name);
 
-        return new UserCommand(cd);
+        return new MessageCommand(cd);
     }
 }
