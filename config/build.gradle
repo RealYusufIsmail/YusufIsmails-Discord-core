@@ -16,12 +16,6 @@ repositories {
 
 dependencies {
     implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.3'
-
-    //common dependencies
-    implementation("io.github.yusufsdiscordbot:annotations")
-    implementation("org.jetbrains:annotations")
-    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
-
 }
 
 jar {

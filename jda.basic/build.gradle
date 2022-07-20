@@ -23,14 +23,6 @@ dependencies {
 
     //JDA
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
-
-    //Logger
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.11'
-    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.11'
-    implementation("io.github.yusufsdiscordbot:annotations")
-    implementation("org.jetbrains:annotations")
-    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
 }
 jar {
     manifest(({
