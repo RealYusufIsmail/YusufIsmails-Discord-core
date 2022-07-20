@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id 'java-library'
+    id 'jacoco'
 }
 
 archivesBaseName = "Yusuf's Discord Core JDA 5"
@@ -36,6 +37,8 @@ dependencies {
     implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.10', ext: 'pom'
     //trove
     implementation group: 'net.sf.trove4j', name: 'trove4j', version: '3.0.3'
+    //test
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 }
 
 jar {
@@ -55,4 +58,6 @@ jar {
         }
     }
 }
+
 compileJava.options.encoding = 'UTF-8'
+check.dependsOn jacocoTestReport

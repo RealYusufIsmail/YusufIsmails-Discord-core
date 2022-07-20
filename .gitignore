@@ -28,6 +28,5 @@ run
 *.gcno
 *.gcda
 *.gcov
-test
 gradle.properties
 *.gpg

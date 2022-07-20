@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id 'java-library'
+    id 'jacoco'
 }
 
 archivesBaseName = "Yusuf's Discord Core JDA 5 basic"
@@ -23,6 +24,7 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     implementation group: 'org.reflections', name: 'reflections', version: '0.10.2'
 }
+
 jar {
     manifest(({
         attributes('Implementation-Title': project.description,

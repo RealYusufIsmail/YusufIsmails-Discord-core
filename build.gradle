@@ -14,8 +14,9 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id "com.diffplug.spotless" version "6.6.1"
+    id "com.diffplug.spotless" version "6.8.0"
     id "name.remal.sonarlint" version "1.5.0"
+    id 'jacoco'
 }
 
 ext {
@@ -36,31 +37,24 @@ allprojects {
     //Maven published can be found in application's gradle
     group = 'io.github.yusufsdiscordbot'
 
+    apply plugin: "java"
+    apply plugin: "com.diffplug.spotless"
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+    apply plugin: 'jacoco' // code coverage reports
+
     // When it comes to publishing we need to ensure we have the subproject version set
     // rather than the root project version
     afterEvaluate { project ->
         ext.isReleaseVersion = !version.endsWith("RELEASE")
     }
-}
-sourceCompatibility = JavaVersion.VERSION_16
-
-subprojects {
-    //some parts of this gradle copy tj's bot. 
-    //so all credits for that goes towards java Together-Java https://github.com/Together-Java/TJ-Bot/blob/a2a963a9e51792018f1beff3b41b6ba9eab0ca50/build.gradle#L25
-    apply plugin: "java"
-    apply plugin: "com.diffplug.spotless"
-    apply plugin: 'java-library'
-    apply plugin: 'maven-publish'
-    apply plugin: 'signing'
-    apply plugin: "jacoco"
-
-
-    // All subprojects inherit root project group and version, to avoid duplication.
-    group = rootProject.group
-    version = rootProject.version
 
     repositories {
         mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://m2.dv8tion.net/releases'
+        }
     }
 
     dependencies {
@@ -71,21 +65,13 @@ subprojects {
         implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
         //org apache commons-collections
         implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
-        testImplementation("junit:junit:4.13.2")
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     }
 
     test {
         useJUnitPlatform()
         finalizedBy jacocoTestReport // report is always generated after tests run
-    }
-
-    compileJava {
-        // Makes spotlessApply task run on every compile/build.
-        dependsOn 'spotlessApply'
-
-        // Nails the Java-Version of every Subproject
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 
     jacocoTestReport {
@@ -99,11 +85,49 @@ subprojects {
         jacocoTestCoverageVerification.dependsOn jacocoTestReport
     }
 
+    jacocoTestCoverageVerification {
+        group = "Reporting"
+        description = "Verify Jacoco coverage after running tests."
+        jacocoTestCoverageVerification.dependsOn test
+    }
+
+    configurations.all {
+        //noinspection GrUnresolvedAccess
+        // ez vulnerability fix
+        exclude group: "org.slf4j", module: "slf4j-log4j12"
+    }
+
+    check.dependsOn jacocoTestReport
+}
+
+subprojects {
+    //some parts of this gradle copy tj's bot. 
+    //so all credits for that goes towards java Together-Java https://github.com/Together-Java/TJ-Bot/blob/a2a963a9e51792018f1beff3b41b6ba9eab0ca50/build.gradle#L25
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+    apply plugin: 'jacoco' // code coverage reports
+
+    // All subprojects inherit root project group and version, to avoid duplication.
+    group = rootProject.group
+    version = rootProject.version
+
+    def compileJavaTask = {
+        // Makes spotlessApply task run on every compile/build.
+        dependsOn 'spotlessApply'
+
+        // Nails the Java-Version of every Subproject
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    compileJava(compileJavaTask)
+    compileTestJava(compileJavaTask)
+
     spotless {
         java {
             // Excludes build folder since it contains generated java classes.
             targetExclude("build/**")
-            eclipse('4.19.0').configFile("${rootProject.rootDir}/meta/formatting/google-style-eclipse.xml")
+            eclipse('4.21.0').configFile("${rootProject.rootDir}/meta/formatting/google-style-eclipse.xml")
         }
     }
 
