@@ -138,7 +138,7 @@ public interface YCommandInteractionPayload extends YInteraction {
             builder.append(" ").append(o.getName()).append(": ");
             switch (o.getType()) {
                 case CHANNEL:
-                    builder.append("#").append(o.getAsGuildChannel().getName());
+                    builder.append("#").append(o.getAsChannel().asGuildMessageChannel().getName());
                     break;
                 case USER:
                     builder.append("@").append(o.getAsUser().getName());

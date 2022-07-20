@@ -1,19 +1,18 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.extension;
 
-import io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder.slash.SlashCommand;
-import io.github.yusufsdiscordbot.yusufsdiscordcorereg.interaction.event.YSlashCommandInteractionEvent;
+import io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder.user.UserCommand;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.command.UserContextInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.SelectMenuInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public interface SlashCommandExtender {
+public interface UserCommandExtender {
 
-    // This method is called when the command is executed.
-    void onSlashCommandInteraction(@NotNull YSlashCommandInteractionEvent event);
+    void onUserContextInteraction(@NotNull UserContextInteractionEvent event);
 
     default void onButtonClick(ButtonInteractionEvent event) {
 
@@ -31,5 +30,5 @@ public interface SlashCommandExtender {
 
     }
 
-    SlashCommand build();
+    UserCommand build();
 }

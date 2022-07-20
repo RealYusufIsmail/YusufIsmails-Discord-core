@@ -7,12 +7,12 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.interactions.DiscordLocale;
 import net.dv8tion.jda.api.interactions.Interaction;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Locale;
 
 public class YGenericInteractionCreateEvent extends Event implements YInteraction {
     private final YInteraction interaction;
@@ -58,13 +58,13 @@ public class YGenericInteractionCreateEvent extends Event implements YInteractio
 
     @Nonnull
     @Override
-    public Locale getUserLocale() {
+    public DiscordLocale getUserLocale() {
         return interaction.getUserLocale();
     }
 
     @Nonnull
     @Override
-    public Locale getGuildLocale() {
+    public DiscordLocale getGuildLocale() {
         return interaction.getGuildLocale();
     }
 

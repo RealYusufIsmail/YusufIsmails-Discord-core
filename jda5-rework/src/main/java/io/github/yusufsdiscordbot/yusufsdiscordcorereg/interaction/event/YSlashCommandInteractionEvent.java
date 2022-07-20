@@ -20,9 +20,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import javax.annotation.Nonnull;
 
+// TODO: Have a look at the handel system.
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
@@ -37,6 +39,10 @@ public class YSlashCommandInteractionEvent extends YGenericCommandInteractionEve
         this.interaction = interaction;
     }
 
+    public YSlashCommandInteractionEvent(SlashCommandInteractionEvent event) {
+        super(event.getJDA(), event.getResponseNumber(), (YSlashCommandInteraction) event);
+        this.interaction = (YSlashCommandInteraction) event;
+    }
 
     @Nonnull
     @Override

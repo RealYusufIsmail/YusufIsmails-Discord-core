@@ -1,8 +1,8 @@
-package io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder;
+package io.github.yusufsdiscordbot.yusufsdiscordcorereg.builder.slash;
 
+import io.github.yusufsdiscordbot.yusufsdiscordcorereg.type.CommandType;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
-
 
 public class SlashCommand {
     private final SlashCommandData commandData;
@@ -10,8 +10,9 @@ public class SlashCommand {
     private Permission[] botPerms = null;
     private boolean isGuildOnly = false;
     private boolean isOwnerOnly = false;
+    private CommandType commandType;
 
-    SlashCommand(final SlashCommandData commandData) {
+    protected SlashCommand(final SlashCommandData commandData) {
         this.commandData = commandData;
     }
 
@@ -39,6 +40,11 @@ public class SlashCommand {
         return this;
     }
 
+    public SlashCommand setCommandType(final CommandType commandType) {
+        this.commandType = commandType;
+        return this;
+    }
+
     public Permission[] getBotPerms() {
         return botPerms;
     }
@@ -47,4 +53,15 @@ public class SlashCommand {
         return userPerms;
     }
 
+    public boolean isGuildOnly() {
+        return isGuildOnly;
+    }
+
+    public boolean isOwnerOnly() {
+        return isOwnerOnly;
+    }
+
+    public CommandType getCommandType() {
+        return commandType;
+    }
 }
