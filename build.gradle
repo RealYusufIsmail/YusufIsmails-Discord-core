@@ -92,10 +92,14 @@ subprojects {
     }
 
     jacocoTestReport {
+        group = "Reporting"
+        description = "Generate Jacoco coverage reports after running tests."
         reports {
             xml.enabled true
-            html.enabled false
+            html.enabled true
         }
+        jacocoTestReport.dependsOn test
+        jacocoTestCoverageVerification.dependsOn jacocoTestReport
     }
 
     spotless {
