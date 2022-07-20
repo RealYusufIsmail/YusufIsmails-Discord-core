@@ -20,8 +20,8 @@ public class YButtonInteractionEvent extends YGenericComponentInteractionCreateE
     }
 
     public YButtonInteractionEvent(ButtonInteraction interaction) {
-       this(interaction.getJDA(), interaction.getJDA().getResponseTotal(),
-               (YButtonInteraction) interaction);
+        this(interaction.getJDA(), interaction.getJDA().getResponseTotal(),
+                (YButtonInteraction) interaction);
     }
 
     @Nonnull
