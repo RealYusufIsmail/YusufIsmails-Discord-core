@@ -23,8 +23,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.entities.channel.unions.DefaultGuildChannelUnion;
-import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.interactions.callbacks.IReplyCallback;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
@@ -243,9 +241,9 @@ public record YMember(Member member) {
     }
 
     /**
-     * @see Member#canInteract(RichCustomEmoji)
+     * @see Member#canInteract(Emote)
      */
-    public boolean canInteract(@Nonnull RichCustomEmoji emote) {
+    public boolean canInteract(@Nonnull Emote emote) {
         return member.canInteract(emote);
     }
 
@@ -268,7 +266,7 @@ public record YMember(Member member) {
      * @see Member#getDefaultChannel()
      */
     @Nullable
-    public DefaultGuildChannelUnion getDefaultChannel() {
+    public BaseGuildMessageChannel getDefaultChannel() {
         return member.getDefaultChannel();
     }
 

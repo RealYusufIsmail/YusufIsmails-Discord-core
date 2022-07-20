@@ -21,7 +21,6 @@ import lombok.ToString;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.entities.channel.IGuildChannelContainer;
-import net.dv8tion.jda.api.entities.emoji.RichCustomEmoji;
 import net.dv8tion.jda.api.entities.templates.Template;
 import net.dv8tion.jda.api.events.guild.member.GenericGuildMemberEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
@@ -30,7 +29,7 @@ import net.dv8tion.jda.api.exceptions.HierarchyException;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.privileges.IntegrationPrivilege;
+import net.dv8tion.jda.api.interactions.commands.privileges.CommandPrivilege;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.api.managers.GuildManager;
 import net.dv8tion.jda.api.requests.ErrorResponse;
@@ -156,6 +155,52 @@ public record YGuild(Guild guild) {
         return guild.deleteCommandById(commandId);
     }
 
+    @CheckReturnValue
+    public @Nonnull RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(
+            @Nonnull String commandId) {
+        return guild.retrieveCommandPrivilegesById(commandId);
+    }
+
+    @CheckReturnValue
+    public @Nonnull RestAction<List<CommandPrivilege>> retrieveCommandPrivilegesById(
+            long commandId) {
+        return guild.retrieveCommandPrivilegesById(commandId);
+    }
+
+    @CheckReturnValue
+    public @Nonnull RestAction<Map<String, List<CommandPrivilege>>> retrieveCommandPrivileges() {
+        return guild.retrieveCommandPrivileges();
+    }
+
+    @CheckReturnValue
+    public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(
+            @Nonnull String id, @Nonnull Collection<? extends CommandPrivilege> privileges) {
+        return guild.updateCommandPrivilegesById(id, privileges);
+    }
+
+    @CheckReturnValue
+    public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
+            @Nonnull Collection<? extends CommandPrivilege> privileges) {
+        return guild.updateCommandPrivilegesById(id, privileges);
+    }
+
+    @CheckReturnValue
+    public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(
+            @Nonnull String id, @Nonnull CommandPrivilege... privileges) {
+        return guild.updateCommandPrivilegesById(id, privileges);
+    }
+
+    @CheckReturnValue
+    public @Nonnull RestAction<List<CommandPrivilege>> updateCommandPrivilegesById(long id,
+            @Nonnull CommandPrivilege... privileges) {
+        return guild.updateCommandPrivilegesById(id, privileges);
+    }
+
+    @CheckReturnValue
+    public @Nonnull RestAction<Map<String, List<CommandPrivilege>>> updateCommandPrivileges(
+            @Nonnull Map<String, ? extends Collection<CommandPrivilege>> privileges) {
+        return guild.updateCommandPrivileges(privileges);
+    }
 
     /**
      * Retrieves the available regions for this Guild <br>
@@ -1633,15 +1678,15 @@ public record YGuild(Guild guild) {
      * <b>Unicode emojis are not included as {@link Emote Emote}!</b>
      *
      * <p>
-     * This requires the {@link CacheFlag#EMOJI CacheFlag.EMOTE} to be enabled!
+     * This requires the {@link CacheFlag#EMOTE CacheFlag.EMOTE} to be enabled!
      *
      * @param id the emote id
      * @return An Emote matching the specified Id.
      * @see #retrieveEmoteById(long)
      */
-    @Nullable
-    public RichCustomEmoji getEmoteById(long id) {
-        return guild.getEmojiById(id);
+    @org.jetbrains.annotations.Nullable
+    public Emote getEmoteById(long id) {
+        return guild.getEmoteById(id);
     }
 
     /**
@@ -1649,7 +1694,7 @@ public record YGuild(Guild guild) {
      * Emotes are not ordered in any specific way in the returned list.
      *
      * <p>
-     * <b>Unicode emojis are not included as {@link RichCustomEmoji Emote}!</b>
+     * <b>Unicode emojis are not included as {@link Emote Emote}!</b>
      *
      * <p>
      * This copies the backing store into a list. This means every call creates a new list with O(n)
@@ -1657,28 +1702,28 @@ public record YGuild(Guild guild) {
      * {@link #getEmoteCache()} and use its more efficient versions of handling these values.
      *
      * <p>
-     * This requires the {@link CacheFlag#EMOJI CacheFlag.EMOTE} to be enabled!
+     * This requires the {@link CacheFlag#EMOTE CacheFlag.EMOTE} to be enabled!
      *
-     * @return An immutable List of {@link RichCustomEmoji Emotes}.
+     * @return An immutable List of {@link Emote Emotes}.
      * @see #retrieveEmotes()
      */
     @NotNull
-    public List<RichCustomEmoji> getEmotes() {
-        return guild.getEmojis();
+    public List<Emote> getEmotes() {
+        return guild.getEmotes();
     }
 
     /**
-     * Gets a list of all {@link RichCustomEmoji Emotes} in this Guild that have the same name as the one
+     * Gets a list of all {@link Emote Emotes} in this Guild that have the same name as the one
      * provided. <br>
-     * If there are no {@link RichCustomEmoji Emotes} with the provided name, then this returns an empty list.
+     * If there are no {@link Emote Emotes} with the provided name, then this returns an empty list.
      *
      * <p>
-     * <b>Unicode emojis are not included as {@link RichCustomEmoji Emote}!</b>
+     * <b>Unicode emojis are not included as {@link Emote Emote}!</b>
      *
      * <p>
-     * This requires the {@link CacheFlag#EMOJI CacheFlag.EMOTE} to be enabled!
+     * This requires the {@link CacheFlag#EMOTE CacheFlag.EMOTE} to be enabled!
      *
-     * @param name The name used to filter the returned {@link RichCustomEmoji Emotes}. Without colons.
+     * @param name The name used to filter the returned {@link Emote Emotes}. Without colons.
      * @param ignoreCase Determines if the comparison ignores case when comparing. True -
      *        case-insensitive.
      * @return Possibly-empty immutable list of all Emotes that match the provided name.

@@ -14,9 +14,9 @@
 package io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.events;
 
 import io.github.yusufsdiscordbot.annotations.Author;
-import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.backend.extension.SlashCommandExtender;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.YMember;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.core.util.Verify;
+import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.handlers.extensions.SlashCommand;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.interaction.YSlashCommandInteraction;
 import io.github.yusufsdiscordbot.yusufsdiscordcore.bot.music.Mp3Handler;
@@ -44,13 +44,12 @@ import javax.annotation.Nonnull;
 @Author(firstName = "Yusuf", lastName = "Arfan Ismail", githubUserName = "RealYusufIsmail")
 public class YSlashCommandInteractionEvent extends YCommandInteraction {
     @Getter
-    private final SlashCommandExtender command;
+    private final SlashCommand command;
     @Getter
     private final SlashCommandInteractionEvent event;
     private static final String GUILD = "guild";
 
-    public YSlashCommandInteractionEvent(SlashCommandExtender command,
-            SlashCommandInteractionEvent event) {
+    public YSlashCommandInteractionEvent(SlashCommand command, SlashCommandInteractionEvent event) {
         super(event, event);
         this.command = command;
         this.event = event;
