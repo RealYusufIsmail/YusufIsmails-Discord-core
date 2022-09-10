@@ -38,7 +38,7 @@ dependencies {
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda4', version: '1.0.47'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
 }
 ```
 
@@ -58,8 +58,7 @@ dependencies {
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.11'
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda5', version: '2.0.0-alpha.54'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
     //lava player
     implementation group: 'com.github.walkyst', name: 'lavaplayer-fork', version: '1.3.97'
 }
@@ -81,7 +80,7 @@ dependencies {
     implementation group: 'net.dv8tion', name: 'JDA', version: '4.4.0_352'
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda.basic', version: '1.0.16'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
 }
 ```
 
@@ -102,7 +101,7 @@ dependencies {
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.11'
     implementation group: 'io.github.yusufsdiscordbot', name: 'jda5.basic', version: '1.0.1'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
 }
 ```
 
@@ -118,7 +117,7 @@ dependencies {
     implementation group: 'org.javacord', name: 'javacord', version: '3.3.2'
     implementation group: 'io.github.yusufsdiscordbot', name: 'javacord.basic', version: '1.0.6'
     implementation group: 'io.github.yusufsdiscordbot', name: 'annotations', version: '1.0.9'
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.3'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
 }
 ```
 
@@ -130,7 +129,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.5'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
 }
 ```
 
@@ -142,6 +141,6 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jconfig', version: '1.0.1'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jconfig', version: '1.0.2'
 }
 ```

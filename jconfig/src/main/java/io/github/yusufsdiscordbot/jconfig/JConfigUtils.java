@@ -1,5 +1,7 @@
 package io.github.yusufsdiscordbot.jconfig;
 
+import com.fasterxml.jackson.databind.node.*;
+
 /**
  * A utility class used to get values from the config file.
  */
@@ -16,44 +18,44 @@ public class JConfigUtils {
         return (String) jConfig.get(key, defaultValue);
     }
 
-    public static int getInt(String key) {
-        return (int) jConfig.get(key);
+    public static IntNode getInt(String key) {
+        return (IntNode) jConfig.get(key);
     }
 
-    public static int getInt(String key, int defaultValue) {
-        return (int) jConfig.get(key, defaultValue);
+    public static IntNode getInt(String key, int defaultValue) {
+        return (IntNode) jConfig.get(key, defaultValue);
     }
 
-    public static boolean getBoolean(String key) {
-        return (boolean) jConfig.get(key);
+    public static BooleanNode getBoolean(String key) {
+        return (BooleanNode) jConfig.get(key);
     }
 
-    public static boolean getBoolean(String key, boolean defaultValue) {
-        return (boolean) jConfig.get(key, defaultValue);
+    public static BooleanNode getBoolean(String key, boolean defaultValue) {
+        return (BooleanNode) jConfig.get(key, defaultValue);
     }
 
-    public static double getDouble(String key) {
-        return (double) jConfig.get(key);
+    public static DoubleNode getDouble(String key) {
+        return (DoubleNode) jConfig.get(key);
     }
 
-    public static double getDouble(String key, double defaultValue) {
-        return (double) jConfig.get(key, defaultValue);
+    public static DoubleNode DoubleNode(String key, double defaultValue) {
+        return (DoubleNode) jConfig.get(key, defaultValue);
     }
 
-    public static long getLong(String key) {
-        return (long) jConfig.get(key);
+    public static LongNode getLong(String key) {
+        return (LongNode) jConfig.get(key);
     }
 
-    public static long getLong(String key, long defaultValue) {
-        return (long) jConfig.get(key, defaultValue);
+    public static LongNode getLong(String key, long defaultValue) {
+        return (LongNode) jConfig.get(key, defaultValue);
     }
 
-    public static float getFloat(String key) {
-        return (float) jConfig.get(key);
+    public static FloatNode getFloat(String key) {
+        return (FloatNode) jConfig.get(key);
     }
 
-    public static float getFloat(String key, float defaultValue) {
-        return (float) jConfig.get(key, defaultValue);
+    public static FloatNode getFloat(String key, float defaultValue) {
+        return (FloatNode) jConfig.get(key, defaultValue);
     }
 
     public static Object get(String key) {
