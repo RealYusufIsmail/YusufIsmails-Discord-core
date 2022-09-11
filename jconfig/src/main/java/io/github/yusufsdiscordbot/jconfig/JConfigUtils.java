@@ -18,44 +18,84 @@ public class JConfigUtils {
         return (String) jConfig.get(key, defaultValue);
     }
 
-    public static IntNode getInt(String key) {
-        return (IntNode) jConfig.get(key);
+    public static int getInt(String key) {
+        if (jConfig.get(key) instanceof IntNode) {
+            return ((IntNode) jConfig.get(key)).asInt();
+        } else {
+            throw new JConfigException("The value at the key " + key + " is not an interger.");
+        }
     }
 
-    public static IntNode getInt(String key, int defaultValue) {
-        return (IntNode) jConfig.get(key, defaultValue);
+    public static int getInt(String key, int defaultValue) {
+        if (jConfig.get(key) instanceof IntNode) {
+            return ((IntNode) jConfig.get(key)).intValue();
+        } else {
+            return defaultValue;
+        }
     }
 
-    public static BooleanNode getBoolean(String key) {
-        return (BooleanNode) jConfig.get(key);
+    public static boolean getBoolean(String key) {
+        if (jConfig.get(key) instanceof BooleanNode) {
+            return ((BooleanNode) jConfig.get(key)).booleanValue();
+        } else {
+            throw new JConfigException("The value at the key " + key + " is not a boolean.");
+        }
     }
 
-    public static BooleanNode getBoolean(String key, boolean defaultValue) {
-        return (BooleanNode) jConfig.get(key, defaultValue);
+    public static boolean getBoolean(String key, boolean defaultValue) {
+        if (jConfig.get(key, defaultValue) instanceof BooleanNode) {
+            return ((BooleanNode) jConfig.get(key, defaultValue)).booleanValue();
+        } else {
+            return defaultValue;
+        }
     }
 
-    public static DoubleNode getDouble(String key) {
-        return (DoubleNode) jConfig.get(key);
+    public static double getDouble(String key) {
+        if (jConfig.get(key) instanceof DoubleNode) {
+            return ((DoubleNode) jConfig.get(key)).doubleValue();
+        } else {
+            throw new JConfigException("The value at the key " + key + " is not a double.");
+        }
     }
 
-    public static DoubleNode DoubleNode(String key, double defaultValue) {
-        return (DoubleNode) jConfig.get(key, defaultValue);
+    public static double DoubleNode(String key, double defaultValue) {
+        if (jConfig.get(key) instanceof DoubleNode) {
+            return ((DoubleNode) jConfig.get(key)).doubleValue();
+        } else {
+            return defaultValue;
+        }
     }
 
-    public static LongNode getLong(String key) {
-        return (LongNode) jConfig.get(key);
+    public static long getLong(String key) {
+        if (jConfig.get(key) instanceof LongNode) {
+            return ((LongNode) jConfig.get(key)).longValue();
+        } else {
+            throw new JConfigException("The value at the key " + key + " is not a long.");
+        }
     }
 
-    public static LongNode getLong(String key, long defaultValue) {
-        return (LongNode) jConfig.get(key, defaultValue);
+    public static long getLong(String key, long defaultValue) {
+        if (jConfig.get(key) instanceof LongNode) {
+            return ((LongNode) jConfig.get(key)).longValue();
+        } else {
+            return defaultValue;
+        }
     }
 
-    public static FloatNode getFloat(String key) {
-        return (FloatNode) jConfig.get(key);
+    public static float getFloat(String key) {
+        if (jConfig.get(key) instanceof FloatNode) {
+            return ((FloatNode) jConfig.get(key)).floatValue();
+        } else {
+            throw new JConfigException("The value at the key " + key + " is not a float.");
+        }
     }
 
-    public static FloatNode getFloat(String key, float defaultValue) {
-        return (FloatNode) jConfig.get(key, defaultValue);
+    public static float getFloat(String key, float defaultValue) {
+        if (jConfig.get(key, defaultValue) instanceof FloatNode) {
+            return ((FloatNode) jConfig.get(key, defaultValue)).floatValue();
+        } else {
+            return defaultValue;
+        }
     }
 
     public static Object get(String key) {

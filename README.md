@@ -5,6 +5,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/javacord.basic/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/javacord.basic)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/annotations)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/config/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/config)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jconfig/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.yusufsdiscordbot/jconfig)
 
 
 # YusufIsmail's-Discord-core
@@ -141,6 +142,6 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'io.github.yusufsdiscordbot', name: 'jconfig', version: '1.0.2'
+    implementation group: 'io.github.yusufsdiscordbot', name: 'jconfig', version: '1.0.3'
 }
 ```

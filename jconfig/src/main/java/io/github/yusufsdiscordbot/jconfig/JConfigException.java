@@ -7,6 +7,10 @@ import java.io.IOException;
  */
 public class JConfigException extends RuntimeException {
     public JConfigException(String message, IOException e) {
+        super(message, e);
+    }
+
+    public JConfigException(String message) {
         super(message);
     }
 }
