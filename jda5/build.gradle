@@ -24,7 +24,6 @@ dependencies {
     implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.16'
     //config
     implementation group: 'io.github.yusufsdiscordbot', name: 'config', version: '1.0.4'
-
     //gives the ability to use val
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     //lava player

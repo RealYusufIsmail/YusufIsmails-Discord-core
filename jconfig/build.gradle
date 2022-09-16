@@ -6,8 +6,8 @@ plugins {
     id 'java-library'
 }
 
-archivesBaseName = "Yusuf's Discord Core configs"
-description = "Config plugin"
+archivesBaseName = "Yusuf's Discord Json Config Library"
+description = "A simple library to help you create and manage your json config files"
 version = config_version as Object
 
 repositories {
@@ -15,8 +15,10 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '2.2.4'
-
+    //json
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.4'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.4'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.4'
     //common dependencies
     implementation("io.github.yusufsdiscordbot:annotations")
     implementation("org.jetbrains:annotations")
